@@ -1,0 +1,9 @@
+export enum SmtpTable {
+  ID,
+  FROM_ADDRESS,
+  CREATED,
+  ADDRESS,
+  PORT_NUMBER,
+  USERNAME,
+  SSL_ENABLE,
+}

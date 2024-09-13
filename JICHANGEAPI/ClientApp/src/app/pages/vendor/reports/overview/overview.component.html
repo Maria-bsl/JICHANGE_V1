@@ -1,0 +1,170 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<div class="px-6 py-2 w-full grid grid-cols-12 gap-3 lg:gap-x-3 lg:gap-y-6">
+  <div
+    id="over-view"
+    class="w-full col-span-full lg:col-span-8 flex flex-col space-y-2"
+  >
+    <div class="flex flex-row items-center justify-between">
+      <p
+        *transloco="let t; read: 'reports.overview'"
+        class="text-black font-bold tracking-wide text-lg"
+      >
+        {{ t("salesSummary") }}
+      </p>
+    </div>
+    <div
+      class="py-2 w-full relative bg-neutral shadow max-h-64 min-h-64 h-64 chart-container"
+    >
+      <canvas
+        [class]="transactions.length > 0 ? '' : 'hidden'"
+        #overviewChart
+      ></canvas>
+    </div>
+  </div>
+  <div class="col-span-full lg:col-span-4 lg:row-span-12">
+    <div class="flex flex-col space-y-4 h-full">
+      <div class="flex flex-col space-y-1">
+        <div class="flex flex-row justify-between w-full">
+          <p
+            *transloco="let t; read: 'reports.overview'"
+            class="text-black font-bold tracking-wide text-lg"
+          >
+            {{ t("invoiceChart") }}
+          </p>
+        </div>
+        <div
+          class="py-2 w-full flex flex-col relative bg-white shadow max-h-64 min-h-64 h-64 chart-container"
+        >
+          <div class="w-full h-full flex-1 p-2">
+            <canvas #invoiceSummary></canvas>
+          </div>
+
+          <ng-template #statisticsNotFound>
+            <div class="absolute w-full h-full grid place-items-center">
+              <p
+                *transloco="let t; read: 'errors'"
+                class="text-center text-sm tracking-wide pt-3 pb-1"
+              >
+                {{ t("noDataFound") }}
+              </p>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-1 relative w-full h-full">
+        <div class="flex flex-row justify-between w-full">
+          <p
+            *transloco="let t; read: 'reports.overview'"
+            class="text-black font-bold tracking-wide text-lg"
+          >
+            {{ t("statistics") }}
+          </p>
+        </div>
+        <div
+          class="grid grid-cols-2 bg-neutral shadow w-full h-full min-h-40 py-6 px-3 gap-2 relative"
+        >
+          <ng-container
+            *ngIf="invoiceStatisticsData.length > 0; else notFoundStatistics"
+          >
+            <a
+              *ngFor="
+                let statistic of invoiceStatisticsData;
+                trackBy: PerformanceUtils.trackByIndex;
+                index as i
+              "
+              (click)="dashboardStatisticRouterLink(statistic.Name)"
+              class="flex flex-col bg-lightPurple p-2 rounded w-full cursor-pointer group"
+            >
+              <p
+                class="text-normal text-sm capitalize group-hover:underline"
+                *transloco="
+                  let t;
+                  read: 'reports.overview.statisticsDataBanker'
+                "
+              >
+                {{ t(statistic.Name.toLocaleLowerCase()) }}
+              </p>
+              <p class="font-bold text-lg">{{ statistic.Statistic }}</p>
+            </a>
+          </ng-container>
+          <!-- <div
+            *ngIf="invoiceStatisticsData.length > 0; else notFoundStatistics"
+          >
+            <a
+              *ngFor="
+                let statistic of invoiceStatisticsData;
+                trackBy: PerformanceUtils.trackByIndex;
+                index as i
+              "
+              (click)="dashboardStatisticRouterLink(statistic.Name)"
+              class="flex flex-col bg-lightPurple p-2 rounded w-full cursor-pointer group"
+            >
+              <p
+                class="text-normal text-sm capitalize group-hover:underline"
+                *transloco="let t; read: 'reports.overview.statisticsData'"
+              >
+                {{ t(statistic.Name.toLocaleLowerCase()) }}
+              </p>
+              <p class="font-bold text-lg">{{ statistic.Statistic }}</p>
+            </a>
+          </div> -->
+          <ng-template #notFoundStatistics>
+            <div class="absolute w-full h-full grid place-items-center">
+              <p
+                *transloco="let t; read: 'errors'"
+                class="text-center text-sm tracking-wide pt-3 pb-1"
+              >
+                {{ t("noDataFound") }}
+              </p>
+            </div>
+          </ng-template>
+        </div>
+        <div
+          *ngIf="startLoading"
+          class="loading loading-spinner loading-lg absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary"
+        ></div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="col-span-full lg:col-span-8 lg:row-span-12 flex flex-col space-y-2"
+  >
+    <div class="flex flex-row items-center justify-between">
+      <p
+        *transloco="let t; read: 'reports.overview'"
+        class="text-black font-bold tracking-wide text-lg"
+      >
+        {{ t("vendorsTableTitle") }}
+      </p>
+    </div>
+    <div
+      [formGroup]="headersFormGroup"
+      class="flex flex-row shadow bg-white items-center justify-between px-8 py-8 h-full"
+    >
+      <div
+        class="flex flex-col justify-center p-6 border border-purple-700 rounded-2xl w-64 h-56"
+      >
+        <p class="text-sm text-center font-normal">Customer(s)</p>
+        <p class="text-2xl text-center font-semibold">{{ customers.length }}</p>
+      </div>
+      <div
+        class="flex flex-col justify-center p-6 border border-teal-700 rounded-2xl w-64 h-56"
+      >
+        <p class="text-sm text-center font-normal">Total Created Invoices</p>
+        <p class="text-2xl text-center font-semibold">{{ invoices.length }}</p>
+      </div>
+      <div
+        class="flex flex-col justify-center p-6 border border-fuchsia-700 rounded-2xl w-64 h-56"
+      >
+        <p class="text-sm text-center font-normal">Total Invoice Amount</p>
+        <p class="text-2xl text-center font-semibold">
+          {{ getTotalInvoiceAmountThousandFormatted() }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+<app-display-message-box #noSessionFound></app-display-message-box>
+<app-display-message-box #displayMessageBox></app-display-message-box>
+
+<div class="w-full h-full relative">
+  <img
+    src="/ClientApp/src/assets/img/bg-1.jpg"
+    class="absolute z-0 object-cover w-full h-full"
+    alt=""
+    srcset=""
+  />
+  <div class="absolute top-0 left-0 right-0 bottom-0 grid place-items-center">
+    <form
+      id="forgot-password-form"
+      *transloco="let t; read: 'auth.otp'"
+      class="bg-white grid place-items-center px-8 py-8 shadow-2 rounded-md space-y-0 w-11/12 lg:w-[30rem]"
+      [formGroup]="formGroup"
+    >
+      <img src="/ClientApp/src/assets/img/logo.png" class="w-40" alt="" srcset="" />
+      <div class="w-full flex flex-col">
+        <h6 class="text-center text-xl">
+          {{ t("verifyAccount") }}
+        </h6>
+        <h6 class="text-center text-sm">
+          {{ t("verifyAccountMessage").replace("{}", mobile.value) }}
+        </h6>
+      </div>
+      <div class="flex flex-col items-center space-y-1 w-full py-8">
+        <h6 class="text-left text-xs text-black">
+          {{ t("form.placeholders.code") }} <span class="text-red-600">*</span>
+        </h6>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width w-1/2 flex flex-row justify-center"
+        >
+          <input
+            #mobileNumber
+            [formControl]="formControl"
+            matInput
+            placeholder="0-0-0-0-0-0"
+            class="text-center"
+            (keyup)="formatToMobileNumber($event)"
+            autocomplete="off"
+          />
+          <mat-error
+            *ngIf="formControl && formControl.invalid && formControl.touched"
+          >
+            @if (formControl.hasError('required')) {
+            {{ t("form.errors.code") }}
+            }
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          [formControl]="otp_code"
+          type="email"
+          [placeholder]="t('form.placeholders.code')"
+          class="input input-bordered w-full max-w-lg bg-transparent text-black"
+        />
+        <span *ngIf="otp_code && otp_code.invalid && otp_code.touched">
+          <p class="text-xs text-red-600">
+            {{ t("form.errors.code") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="w-full pb-4">
+        <a
+          *ngIf="resendCodeCounter > 0; else resendCodeLink"
+          class="text-black text-xs lg:text-sm"
+        >
+          {{ t("resendCodeIn").replace("{}", resendCodeCounter) }}
+        </a>
+        <ng-template #resendCodeLink>
+          <a
+            (click)="resendCode()"
+            class="text-linkBlue cursor-pointer text-sm hover:underline"
+          >
+            {{ t("resendCode") }}
+          </a>
+        </ng-template>
+      </div>
+      <button
+        *transloco="let y; read: 'actions'"
+        (click)="submitForm()"
+        form="forgot-password-form"
+        type="submit"
+        mat-flat-button
+        color="primary"
+        class="w-full"
+      >
+        {{ y("submit") }}
+      </button>
+    </form>
+  </div>
+</div>

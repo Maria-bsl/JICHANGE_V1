@@ -1,0 +1,161 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+
+<!-- <app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner> -->
+
+<div class="w-full h-full">
+  <div class="absolute top-0 bottom-0 left-0 right-0 flex flex-row">
+    <div
+      class="basis-full lg:basis-8/12 flex flex-col items-center justify-center relative"
+    >
+      <app-loader-infinite-spinner
+        [show]="startLoading"
+      ></app-loader-infinite-spinner>
+      <form
+        id="sign-in-form"
+        [formGroup]="formGroup"
+        class="bg-white grid place-items-center shadow-2 rounded-md space-y-0 p-4 w-11/12 lg:w-[30rem]"
+        action=""
+      >
+        <img
+          src="/ClientApp/src/assets/img/logo.png"
+          class="w-40"
+          alt=""
+          srcset=""
+        />
+        <div class="w-full flex flex-col">
+          <h6
+            class="text-center mat-title-large"
+            *transloco="let t; read: 'auth.loginForm'"
+          >
+            {{ t("welcomeMessage") }}
+          </h6>
+          <p
+            *transloco="let t; read: 'auth.loginForm'"
+            class="text-center mat-body-small"
+          >
+            {{ t("signInMessage") }}
+          </p>
+        </div>
+        <div class="flex flex-col w-full pt-2 space-y-0">
+          <div
+            *transloco="let y; read: 'auth.loginForm.errors'"
+            class="flex flex-col space-y-1 w-full"
+          >
+            <h6
+              class="text-left mat-label-small"
+              *transloco="let t; read: 'auth.loginForm'"
+            >
+              {{ t("username") }}
+            </h6>
+            <mat-form-field
+              color="primary"
+              accent="secondary"
+              class="example-full-width"
+            >
+              <mat-icon matPrefix>person</mat-icon>
+              <input
+                matInput
+                [placeholder]="t('username')"
+                value=""
+                type="text"
+                [formControl]="userName"
+                *transloco="let t; read: 'auth.loginForm.placeholders'"
+              />
+              <mat-error
+                *ngIf="userName && userName.invalid && userName.touched"
+              >
+                {{ y("usernameError") }}</mat-error
+              >
+            </mat-form-field>
+          </div>
+          <div
+            *transloco="let y; read: 'auth.loginForm.errors'"
+            class="flex flex-col space-y-1"
+          >
+            <h6
+              class="text-left mat-label-small"
+              *transloco="let t; read: 'auth.loginForm'"
+            >
+              {{ t("password") }}
+            </h6>
+            <mat-form-field
+              color="primary"
+              accent="secondary"
+              class="example-full-width"
+            >
+              <mat-icon matPrefix>lock</mat-icon>
+              <input
+                matInput
+                value=""
+                type="password"
+                *transloco="let t; read: 'auth.loginForm.placeholders'"
+                [formControl]="password"
+                [placeholder]="t('password')"
+              />
+              <mat-error
+                *ngIf="password && password.invalid && password.touched"
+              >
+                {{ y("passwordError") }}</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex flex-row justify-between items-center w-full py-2">
+          <a
+            [routerLink]="'/auth/reset'"
+            *transloco="let t; read: 'auth.loginForm'"
+            class="text-info cursor-pointer mat-body-small hover:underline"
+          >
+            {{ t("forgotPassword") }}
+          </a>
+        </div>
+        <div class="flex flex-col w-full space-y-4 py-4">
+          <button
+            id="btn-action"
+            *transloco="let t; read: 'auth.loginForm.actions'"
+            (click)="submitSignInForm()"
+            form="sign-in-form"
+            type="submit"
+            mat-flat-button
+            color="primary"
+          >
+            {{ t("signIn") }}
+          </button>
+          <div
+            class="flex flex-row items-center justify-between w-full space-x-2 mat-label-small"
+          >
+            <button
+              *transloco="let t; read: 'auth.loginForm.actions'"
+              (click)="openControlNumberDetailsDialog()"
+              class="mat-label-small text-primary hover:underline"
+            >
+              {{ t("controlNumberDetails") }}
+            </button>
+            <p>
+              Not registered.
+              <button
+                (click)="openVendorRegistrationDialog()"
+                *transloco="let t; read: 'auth.loginForm.actions'"
+                type="button"
+                class="mat-label-small text-info hover:underline"
+              >
+                {{ t("register") }}
+              </button>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="basis-full hidden lg:block">
+      <img
+        src="/ClientApp/src/assets/img/bg-1.jpg"
+        class="object-cover w-full h-full"
+        alt=""
+        srcset=""
+      />
+    </div>
+  </div>
+</div>

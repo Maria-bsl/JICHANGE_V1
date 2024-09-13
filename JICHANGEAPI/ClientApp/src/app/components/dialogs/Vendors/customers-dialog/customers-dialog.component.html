@@ -1,0 +1,175 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+<app-submit-message-box #submitMessagBox></app-submit-message-box>
+<app-optional-confirm-message-box
+  #optionalConfirmMessageBox
+></app-optional-confirm-message-box>
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+<dialog #addCustomerDialog id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3
+      class="font-bold text-lg"
+      *transloco="let t; read: 'customer.form.actions'"
+    >
+      {{ data ? t("modifyCustomer") : t("addCustomer") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'customer.form.actions'">
+      {{ data ? t("modifyCustomerMessage") : t("addCustomerMessage") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="addCustomerDialog.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          (click)="addCustomerDialog.close(); addCustomer()"
+          *transloco="let t; read: 'defaults'"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    id="control-number-form"
+    [formGroup]="customerForm"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1 *transloco="let t; read: 'customer'" class="text-xl md:text-2xl p-0">
+      {{ t("customer") }}
+    </h1>
+    <div class="grid grid-cols-2 w-full py-8 gap-3">
+      <div class="flex flex-col space-y-1 w-full col-span-full lg:col-span-1">
+        <h6 *transloco="let t; read: 'customer.form'" class="text-left text-sm">
+          {{ t("customerName") }}
+        </h6>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width"
+          *transloco="let t; read: 'customer'"
+        >
+          <input
+            matInput
+            value=""
+            type="text"
+            [formControl]="CName"
+            [placeholder]="t('form.placeholders.customerName')"
+          />
+          <mat-error *ngIf="CName && CName.invalid && CName.touched">
+            {{ t("form.errors.customerName") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col col-span-full lg:col-span-1 space-y-1 w-full">
+        <h6 *transloco="let t; read: 'customer.form'" class="text-left text-sm">
+          {{ t("mobileNo") }}
+        </h6>
+        <span class="relative">
+          <!-- <app-phone-number-input
+            [mobileNumber]="Mobile_Number"
+          ></app-phone-number-input> -->
+          <mat-form-field
+            color="primary"
+            accent="secondary"
+            class="example-full-width w-full"
+            *transloco="let t; read: 'auth.forgotPassword'"
+          >
+            <span matTextPrefix>+255 &nbsp;</span>
+            <input
+              #phoneNumber
+              [formControl]="Mobile_Number"
+              type="tel"
+              matInput
+              placeholder="666 - 666 - 666"
+              (change)="
+                PerformanceUtils.setPhoneNumberFormControl(
+                  '+255',
+                  phoneNumber.value,
+                  Mobile_Number
+                )
+              "
+            />
+            <mat-error
+              *ngIf="
+                Mobile_Number && Mobile_Number.invalid && Mobile_Number.touched
+              "
+            >
+              @if (Mobile_Number.hasError('required')) {
+              {{ t("form.errors.email") }}
+              } @else if (Mobile_Number.hasError('pattern')) {
+              {{ t("form.errors.invalidPhone") }}
+              }
+            </mat-error>
+          </mat-form-field>
+        </span>
+      </div>
+      <div
+        *transloco="let y; read: 'defaults'"
+        class="flex flex-col space-y-1 w-full col-span-full lg:col-span-1"
+      >
+        <h6 *transloco="let t; read: 'customer.form'" class="text-left text-sm">
+          {{ t("emailId") }} ({{ y("optional") }})
+        </h6>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width"
+          *transloco="let t; read: 'customer'"
+        >
+          <input
+            matInput
+            value=""
+            type="text"
+            [formControl]="Mail"
+            placeholder="Ex. yaee@example.com"
+          />
+          <mat-error *ngIf="Mail && Mail.invalid && Mail.touched">
+            {{ t("form.errors.emailId") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="flex flex-row space-x-2 items-center w-full justify-end pt-2">
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs font-inter btn-ghost text-neutral-500 w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <!-- <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitCustomerForm(addCustomerDialog)"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs btn-outline font-inter btn-success w-24"
+      >
+        {{ t("submit") }}
+      </button> -->
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitCustomerForm(addCustomerDialog)"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

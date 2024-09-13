@@ -1,0 +1,206 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-display-message-box #timeoutWarning></app-display-message-box>
+<app-display-message-box #timeOut></app-display-message-box>
+
+<!-- bg-indigo-900 -->
+<!-- bg-[#0B6587] -->
+<div #header class="navbar bg-primary shadow-4 relative">
+  <div class="navbar-start">
+    <div [formGroup]="formGroup" class="dropdown">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
+        </svg>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-72"
+        *transloco="let t"
+        formArrayName="headers"
+      >
+        <li *ngFor="let header of headers.controls; index as ind">
+          <a
+            class="font-semibold capitalize"
+            [routerLinkActive]="'text-darkPurple'"
+            [class]="
+              verifyCurrentRoute(header.get('rootLink')?.value)
+                ? 'text-darkPurple bg-lightPurple'
+                : 'text-black bg-transparent'
+            "
+            formGroupName="{{ ind }}"
+            #navItem
+            (click)="navItemClicked(header.get('rootLink')?.value, ind)"
+          >
+            {{ header.get("label")?.value }}
+          </a>
+          <ul class="p-2 grid grid-cols-2">
+            <li
+              *ngFor="
+                let dropdown of getHeaderDropdownArray(ind).controls;
+                index as i
+              "
+            >
+              <a
+                #ahref
+                [routerLink]="dropdown.get('routerLink')?.value"
+                [routerLinkActive]="'text-secondary font-bold bg-primary'"
+                (click)="routerClicked(ahref, header.get('rootLink')?.value)"
+                class="capitalize"
+                >{{ dropdown.get("label")?.value }}</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <button
+      [routerLink]="'/vendor'"
+      *ngIf="vendor$ | async as vendor"
+      class="flex items-center btn btn-ghost bg-white hover:bg-darkPurple w-fit space-x-2 relative"
+    >
+      <img
+        class="object-contain max-h-full max-w-max"
+        src="/ClientApp/src/assets/img/logo.png"
+        alt="TE Logo"
+        loading="lazy"
+      />
+      <h1 class="text-lg head-title lg:block hidden">
+        {{ vendor.Company_Name }}
+      </h1>
+    </button>
+  </div>
+  <div
+    [formGroup]="formGroup"
+    id="desktop-nav-bar"
+    class="navbar-center hidden lg:flex"
+  >
+    <ul
+      *transloco="let t"
+      formArrayName="headers"
+      class="flex flex-row items-center px-1"
+    >
+      <li
+        formGroupName="{{ ind }}"
+        *ngFor="let header of headers.controls; index as ind"
+        class="dropdown dropdown-bottom dropdown-end"
+      >
+        <a
+          *ngIf="ind < 2; else dropdownHeaders"
+          [routerLink]="header.get('rootLink')?.value"
+          [routerLinkActive]="'text-darkPurple'"
+          tabindex="0"
+          role="button"
+          class="flex flex-row items-center m-1 tracking-widest btn btn-sm border-none hover:bg-neutral-900 hover:bg-opacity-10"
+          [ngClass]="
+            verifyCurrentRoute(header.get('rootLink')?.value)
+              ? 'text-neutral-900 bg-darkPurple hover:text-neutral-50'
+              : 'text-neutral-50 bg-transparent'
+          "
+        >
+          <p class="capitalize">
+            {{ header.get("label")?.value }}
+          </p>
+        </a>
+        <ng-template #dropdownHeaders>
+          <a
+            tabindex="0"
+            role="button"
+            class="flex flex-row items-center m-1 tracking-widest btn btn-sm border-none hover:bg-neutral-900 hover:bg-opacity-10"
+            [ngClass]="
+              verifyCurrentRoute(header.get('rootLink')?.value)
+                ? 'text-neutral-900 bg-darkPurple hover:text-neutral-50'
+                : 'text-neutral-50 bg-transparent'
+            "
+          >
+            <p class="font-extrabold capitalize">
+              {{ header.get("label")?.value }}
+            </p>
+            <span *ngIf="getHeaderDropdownArray(ind).controls.length > 0">
+              <i class="bi bi-chevron-down"></i>
+            </span>
+          </a>
+        </ng-template>
+        <ul
+          *ngIf="getHeaderDropdownArray(ind).controls.length > 0"
+          tabindex="0"
+          class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-56"
+        >
+          <li
+            *ngFor="
+              let dropdown of getHeaderDropdownArray(ind).controls;
+              index as i
+            "
+          >
+            <a
+              #ahref
+              [routerLink]="dropdown.get('routerLink')?.value"
+              [routerLinkActive]="'text-secondary font-bold bg-primary'"
+              (click)="routerClicked(ahref, header.get('rootLink')?.value)"
+              class="capitalize hover:bg-primary hover:text-white"
+              >{{ dropdown.get("label")?.value }}</a
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <div class="flex flex-row items-center">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="avatar placeholder">
+            <div class="bg-white text-black rounded-full w-8 md:w-10">
+              <span>
+                <i class="bi bi-person-circle text-lg"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu flex flex-col space-y-1 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <a
+              [routerLink]="'/vendor/profile'"
+              class="flex flex-row items-center"
+            >
+              <span>
+                <i class="bi bi-person-circle text-lg"></i>
+              </span>
+              <div class="flex flex-row items-center justify-between w-full">
+                <p class="text-sm">{{ getUserProfile().Uname }}</p>
+                <!-- <span
+                  class="badge badge-accent badge-sm text-white uppercase"
+                  >{{ getUserProfile().role }}</span
+                > -->
+              </div>
+            </a>
+          </li>
+          <li>
+            <button
+              (click)="logout()"
+              class="flex flex-row items-center text-red-600"
+            >
+              <span>
+                <i class="bi bi-box-arrow-right text-lg"></i>
+              </span>
+              <p *transloco="let t; read: 'roles'">{{ t("logout") }}</p>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

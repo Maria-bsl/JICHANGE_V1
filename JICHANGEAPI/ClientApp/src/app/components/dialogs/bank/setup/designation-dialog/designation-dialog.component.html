@@ -1,0 +1,108 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+<!-- <app-loader-rainbow [show]="startLoading"></app-loader-rainbow> -->
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<dialog #confirmAddDesignation id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg" *transloco="let t; read: 'defaults'">
+      {{ t("confirm") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'actions'">
+      {{ t("saveChanges") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddDesignation.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddDesignation.close(); addDesignation()"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    id="control-number-form"
+    [formGroup]="designationForm"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1
+      *transloco="let t; read: 'setup.designation'"
+      class="text-xl md:text-2xl p-0"
+    >
+      {{ t("designation") }}
+    </h1>
+    <div class="flex flex-col space-y-1 w-full py-8">
+      <h6
+        *transloco="let t; read: 'setup.designation'"
+        class="text-left text-xs text-black"
+      >
+        {{ t("designation") }}
+      </h6>
+      <mat-form-field
+        *transloco="let t; read: 'setup.designation.form'"
+        class="example-full-width"
+      >
+        <mat-label>{{ t("placeholders.name") }}</mat-label>
+        <input matInput [formControl]="desg" />
+        <mat-error *ngIf="desg && desg.invalid && desg.touched">
+          <ng-container>
+            {{ t("errors.name") }}
+          </ng-container>
+        </mat-error>
+      </mat-form-field>
+      <!-- <input
+        *transloco="let t; read: 'setup.designation.form.placeholders'"
+        #controlNumber
+        [formControl]="desg"
+        type="text"
+        [placeholder]="t('name')"
+        class="input input-bordered w-full max-w-lg bg-transparent text-black"
+      />
+      <span *ngIf="desg && desg.invalid && desg.touched">
+        <p
+          *transloco="let t; read: 'setup.designation.form.errors'"
+          class="text-xs text-red-600"
+        >
+          {{ t("name") }}
+        </p>
+      </span> -->
+    </div>
+    <div class="flex flex-row space-x-2 items-center w-full justify-end pt-2">
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs font-inter btn-ghost text-neutral-500 w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitDesignationForm()"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

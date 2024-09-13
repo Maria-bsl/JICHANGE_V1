@@ -1,0 +1,175 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-display-message-box #timeoutWarning></app-display-message-box>
+<app-display-message-box #timeOut></app-display-message-box>
+
+<div #header class="navbar bg-primary shadow-4 relative">
+  <div class="navbar-start">
+    <div [formGroup]="formGroup" id="phone-nav" class="dropdown z-50 h-12">
+      <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h8m-8 6h16"
+          />
+        </svg>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-72"
+        *transloco="let t"
+        formArrayName="headers"
+      >
+        <li *ngFor="let header of headers.controls; index as ind">
+          <a
+            [class]="
+              verifyCurrentRoute(header.get('rootLink')?.value)
+                ? 'text-darkPurple bg-lightPurple'
+                : 'text-black bg-transparent'
+            "
+            class="capitalize"
+            formGroupName="{{ ind }}"
+            >{{ header.get("label")?.value }}</a
+          >
+          <ul class="p-2 grid grid-cols-2">
+            <li
+              *ngFor="
+                let dropdown of getHeaderDropdownArray(ind).controls;
+                index as i
+              "
+            >
+              <a
+                #ahref
+                [routerLink]="dropdown.get('routerLink')?.value"
+                [routerLinkActive]="'text-secondary font-bold bg-primary'"
+                (click)="routerClicked(ahref)"
+                class="capitalize"
+                >{{ dropdown.get("label")?.value }}</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <a
+      [routerLink]="'/main'"
+      class="btn btn-ghost bg-white w-32 h-full hover:bg-darkPurple"
+    >
+      <img
+        class="object-contain"
+        src="/ClientApp/src/assets/img/logo.png"
+        alt="TE Logo"
+        loading="lazy"
+      />
+    </a>
+  </div>
+  <div
+    id="desktop-nav"
+    [formGroup]="formGroup"
+    class="navbar-center hidden lg:flex"
+  >
+    <ul
+      *transloco="let t"
+      formArrayName="headers"
+      class="flex flex-row items-center px-1"
+    >
+      <li
+        formGroupName="{{ ind }}"
+        *ngFor="let header of headers.controls; index as ind"
+        class="dropdown dropdown-bottom dropdown-end"
+      >
+        <button
+          tabindex="0"
+          role="button"
+          class="flex flex-row items-center m-1 tracking-widest btn btn-sm border-none hover:bg-neutral-900 hover:bg-opacity-5"
+          [ngClass]="
+            verifyCurrentRoute(header.get('rootLink')?.value)
+              ? 'text-black bg-darkPurple hover:text-neutral-50'
+              : 'text-neutral-50 bg-transparent'
+          "
+        >
+          <p class="capitalize">
+            {{ header.get("label")?.value }}
+          </p>
+          <span>
+            <i class="bi bi-chevron-down"></i>
+          </span>
+        </button>
+        <ul
+          tabindex="0"
+          class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          <li
+            *ngFor="
+              let dropdown of getHeaderDropdownArray(ind).controls;
+              index as i
+            "
+          >
+            <a
+              #ahref
+              [routerLink]="dropdown.get('routerLink')?.value"
+              [routerLinkActive]="'text-secondary font-bold bg-primary'"
+              (click)="routerClicked(ahref)"
+              class="capitalize"
+              >{{ dropdown.get("label")?.value }}</a
+            >
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="navbar-end">
+    <div class="flex flex-row items-center space-x-4">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="avatar placeholder">
+            <div class="bg-white rounded-full w-8 md:w-10">
+              <span>
+                <i class="bi bi-person-circle text-lg text-black"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <ul
+          *transloco="let t; read: 'roles'"
+          tabindex="0"
+          class="menu flex flex-col space-y-1 menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+        >
+          <li>
+            <a
+              #profileAhref
+              [routerLink]="'/main/profile/' + getUserProfile().Usno.toString()"
+              (click)="routerClicked(profileAhref)"
+              class="flex flex-row items-center"
+            >
+              <span>
+                <i class="bi bi-person-circle text-lg"></i>
+              </span>
+              <div class="flex flex-row items-center justify-between w-full">
+                <p class="text-sm">{{ getUserProfile().Uname }}</p>
+              </div>
+            </a>
+          </li>
+          <li>
+            <button
+              (click)="logout()"
+              class="flex flex-row items-center text-red-600"
+            >
+              <span>
+                <i class="bi bi-box-arrow-right text-lg"></i>
+              </span>
+              <p>{{ t("logout") }}</p>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

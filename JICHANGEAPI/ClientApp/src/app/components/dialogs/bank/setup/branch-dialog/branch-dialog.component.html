@@ -1,0 +1,199 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+
+<!-- <app-loader-rainbow [show]="startLoading"></app-loader-rainbow> -->
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<dialog #confirmAddBranch id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg" *transloco="let t; read: 'defaults'">
+      {{ t("confirm") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'actions'">
+      {{ t("saveChanges") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddBranch.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddBranch.close(); addBranch()"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    id="control-number-form"
+    [formGroup]="branchForm"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1
+      *transloco="let t; read: 'setup.branch'"
+      class="text-xl md:text-2xl p-0"
+    >
+      {{ t("branch") }}
+    </h1>
+    <div action="" class="grid grid-cols-1 lg:grid-cols-2 gap-3 w-full py-8">
+      <div class="flex flex-col space-y-1 w-full">
+        <h6
+          *transloco="let t; read: 'setup.branch'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("branch") }}
+        </h6>
+        <mat-form-field
+          *transloco="let t; read: 'setup.branch.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.branch") }}</mat-label>
+          <input matInput [formControl]="Name" />
+          <mat-error *ngIf="Name && Name.invalid && Name.touched">
+            <ng-container>
+              {{ t("errors.branch") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.branch.form.placeholders'"
+          #currencyNumber
+          [formControl]="Name"
+          (change)="setControlValue(Name, currencyNumber.value)"
+          type="text"
+          [placeholder]="t('branch')"
+          class="input input-bordered w-full max-w-lg bg-transparent text-black"
+        />
+        <span *ngIf="Name && Name.invalid && Name.touched">
+          <p
+            *transloco="let t; read: 'setup.branch.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("branch") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6
+          *transloco="let t; read: 'setup.branch'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("location") }}
+        </h6>
+        <mat-form-field
+          *transloco="let t; read: 'setup.branch.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.location") }}</mat-label>
+          <input matInput [formControl]="Location" />
+          <mat-error *ngIf="Location && Location.invalid && Location.touched">
+            <ng-container>
+              {{ t("errors.location") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.branch.form.placeholders'"
+          #currencyNumber
+          [formControl]="Location"
+          (change)="setControlValue(Location, currencyNumber.value)"
+          type="text"
+          [placeholder]="t('location')"
+          class="input input-bordered w-full max-w-lg bg-transparent text-black"
+        />
+        <span *ngIf="Location && Location.invalid && Location.touched">
+          <p
+            *transloco="let t; read: 'setup.branch.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("location") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col w-full">
+        <p *transloco="let t; read: 'defaults'" class="text-xs text-black">
+          {{ t("status") }}
+        </p>
+        <div class="flex flex-row items-center">
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <input
+                *transloco="let t; read: 'defaults'"
+                type="radio"
+                [formControl]="Status"
+                class="radio radio-xs"
+                [value]="t('active')"
+                checked
+              />
+              <span
+                *transloco="let t; read: 'defaults'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("active") }}
+              </span>
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <input
+                *transloco="let t; read: 'defaults'"
+                [formControl]="Status"
+                type="radio"
+                [value]="t('inActive')"
+                class="radio radio-xs"
+              />
+              <span
+                *transloco="let t; read: 'defaults'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("inActive") }}
+              </span>
+            </label>
+          </div>
+        </div>
+        <span *ngIf="Status && Status.invalid && Status.touched">
+          <p
+            *transloco="let t; read: 'setup.wardDialog.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("missingStatus") }}
+          </p>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-row space-x-2 items-center w-full justify-end pt-2">
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs font-inter btn-ghost text-neutral-500 w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitBranchForm()"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

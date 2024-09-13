@@ -1,0 +1,483 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+<!-- <app-loader-rainbow [show]="startLoading"></app-loader-rainbow> -->
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+<!-- <ngx-loading
+  [show]="startLoading"
+  [config]="{ backdropBorderRadius: '1px' }"
+></ngx-loading> -->
+
+<dialog #confirmAddBankUser id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg" *transloco="let t; read: 'defaults'">
+      {{ t("confirm") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'actions'">
+      {{ t("saveChanges") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddBankUser.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddBankUser.close(); addBankUser()"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    id="control-number-form"
+    [formGroup]="bankUserForm"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1
+      *transloco="let t; read: 'setup.bankUser'"
+      class="text-xl md:text-2xl p-0"
+    >
+      {{ t("userDetails") }}
+    </h1>
+    <div action="" class="grid grid-cols-2 gap-3 w-full py-8">
+      <div class="flex flex-col space-y-1 col-span-full lg:col-span-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("employeeId") }}
+        </p>
+        <!-- <input
+          *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+          type="text"
+          [placeholder]="t('employeeId')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="empid"
+          #employeeInput
+        />
+        <span *ngIf="empid && empid.invalid && empid.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("employeeId") }}
+          </p>
+        </span> -->
+        <mat-form-field
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.employeeId") }}</mat-label>
+          <input matInput [formControl]="empid" />
+          <mat-error *ngIf="empid && empid.invalid && empid.touched">
+            <ng-container>
+              {{ t("errors.employeeId") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("firstName") }}
+        </p>
+        <!-- <input
+          *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+          type="text"
+          [placeholder]="t('firstName')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="fname"
+          #firstNameInput
+        />
+        <span *ngIf="fname && fname.invalid && fname.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("firstName") }}
+          </p>
+        </span> -->
+        <mat-form-field
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.firstName") }}</mat-label>
+          <input matInput [formControl]="fname" />
+          <mat-error *ngIf="fname && fname.invalid && fname.touched">
+            <ng-container>
+              {{ t("errors.firstName") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div
+        *transloco="let t; read: 'setup.bankUser.form'"
+        class="flex flex-col space-y-1"
+      >
+        <p
+          *transloco="let y; read: 'defaults'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("middleName") }} ({{ y("optional") }})
+        </p>
+        <mat-form-field class="example-full-width">
+          <mat-label>{{ t("placeholders.middleName") }}</mat-label>
+          <input matInput [formControl]="mname" />
+          <mat-error *ngIf="mname && mname.invalid && mname.touched">
+            <ng-container>
+              {{ t("errors.middleName") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+          type="text"
+          [placeholder]="t('middleName')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="mname"
+          #middleNameInput
+        />
+        <span *ngIf="mname && mname.invalid && mname.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("middleName") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("lastName") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.lastName") }}</mat-label>
+          <input matInput [formControl]="lname" />
+          <mat-error *ngIf="lname && lname.invalid && lname.touched">
+            <ng-container>
+              {{ t("errors.lastName") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+          type="text"
+          [placeholder]="t('lastName')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="lname"
+          #lastNameInput
+        />
+        <span *ngIf="lname && lname.invalid && lname.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("lastName") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("username") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.username") }}</mat-label>
+          <input matInput [formControl]="user" />
+          <mat-error *ngIf="user && user.invalid && user.touched">
+            <ng-container>
+              {{ t("errors.username") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+          type="text"
+          [placeholder]="t('username')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="user"
+          #usernameInput
+        />
+        <span *ngIf="user && user.invalid && user.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("username") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("designation") }}
+        </p>
+        <mat-form-field *transloco="let t; read: 'setup.bankUser.form'">
+          <mat-label>{{ t("placeholders.designation") }}</mat-label>
+          <mat-select [formControl]="desg">
+            @for (designa of designations; track designa) {
+            <mat-option [value]="designa.Desg_Id">{{
+              designa.Desg_Name
+            }}</mat-option>
+            }
+          </mat-select>
+          <mat-error *ngIf="desg && desg.invalid && desg.touched">
+            {{ t("errors.designation") }}</mat-error
+          >
+        </mat-form-field>
+        <!-- <select
+          [formControl]="desg"
+          class="select select-sm select-bordered w-full relative"
+        >
+          <option
+            *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+            disabled
+            selected
+            [value]="t('designation')"
+          >
+            {{ t("designation") }}
+          </option>
+          <option
+            [value]="designation.Desg_Id"
+            *ngFor="
+              let designation of designations;
+              trackBy: PerformanceUtils.trackByIndex
+            "
+          >
+            {{ designation.Desg_Name }}
+          </option>
+        </select>
+        <span *ngIf="desg && desg.invalid && desg.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("designation") }}
+          </p>
+        </span> -->
+      </div>
+      <div
+        *transloco="let t; read: 'setup.bankUser.form'"
+        class="flex flex-col space-y-1"
+      >
+        <p
+          *transloco="let y; read: 'defaults'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("branch") }}
+        </p>
+        <mat-form-field>
+          <mat-label>{{ t("placeholders.branch") }}</mat-label>
+          <mat-select [formControl]="branch">
+            @for (braid of branches; track braid) {
+            <mat-option [value]="braid.Sno">{{ braid.Name }}</mat-option>
+            }
+          </mat-select>
+          <mat-error *ngIf="branch && branch.invalid && branch.touched">
+            {{ t("errors.branch") }}</mat-error
+          >
+        </mat-form-field>
+        <!-- <select
+          [formControl]="branch"
+          class="select select-sm select-bordered w-full"
+        >
+          <option
+            *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+            disabled
+            selected
+            [value]="t('branch')"
+          >
+            {{ t("branch") }}
+          </option>
+          <option
+            *ngFor="
+              let branch of branches;
+              trackBy: PerformanceUtils.trackByIndex
+            "
+            [value]="branch.Sno"
+          >
+            {{ branch.Name }}
+          </option>
+        </select>
+        <span *ngIf="branch && branch.invalid && branch.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("branch") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("emailId") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.emailId") }}</mat-label>
+          <input matInput [formControl]="email" />
+          <mat-error *ngIf="email && email.invalid && email.touched">
+            {{ t("errors.emailId") }}
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.bankUser.form.placeholders'"
+          type="email"
+          [placeholder]="t('emailId')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="email"
+          #emailIdInput
+        />
+        <span *ngIf="email && email.invalid && email.touched">
+          <p
+            *transloco="let t; read: 'setup.bankUser.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("emailId") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.bankUser.form'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("mobileNo") }}
+        </p>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width w-full"
+          *transloco="let t; read: 'auth.forgotPassword'"
+        >
+          <span matTextPrefix>+255 &nbsp;</span>
+          <input
+            #phoneNumber
+            [formControl]="mobile"
+            type="tel"
+            matInput
+            placeholder="666 - 666 - 666"
+            (change)="
+              PerformanceUtils.setPhoneNumberFormControl(
+                '+255',
+                phoneNumber.value,
+                mobile
+              )
+            "
+          />
+          <mat-error *ngIf="mobile && mobile.invalid && mobile.touched">
+            @if (mobile.hasError('required')) {
+            {{ t("form.errors.email") }}
+            } @else if (mobile.hasError('pattern')) {
+            {{ t("form.errors.invalidPhone") }}
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col w-full">
+        <p
+          *transloco="let t; read: 'defaults'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("status") }}
+        </p>
+        <div class="flex flex-row items-center">
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span
+                *transloco="let t; read: 'defaults'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("active") }}
+              </span>
+              <input
+                type="radio"
+                [formControl]="gender"
+                class="radio radio-xs"
+                [value]="'Active'"
+                checked
+              />
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span
+                *transloco="let t; read: 'defaults'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("inActive") }}
+              </span>
+              <input
+                [formControl]="gender"
+                type="radio"
+                [value]="'InActive'"
+                class="radio radio-xs"
+              />
+            </label>
+          </div>
+        </div>
+        <span *ngIf="gender && gender.invalid && gender.touched">
+          <p
+            *transloco="let t; read: 'setup.regionDialog.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("missingStatus") }}
+          </p>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-row space-x-2 items-center w-full justify-end pt-2">
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs font-inter btn-ghost text-neutral-500 w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitBankUserForm()"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

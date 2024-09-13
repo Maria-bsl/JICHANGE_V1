@@ -1,0 +1,296 @@
+<app-submit-message-box #changeLanguageSubmit></app-submit-message-box>
+<app-submit-message-box #changePasswordSubmit></app-submit-message-box>
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<div class="px-6 py-2 w-full flex flex-col space-y-2">
+  <div class="flex flex-row items-center justify-between w-full py-2">
+    <h2 *transloco="let t; read: 'auth.profile'" class="text-lg font-bold">
+      {{ t("settings") }}
+    </h2>
+  </div>
+  <div
+    class="flex flex-col space-y-8 bg-white shadow px-2 py-4 w-full h-full relative"
+  >
+    <div class="flex flex-col border rounded-lg p-4 space-y-2">
+      <div class="flex flex-row items-center justify-between">
+        <h2
+          *transloco="let t; read: 'auth.profile.general'"
+          class="text-sm font-bold"
+        >
+          {{ t("personalInformation") }}
+        </h2>
+        <button (click)="openEditBankUserForm()" class="btn btn-sm">
+          <span class="material-symbols-outlined">
+            <i class="bi bi-pen text-darkPurple"></i>
+          </span>
+        </button>
+      </div>
+      <div class="grid grid-cols-2 gap-y-2 w-full">
+        <div class="flex flex-col">
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs text-neutral-600"
+          >
+            {{ t("firstName") }}
+          </p>
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs font-bold text-neutral-600"
+          >
+            {{ generalFormGroup.get("fname")?.value }}
+          </p>
+        </div>
+        <div class="flex flex-col">
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs text-neutral-600"
+          >
+            {{ t("username") }}
+          </p>
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs font-bold text-neutral-600"
+          >
+            {{ generalFormGroup.get("username")?.value }}
+          </p>
+        </div>
+        <div class="flex flex-col">
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs text-neutral-600"
+          >
+            {{ t("email") }}
+          </p>
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs font-bold text-neutral-600"
+          >
+            {{ generalFormGroup.get("email")?.value }}
+          </p>
+        </div>
+        <div class="flex flex-col">
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs text-neutral-600"
+          >
+            {{ t("phone") }}
+          </p>
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs font-bold text-neutral-600"
+          >
+            {{ generalFormGroup.get("mobile")?.value }}
+          </p>
+        </div>
+        <div class="flex flex-col">
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs text-neutral-600"
+          >
+            {{ t("role") }}
+          </p>
+          <p
+            *transloco="let t; read: 'auth.profile.general'"
+            class="text-xs font-bold text-neutral-600"
+          >
+            {{ generalFormGroup.get("role")?.value }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      [formGroup]="languageFormGroup"
+      class="flex flex-col border rounded-lg p-4 space-y-2"
+    >
+      <div class="flex flex-row items-center justify-between">
+        <h2
+          *transloco="let t; read: 'auth.profile.language'"
+          class="text-sm font-bold"
+        >
+          {{ t("label") }}
+        </h2>
+      </div>
+      <div class="flex flex-col">
+        <div class="flex flex-col space-y-1 w-full">
+          <h6
+            *transloco="let t; read: 'auth.profile.language.form'"
+            class="text-left text-xs"
+          >
+            {{ t("language") }}
+          </h6>
+          <mat-form-field
+            *transloco="let t; read: 'auth.profile.language.form'"
+            class="!max-w-lg"
+          >
+            <mat-label>{{ t("placeholders.language") }}</mat-label>
+            <mat-select formControlName="lang">
+              @for (language of languages; track language) {
+              <mat-option [value]="language.code">{{
+                language.name
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <!-- <select
+            formControlName="lang"
+            class="select select-bordered w-full max-w-lg bg-transparent text-black"
+          >
+            <option
+              *transloco="
+                let t;
+                read: 'auth.profile.language.form.placeholders'
+              "
+              disabled
+            >
+              {{ t("language") }}
+            </option>
+            <option
+              *ngFor="
+                let language of languages;
+                index as ind;
+                trackBy: PerformanceUtils.trackByIndex
+              "
+              [value]="language.code"
+            >
+              {{ language.name }}
+            </option>
+          </select> -->
+        </div>
+        <div
+          class="flex flex-row items-center justify-end lg:justify-start py-2"
+        >
+          <button
+            (click)="saveLanguageClicked()"
+            class="btn text-xs font-inter w-fit bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+            *transloco="let t; read: 'auth.profile.language'"
+          >
+            {{ t("changeLanguage") }}
+          </button>
+          <!-- <button
+            (click)="saveLanguageClicked()"
+            class="btn text-xs btn-outline font-inter btn-success w-1/2 lg:w-1/4 float-right"
+            *transloco="let t; read: 'auth.profile'"
+          >
+            {{ t("saveChanges") }}
+          </button> -->
+        </div>
+      </div>
+    </div>
+    <div
+      [formGroup]="changePasswordFormGroup"
+      class="flex flex-col border rounded-lg p-4 space-y-2"
+    >
+      <div class="flex flex-row items-center justify-between">
+        <h2
+          *transloco="let t; read: 'auth.profile.security'"
+          class="text-sm font-bold"
+        >
+          {{ t("changePassword") }}
+        </h2>
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6
+          *transloco="let t; read: 'auth.profile.security.form'"
+          class="text-left text-sm"
+        >
+          {{ t("newPassword") }}
+          <span class="text-red-600">*</span>
+        </h6>
+        <mat-form-field
+          *transloco="let t; read: 'auth.profile.security.form'"
+          class="!max-w-lg"
+        >
+          <mat-label>{{ t("placeholders.newPassword") }}</mat-label>
+          <input matInput [formControl]="pwd" type="password" />
+          <mat-error *ngIf="pwd && pwd.invalid && pwd.touched">
+            <!-- {{ t("errors.emailId") }} -->
+            @if (pwd.hasError('passwordMismatch')) {
+            {{ t("errors.passwordsDoNotMatch") }}
+            } @if (confirmPwd.hasError('required')) {
+            {{ t("errors.pleaseFill") }}
+            }
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'auth.profile.security.form.placeholders'"
+          type="password"
+          [placeholder]="t('newPassword')"
+          [formControl]="pwd"
+          class="input input-bordered w-full max-w-lg bg-transparent text-black"
+        />
+        <span *ngIf="pwd && pwd.invalid && pwd.touched">
+          <div *transloco="let t; read: 'auth.profile.security.form.errors'">
+            <p
+              *ngIf="pwd.hasError('passwordMismatch')"
+              class="text-danger-700 text-xs"
+            >
+              {{ t("passwordsDoNotMatch") }}
+            </p>
+          </div>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6
+          *transloco="let t; read: 'auth.profile.security.form'"
+          class="text-left text-sm"
+        >
+          {{ t("confirmPassword") }}
+          <span class="text-red-600">*</span>
+        </h6>
+        <!-- <input
+          *transloco="let t; read: 'auth.profile.security.form.placeholders'"
+          type="password"
+          [placeholder]="t('confirmPassword')"
+          [formControl]="confirmPwd"
+          class="input input-bordered w-full max-w-lg bg-transparent text-black"
+        />
+        <span *ngIf="confirmPwd && confirmPwd.invalid && confirmPwd.touched">
+          <div *transloco="let t; read: 'auth.profile.security.form.errors'">
+            <p
+              *ngIf="confirmPwd.hasError('passwordMismatch')"
+              class="text-danger-700 text-xs"
+            >
+              {{ t("passwordsDoNotMatch") }}
+            </p>
+          </div>
+        </span> -->
+        <mat-form-field
+          *transloco="let t; read: 'auth.profile.security.form'"
+          class="!max-w-lg"
+        >
+          <mat-label>{{ t("placeholders.confirmPassword") }}</mat-label>
+          <input matInput [formControl]="confirmPwd" type="password" />
+          <mat-error
+            *ngIf="confirmPwd && confirmPwd.invalid && confirmPwd.touched"
+          >
+            <!-- {{ t("errors.emailId") }} -->
+            @if (confirmPwd.hasError('passwordMismatch')) {
+            {{ t("errors.passwordsDoNotMatch") }}
+            } @if (confirmPwd.hasError('required')) {
+            {{ t("errors.pleaseFill") }}
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-row items-center justify-end lg:justify-start py-2">
+        <button
+          (click)="changePasswordClicked()"
+          class="btn text-xs font-inter w-fit bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+          *transloco="let t; read: 'auth.profile.security'"
+        >
+          {{ t("changePassword") }}
+        </button>
+        <!-- <button
+          (click)="changePasswordClicked()"
+          class="btn text-xs btn-outline font-inter btn-success w-1/2 lg:w-1/4 float-right"
+          *transloco="let t; read: 'auth.profile'"
+        >
+          {{ t("saveChanges") }}
+        </button> -->
+      </div>
+    </div>
+  </div>
+</div>

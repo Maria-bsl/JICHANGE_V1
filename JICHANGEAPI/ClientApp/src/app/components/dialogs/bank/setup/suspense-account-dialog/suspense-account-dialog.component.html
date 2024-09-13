@@ -1,0 +1,145 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+<!-- <app-loader-rainbow [show]="startLoading"></app-loader-rainbow> -->
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<dialog #confirmAddSuspenseAccount id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg" *transloco="let t; read: 'defaults'">
+      {{ t("confirm") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'actions'">
+      {{ t("saveChanges") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddSuspenseAccount.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddSuspenseAccount.close(); addSuspenseAccount()"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    id="control-number-form"
+    [formGroup]="suspenseAccountForm"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1
+      *transloco="let t; read: 'setup.suspenseAccount'"
+      class="text-xl md:text-2xl p-0"
+    >
+      {{ t("suspenseAccount") }}
+    </h1>
+    <div class="w-full grid grid-cols-2 py-8 gap-3">
+      <div class="flex flex-col space-y-1 w-full">
+        <h6
+          *transloco="let t; read: 'setup.suspenseAccount'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("suspenseAccount") }}
+        </h6>
+        <mat-form-field
+          *transloco="let t; read: 'setup.suspenseAccount.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.suspenseAccount") }}</mat-label>
+          <input matInput [formControl]="account" />
+          <mat-error *ngIf="account && account.invalid && account.touched">
+            <ng-container>
+              {{ t("errors.suspenseAccount") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col w-full">
+        <p
+          *transloco="let t; read: 'defaults'"
+          class="text-left text-xs text-black"
+        >
+          {{ t("status") }}
+        </p>
+        <div class="flex flex-row items-center">
+          <div class="form-control">
+            <label
+              class="label cursor-pointer flex flex-row space-x-0.5"
+              *transloco="let t; read: 'defaults'"
+            >
+              <span class="label-text text-xs font-inter">
+                {{ t("active") }}
+              </span>
+              <input
+                type="radio"
+                [formControl]="status"
+                class="radio radio-xs"
+                [value]="'Active'"
+                checked
+              />
+            </label>
+          </div>
+          <div class="form-control">
+            <label
+              class="label cursor-pointer flex flex-row space-x-0.5"
+              *transloco="let t; read: 'defaults'"
+            >
+              <span class="label-text text-xs font-inter">
+                {{ t("inActive") }}
+              </span>
+              <input
+                [formControl]="status"
+                type="radio"
+                [value]="'Inactive'"
+                class="radio radio-xs"
+              />
+            </label>
+          </div>
+        </div>
+        <span *ngIf="status && status.invalid && status.touched">
+          <p
+            *transloco="let t; read: 'setup.regionDialog.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("missingStatus") }}
+          </p>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-row space-x-2 items-center w-full justify-end pt-2">
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs font-inter btn-ghost text-neutral-500 w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitSuspenseAccountForm()"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

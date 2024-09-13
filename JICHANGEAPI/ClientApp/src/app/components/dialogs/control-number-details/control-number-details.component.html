@@ -1,0 +1,156 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+
+<!-- <app-loader-rainbow [show]="startLoading"></app-loader-rainbow> -->
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<dialog #controlFound class="modal">
+  <div class="modal-box">
+    <h3
+      class="font-bold mat-title-mediumn text-center"
+      *transloco="let t; read: 'auth.controlNumberDetails'"
+    >
+      {{ t("controlNumberFound") }}
+    </h3>
+    <!-- <p class="py-4">Press ESC key or click the button below to close</p> -->
+    <form [formGroup]="foundFormGroup" class="grid grid-cols-2 gap-3 pt-4">
+      <div class="flex flex-col">
+        <p
+          *transloco="let t; read: 'auth.controlNumberDetails.controlFound'"
+          class="capitalize text-xs text-black"
+        >
+          {{ t("controlNo") }}
+        </p>
+        <p class="font-semibold text-black text-sm">
+          {{ Control_No.value ? Control_No.value : "-" }}
+        </p>
+      </div>
+      <div class="flex flex-col">
+        <p
+          *transloco="let t; read: 'auth.controlNumberDetails.controlFound'"
+          class="capitalize text-xs text-black"
+        >
+          {{ t("customerName") }}
+        </p>
+        <p class="font-semibold text-black text-sm">
+          {{ Cust_Name.value ? Cust_Name.value : "-" }}
+        </p>
+      </div>
+      <div class="flex flex-col">
+        <p
+          *transloco="let t; read: 'auth.controlNumberDetails.controlFound'"
+          class="capitalize text-xs text-black"
+        >
+          {{ t("paymentType") }}
+        </p>
+        <p class="font-semibold text-black text-sm">
+          {{ Payment_Type.value ? Payment_Type.value : "-" }}
+        </p>
+      </div>
+      <div class="flex flex-col">
+        <p
+          *transloco="let t; read: 'auth.controlNumberDetails.controlFound'"
+          class="capitalize text-xs text-black"
+        >
+          {{ t("itemTotalAmount") }}
+        </p>
+        <p class="font-semibold text-black text-sm">
+          {{ PerformanceUtils.moneyFormat(Item_Total_Amount.value.toString()) }}
+          {{ Currency.value }}
+        </p>
+      </div>
+      <div class="flex flex-col">
+        <p
+          *transloco="let t; read: 'auth.controlNumberDetails.controlFound'"
+          class="capitalize text-xs text-black"
+        >
+          {{ t("balance") }}
+        </p>
+        <p class="font-semibold text-black text-sm">
+          {{ PerformanceUtils.moneyFormat(Balance.value.toString()) }}
+          {{ Currency.value }}
+        </p>
+      </div>
+    </form>
+    <div class="modal-action">
+      <form method="dialog">
+        <button
+          class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+        >
+          Ok
+        </button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    *transloco="let t; read: 'auth.controlNumberDetails'"
+    id="control-number-form"
+    [formGroup]="controlNumberFormGroup"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1 class="text-xl md:text-2xl p-0">
+      {{ t("title") }}
+    </h1>
+    <div class="flex flex-col space-y-1 w-full py-8">
+      <h6 class="text-left text-sm">
+        {{ t("form.controlName") }} <span class="text-red-600">*</span>
+      </h6>
+      <!-- <input
+        #controlNumber
+        formControlName="control"
+        (change)="setControlNumberValue(controlNumber.value)"
+        type="text"
+        [placeholder]="t('form.placeholders.controlName')"
+        class="input input-bordered w-full max-w-lg bg-transparent text-black"
+      />
+      <span *ngIf="control && control.invalid && control.touched">
+        <p class="text-xs text-red-600">
+          {{ t("form.errors.controlName") }}
+        </p>
+      </span> -->
+      <mat-form-field
+        color="primary"
+        accent="secondary"
+        class="example-full-width"
+      >
+        <mat-icon matPrefix>account_balance</mat-icon>
+        <input
+          matInput
+          [placeholder]="t('form.placeholders.controlName')"
+          value=""
+          type="text"
+          [formControl]="control"
+        />
+        <mat-error *ngIf="control && control.invalid && control.touched">
+          {{ t("form.errors.controlName") }}</mat-error
+        >
+      </mat-form-field>
+    </div>
+    <div
+      *transloco="let y; read: 'actions'"
+      class="flex flex-row space-x-2 items-center w-full justify-end pt-2"
+    >
+      <button
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs btn-ghost text-neutral-500 font-inter w-24"
+      >
+        {{ y("close") }}
+      </button>
+      <button
+        (click)="submitControlNumberForm()"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+        [disabled]="!controlNumberFormGroup.valid"
+      >
+        {{ y("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,309 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<dialog #confirmAddSmtp id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg" *transloco="let t; read: 'defaults'">
+      {{ t("confirm") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'actions'">
+      {{ t("saveChanges") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddSmtp.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddSmtp.close(); addSmtp()"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="flex flex-col w-full h-full">
+  <form
+    id="control-number-form"
+    [formGroup]="smtpForm"
+    class="py-10 px-10 flex flex-col divide-y"
+  >
+    <h1 *transloco="let t; read: 'setup.smtp'" class="text-xl md:text-2xl p-0">
+      {{ t("smtp") }}
+    </h1>
+    <div action="" class="grid grid-cols-2 gap-3 w-full py-8">
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="text-xs text-black"
+        >
+          {{ t("fromAddress") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.fromAddress") }}</mat-label>
+          <input matInput [formControl]="from_address" type="email" />
+          <mat-error
+            *ngIf="from_address && from_address.invalid && from_address.touched"
+          >
+            <ng-container>
+              {{ t("errors.fromAddress") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.smtp.form.placeholders'"
+          type="email"
+          [placeholder]="t('fromAddress')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="from_address"
+        />
+        <span
+          *ngIf="from_address && from_address.invalid && from_address.touched"
+        >
+          <p
+            *transloco="let t; read: 'setup.smtp.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("fromAddress") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="text-xs text-black"
+        >
+          {{ t("address") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.address") }}</mat-label>
+          <input matInput [formControl]="smtp_address" type="email" />
+          <mat-error
+            *ngIf="smtp_address && smtp_address.invalid && smtp_address.touched"
+          >
+            <ng-container>
+              {{ t("errors.address") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.smtp.form.placeholders'"
+          type="text"
+          [placeholder]="t('address')"
+          class="input input-sm input-bordered"
+          [formControl]="smtp_address"
+          #addressInput
+        />
+        <span
+          *ngIf="smtp_address && smtp_address.invalid && smtp_address.touched"
+        >
+          <p
+            *transloco="let t; read: 'setup.smtp.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("address") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="text-xs text-black"
+        >
+          {{ t("portNumber") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.portNumber") }}</mat-label>
+          <input matInput [formControl]="smtp_port" type="email" />
+          <mat-error
+            *ngIf="smtp_port && smtp_port.invalid && smtp_port.touched"
+          >
+            <ng-container>
+              {{ t("errors.portNumber") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.smtp.form.placeholders'"
+          type="text"
+          [placeholder]="t('portNumber')"
+          class="input input-sm input-bordered"
+          [formControl]="smtp_port"
+          #portNumberInput
+        />
+        <span *ngIf="smtp_port && smtp_port.invalid && smtp_port.touched">
+          <p
+            *transloco="let t; read: 'setup.smtp.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("portNumber") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col space-y-1">
+        <p
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="text-xs text-black"
+        >
+          {{ t("username") }}
+        </p>
+        <mat-form-field
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="example-full-width"
+        >
+          <mat-label>{{ t("placeholders.username") }}</mat-label>
+          <input matInput [formControl]="smtp_uname" type="email" />
+          <mat-error
+            *ngIf="smtp_uname && smtp_uname.invalid && smtp_uname.touched"
+          >
+            <ng-container>
+              {{ t("errors.username") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.smtp.form.placeholders'"
+          type="text"
+          [placeholder]="t('username')"
+          class="input input-sm input-bordered"
+          [formControl]="smtp_uname"
+          #usernameInput
+        />
+        <span *ngIf="smtp_uname && smtp_uname.invalid && smtp_uname.touched">
+          <p
+            *transloco="let t; read: 'setup.smtp.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("username") }}
+          </p>
+        </span> -->
+      </div>
+      <div
+        *transloco="let t; read: 'setup.smtp.form'"
+        class="flex flex-col space-y-1"
+      >
+        <p *transloco="let y; read: 'defaults'" class="text-xs text-black">
+          {{ t("password") }} ({{ y("optional") }})
+        </p>
+        <mat-form-field class="example-full-width">
+          <mat-label>{{ t("placeholders.password") }}</mat-label>
+          <input matInput [formControl]="smtp_pwd" type="email" />
+          <mat-error *ngIf="smtp_pwd && smtp_pwd.invalid && smtp_pwd.touched">
+            <ng-container>
+              {{ t("errors.password") }}
+            </ng-container>
+          </mat-error>
+        </mat-form-field>
+        <!-- <input
+          *transloco="let t; read: 'setup.smtp.form.placeholders'"
+          type="password"
+          [placeholder]="t('password')"
+          class="input input-sm input-bordered font-inter"
+          [formControl]="smtp_pwd"
+          #passwordInput
+        />
+        <span *ngIf="smtp_pwd && smtp_pwd.invalid && smtp_pwd.touched">
+          <p
+            *transloco="let t; read: 'setup.smtp.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("password") }}
+          </p>
+        </span> -->
+      </div>
+      <div class="flex flex-col w-full">
+        <p
+          *transloco="let t; read: 'setup.smtp.form'"
+          class="text-xs text-black"
+        >
+          {{ t("sslEnable") }}
+        </p>
+        <div class="flex flex-row items-center">
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span
+                *transloco="let t; read: 'setup.smtp.form'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("enabled") }}
+              </span>
+              <input
+                type="radio"
+                [formControl]="gender"
+                class="radio radio-xs"
+                [value]="'True'"
+                checked
+              />
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span
+                *transloco="let t; read: 'setup.smtp.form'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("disabled") }}
+              </span>
+              <input
+                [formControl]="gender"
+                type="radio"
+                [value]="'False'"
+                class="radio radio-xs"
+              />
+            </label>
+          </div>
+        </div>
+        <span *ngIf="gender && gender.invalid && gender.touched">
+          <p
+            *transloco="let t; read: 'setup.smtp.form.errors'"
+            class="text-xs text-red-600"
+          >
+            {{ t("sslEnable") }}
+          </p>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-row space-x-2 items-center w-full justify-end pt-2">
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs font-inter btn-ghost text-neutral-500 w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <button
+        *transloco="let t; read: 'actions'"
+        (click)="submitSmtpForm()"
+        type="submit"
+        form="control-number-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </form>
+</div>

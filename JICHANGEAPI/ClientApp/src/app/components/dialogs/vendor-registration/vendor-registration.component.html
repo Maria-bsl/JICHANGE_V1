@@ -1,0 +1,241 @@
+<app-display-message-box #displayMessageBox></app-display-message-box>
+<app-success-message-box #successMessageBox></app-success-message-box>
+<app-loader-infinite-spinner
+  [show]="startLoading"
+></app-loader-infinite-spinner>
+
+<dialog #confirmAddVendor id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg" *transloco="let t; read: 'defaults'">
+      {{ t("confirm") }}
+    </h3>
+    <p class="py-4 text-sm" *transloco="let t; read: 'actions'">
+      {{ t("saveChanges") }}
+    </p>
+    <div class="modal-action">
+      <div class="flex flex-row items">
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddVendor.close()"
+          class="btn btn-ghost btn-xs btn-info text-red-600"
+        >
+          {{ t("close") }}
+        </button>
+        <button
+          *transloco="let t; read: 'defaults'"
+          (click)="confirmAddVendor.close(); addVendor()"
+          class="btn btn-ghost btn-xs btn-info text-linkBlue"
+        >
+          {{ t("confirm") }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button #close>close</button>
+  </form>
+</dialog>
+
+<div class="w-full h-full relative">
+  <div class="py-10 px-10 flex flex-col divide-y">
+    <h1
+      class="text-xl md:text-2xl p-0"
+      *transloco="let t; read: 'auth.vendorRegistration'"
+    >
+      {{ t("title") }}
+    </h1>
+    <form
+      id="vendor-registration-form"
+      [formGroup]="vendorFormGroup"
+      *transloco="let t; read: 'auth.vendorRegistration.form'"
+      class="grid grid-cols-1 md:grid-cols-2 w-full gap-y-3 gap-x-2 py-4"
+    >
+      <div class="flex flex-col space-y-1 w-full">
+        <h6 class="text-left text-sm">
+          {{ t("vendorName") }}
+        </h6>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width"
+        >
+          <input
+            matInput
+            value=""
+            type="text"
+            [formControl]="compname"
+            [placeholder]="t('placeholders.vendorName')"
+          />
+          <mat-error *ngIf="compname && compname.invalid && compname.touched">
+            {{ t("errors.vendorName") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6 class="text-left text-sm" *transloco="let y; read: 'defaults'">
+          {{ t("email") }} ({{ y("optional") }})
+        </h6>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width"
+        >
+          <input
+            matInput
+            value=""
+            type="text"
+            [formControl]="email"
+            placeholder="Ex. here@example.com"
+          />
+          <mat-error *ngIf="email && email.invalid && email.touched">
+            {{ t("form.errors.customerName") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6 class="text-left text-sm">
+          {{ t("branch") }}
+        </h6>
+        <mat-form-field>
+          <mat-label>{{ t("errors.branch") }}</mat-label>
+          <mat-select [formControl]="branch">
+            @for (branchDetail of branchDetails; track branchDetail) {
+            <mat-option [value]="branchDetail.Sno">{{
+              branchDetail.Name
+            }}</mat-option>
+            }
+          </mat-select>
+          <mat-error *ngIf="branch && branch.invalid && branch.touched">
+            {{ t("errors.branch") }}</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6 class="text-left text-sm">
+          {{ t("accountNo") }}
+        </h6>
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width"
+        >
+          <input
+            matInput
+            value=""
+            type="text"
+            [formControl]="accno"
+            [placeholder]="t('placeholders.vendorName')"
+          />
+          <mat-error *ngIf="accno && accno.invalid && accno.touched">
+            @if (accno.hasError('required')) {
+            {{ t("errors.accountNo") }}
+            } @else if (accno.hasError('pattern')) {
+            {{ t("errors.invalidAccountNo") }}
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6 class="text-left text-sm">
+          {{ t("mobileNo") }}
+        </h6>
+        <!-- <app-phone-number-input [mobileNumber]="mob"></app-phone-number-input> -->
+        <mat-form-field
+          color="primary"
+          accent="secondary"
+          class="example-full-width w-full"
+          *transloco="let t; read: 'auth.forgotPassword'"
+        >
+          <span matTextPrefix>+255 &nbsp;</span>
+          <input
+            #phoneNumber
+            [formControl]="mob"
+            type="tel"
+            matInput
+            placeholder="666 - 666 - 666"
+            (change)="
+              PerformanceUtils.setPhoneNumberFormControl(
+                '+255',
+                phoneNumber.value,
+                mob
+              )
+            "
+          />
+          <mat-error *ngIf="mob && mob.invalid && mob.touched">
+            @if (mob.hasError('required')) {
+            {{ t("form.errors.email") }}
+            } @else if (mob.hasError('pattern')) {
+            {{ t("form.errors.invalidPhone") }}
+            }
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex flex-col space-y-1 w-full">
+        <h6 class="text-left text-sm">
+          {{ t("makerCheckerApproval") }}
+        </h6>
+        <div class="flex flex-row items-center">
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span
+                *transloco="let y; read: 'defaults'"
+                class="label-text text-xs font-inter"
+              >
+                {{ t("makerOptions.yes") }}
+              </span>
+              <input
+                type="radio"
+                name="Checker"
+                [formControl]="check_status"
+                class="radio radio-sm"
+                [value]="t('makerOptions.yes')"
+                checked
+              />
+            </label>
+          </div>
+          <div class="form-control">
+            <label class="label cursor-pointer">
+              <span class="label-text text-xs font-inter">
+                {{ t("makerOptions.no") }}
+              </span>
+              <input
+                [formControl]="check_status"
+                type="radio"
+                name="Checker"
+                [value]="t('makerOptions.no')"
+                class="radio radio-sm"
+              />
+            </label>
+          </div>
+        </div>
+        <span
+          *ngIf="check_status && check_status.invalid && check_status.touched"
+        >
+          <p class="text-xs text-red-500">
+            {{ t("errors.branch") }}
+          </p>
+        </span>
+      </div>
+    </form>
+    <div
+      *transloco="let t; read: 'actions'"
+      class="flex flex-row space-x-2 items-center w-full justify-end pt-2"
+    >
+      <button
+        (click)="closeDialog()"
+        type="button"
+        class="btn text-xs btn-ghost text-neutral-500 font-inter w-24"
+      >
+        {{ t("close") }}
+      </button>
+      <button
+        (click)="submitVendor()"
+        type="submit"
+        form="vendor-registration-form"
+        class="btn text-xs font-inter w-24 bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow-4"
+      >
+        {{ t("submit") }}
+      </button>
+    </div>
+  </div>
+</div>
