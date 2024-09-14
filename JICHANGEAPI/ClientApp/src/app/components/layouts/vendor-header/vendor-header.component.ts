@@ -40,6 +40,8 @@ import { VendorLoginResponse } from 'src/app/core/models/login-response';
 import { RoleAct } from 'src/app/core/models/vendors/role-act';
 import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 import { CompanyUser } from 'src/app/core/models/vendors/company-user';
+import { DesignationService } from '../../../core/services/bank/setup/designation/designation.service';
+import { Designation } from '../../../core/models/bank/setup/designation';
 
 type Header = {
   name: string;
@@ -76,6 +78,7 @@ export class VendorHeaderComponent implements OnInit {
   public routeLoading: boolean = false;
   public formGroup!: FormGroup;
   public roleActs: RoleAct[] = [];
+  public designations: Designation[] = []
   private reportsMap = {
     overview: 0,
     transactionDetails: 1,
@@ -100,7 +103,8 @@ export class VendorHeaderComponent implements OnInit {
     private router: Router,
     private idle: Idle,
     private keepalive: Keepalive,
-    private companyUserService: CompanyUserService
+    private companyUserService: CompanyUserService,
+    private designationService: DesignationService
   ) {
     let systemDefaultTimeout = 15 * 60;
     this.idle.setIdle(systemDefaultTimeout);
@@ -316,15 +320,19 @@ export class VendorHeaderComponent implements OnInit {
     let vendorObs = from(
       this.invoiceService.getCompanyS({ compid: this.getUserProfile().InstID })
     );
+    let designationsList = from(this.designationService.getDesignationList({}));
     let langs = this.tr.selectTranslate('vendorHeaders');
     let res = AppUtilities.pipedObservables(
-      zip(roleActs, langs, companyUserById, vendorObs)
+      zip(roleActs, langs, companyUserById, vendorObs, designationsList)
     );
     res
       .then((results) => {
-        let [roleActs, labels, companyUser, comp] = results;
+        let [roleActs, labels, companyUser, comp, designations] = results;
         if (!AppUtilities.hasErrorResult(roleActs)) {
           this.assignRolesAct(roleActs);
+        }
+        if (!AppUtilities.hasErrorResult(designations)) {
+          this.designations = designations.response as Designation[];
         }
         if (
           !AppUtilities.hasErrorResult(comp) &&

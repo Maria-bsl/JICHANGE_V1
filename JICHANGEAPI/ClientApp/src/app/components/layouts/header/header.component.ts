@@ -5,12 +5,14 @@ import {
   Component,
   ElementRef,
   OnInit,
+  Type,
   ViewChild,
 } from '@angular/core';
 import { LanguageSelectorComponent } from '../../language-selector/language-selector.component';
 import { Router, RouterModule } from '@angular/router';
 import {
   TRANSLOCO_SCOPE,
+  Translation,
   TranslocoModule,
   TranslocoService,
 } from '@ngneat/transloco';
@@ -27,7 +29,7 @@ import { ChatAgentComponent } from '../../chat-agent/chat-agent.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { BankUserProfileComponent } from '../../dialogs/bank-user-profile/bank-user-profile.component';
 import { LoginService } from 'src/app/core/services/login.service';
-import { TimeoutError } from 'rxjs';
+import { TimeoutError, from, zip } from 'rxjs';
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { DisplayMessageBoxComponent } from '../../dialogs/display-message-box/display-message-box.component';
 import { NgxLoadingModule } from 'ngx-loading';
@@ -41,6 +43,19 @@ import {
 } from 'src/app/core/enums/bank/bank-headers-map';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankLoginResponse } from 'src/app/core/models/login-response';
+import { DesignationService } from '../../../core/services/bank/setup/designation/designation.service';
+import { Designation } from '../../../core/models/bank/setup/designation';
+import { TableColumnsData } from '../../../core/models/table-columns-data';
+
+interface Header {
+  name: string;
+  access: string[];
+  dropdowns: {
+    label: string;
+    access: string[];
+    routerLink: string;
+  }[]
+}
 
 @Component({
   selector: 'app-header',
@@ -67,11 +82,13 @@ export class HeaderComponent implements OnInit {
   private lastPing!: Date;
   public routeLoading: boolean = false;
   public formGroup!: FormGroup;
+  public designations: Designation[] = [];
   @ViewChild('displayMessageBox')
   displayMessageBox!: DisplayMessageBoxComponent;
   @ViewChild('timeoutWarning') timeoutWarning!: DisplayMessageBoxComponent;
   @ViewChild('timeOut') timeOut!: DisplayMessageBoxComponent;
   @ViewChild('header', { static: true }) header!: ElementRef<HTMLDivElement>;
+
   constructor(
     private appConfig: AppConfigService,
     private tr: TranslocoService,
@@ -81,7 +98,8 @@ export class HeaderComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private idle: Idle,
-    private keepalive: Keepalive
+    private keepalive: Keepalive,
+    private designationService: DesignationService
   ) {
     let systemDefaultTimeout = 15 * 60;
     this.idle.setIdle(systemDefaultTimeout);
@@ -137,20 +155,82 @@ export class HeaderComponent implements OnInit {
       }
     });
   }
+  private populateNavigationItems(labels: Header[]) {
+    labels.forEach((header, index) => {
+      if (
+        this.getUserProfile().desig.toLocaleLowerCase() !==
+        'Administrator'.toLocaleLowerCase() &&
+        index === 1
+      ) {
+        return;
+      }
+      let bankHeader = this.fb.group({
+        label: this.fb.control(header.name, []),
+        dropdowns: this.fb.array([], []),
+        rootLink: this.fb.control(
+          this.switchHeaderRootLink(index),
+          []
+        ),
+      });
+      /*header.dropdowns.forEach((dropdown, dropdownIndex) => {
+        let group = this.fb.group({
+          label: this.fb.control(dropdown.label, []),
+          routerLink: this.fb.control(dropdown.routerLink, []),
+          isActive: this.fb.control(false, []),
+        });
+        let names: string[] = this.designations.map(obj => obj.Desg_Name);
+        let hasMatchingNames: boolean = names.some(name => dropdown.access.includes(name));
+        if (hasMatchingNames || dropdownIndex === header.dropdowns.length - 1 && this.getUserProfile().desig.toLocaleLowerCase() === 'Administrator') {
+          (bankHeader.get('dropdowns') as FormArray).push(group);
+        }
+      });*/
+      header.dropdowns.forEach((dropdown, dropdownIndex) => {
+        let group = this.fb.group({
+          label: this.fb.control(dropdown.label, []),
+          routerLink: this.fb.control(dropdown.routerLink, []),
+          isActive: this.fb.control(false, []),
+        });
+        /*if (dropdown.access.includes(this.getUserProfile().desig) || ) {
+          (bankHeader.get('dropdowns') as FormArray).push(group);
+        }*/
+        let names: string[] = this.designations.map(obj => obj.Desg_Name);
+        let includesDesignation = names.includes(this.getUserProfile().desig);
+        let includedInDropdown = dropdown.access.includes(this.getUserProfile().desig);
+        if ((includesDesignation || includedInDropdown)) {
+          (bankHeader.get('dropdowns') as FormArray).push(group);
+        }
+      });
+      this.headers.push(bankHeader);
+    });
+  }
   private createHeaders() {
-    type Header = {
-      name: string;
-      access: string[];
-      dropdowns: {
-        label: string;
-        access: string[];
-        routerLink: string;
-      }[];
-    };
     this.formGroup = this.fb.group({
       headers: this.fb.array([], []),
     });
-    let activeLang = this.tr.getActiveLang().toLocaleLowerCase();
+    let designationsList = from(this.designationService.getDesignationList({}));
+    let res = AppUtilities.pipedObservables(zip(designationsList));
+    res.then((results) => {
+      let [designations] = results;
+      if (!AppUtilities.hasErrorResult(designations)) {
+        this.designations = designations.response as Designation[]
+      }
+      let activeLang = this.tr.getActiveLang().toLocaleLowerCase();
+      this.tr.selectTranslation(activeLang).subscribe({
+        next: (result) => {
+          this.populateNavigationItems(result['bankHeaders']);
+        }
+      });
+      this.cdr.detectChanges();
+    }).catch((err) => {
+      AppUtilities.requestFailedCatchError(
+        err,
+        this.displayMessageBox,
+        this.tr
+      );
+      this.cdr.detectChanges();
+      throw err;
+    });
+    /*let activeLang = this.tr.getActiveLang().toLocaleLowerCase();
     this.tr.selectTranslation(activeLang).subscribe((headers) => {
       let bankHeaders: Header[] = headers['bankHeaders'];
       bankHeaders.forEach((bankHeader, bankHeaderIndex) => {
@@ -175,16 +255,13 @@ export class HeaderComponent implements OnInit {
             routerLink: this.fb.control(dropdown.routerLink, []),
             isActive: this.fb.control(false, []),
           });
-          // if (dropdownIndex !== 2) {
-          //   (header.get('dropdowns') as FormArray).push(dropdownGroup);
-          // }
           if (dropdown.access.includes(this.getUserProfile().desig)) {
             (header.get('dropdowns') as FormArray).push(dropdownGroup);
           }
         });
         this.headers.push(header);
       });
-    });
+    });*/
   }
   private switchHeaderRootLink(index: number) {
     switch (index) {

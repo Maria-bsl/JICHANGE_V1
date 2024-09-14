@@ -156,7 +156,7 @@ public HttpResponseMessage GetApp()
             CompanyBankService companyBankService = new CompanyBankService();
             try
             {
-                List < CompanyBankMaster > companies = companyBankService.GetCompaniesList();
+                List<CompanyBankMaster> companies = companyBankService.GetCompaniesList();
                 return GetSuccessResponse(companies);
             }
             catch (Exception Ex)
@@ -191,7 +191,7 @@ public HttpResponseMessage GetApp()
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CompanyBankMaster> companies = companyBankService.GetCompanyListWithSuspenseAccountIncluded((long) com.compid);
+                List<CompanyBankMaster> companies = companyBankService.GetCompanyListWithSuspenseAccountIncluded((long)com.compid);
                 return GetSuccessResponse(companies);
             }
             catch (Exception ex)
@@ -282,8 +282,8 @@ public HttpResponseMessage GetApp()
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                CompanyBankMaster company = companyBankService.GetCompanyDetail((long) singletonSno.Sno);
-                if (company == null) { return GetNotFoundResponse();  }
+                CompanyBankMaster company = companyBankService.GetCompanyDetail((long)singletonSno.Sno);
+                if (company == null) { return GetNotFoundResponse(); }
                 return GetSuccessResponse(company);
             }
             catch (Exception ex)
@@ -356,7 +356,7 @@ public HttpResponseMessage GetApp()
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<DISTRICTS> results = districtService.GetActiveDistrict( (long) singletonSno.Sno);
+                List<DISTRICTS> results = districtService.GetActiveDistrict((long)singletonSno.Sno);
                 return GetSuccessResponse(results);
             }
             catch (Exception ex)
