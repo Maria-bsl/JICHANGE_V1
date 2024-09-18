@@ -392,6 +392,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="invoices\logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -414,6 +415,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="ClientApp\src\web.config" />
+    <Content Include="invoices\Emmanuel_60255_amended.pdf" />
+    <Content Include="invoices\Invoice_T03902.pdf" />
+    <Content Include="invoices\Publius Julius_T03902.pdf" />
     <Content Include="Scripts\ClientApp\assets\i18n\auth\en.json" />
     <Content Include="Scripts\ClientApp\assets\i18n\auth\sw.json" />
     <Content Include="Scripts\ClientApp\assets\i18n\bank\company\en.json" />
@@ -482,7 +486,7 @@
     <Content Include="Scripts\ClientApp\bootstrap-icons.svg" />
     <Content Include="Scripts\ClientApp\favicon.ico" />
     <Content Include="Scripts\ClientApp\index.html" />
-    <Content Include="Scripts\ClientApp\main.8fe4f6cd1c3290c1.js" />
+    <Content Include="Scripts\ClientApp\main.c22744a234820adf.js" />
     <Content Include="Scripts\ClientApp\polyfills.702a62fb92d5fdf1.js" />
     <Content Include="Scripts\ClientApp\runtime.b5a71d318768cc58.js" />
     <Content Include="Scripts\ClientApp\styles.742bf1f10786f16c.css" />
@@ -565,16 +569,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>56077</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44310/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
