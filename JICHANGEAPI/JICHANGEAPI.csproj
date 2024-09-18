@@ -415,6 +415,9 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="ClientApp\src\web.config" />
+    <Content Include="invoices\Emmanuel_60255_amended.pdf" />
+    <Content Include="invoices\Invoice_T03902.pdf" />
+    <Content Include="invoices\Publius Julius_T03902.pdf" />
     <Content Include="Scripts\ClientApp\assets\i18n\auth\en.json" />
     <Content Include="Scripts\ClientApp\assets\i18n\auth\sw.json" />
     <Content Include="Scripts\ClientApp\assets\i18n\bank\company\en.json" />
@@ -446,9 +449,6 @@
     <Content Include="Scripts\ClientApp\assets\temp\data.json" />
     <Content Include="Scripts\ClientApp\bootstrap-icons.70a9dee9e5ab72aa.woff" />
     <Content Include="Scripts\ClientApp\bootstrap-icons.bfa90bda92a84a6a.woff2" />
-    <Content Include="invoices\Emmanuel_60255_amended.pdf" />
-    <Content Include="invoices\Invoice_T03902.pdf" />
-    <Content Include="invoices\Publius Julius_T03902.pdf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\ClientApp\147.8dac344a23d458a6.js" />
     <Content Include="Scripts\ClientApp\239.1c2bfad6c3c2e5e4.js" />
@@ -486,7 +486,7 @@
     <Content Include="Scripts\ClientApp\bootstrap-icons.svg" />
     <Content Include="Scripts\ClientApp\favicon.ico" />
     <Content Include="Scripts\ClientApp\index.html" />
-    <Content Include="Scripts\ClientApp\main.b2afa8c42a0eec5d.js" />
+    <Content Include="Scripts\ClientApp\main.c22744a234820adf.js" />
     <Content Include="Scripts\ClientApp\polyfills.702a62fb92d5fdf1.js" />
     <Content Include="Scripts\ClientApp\runtime.b5a71d318768cc58.js" />
     <Content Include="Scripts\ClientApp\styles.742bf1f10786f16c.css" />
