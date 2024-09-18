@@ -52,6 +52,12 @@ namespace JichangeApi.Services.Companies
             Auditlog.deleteAuditTrail(values, userid, COMPANY_BANK, COMPANY_BANK_COLUMNS);
         }
 
+        private void AppendCompanyDeleteAuditTrail(long sno,CompanyBankMaster company,long userid)
+        {
+            List<string> values = new List<string> { sno.ToString(), company.CompName, company.PostBox, company.Address, company.RegId.ToString(), company.DistSno.ToString(), company.WardSno.ToString(), company.TinNo, company.VatNo, company.DirectorName, company.Email, company.TelNo, company.FaxNo, company.MobNo, userid.ToString(), DateTime.Now.ToString() };
+            Auditlog.deleteAuditTrail(values, userid, TABLE_NAME, TABLE_COLUMNS);
+        }
+
         public static void AppendInsertAuditTrail(long compsno, CompanyBankMaster companyBankMaster, long userid)
         {
             try
@@ -384,7 +390,7 @@ namespace JichangeApi.Services.Companies
             }
             catch (ArgumentException ex)
             {
-                throw new ArgumentException(ex.ToString());
+                throw new ArgumentException(ex.Message);
             }
             catch (Exception ex)
             {
@@ -424,7 +430,7 @@ namespace JichangeApi.Services.Companies
             }
             catch (ArgumentException ex)
             {
-                throw new ArgumentException(ex.ToString());
+                throw new ArgumentException(ex.Message);
             }
             catch (Exception ex)
             {
@@ -582,15 +588,28 @@ namespace JichangeApi.Services.Companies
                 throw new Exception(ex.Message);
             }
         }
-        public bool DeleteCompany(long companyId)
+        public bool DeleteCompany(long companyId,long userid)
         {
             try
             {
-                CompanyBankMaster companyBankMaster = new CompanyBankMaster();
-                CompanyBankMaster company = companyBankMaster.EditCompanyss(companyId);
-                company.DeleteBank(company);
+                CompanyBankMaster company = new CompanyBankMaster().EditCompanyss(companyId);
+                if (company == null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
+                var banks = company.EditBank(companyId);
+                if (banks != null && banks.Count() > 0)
+                {
+                    banks.ForEach(bank => AppendCompanyBankDetailDeleteAuditTrail(bank.CompSno, bank, userid));
+                    company.DeleteBank(company);
+                }
                 company.DeleteCompany(companyId);
+                AppendCompanyDeleteAuditTrail(companyId, company, userid);
                 return true;
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new ArgumentException(ex.Message);
             }
             catch (Exception ex)
             {
