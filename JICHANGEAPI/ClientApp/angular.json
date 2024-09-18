@@ -26,6 +26,19 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
+              //{
+              //"glob": "**/*",
+              //"input": "public",
+
+              //"input": "./src/assets",
+              //"output": "/"
+
+              //"glob": "**/*",
+              //"input": "./src/assets/img"
+              //},
+              //"src/assets",
+              //"../ClientApp/src/assets",
+
               {
                 "glob": "*.svg",
                 "input": "./node_modules/bootstrap-icons/",

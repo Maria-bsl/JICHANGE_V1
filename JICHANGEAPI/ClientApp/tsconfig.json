@@ -4,7 +4,8 @@
   "compilerOptions": {
     //"baseUrl": "./",
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    //"outDir": "./dist/out-tsc",
+    "outDir": "../Scripts/ClientApp",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,

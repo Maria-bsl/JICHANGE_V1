@@ -23,11 +23,11 @@ namespace JichangeApi
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
+            /*routes.MapRoute(
                 name: "Angular",
                 url: "{*url}",
                 defaults: new { controller = "Home", action = "Index" }
-            );
+            );*/
         }
     }
 }

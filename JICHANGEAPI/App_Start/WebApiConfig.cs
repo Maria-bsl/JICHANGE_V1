@@ -10,8 +10,6 @@ namespace JichangeApi
     {
         public static void Register(HttpConfiguration config)
         {
-
-
             // Register your custom JWT Authentication filter
             config.Filters.Add(new JwtAuthenticationFilter());
 
