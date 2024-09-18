@@ -2,6 +2,7 @@
 using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models;
+using JichangeApi.Models.form.setup.remove;
 using JichangeApi.Services;
 using JichangeApi.Services.Companies;
 using JichangeApi.Services.setup;
@@ -313,7 +314,7 @@ public HttpResponseMessage GetApp()
             }
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public HttpResponseMessage DeleteCompanyBank(long sno)
         {
             try
@@ -332,7 +333,7 @@ public HttpResponseMessage GetApp()
 
                 return GetServerErrorResponse(ex.Message);
             }
-        }
+        }*/
         [HttpGet]
         public HttpResponseMessage GetRegionDetails()
         {
@@ -415,8 +416,7 @@ public HttpResponseMessage GetApp()
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
 
-                List<string> messages = new List<string> { ex.Message };
-                return this.GetCustomErrorMessageResponse(messages);
+                return GetServerErrorResponse(ex.Message);
             }
         }
 
@@ -441,13 +441,47 @@ public HttpResponseMessage GetApp()
                 }
 
             }
-            catch (Exception ex)
+            catch (ArgumentException ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
 
                 List<string> messages = new List<string> { ex.Message };
                 return this.GetCustomErrorMessageResponse(messages);
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                return GetServerErrorResponse(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage DeleteCompany(DeleteDesignationForm deleteDesignationForm)
+        {
+            List<string> modelStateErrors = this.ModelStateErrors();
+            if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
+            try
+            {
+                var isDeleted = companyBankService.DeleteCompany(deleteDesignationForm.sno, (long) deleteDesignationForm.userid);
+                return GetSuccessResponse(deleteDesignationForm.sno);
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                List<string> messages = new List<string> { ex.Message };
+                return this.GetCustomErrorMessageResponse(messages);
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                return GetServerErrorResponse(ex.Message);
             }
         }
     }
