@@ -15,8 +15,9 @@ export class TranslocoHttpLoader implements TranslocoLoader {
     /*return this.http.get<Translation>(
       `/ClientApp/src/assets/i18n/${lang}.json`
     );*/
-    return this.http.get<Translation>(
+    /*return this.http.get<Translation>(
       `../../../ClientApp/src/assets/i18n/${lang}.json`
-    );
+    );*/
+    return this.http.get<Translation>(`/assets/i18n/${lang}.json`);
   }
 }
