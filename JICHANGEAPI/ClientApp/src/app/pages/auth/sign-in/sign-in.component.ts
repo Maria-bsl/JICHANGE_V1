@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { Popover, Ripple, initTE } from 'tw-elements';
+//import { Popover, Ripple, initTE } from 'tw-elements';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ControlNumberDetailsComponent } from 'src/app/components/dialogs/control-number-details/control-number-details.component';
 import { VendorRegistrationComponent } from 'src/app/components/dialogs/vendor-registration/vendor-registration.component';
@@ -160,7 +160,7 @@ export class SignInComponent implements OnInit {
       });
   }
   ngOnInit(): void {
-    initTE({ Popover, Ripple });
+    //initTE({ Popover, Ripple });
     this.createForm();
   }
   openControlNumberDetailsDialog() {

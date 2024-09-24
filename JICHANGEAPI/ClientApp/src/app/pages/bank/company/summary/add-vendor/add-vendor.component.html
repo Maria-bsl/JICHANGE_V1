@@ -69,20 +69,19 @@
           *transloco="let t; read: 'company.summary.companyForm'"
           class="text-lg font-semibold w-full border-b"
         >
-          <!-- {{ t("personalInformation") }} -->
-          Personal Information
+          {{ t("personalInformation") }}
         </h4>
         <div
           class="grid grid-cols-1 lg:grid-cols-4 gap-x-2 gap-y-3 w-full py-2"
         >
-          <div class="flex flex-col space-y-1 w-full">
-            <h6
-              *transloco="let t; read: 'company.summary.companyForm'"
-              class="text-left text-xs"
-            >
+          <div
+            class="flex flex-col space-y-1 w-full"
+            *transloco="let t; read: 'company.summary.companyForm'"
+          >
+            <h6 class="text-left text-xs">
               {{ t("customer") }}
             </h6>
-            <mat-form-field class="example-full-width">
+            <!-- <mat-form-field appearance="fill" class="example-full-width">
               <input
                 *transloco="
                   let t;
@@ -98,16 +97,28 @@
               >
                 {{ t("customer") }}
               </mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                [formControl]="compname"
+                [placeholder]="t('placeholders.customer')"
+              />
+              @if (compname && compname.invalid && compname.touched) {
+              <mat-error>
+                {{ t("errors.customer") }}
+              </mat-error>
+              }
             </mat-form-field>
           </div>
-          <div class="flex flex-col space-y-1 w-full">
-            <h6
-              *transloco="let t; read: 'company.summary.companyForm'"
-              class="text-left text-xs"
-            >
+          <div
+            class="flex flex-col space-y-1 w-full"
+            *transloco="let t; read: 'company.summary.companyForm'"
+          >
+            <h6 class="text-left text-xs">
               {{ t("tinNo") }}
             </h6>
-            <mat-form-field class="example-full-width">
+            <!-- <mat-form-field appearance="fill" class="example-full-width">
               <input
                 *transloco="
                   let t;
@@ -129,6 +140,22 @@
                   }
                 </ng-container>
               </mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                [formControl]="tin"
+                [placeholder]="t('placeholders.tinNo')"
+              />
+              @if (tin && tin.invalid && tin.touched) {
+              <mat-error>
+                @if (tin.hasError('required')) {
+                {{ t("errors.tinNo") }}
+                } @else if (tin.hasError('pattern')) {
+                {{ t("errors.invalidTin") }}
+                }
+              </mat-error>
+              }
             </mat-form-field>
           </div>
           <div class="flex flex-col space-y-1 w-full">
@@ -143,6 +170,7 @@
               accent="secondary"
               class="example-full-width w-full"
               *transloco="let t; read: 'auth.forgotPassword'"
+              appearance="fill"
             >
               <span matTextPrefix>+255 &nbsp;</span>
               <input
@@ -168,44 +196,37 @@
               </mat-error>
             </mat-form-field>
           </div>
-          <div class="flex flex-col space-y-1">
-            <h6
-              *transloco="let t; read: 'company.summary.companyForm'"
-              class="text-left text-xs"
-            >
+          <div
+            class="flex flex-col space-y-1"
+            *transloco="let t; read: 'company.summary.companyForm'"
+          >
+            <h6 class="text-left text-xs">
               {{ t("emailId") }}
             </h6>
             <mat-form-field class="example-full-width">
               <input
-                *transloco="
-                  let t;
-                  read: 'company.summary.companyForm.placeholders'
-                "
                 matInput
-                [placeholder]="t('emailId')"
                 [formControl]="email"
-                type="email"
+                [placeholder]="t('placeholders.emailId')"
               />
-              <mat-error *ngIf="email && email.invalid && email.touched">
-                <ng-container
-                  *transloco="let t; read: 'company.summary.companyForm.errors'"
-                >
-                  {{ t("emailId") }}
-                </ng-container>
+              @if (email && email.invalid && email.touched) {
+              <mat-error>
+                {{ t("errors.emailId") }}
               </mat-error>
+              }
             </mat-form-field>
           </div>
-          <div class="flex flex-col space-y-1">
-            <h6
-              *transloco="let t; read: 'company.summary.companyForm'"
-              class="text-left text-xs"
-            >
+          <div
+            class="flex flex-col space-y-1"
+            *transloco="let t; read: 'company.summary.companyForm'"
+          >
+            <h6 class="text-left text-xs">
               {{ t("directorName") }}
               <span *transloco="let y; read: 'defaults'"
                 >({{ y("optional") }})</span
               >
             </h6>
-            <mat-form-field class="example-full-width">
+            <!-- <mat-form-field class="example-full-width" appearance="fill">
               <input
                 *transloco="
                   let t;
@@ -223,6 +244,19 @@
                   {{ t("directorName") }}
                 </ng-container>
               </mat-error>
+            </mat-form-field> -->
+
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                [formControl]="dname"
+                [placeholder]="t('placeholders.directorName')"
+              />
+              @if (dname && dname.invalid && dname.touched) {
+              <mat-error>
+                {{ t("errors.directorName") }}
+              </mat-error>
+              }
             </mat-form-field>
           </div>
           <div class="flex flex-col space-y-1 w-full">
@@ -271,14 +305,14 @@
         <div
           class="grid grid-cols-1 lg:grid-cols-4 gap-x-2 gap-y-3 w-full py-2"
         >
-          <div class="flex flex-col space-y-1">
-            <h6
-              *transloco="let t; read: 'company.summary.companyForm'"
-              class="text-left text-xs"
-            >
+          <div
+            class="flex flex-col space-y-1"
+            *transloco="let t; read: 'company.summary.companyForm'"
+          >
+            <h6 class="text-left text-xs">
               {{ t("address") }}
             </h6>
-            <mat-form-field class="example-full-width">
+            <!-- <mat-form-field class="example-full-width" appearance="fill">
               <input
                 *transloco="
                   let t;
@@ -295,6 +329,18 @@
                   {{ t("address") }}
                 </ng-container>
               </mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="example-full-width">
+              <input
+                matInput
+                [formControl]="addr"
+                [placeholder]="t('placeholders.address')"
+              />
+              @if (addr && addr.invalid && addr.touched) {
+              <mat-error>
+                {{ t("errors.address") }}
+              </mat-error>
+              }
             </mat-form-field>
           </div>
           <div class="flex flex-col space-y-1 w-full">
@@ -304,7 +350,7 @@
             >
               {{ t("branch") }}
             </h6>
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label
                 *transloco="
                   let k;
@@ -312,7 +358,7 @@
                 "
                 >{{ k("branch") }}</mat-label
               >
-              <mat-select [formControl]="branch">
+              <mat-select matSelect [formControl]="branch">
                 @for (branch of formData.branches$ | async; track branch) {
                 <mat-option [value]="branch.Branch_Sno">{{
                   branch.Name
@@ -337,7 +383,7 @@
                 >({{ y("optional") }})</span
               >
             </h6>
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label
                 *transloco="
                   let t;
@@ -345,7 +391,7 @@
                 "
                 >{{ t("region") }}</mat-label
               >
-              <mat-select [formControl]="rsno">
+              <mat-select matSelect [formControl]="rsno">
                 @for (region of formData.regions$ | async; track region) {
                 <mat-option [value]="region.Region_SNO">{{
                   region.Region_Name
@@ -353,7 +399,6 @@
                 }
               </mat-select>
               <mat-error *ngIf="rsno && rsno.invalid && rsno.touched">
-                <mat-label>Favorite food</mat-label>
                 <ng-container
                   *transloco="let t; read: 'company.summary.companyForm.errors'"
                 >
@@ -368,8 +413,11 @@
               class="text-left text-xs"
             >
               {{ t("district") }}
+              <span *transloco="let y; read: 'defaults'"
+                >({{ y("optional") }})</span
+              >
             </h6>
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label
                 *transloco="
                   let t;
@@ -377,7 +425,7 @@
                 "
                 >{{ t("district") }}</mat-label
               >
-              <mat-select [formControl]="dsno">
+              <mat-select matSelect [formControl]="dsno">
                 @for (districtOption of formData.districts$ | async; track
                 districtOption) {
                 <mat-option [value]="districtOption.SNO">{{
@@ -386,7 +434,6 @@
                 }
               </mat-select>
               <mat-error *ngIf="dsno && dsno.invalid && dsno.touched">
-                <mat-label>Favorite food</mat-label>
                 <ng-container
                   *transloco="let t; read: 'company.summary.companyForm.errors'"
                 >
@@ -401,8 +448,11 @@
               class="text-left text-xs"
             >
               {{ t("ward") }}
+              <span *transloco="let y; read: 'defaults'"
+                >({{ y("optional") }})</span
+              >
             </h6>
-            <mat-form-field>
+            <mat-form-field appearance="fill">
               <mat-label
                 *transloco="
                   let t;
@@ -410,7 +460,7 @@
                 "
                 >{{ t("ward") }}</mat-label
               >
-              <mat-select [formControl]="wsno">
+              <mat-select matSelect [formControl]="wsno">
                 @for (ward of formData.wards$ | async; track ward) {
                 <mat-option [value]="ward.SNO">{{ ward.Ward_Name }}</mat-option>
                 }
@@ -433,15 +483,15 @@
             formGroupName="{{ ind }}"
             class="flex flex-row w-full space-x-1 col-span-1"
           >
-            <div class="flex flex-col space-y-1 flex-1">
-              <p
-                *transloco="let t; read: 'company.summary.companyForm'"
-                class="text-xs font-inter"
-              >
+            <div
+              class="flex flex-col space-y-1 flex-1"
+              *transloco="let t; read: 'company.summary.companyForm'"
+            >
+              <p class="text-xs font-inter">
                 {{ t("accountNo") }} {{ ind + 1 }}
               </p>
               <div class="flex flex-row items-center">
-                <mat-form-field class="w-full">
+                <!-- <mat-form-field class="w-full">
                   <input
                     formControlName="AccountNo"
                     type="number"
@@ -469,9 +519,27 @@
                       {{ t("accountNumber") }}
                     </ng-container>
                   </mat-error>
+                </mat-form-field> -->
+                <mat-form-field class="w-full">
+                  <input
+                    matInput
+                    formControlName="AccountNo"
+                    [placeholder]="t('placeholders.accountNumber')"
+                  />
+                  @if (details.controls.at(ind)?.get('AccountNo') &&
+                  details.controls.at(ind)?.get('AccountNo')?.invalid &&
+                  details.controls.at(ind)?.get('AccountNo')?.touched) {
+                  <mat-error>
+                    {{ t("errors.accountNumber") }}
+                  </mat-error>
+                  }
                 </mat-form-field>
-                <mat-form-field class="w-fit">
-                  <mat-select [formControl]="defaultCurrency" [disabled]="true">
+                <mat-form-field class="w-fit" appearance="fill">
+                  <mat-select
+                    matSelect
+                    [formControl]="defaultCurrency"
+                    [disabled]="true"
+                  >
                     <mat-option [value]="'TZS'">TZS</mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -486,7 +554,8 @@
                 type="button"
                 class="btn btn-sm bg-transparent border-success"
               >
-                <i class="bi bi-plus-lg text-lg lg:text-2xl text-success"></i>
+                <!-- <i class="bi bi-plus-lg text-lg lg:text-2xl text-success"></i> -->
+                <mat-icon matPrefix class="text-success">add</mat-icon>
               </button>
               <button
                 (click)="removeBankDetail(ind)"
@@ -495,9 +564,7 @@
                 *ngIf="details.controls.length > 0 && ind !== 0"
               >
                 <span>
-                  <i
-                    class="bi bi-trash text-lg lg:text-2xl text-danger-600"
-                  ></i>
+                  <mat-icon class="text-danger-600" matPrefix>delete</mat-icon>
                 </span>
               </button>
             </div>

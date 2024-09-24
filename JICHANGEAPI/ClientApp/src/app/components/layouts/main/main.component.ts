@@ -25,6 +25,7 @@ import { mainModuleAnimations } from './router-transition-animations';
 import { TranslocoService } from '@ngneat/transloco';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxSonnerToaster } from 'ngx-sonner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-main',
@@ -42,6 +43,7 @@ import { NgxSonnerToaster } from 'ngx-sonner';
     BreadcrumbModule,
     NgxLoadingModule,
     NgxSonnerToaster,
+    MatIconModule,
   ],
 })
 export class MainComponent implements OnInit, AfterViewInit {

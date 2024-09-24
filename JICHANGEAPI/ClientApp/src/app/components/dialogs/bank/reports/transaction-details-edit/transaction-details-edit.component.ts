@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { GeneratedInvoice } from 'src/app/core/models/vendors/generated-invoice';
 import { AppUtilities } from 'src/app/utilities/app-utilities';
@@ -18,7 +19,7 @@ import * as json from 'src/assets/temp/data.json';
   templateUrl: './transaction-details-edit.component.html',
   styleUrls: ['./transaction-details-edit.component.scss'],
   standalone: true,
-  imports: [TranslocoModule, CommonModule, ReactiveFormsModule],
+  imports: [TranslocoModule, CommonModule, ReactiveFormsModule, MatIconModule],
   providers: [
     {
       provide: TRANSLOCO_SCOPE,

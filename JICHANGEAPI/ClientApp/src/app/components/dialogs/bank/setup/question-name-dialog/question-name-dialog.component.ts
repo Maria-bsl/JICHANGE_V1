@@ -119,8 +119,13 @@ export class QuestionNameDialogComponent implements OnInit {
       .then((result) => {
         this.startLoading = false;
         if (typeof result.response === 'number' && result.response > 0) {
-          let sal = AppUtilities.sweetAlertSuccessMessage(
-            this.tr.translate(`setup.questionName.addedQuestionSuccessfully`)
+          let msg = this.tr.translate(
+            `setup.questionName.addedQuestionSuccessfully`
+          );
+          AppUtilities.showSuccessMessage(
+            msg,
+            (e) => {},
+            this.tr.translate('actions.ok')
           );
           this.added.emit();
         } else {

@@ -82,6 +82,7 @@ import { TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
 import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import Chart from 'chart.js/auto';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
@@ -106,6 +107,7 @@ import Chart from 'chart.js/auto';
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    MatIconModule,
   ],
   providers: [
     {

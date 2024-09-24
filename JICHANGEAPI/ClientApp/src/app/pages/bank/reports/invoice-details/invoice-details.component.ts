@@ -18,7 +18,7 @@ import {
 import { TableDateFiltersComponent } from 'src/app/components/cards/table-date-filters/table-date-filters.component';
 import { GeneratedInvoiceDialogComponent } from 'src/app/components/dialogs/Vendors/generated-invoice-dialog/generated-invoice-dialog.component';
 import { RequestClientService } from 'src/app/core/services/request-client.service';
-import { Datepicker, Input, initTE } from 'tw-elements';
+//import { Datepicker, Input, initTE } from 'tw-elements';
 import {
   PageEvent,
   MatPaginatorModule,
@@ -77,6 +77,7 @@ import {
 import { BankService } from 'src/app/core/services/bank/setup/bank/bank.service';
 import { EmployeeDetail } from 'src/app/core/models/bank/setup/employee-detail';
 import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-report-form';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-invoice-details',
@@ -97,6 +98,7 @@ import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-re
     MatSortModule,
     ReportFormDetailsComponent,
     MatTableExporterModule,
+    MatIconModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -615,7 +617,7 @@ export class InvoiceDetailsComponent implements OnInit {
     } else return 'invoice-completed';
   }
   ngOnInit(): void {
-    initTE({ Datepicker, Input });
+    //initTE({ Datepicker, Input });
     this.createRequestFormGroup();
     this.createHeaderGroup();
     //this.buildPage();

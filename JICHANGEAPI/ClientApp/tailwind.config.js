@@ -27,7 +27,7 @@ module.exports = {
       // },
     },
   },
-  plugins: [require("daisyui"), require("tw-elements/dist/plugin.cjs")],
+  plugins: [require("daisyui"), require("tw-elements/plugin.cjs")],
   daisyui: {
     //themes: ["light"],
     themes: [

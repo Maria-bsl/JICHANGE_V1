@@ -162,6 +162,7 @@ export class CustomerDetailReportComponent implements OnInit {
   @ViewChild('customerDetailReport')
   customerDetailReport!: ElementRef<HTMLDivElement>;
   @ViewChild('exporter') exporter!: MatTableExporterDirective;
+  private name: string = 'John';
   constructor(
     private appConfig: AppConfigService,
     private fb: FormBuilder,

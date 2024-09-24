@@ -46,6 +46,8 @@ import { BankLoginResponse } from 'src/app/core/models/login-response';
 import { DesignationService } from '../../../core/services/bank/setup/designation/designation.service';
 import { Designation } from '../../../core/models/bank/setup/designation';
 import { TableColumnsData } from '../../../core/models/table-columns-data';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 interface Header {
   name: string;
@@ -54,7 +56,7 @@ interface Header {
     label: string;
     access: string[];
     routerLink: string;
-  }[]
+  }[];
 }
 
 @Component({
@@ -74,6 +76,8 @@ interface Header {
     MatDialogModule,
     DisplayMessageBoxComponent,
     NgxLoadingModule,
+    MatIconModule,
+    MatTooltipModule,
   ],
 })
 export class HeaderComponent implements OnInit {
@@ -159,7 +163,7 @@ export class HeaderComponent implements OnInit {
     labels.forEach((header, index) => {
       if (
         this.getUserProfile().desig.toLocaleLowerCase() !==
-        'Administrator'.toLocaleLowerCase() &&
+          'Administrator'.toLocaleLowerCase() &&
         index === 1
       ) {
         return;
@@ -167,10 +171,7 @@ export class HeaderComponent implements OnInit {
       let bankHeader = this.fb.group({
         label: this.fb.control(header.name, []),
         dropdowns: this.fb.array([], []),
-        rootLink: this.fb.control(
-          this.switchHeaderRootLink(index),
-          []
-        ),
+        rootLink: this.fb.control(this.switchHeaderRootLink(index), []),
       });
       /*header.dropdowns.forEach((dropdown, dropdownIndex) => {
         let group = this.fb.group({
@@ -193,10 +194,12 @@ export class HeaderComponent implements OnInit {
         /*if (dropdown.access.includes(this.getUserProfile().desig) || ) {
           (bankHeader.get('dropdowns') as FormArray).push(group);
         }*/
-        let names: string[] = this.designations.map(obj => obj.Desg_Name);
+        let names: string[] = this.designations.map((obj) => obj.Desg_Name);
         let includesDesignation = names.includes(this.getUserProfile().desig);
-        let includedInDropdown = dropdown.access.includes(this.getUserProfile().desig);
-        if ((includesDesignation || includedInDropdown)) {
+        let includedInDropdown = dropdown.access.includes(
+          this.getUserProfile().desig
+        );
+        if (includesDesignation || includedInDropdown) {
           (bankHeader.get('dropdowns') as FormArray).push(group);
         }
       });
@@ -209,27 +212,29 @@ export class HeaderComponent implements OnInit {
     });
     let designationsList = from(this.designationService.getDesignationList({}));
     let res = AppUtilities.pipedObservables(zip(designationsList));
-    res.then((results) => {
-      let [designations] = results;
-      if (!AppUtilities.hasErrorResult(designations)) {
-        this.designations = designations.response as Designation[]
-      }
-      let activeLang = this.tr.getActiveLang().toLocaleLowerCase();
-      this.tr.selectTranslation(activeLang).subscribe({
-        next: (result) => {
-          this.populateNavigationItems(result['bankHeaders']);
+    res
+      .then((results) => {
+        let [designations] = results;
+        if (!AppUtilities.hasErrorResult(designations)) {
+          this.designations = designations.response as Designation[];
         }
+        let activeLang = this.tr.getActiveLang().toLocaleLowerCase();
+        this.tr.selectTranslation(activeLang).subscribe({
+          next: (result) => {
+            this.populateNavigationItems(result['bankHeaders']);
+          },
+        });
+        this.cdr.detectChanges();
+      })
+      .catch((err) => {
+        AppUtilities.requestFailedCatchError(
+          err,
+          this.displayMessageBox,
+          this.tr
+        );
+        this.cdr.detectChanges();
+        throw err;
       });
-      this.cdr.detectChanges();
-    }).catch((err) => {
-      AppUtilities.requestFailedCatchError(
-        err,
-        this.displayMessageBox,
-        this.tr
-      );
-      this.cdr.detectChanges();
-      throw err;
-    });
     /*let activeLang = this.tr.getActiveLang().toLocaleLowerCase();
     this.tr.selectTranslation(activeLang).subscribe((headers) => {
       let bankHeaders: Header[] = headers['bankHeaders'];

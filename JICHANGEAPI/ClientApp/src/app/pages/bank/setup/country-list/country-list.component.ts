@@ -62,6 +62,8 @@ import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankLoginResponse } from 'src/app/core/models/login-response';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-country-list',
@@ -84,6 +86,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    AddItemButtonComponent,
+    MatIconModule,
   ],
   providers: [
     {

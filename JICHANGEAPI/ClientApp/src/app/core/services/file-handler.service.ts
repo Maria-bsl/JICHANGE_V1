@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { jsPDF } from 'jspdf';
-import { saveAs } from 'file-saver';
-import * as XLSX from 'xlsx';
+//import { saveAs } from 'file-saver';
+//import * as XLSX from 'xlsx';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Injectable({
@@ -58,16 +58,17 @@ export class FileHandlerService {
     });
   }
   public exportAsExcelFile(json: any[], excelFileName: string): void {
-    const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
-    const myworkbook: XLSX.WorkBook = {
-      Sheets: { data: myworksheet },
-      SheetNames: ['data'],
-    };
-    const excelBuffer: any = XLSX.write(myworkbook, {
-      bookType: 'xlsx',
-      type: 'array',
-    });
-    this.saveAsExcelFile(excelBuffer, excelFileName);
+    // const myworksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
+    // const myworkbook: XLSX.WorkBook = {
+    //   Sheets: { data: myworksheet },
+    //   SheetNames: ['data'],
+    // };
+    // const excelBuffer: any = XLSX.write(myworkbook, {
+    //   bookType: 'xlsx',
+    //   type: 'array',
+    // });
+    // this.saveAsExcelFile(excelBuffer, excelFileName);
+    alert('failed to export excel');
   }
   public downloadExcelTable(
     data: any[],
@@ -90,9 +91,9 @@ export class FileHandlerService {
     this.exportAsExcelFile(items, filename);
   }
   private saveAsExcelFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([buffer], {
-      type: this.EXCEL_TYPE,
-    });
-    saveAs(data, fileName + '_exported' + this.EXCEL_EXTENSION);
+    // const data: Blob = new Blob([buffer], {
+    //   type: this.EXCEL_TYPE,
+    // });
+    // saveAs(data, fileName + '_exported' + this.EXCEL_EXTENSION);
   }
 }

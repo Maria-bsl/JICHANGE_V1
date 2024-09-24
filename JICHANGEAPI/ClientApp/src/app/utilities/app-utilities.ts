@@ -5,7 +5,6 @@ import { FormControl } from '@angular/forms';
 import { SubmitMessageBoxComponent } from '../components/dialogs/submit-message-box/submit-message-box.component';
 import { formatDate } from '@angular/common';
 import { Observable, TimeoutError, catchError, lastValueFrom, map } from 'rxjs';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { HttpDataResponse } from '../core/models/http-data-response';
 import { toast } from 'ngx-sonner';
@@ -20,26 +19,6 @@ export class AppUtilities {
     dialog.title = title;
     dialog.message = message;
     return dialog.openDialog();
-  }
-
-  static sweetAlertSuccessMessage(message: string, timeout: number = 5000) {
-    let toastMixin = Swal.mixin({
-      toast: true,
-      icon: 'success',
-      title: 'General Title',
-      animation: false,
-      position: 'top-right',
-      showConfirmButton: false,
-      timer: timeout,
-      didOpen: (toast: any) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer);
-        toast.addEventListener('mouseleave', Swal.resumeTimer);
-      },
-    } as any) as any;
-    return toastMixin.fire({
-      animation: true,
-      title: message,
-    });
   }
   static showSuccessMessage(
     message: string,

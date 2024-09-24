@@ -64,7 +64,7 @@
     >
       <img
         class="object-contain"
-        src="/ClientApp/src/assets/img/logo.png"
+        src="assets/img/logo.png"
         alt="TE Logo"
         loading="lazy"
       />
@@ -99,7 +99,8 @@
             {{ header.get("label")?.value }}
           </p>
           <span>
-            <i class="bi bi-chevron-down"></i>
+            <!-- <i class="bi bi-chevron-down"></i> -->
+            <mat-icon matPrefix>arrow_drop_down</mat-icon>
           </span>
         </button>
         <ul
@@ -130,9 +131,13 @@
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="avatar placeholder">
-            <div class="bg-white rounded-full w-8 md:w-10">
+            <div
+              matTooltip="{{ getUserProfile().Uname }}"
+              class="bg-white rounded-full w-8 md:w-10"
+            >
               <span>
-                <i class="bi bi-person-circle text-lg text-black"></i>
+                <!-- <i class="bi bi-person-circle text-lg text-black"></i> -->
+                <mat-icon matPrefix>person</mat-icon>
               </span>
             </div>
           </div>
@@ -150,7 +155,8 @@
               class="flex flex-row items-center"
             >
               <span>
-                <i class="bi bi-person-circle text-lg"></i>
+                <!-- <i class="bi bi-person-circle text-lg"></i> -->
+                <mat-icon matPrefix>account_circle</mat-icon>
               </span>
               <div class="flex flex-row items-center justify-between w-full">
                 <p class="text-sm">{{ getUserProfile().Uname }}</p>
@@ -163,7 +169,7 @@
               class="flex flex-row items-center text-red-600"
             >
               <span>
-                <i class="bi bi-box-arrow-right text-lg"></i>
+                <mat-icon matPrefix>logout</mat-icon>
               </span>
               <p>{{ t("logout") }}</p>
             </button>

@@ -17,7 +17,7 @@ import {
   TranslocoService,
 } from '@ngneat/transloco';
 import { Company } from 'src/app/core/models/bank/company/company';
-import { Ripple, initTE } from 'tw-elements';
+//import { Ripple, initTE } from 'tw-elements';
 import * as json from 'src/assets/temp/data.json';
 import { CompanySummaryDialogComponent } from 'src/app/components/dialogs/bank/company/company-summary-dialog/company-summary-dialog.component';
 import {
@@ -74,6 +74,9 @@ import { BankLoginResponse } from 'src/app/core/models/login-response';
 import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
 import { TableDataService } from 'src/app/core/services/table-data.service';
 import { TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
+import { MatIconModule } from '@angular/material/icon';
+import { TableColumnsComponent } from 'src/app/reusables/table-columns/table-columns.component';
 
 @Component({
   selector: 'app-summary',
@@ -97,6 +100,8 @@ import { TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
     MatListModule,
     MatTableExporterModule,
     MatTooltipModule,
+    AddItemButtonComponent,
+    MatIconModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
@@ -172,6 +177,7 @@ export class SummaryComponent implements OnInit {
             this.headers.push(col);
           });
         this.resetTableColumns();
+        this.cdr.detectChanges();
       });
     this.tableSearch.valueChanges.subscribe((value) => {
       this.tableDataService.searchTable(value);
@@ -394,6 +400,9 @@ export class SummaryComponent implements OnInit {
     this.router.navigate(['/main/company/summary/add'], {
       queryParams: { Comp: btoa(company.CompSno.toString()) },
     });
+  }
+  onAddCompanyClicked() {
+    this.router.navigate(['/main/company/summary/add']);
   }
   downloadSheet() {
     if (this.tableDataService.getData().length > 0) {

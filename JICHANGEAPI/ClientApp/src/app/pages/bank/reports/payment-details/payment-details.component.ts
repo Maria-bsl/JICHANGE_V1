@@ -80,6 +80,7 @@ import {
   MatTableExporterModule,
 } from 'mat-table-exporter';
 import tailwindcss from 'tailwindcss';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-payment-details',
@@ -97,6 +98,7 @@ import tailwindcss from 'tailwindcss';
     MatTooltipModule,
     ReportFormInvoiceDetailsComponent,
     MatTableExporterModule,
+    MatIconModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './payment-details.component.html',

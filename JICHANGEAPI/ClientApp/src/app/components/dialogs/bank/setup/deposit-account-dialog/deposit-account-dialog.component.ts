@@ -89,8 +89,13 @@ export class DepositAccountDialogComponent implements OnInit {
       .addDepositAccount(body)
       .then((result) => {
         if (typeof result.response === 'number' && result.response > 0) {
-          let sal = AppUtilities.sweetAlertSuccessMessage(
-            this.tr.translate(`setup.depositAccount.addedDepositSuccessfully`)
+          let msg = this.tr.translate(
+            `setup.depositAccount.addedDepositSuccessfully`
+          );
+          AppUtilities.showSuccessMessage(
+            msg,
+            (e) => {},
+            this.tr.translate('actions.ok')
           );
           this.added.emit();
         } else {

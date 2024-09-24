@@ -56,7 +56,7 @@ import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinit
 import { SubmitMessageBoxComponent } from '../../submit-message-box/submit-message-box.component';
 import { CustomersDialogComponent } from '../customers-dialog/customers-dialog.component';
 import { CustomerName } from 'src/app/core/models/vendors/customer-name';
-import { Autocomplete, Input, initTE } from 'tw-elements';
+//import { Autocomplete, Input, initTE } from 'tw-elements';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -354,10 +354,12 @@ export class InvoiceDetailsDialogComponent implements OnInit, AfterViewInit {
           this.invoiceFormExistsMessage();
         } else {
           let message = this.data.invid
-            ? `invoice.form.dialog.modifiedSuccessfully`
-            : `invoice.form.dialog.addedInvoiceSuccessfully`;
-          let m = AppUtilities.sweetAlertSuccessMessage(
-            this.tr.translate(message)
+            ? this.tr.translate(`invoice.form.dialog.modifiedSuccessfully`)
+            : this.tr.translate(`invoice.form.dialog.addedInvoiceSuccessfully`);
+          AppUtilities.showSuccessMessage(
+            message,
+            (e) => {},
+            this.tr.translate('actions.ok')
           );
           this.addedInvoice.emit();
         }
@@ -431,7 +433,7 @@ export class InvoiceDetailsDialogComponent implements OnInit, AfterViewInit {
     });
   }
   ngOnInit(): void {
-    initTE({ Input });
+    //initTE({ Input });
     this.createForm();
     if (this.data && this.data.invid) {
       this.createGeneratedInvoiceViewForm();

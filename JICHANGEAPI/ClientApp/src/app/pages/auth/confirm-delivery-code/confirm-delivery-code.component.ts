@@ -94,9 +94,11 @@ export class ConfirmDeliveryCodeComponent implements OnInit {
         errorMessage
       );
     } else {
-      let sal = AppUtilities.sweetAlertSuccessMessage(
-        this.tr.translate(`auth.deliveryCode.confirmedSuccessfully`),
-        5000
+      let msg = this.tr.translate(`auth.deliveryCode.confirmedSuccessfully`);
+      AppUtilities.showSuccessMessage(
+        msg,
+        () => {},
+        this.tr.translate('actions.ok')
       );
       this.router.navigate(['/auth']);
     }

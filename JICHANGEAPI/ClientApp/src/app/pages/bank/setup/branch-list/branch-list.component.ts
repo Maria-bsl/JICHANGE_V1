@@ -62,6 +62,8 @@ import { TableDataService } from 'src/app/core/services/table-data.service';
 import { TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
+import { MatIconModule } from '@angular/material/icon';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
   selector: 'app-branch-list',
@@ -82,6 +84,8 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    MatIconModule,
+    AddItemButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

@@ -34,7 +34,7 @@
           >
             <p class="text-xs lg:block hidden">{{ t("exportToExcel") }}</p>
             <span>
-              <i class="bi bi-file-earmark-spreadsheet"></i>
+              <mat-icon matPrefix>description</mat-icon>
             </span>
           </button>
           <button
@@ -44,7 +44,7 @@
           >
             <p class="text-xs lg:block hidden">{{ t("exportToPdf") }}</p>
             <span>
-              <i class="bi bi-filetype-pdf"></i>
+              <mat-icon matPrefix>picture_as_pdf</mat-icon>
             </span>
           </button>
         </div>
@@ -53,18 +53,17 @@
             <button
               tabindex="0"
               role="button"
-              class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1"
+              class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1 flex flex-row items-center"
             >
               <span>
-                <i class="bi bi-layout-three-columns text-sm"></i>
+                <mat-icon class="text-lg mb-0.5" matPrefix
+                  >table_chart</mat-icon
+                >
               </span>
-              <p *transloco="let t; read: 'defaults'" class="text-xs">
-                {{ t("columns") }}
-              </p>
             </button>
             <ul
               tabindex="0"
-              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96 grid grid-cols-2"
             >
               <li *ngFor="let control of tableHeaders.controls">
                 <label class="label cursor-pointer">

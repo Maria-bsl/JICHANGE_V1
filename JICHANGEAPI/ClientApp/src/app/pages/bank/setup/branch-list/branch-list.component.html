@@ -13,7 +13,7 @@
     >
       {{ t("branch") }}
     </h2>
-    <button
+    <!-- <button
       (click)="openBranchForm()"
       class="flex flex-row items-center btn btn-sm bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow"
     >
@@ -23,7 +23,15 @@
       <p *transloco="let t; read: 'setup.branch'" class="text-sm">
         {{ t("addBranch") }}
       </p>
-    </button>
+    </button> -->
+    <ng-container *transloco="let t; read: 'setup.branch'">
+      <app-add-item-button
+        [title]="t('addBranch')"
+        [icon]="'add'"
+        (buttonCliked)="openBranchForm()"
+      >
+      </app-add-item-button>
+    </ng-container>
   </div>
   <div
     [formGroup]="branchHeadersForm"
@@ -41,7 +49,7 @@
             [formControl]="tableSearch"
           />
           <span class="absolute top-1/2 left-2 -translate-y-1/2">
-            <i class="bi bi-search text-neutral-500"></i>
+            <mat-icon matPrefix class="mt-1">search</mat-icon>
           </span>
         </div>
       </div>
@@ -101,7 +109,7 @@
                       matTooltip="{{ t('edit') }}"
                     >
                       <span>
-                        <i class="bi bi-pen text-lg text-info"></i>
+                        <mat-icon matPrefix class="text-info">edit</mat-icon>
                       </span>
                     </button>
                     <button
@@ -111,7 +119,9 @@
                       matTooltip="{{ t('delete') }}"
                     >
                       <span>
-                        <i class="bi bi-trash text-lg text-danger-600"></i>
+                        <mat-icon matPrefix class="text-danger-600"
+                          >delete</mat-icon
+                        >
                       </span>
                     </button>
                   </div>
@@ -209,7 +219,7 @@
                         matTooltip="{{ t('edit') }}"
                       >
                         <span>
-                          <i class="bi bi-pen text-lg text-info"></i>
+                          <mat-icon matPrefix class="text-info">edit</mat-icon>
                         </span>
                       </button>
                       <button
@@ -219,7 +229,9 @@
                         matTooltip="{{ t('delete') }}"
                       >
                         <span>
-                          <i class="bi bi-trash text-lg text-danger-600"></i>
+                          <mat-icon matPrefix class="text-danger-600"
+                            >delete</mat-icon
+                          >
                         </span>
                       </button>
                     </div>

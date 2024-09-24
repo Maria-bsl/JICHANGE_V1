@@ -79,6 +79,7 @@ import { TableDataService } from 'src/app/core/services/table-data.service';
 import { GeneratedInvoice } from 'src/app/core/models/vendors/generated-invoice';
 import { ReportFormInvoiceDetailsComponent } from '../../../../../components/dialogs/bank/reports/report-form-invoice-details/report-form-invoice-details.component';
 import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-report-form';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-transaction-details',
@@ -104,6 +105,7 @@ import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-re
     MatTooltipModule,
     ReportFormDetailsComponent,
     ReportFormInvoiceDetailsComponent,
+    MatIconModule,
   ],
   providers: [
     DatePipe,
@@ -693,7 +695,10 @@ export class TransactionDetailsComponent implements OnInit {
     return columns.map((col) => col.label);
   }
   tableSortableColumns(column: TableColumnsData) {
+    console.log(column.value);
     switch (column.value) {
+      case 'Company_Name':
+      case 'Customer_Name':
       case 'Payment_Date':
       case 'Invoice_Sno':
       case 'Requested_Amount':

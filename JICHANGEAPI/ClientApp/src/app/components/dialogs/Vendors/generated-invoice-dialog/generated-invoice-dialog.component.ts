@@ -13,7 +13,7 @@ import {
 } from '@ngneat/transloco';
 import { GeneratedInvoice } from 'src/app/core/models/vendors/generated-invoice';
 import * as json from 'src/assets/temp/data.json';
-import { Chart } from 'tw-elements';
+//import { Chart } from 'tw-elements';
 import { DisplayMessageBoxComponent } from '../../display-message-box/display-message-box.component';
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -205,7 +205,7 @@ export class GeneratedInvoiceDialogComponent implements OnInit {
     }
     let created = document.createElement('canvas');
     graphContainer.appendChild(created);
-    new Chart(graphContainer.querySelector('canvas'), data, {});
+    //new Chart(graphContainer.querySelector('canvas'), data, {});
   }
   private createGraphHtml() {
     if (this.isHiddenGraph()) {

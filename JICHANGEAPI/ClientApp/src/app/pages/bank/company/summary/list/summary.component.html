@@ -2,8 +2,6 @@
 <app-success-message-box #successMessageBox></app-success-message-box>
 <app-display-message-box #displayMessageBox></app-display-message-box>
 
-
-
 <div class="px-6 py-2 w-full flex flex-col space-y-2">
   <div class="flex flex-row items-center justify-between w-full">
     <h2
@@ -13,7 +11,7 @@
       {{ t("name") }}
     </h2>
     <div class="flex flex-row items-center space-x-2">
-      <button
+      <!-- <button
         [routerLink]="'/main/company/summary/add'"
         class="flex flex-row items-center btn btn-sm bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow"
       >
@@ -23,7 +21,15 @@
         <p *transloco="let t; read: 'company.summary.actions'" class="text-sm">
           {{ t("addCompany") }}
         </p>
-      </button>
+      </button> -->
+      <ng-container *transloco="let t; read: 'company.summary.actions'">
+        <app-add-item-button
+          [title]="t('addCompany')"
+          [icon]="'add'"
+          (buttonCliked)="onAddCompanyClicked()"
+        >
+        </app-add-item-button>
+      </ng-container>
     </div>
   </div>
   <div
@@ -39,7 +45,7 @@
         >
           <p class="text-xs lg:block hidden">{{ t("exportToExcel") }}</p>
           <span>
-            <i class="bi bi-file-earmark-spreadsheet"></i>
+            <mat-icon matPrefix>description</mat-icon>
           </span>
         </button>
         <button
@@ -49,7 +55,7 @@
         >
           <p class="text-xs lg:block hidden">{{ t("exportToPdf") }}</p>
           <span>
-            <i class="bi bi-filetype-pdf"></i>
+            <mat-icon matPrefix>picture_as_pdf</mat-icon>
           </span>
         </button>
       </div>
@@ -58,14 +64,11 @@
           <button
             tabindex="0"
             role="button"
-            class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1"
+            class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1 flex flex-row items-center"
           >
             <span>
-              <i class="bi bi-layout-three-columns text-sm"></i>
+              <mat-icon class="text-lg mb-0.5" matPrefix>table_chart</mat-icon>
             </span>
-            <p *transloco="let t; read: 'defaults'" class="text-xs">
-              {{ t("columns") }}
-            </p>
           </button>
           <ul
             tabindex="0"
@@ -97,7 +100,7 @@
             [formControl]="tableSearch"
           />
           <span class="absolute top-1/2 left-2 -translate-y-1/2">
-            <i class="bi bi-search text-lg text-neutral-500"></i>
+            <mat-icon class="mt-1" matPrefix>search</mat-icon>
           </span>
         </div>
       </div>
@@ -153,7 +156,7 @@
                     matTooltip="{{ t('edit') }}"
                   >
                     <span>
-                      <i class="bi bi-pen text-lg text-info"></i>
+                      <mat-icon class="text-info">edit</mat-icon>
                     </span>
                   </button>
                 </div>
@@ -252,7 +255,7 @@
                         matTooltip="{{ t('edit') }}"
                       >
                         <span>
-                          <i class="bi bi-pen text-lg text-info"></i>
+                          <mat-icon class="text-info">edit</mat-icon>
                         </span>
                       </button>
                     </div>

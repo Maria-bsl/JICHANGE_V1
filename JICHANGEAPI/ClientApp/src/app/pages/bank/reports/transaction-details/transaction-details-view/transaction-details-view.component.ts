@@ -28,7 +28,7 @@ import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinit
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 import * as json from 'src/assets/temp/data.json';
-import { Collapse, initTE } from 'tw-elements';
+//import { Collapse, initTE } from 'tw-elements';
 import { BreadcrumbService } from 'xng-breadcrumb';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -142,7 +142,7 @@ export class TransactionDetailsViewComponent
       });
   }
   ngOnInit(): void {
-    initTE({ Collapse });
+    //initTE({ Collapse });
   }
   ngAfterViewChecked(): void {
     this.activatedRoute.params.subscribe((params) => {

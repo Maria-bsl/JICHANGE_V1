@@ -15,6 +15,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -44,6 +45,7 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { SmtpService } from 'src/app/core/services/bank/setup/smtp/smtp.service';
 import { TableDataService } from 'src/app/core/services/table-data.service';
 import { TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinite-spinner/loader-infinite-spinner.component';
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
@@ -67,6 +69,8 @@ import { TableUtilities } from 'src/app/utilities/table-utilities';
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    MatIconModule,
+    AddItemButtonComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [

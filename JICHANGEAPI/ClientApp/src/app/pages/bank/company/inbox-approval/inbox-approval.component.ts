@@ -73,6 +73,7 @@ import {
   MatTableExporterDirective,
   MatTableExporterModule,
 } from 'mat-table-exporter';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-inbox-approval',
@@ -95,6 +96,7 @@ import {
     MatSortModule,
     MatTooltipModule,
     MatTableExporterModule,
+    MatIconModule,
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

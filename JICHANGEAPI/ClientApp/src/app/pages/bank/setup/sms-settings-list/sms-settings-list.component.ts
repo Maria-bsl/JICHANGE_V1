@@ -48,6 +48,8 @@ import { RemoveItemDialogComponent } from 'src/app/components/dialogs/Vendors/re
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { SmsSettingsDialogComponent } from 'src/app/components/dialogs/bank/setup/sms-settings-dialog/sms-settings-dialog.component';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
+import { MatIconModule } from '@angular/material/icon';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
   selector: 'app-sms-settings-list',
@@ -64,6 +66,8 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
     DisplayMessageBoxComponent,
     LoaderInfiniteSpinnerComponent,
     RemoveItemDialogComponent,
+    MatIconModule,
+    AddItemButtonComponent,
   ],
   templateUrl: './sms-settings-list.component.html',
   styleUrl: './sms-settings-list.component.scss',

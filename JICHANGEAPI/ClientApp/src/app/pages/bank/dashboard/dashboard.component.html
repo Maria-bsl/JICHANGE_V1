@@ -1,8 +1,5 @@
 <app-display-message-box #displayMessageBox></app-display-message-box>
 <app-success-message-box #successMessageBox></app-success-message-box>
-<!-- <app-loader-infinite-spinner
-  [show]="startLoading"
-></app-loader-infinite-spinner> -->
 
 <div
   class="py-2 w-full h-fit pl-6 pr-4 grid grid-cols-1 lg:grid-cols-12 gap-x-4 gap-y-4 overflow-y-auto"
@@ -158,12 +155,9 @@
             else noTransactionsFoundTemplate
           "
           id="transactions"
-          class="col-span-full lg:col-span-12 flex flex-row items-center space-x-2 justify-between overflow-x-auto w-full carousel rounded max-h-fit p-0.5"
+          class="col-span-full lg:col-span-12 flex flex-row items-center space-x-2 justify-between overflow-x-auto w-full rounded max-h-fit p-0.5"
         >
-          <div
-            class="carousel-item w-fit"
-            *ngFor="let transaction of latestTransactions"
-          >
+          <div class="w-fit" *ngFor="let transaction of latestTransactions">
             <div class="card bg-base-100 w-72 shadow-xl">
               <div class="card-body">
                 <div class="flex flex-row items-center justify-between">
@@ -273,7 +267,7 @@
             [formControl]="tableSearch"
           />
           <span class="absolute left-2 top-1/2 -translate-y-1/2">
-            <i class="bi bi-search text-neutral-content text-lg"></i>
+            <mat-icon class="mt-1" matPrefix>search</mat-icon>
           </span>
         </div>
       </div>

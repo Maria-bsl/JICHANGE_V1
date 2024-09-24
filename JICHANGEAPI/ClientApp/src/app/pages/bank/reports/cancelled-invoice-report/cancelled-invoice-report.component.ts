@@ -52,6 +52,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { TableUtilities } from 'src/app/utilities/table-utilities';
 import { InvoiceReportForm } from 'src/app/core/models/vendors/forms/invoice-report-form';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-cancelled-invoice-report',
@@ -67,6 +68,7 @@ import { InvoiceReportForm } from 'src/app/core/models/vendors/forms/invoice-rep
     MatSortModule,
     DisplayMessageBoxComponent,
     MatTableExporterModule,
+    MatIconModule,
   ],
   templateUrl: './cancelled-invoice-report.component.html',
   styleUrl: './cancelled-invoice-report.component.scss',
@@ -344,6 +346,7 @@ export class CancelledInvoiceReportComponent implements OnInit {
       case 'Invoice_Amount':
       case 'Reason':
       case 'goods_status':
+      case 'Cmpny_Name':
         return column.value;
       default:
         return '';

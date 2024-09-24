@@ -230,7 +230,12 @@ export class ProfileComponent implements OnInit {
       let message = this.tr.translate(
         `auth.profile.passowordChangedSuccessfully`
       );
-      let sal = AppUtilities.sweetAlertSuccessMessage(message);
+      //let sal = AppUtilities.sweetAlertSuccessMessage(message);
+      AppUtilities.showSuccessMessage(
+        message,
+        (e) => {},
+        this.tr.translate('actions.ok')
+      );
       this.changePasswordFormGroup.reset();
     }
   }

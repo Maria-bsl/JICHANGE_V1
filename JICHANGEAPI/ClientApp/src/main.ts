@@ -17,8 +17,11 @@ import {
 import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
 import { AppConfigService } from './app/core/services/app-config.service';
 import { MatDialogModule } from '@angular/material/dialog';
-import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
-import { provideToastr } from 'ngx-toastr';
+import {
+  provideRouter,
+  withHashLocation,
+  withViewTransitions,
+} from '@angular/router';
 import { toast, NgxSonnerToaster } from 'ngx-sonner';
 import { provideNativeDateAdapter } from '@angular/material/core';
 

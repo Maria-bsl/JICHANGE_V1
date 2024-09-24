@@ -58,6 +58,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
   selector: 'app-region-list',
@@ -85,6 +86,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatSelectModule,
     MatRadioModule,
+    AddItemButtonComponent,
   ],
   providers: [
     {

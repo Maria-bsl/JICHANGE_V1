@@ -102,7 +102,9 @@ import { MatRadioModule } from '@angular/material/radio';
 })
 export class AddVendorComponent implements OnInit {
   public startLoading: boolean = false;
-  public defaultCurrency: FormControl<string | null> = this.fb.control('TZS', [Validators.required])
+  public defaultCurrency: FormControl<string | null> = this.fb.control('TZS', [
+    Validators.required,
+  ]);
   public companySummaryForm!: FormGroup;
   public company!: Observable<Company>;
   public formData: {
@@ -438,7 +440,7 @@ export class AddVendorComponent implements OnInit {
   private assignCompanyInfo(
     result: HttpDataResponse<string | number | Company>
   ) {
-    console.log(result)
+    console.log(result);
     let isErrorResult = AppUtilities.hasErrorResult(result);
     if (isErrorResult || !result.response) {
       let message = this.switchCompanyInforErrorMessage(result.message[0]);

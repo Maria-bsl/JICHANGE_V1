@@ -124,63 +124,21 @@
         </p>
       </span>
     </div>
-    <!-- <div class="flex flex-col">
-      <p class="text-xs font-semibold">Company</p>
-      <select class="select select-sm select-bordered">
-        <option disabled selected [value]="'Select coompany'">
-          Select coompany
-        </option>
-      </select>
-    </div>
-    <div class="flex flex-col">
-      <p class="text-xs font-semibold">Date</p>
-      <input class="input input-bordered input-sm" type="date" />
-    </div>
-    <div class="flex flex-col">
-      <p class="text-xs font-semibold">Depositor's name</p>
-      <input class="input input-bordered input-sm" type="text" />
-    </div>
-    <div class="flex flex-col">
-      <p class="text-xs font-semibold">Payment type</p>
-      <div class="flex flex-row items-center justify-between">
-        <div class="flex flex-row items-center">
-          <label for="fixed" class="text-sm">Fixed</label>
-          <input
-            id="fixed"
-            type="radio"
-            name="radio-1"
-            class="radio radio-xs"
-            checked
-          />
-        </div>
-        <div class="flex flex-row items-center">
-          <label for="flexible" class="text-sm">Flexible</label>
-          <input
-            id="flexible"
-            type="radio"
-            name="radio-1"
-            class="radio radio-xs"
-          />
-        </div>
-      </div>
-    </div>
-    <div class="flex flex-col">
-      <p class="text-xs font-semibold">Amount</p>
-      <input class="input input-bordered input-sm" type="text" />
-    </div>
-    <div class="flex flex-col">
-      <p class="text-xs font-semibold">Purpose of transaction</p>
-      <input class="input input-bordered input-sm" type="text" />
-    </div>
-    <div class="flex flex-col">
-      <p class="text-xs font-semibold">NAME OF BENEFICIARY:</p>
-      <input class="input input-bordered input-sm" type="text" />
-    </div> -->
-    <button
+    <!-- <button
       *transloco="let t; read: 'actions'"
       class="col-start-1 col-span-full btn btn-sm btn-ghost bg-lightPurple text-darkPurple"
     >
       {{ t("submit") }}
+    </button> -->
+    <button
+      class="flex flex-row items-center justify-center btn btn-sm bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow"
+    >
+      <p *transloco="let t; read: 'actions'" class="text-sm">
+        {{ t("submit") }}
+      </p>
+      <span>
+        <mat-icon class="" matPrefix>filter_alt</mat-icon>
+      </span>
     </button>
   </form>
 </div>

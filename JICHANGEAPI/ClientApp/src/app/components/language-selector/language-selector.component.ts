@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
-import { Dropdown, Ripple, initTE } from 'tw-elements';
+//import { Dropdown, Ripple, initTE } from 'tw-elements';
 
 @Component({
   selector: 'app-language-selector',

@@ -409,7 +409,11 @@ export class CompanySummaryDialogComponent implements OnInit {
           typeof result.message === 'string' &&
           result.message.toLocaleLowerCase() === 'success'
         ) {
-          let msg = AppUtilities.sweetAlertSuccessMessage(successMessage);
+          AppUtilities.showSuccessMessage(
+            successMessage,
+            (e) => {},
+            this.tr.translate('actions.ok')
+          );
           this.companyAddedSuccessfully.emit();
         }
         this.startLoading = false;

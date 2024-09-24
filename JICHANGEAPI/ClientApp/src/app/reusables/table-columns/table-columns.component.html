@@ -1,0 +1,31 @@
+<div [formGroup]="formGroup" id="dropdown-columns" class="hidden md:dropdown">
+  <button
+    tabindex="0"
+    role="button"
+    class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1 flex flex-row items-center"
+  >
+    <span>
+      <mat-icon class="text-lg mb-0.5" matPrefix>table_chart</mat-icon>
+    </span>
+    <!-- <p *transloco="let t; read: 'defaults'" class="text-xs">
+      {{ t("columns") }}
+    </p> -->
+  </button>
+  <ul
+    tabindex="0"
+    class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-96 grid grid-cols-2"
+  >
+    <li *ngFor="let control of headers.controls">
+      <label #dropdownList class="label cursor-pointer">
+        <span class="label-text text-xs font-normal">{{
+          control.get("label")?.value
+        }}</span>
+        <input
+          type="checkbox"
+          [formControl]="PerformanceUtils.getFormControl(control, 'included')"
+          class="checkbox checkbox-xs"
+        />
+      </label>
+    </li>
+  </ul>
+</div>
