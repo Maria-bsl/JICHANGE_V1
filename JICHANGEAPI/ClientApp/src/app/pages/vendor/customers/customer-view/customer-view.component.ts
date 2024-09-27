@@ -60,6 +60,8 @@ import { VendorLoginResponse } from 'src/app/core/models/login-response';
 import { InvoiceReportForm } from 'src/app/core/models/vendors/forms/invoice-report-form';
 import { InvoiceDetailsDialogComponent } from 'src/app/components/dialogs/Vendors/invoice-details-dialog/invoice-details-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-customer-view',
@@ -91,6 +93,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    AddItemButtonComponent,
+    MatIconModule,
   ],
   animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
 })

@@ -216,7 +216,7 @@ namespace JichangeApi.Services
                     Detail_Id = Convert.ToInt64(userid.ToString())
                 };
                 TRACK_DET trackDet = new TRACK_DET().EditTRACK(userid.ToString());
-                trackDet.SNO = trackDet.SNO;
+                //trackDet.SNO = trackDet.SNO;
                 trackDet.Posted_by = userid.ToString();
                 trackDet.UpdateTRACKEmp(trackDet);
                 return userid;

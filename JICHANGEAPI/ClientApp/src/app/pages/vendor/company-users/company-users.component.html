@@ -8,7 +8,7 @@
     <h2 *transloco="let t; read: 'company'" class="text-lg font-bold">
       {{ t("companyUsers") }}
     </h2>
-    <button
+    <!-- <button
       (click)="openCompanyUsersDialog()"
       class="flex flex-row items-center btn btn-sm bg-primary hover:bg-accent text-neutral-50 btn-ghost shadow"
     >
@@ -18,7 +18,15 @@
       <p *transloco="let t; read: 'company'" class="text-sm">
         {{ t("addCompanyButton") }}
       </p>
-    </button>
+    </button> -->
+    <ng-container *transloco="let t; read: 'company'">
+      <app-add-item-button
+        [title]="t('addCompanyButton')"
+        [icon]="'add'"
+        (buttonCliked)="openCompanyUsersDialog()"
+      >
+      </app-add-item-button>
+    </ng-container>
   </div>
   <div
     [formGroup]="headersFormGroup"
@@ -30,14 +38,11 @@
           <button
             tabindex="0"
             role="button"
-            class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1"
+            class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1 flex flex-row items-center"
           >
             <span>
-              <i class="bi bi-layout-three-columns text-sm"></i>
+              <mat-icon class="text-lg mb-0.5" matPrefix>table_chart</mat-icon>
             </span>
-            <p *transloco="let t; read: 'defaults'" class="text-xs">
-              {{ t("columns") }}
-            </p>
           </button>
           <ul
             tabindex="0"
@@ -68,8 +73,8 @@
             [placeholder]="t('searchBy')"
             [formControl]="tableSearch"
           />
-          <span class="absolute left-2 top-1/2 -translate-y-1/2">
-            <i class="bi bi-search text-neutral-content text-lg"></i>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2">
+            <mat-icon matPrefix class="mt-1">search</mat-icon>
           </span>
         </div>
       </div>
@@ -195,8 +200,13 @@
                       (click)="resendCredentialsDialog.showModal()"
                       matTooltip="{{ t('resend') }}"
                     >
-                      <span class="text-lg text-warning-content">
+                      <!-- <span class="text-lg text-warning-content">
                         <i class="bi bi-send"></i>
+                      </span> -->
+                      <span>
+                        <mat-icon class="text-warning-content" matPrefix
+                          >send</mat-icon
+                        >
                       </span>
                     </button>
                     <button
@@ -205,8 +215,11 @@
                       (click)="openEditCompanyUserDialog(element)"
                       matTooltip="{{ t('edit') }}"
                     >
-                      <span class="text-lg text-info">
+                      <!-- <span class="text-lg text-info">
                         <i class="bi bi-pen text-lg"></i>
+                      </span> -->
+                      <span>
+                        <mat-icon class="text-info" matPrefix>edit</mat-icon>
                       </span>
                     </button>
                   </div>
@@ -377,8 +390,10 @@
                         (click)="resendCredentialsDialog.showModal()"
                         matTooltip="{{ t('resend') }}"
                       >
-                        <span class="text-lg text-warning-content">
-                          <i class="bi bi-send"></i>
+                        <span>
+                          <mat-icon class="text-warning-content" matPrefix
+                            >send</mat-icon
+                          >
                         </span>
                       </button>
                       <button
@@ -387,8 +402,8 @@
                         (click)="openEditCompanyUserDialog(element)"
                         matTooltip="{{ t('edit') }}"
                       >
-                        <span class="text-lg text-info">
-                          <i class="bi bi-pen text-lg"></i>
+                        <span>
+                          <mat-icon class="text-info" matPrefix>edit</mat-icon>
                         </span>
                       </button>
                     </div>

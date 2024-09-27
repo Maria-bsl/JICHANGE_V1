@@ -17,6 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -48,6 +49,7 @@ import { FileHandlerService } from 'src/app/core/services/file-handler.service';
 import { TableDataService } from 'src/app/core/services/table-data.service';
 import { InvoiceService } from 'src/app/core/services/vendor/invoice.service';
 import { VENDOR_TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinite-spinner/loader-infinite-spinner.component';
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
@@ -70,6 +72,8 @@ import { PerformanceUtils } from 'src/app/utilities/performance-utils';
     MatSortModule,
     RouterLink,
     MatTooltipModule,
+    AddItemButtonComponent,
+    MatIconModule,
   ],
   templateUrl: './created-invoice-list.component.html',
   styleUrl: './created-invoice-list.component.scss',

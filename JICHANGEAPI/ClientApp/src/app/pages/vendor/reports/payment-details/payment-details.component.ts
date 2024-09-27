@@ -83,6 +83,7 @@ import {
 } from 'mat-table-exporter';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-payment-details',
@@ -99,6 +100,7 @@ import autoTable from 'jspdf-autotable';
     MatSortModule,
     ReportFormInvoiceDetailsComponent,
     MatTableExporterModule,
+    MatIconModule,
   ],
   templateUrl: './payment-details.component.html',
   styleUrl: './payment-details.component.scss',
