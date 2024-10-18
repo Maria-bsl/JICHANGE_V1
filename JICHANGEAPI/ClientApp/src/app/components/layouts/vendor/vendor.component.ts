@@ -22,12 +22,18 @@ import { FooterComponent } from '../footer/footer.component';
 import { VendorHeaderComponent } from '../vendor-header/vendor-header.component';
 import { vendorAnimations } from '../main/router-transition-animations';
 import { BreadcrumbModule, BreadcrumbService } from 'xng-breadcrumb';
-import { TRANSLOCO_LOADER, TRANSLOCO_SCOPE, TranslocoModule, TranslocoService } from '@ngneat/transloco';
+import {
+  TRANSLOCO_LOADER,
+  TRANSLOCO_SCOPE,
+  TranslocoModule,
+  TranslocoService,
+} from '@ngneat/transloco';
 import { NgxLoadingModule } from 'ngx-loading';
 import { NgxSonnerToaster } from 'ngx-sonner';
 import { TranslocoHttpLoader } from '../../../transloco-loader';
 import { AppUtilities } from '../../../utilities/app-utilities';
 import { zip } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-vendor',
@@ -42,7 +48,8 @@ import { zip } from 'rxjs';
     BreadcrumbModule,
     NgxLoadingModule,
     NgxSonnerToaster,
-    TranslocoModule
+    TranslocoModule,
+    MatIconModule,
   ],
   animations: [vendorAnimations],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,7 +71,7 @@ export class VendorComponent implements OnInit, AfterViewInit {
     private tr: TranslocoService,
     private cdr: ChangeDetectorRef,
     @Inject(TRANSLOCO_SCOPE) private scope: any
-  ) { }
+  ) {}
   private createVendorRoutesTranslation() {
     /*let t = this.tr.translate(`vendorRoutes`);
     console.log(t);
@@ -82,78 +89,27 @@ export class VendorComponent implements OnInit, AfterViewInit {
     });*/
   }
   private vendorRoutesNames(result: any) {
-    this.breadcrumbService.set(
-      '@profile',
-      result.profile
-    );
-    this.breadcrumbService.set(
-      '@vendor',
-      result.home
-    );
-    this.breadcrumbService.set(
-      '@customers',
-      result.customer
-    );
-    this.breadcrumbService.set(
-      '@view-customer',
-      result.detail
-    );
+    this.breadcrumbService.set('@profile', result.profile);
+    this.breadcrumbService.set('@vendor', result.home);
+    this.breadcrumbService.set('@customers', result.customer);
+    this.breadcrumbService.set('@view-customer', result.detail);
     this.breadcrumbService.set(
       '@view-customer-transactions',
       result.viewCustomerTransactions
     );
-    this.breadcrumbService.set(
-      '@company',
-      result.users
-    );
-    this.breadcrumbService.set(
-      '@invoice-created',
-      result.created
-    );
-    this.breadcrumbService.set(
-      '@invoice-amendments',
-      result.amendment
-    );
-    this.breadcrumbService.set(
-      '@invoice-cancelled',
-      result.cancelled
-    );
-    this.breadcrumbService.set(
-      '@invoice-generated',
-      result.invoice
-    );
-    this.breadcrumbService.set(
-      '@overview',
-      result.overview
-    );
-    this.breadcrumbService.set(
-      '@transactions',
-      result.transactionsReport
-    );
-    this.breadcrumbService.set(
-      '@transactions-id',
-      result.detail
-    );
-    this.breadcrumbService.set(
-      '@invoice',
-      result.invoiceReport
-    );
-    this.breadcrumbService.set(
-      '@payments',
-      result.paymentReport
-    );
-    this.breadcrumbService.set(
-      '@amendment',
-      result.amendmentReport
-    );
-    this.breadcrumbService.set(
-      '@customer',
-      result.customerReport
-    );
-    this.breadcrumbService.set(
-      '@addInvoice',
-      result.addInvoice
-    );
+    this.breadcrumbService.set('@company', result.users);
+    this.breadcrumbService.set('@invoice-created', result.created);
+    this.breadcrumbService.set('@invoice-amendments', result.amendment);
+    this.breadcrumbService.set('@invoice-cancelled', result.cancelled);
+    this.breadcrumbService.set('@invoice-generated', result.invoice);
+    this.breadcrumbService.set('@overview', result.overview);
+    this.breadcrumbService.set('@transactions', result.transactionsReport);
+    this.breadcrumbService.set('@transactions-id', result.detail);
+    this.breadcrumbService.set('@invoice', result.invoiceReport);
+    this.breadcrumbService.set('@payments', result.paymentReport);
+    this.breadcrumbService.set('@amendment', result.amendmentReport);
+    this.breadcrumbService.set('@customer', result.customerReport);
+    this.breadcrumbService.set('@addInvoice', result.addInvoice);
   }
   private prepareVendorRoutes() {
     this.breadcrumbService.set(
@@ -271,7 +227,7 @@ export class VendorComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.hideNavBarOnScroll();
-    this.prepareVendorRoutes()
+    this.prepareVendorRoutes();
     //this.createVendorRoutesTranslation();
   }
   prepareRoute(outlet: RouterOutlet, animate: string): boolean {

@@ -148,7 +148,8 @@
         "noBranchesFound": "Hakukuwa na tawi lililopatikana.",
         "noRegionsFound": "Hakukuwa na maeneo yaliyopatikana.",
         "noDistrictsFound": "Hakuna wilaya zilizohifadhiwa katika {}.",
-        "noWardsFound": "Hakuna kata zilizohifadhiwa katika {}."
+        "noWardsFound": "Hakuna kata zilizohifadhiwa katika {}.",
+        "accountNumberExists": "Namba ya akaunti {} tayari ipo."
       }
     }
   },

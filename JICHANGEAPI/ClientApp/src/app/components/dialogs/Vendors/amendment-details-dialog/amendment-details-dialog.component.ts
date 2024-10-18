@@ -75,6 +75,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatDatepickerModule,
     MatNativeDateModule,
     NativeDateModule,
+    MatIconModule,
   ],
   providers: [
     DatePipe,

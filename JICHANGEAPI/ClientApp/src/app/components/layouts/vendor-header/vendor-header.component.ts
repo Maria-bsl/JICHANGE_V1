@@ -42,6 +42,7 @@ import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 import { CompanyUser } from 'src/app/core/models/vendors/company-user';
 import { DesignationService } from '../../../core/services/bank/setup/designation/designation.service';
 import { Designation } from '../../../core/models/bank/setup/designation';
+import { MatIconModule } from '@angular/material/icon';
 
 type Header = {
   name: string;
@@ -68,6 +69,7 @@ type Header = {
     ReactiveFormsModule,
     DisplayMessageBoxComponent,
     NgxLoadingModule,
+    MatIconModule,
   ],
 })
 export class VendorHeaderComponent implements OnInit {
@@ -78,7 +80,7 @@ export class VendorHeaderComponent implements OnInit {
   public routeLoading: boolean = false;
   public formGroup!: FormGroup;
   public roleActs: RoleAct[] = [];
-  public designations: Designation[] = []
+  public designations: Designation[] = [];
   private reportsMap = {
     overview: 0,
     transactionDetails: 1,
@@ -253,7 +255,6 @@ export class VendorHeaderComponent implements OnInit {
           routerLink: this.fb.control(dropdown.routerLink, []),
           isActive: this.fb.control(false, []),
         });
-        //(group.get('dropdowns') as FormArray).push(col);
         let found = this.roleActs.find(
           (e) => e.Sno === Number(companyUser.Userpos)
         );

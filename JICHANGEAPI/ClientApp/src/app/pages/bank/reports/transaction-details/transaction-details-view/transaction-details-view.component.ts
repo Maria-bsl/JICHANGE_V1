@@ -34,6 +34,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-transaction-details-view',
@@ -48,6 +49,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     DisplayMessageBoxComponent,
     LoaderInfiniteSpinnerComponent,
     MatTooltipModule,
+    MatIconModule,
   ],
   providers: [
     {

@@ -86,6 +86,7 @@ import {
 } from 'mat-table-exporter';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-invoice-cancelled',
@@ -106,6 +107,7 @@ import autoTable from 'jspdf-autotable';
     MatSortModule,
     ReportFormInvoiceDetailsComponent,
     MatTableExporterModule,
+    MatIconModule,
   ],
   templateUrl: './invoice-cancelled.component.html',
   styleUrl: './invoice-cancelled.component.scss',

@@ -211,7 +211,11 @@
               />
               @if (email && email.invalid && email.touched) {
               <mat-error>
+                @if (email.hasError('required')) {
                 {{ t("errors.emailId") }}
+                } @else if (email.hasError('email')) {
+                {{ t("errors.emailId") }}
+                }
               </mat-error>
               }
             </mat-form-field>

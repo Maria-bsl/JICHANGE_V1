@@ -214,20 +214,28 @@
               >
                 <button
                   (click)="openReceipt(payment)"
-                  class="btn btn-sm bg-transparent lg:block hidden"
+                  class="btn btn-sm bg-transparent border-none"
                   matTooltip="{{ t('view') }}"
                 >
-                  <span>
+                  <!-- <span>
                     <i class="bi bi-eye text-lg text-warning"></i>
+                  </span> -->
+                  <span class="text-warning">
+                    <mat-icon class="text-warning" matPrefix
+                      >visibility</mat-icon
+                    >
                   </span>
                 </button>
                 <button
                   (click)="downloadReceipt(payment)"
-                  class="btn btn-sm bg-transparent"
+                  class="btn btn-sm bg-transparent border-none"
                   matTooltip="{{ t('download') }}"
                 >
-                  <span>
+                  <!-- <span>
                     <i class="bi bi-download text-lg text-purple-600"></i>
+                  </span> -->
+                  <span class="text-linkBlue">
+                    <mat-icon matPrefix>download</mat-icon>
                   </span>
                 </button>
               </div>

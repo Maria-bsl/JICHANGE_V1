@@ -82,6 +82,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatNativeDateModule,
     MatSelectModule,
     MatTooltipModule,
+    MatIconModule,
   ],
   templateUrl: './add-invoice.component.html',
   styleUrl: './add-invoice.component.scss',

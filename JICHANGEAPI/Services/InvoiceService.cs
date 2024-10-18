@@ -697,11 +697,28 @@ namespace JichangeApi.Services
                 }
                 InsertInvoiceDetails(addAmendForm.details, addAmendForm.sno, (long) addAmendForm.userid, (long) addAmendForm.compid);
 
-                
+                /*found.goods_status = "Approved";
+                string controlNumber = invoiceForm.sno.ToString().PadLeft(8, '0');
+                invoice.Control_No = "T" + controlNumber;
+                //invoice.UpdateInvoiMasForTRA1(invoice);
+                invoice.approval_status = "2";
+                invoice.approval_date = System.DateTime.Now;
+                invoice.UpdateInvoice(invoice);*/
+                found.goods_status = "Pending";
+                found.approval_status = "1";
+                found.approval_date = System.DateTime.Now;
+                found.UpdateInvoice(invoice);
+
+
                 CustomerMaster customer = new CustomerMaster();
                 var customerdetails = customer.CustGetId(invoice.Com_Mas_Sno, invoice.Chus_Mas_No);
                 var total = invoice.Total.ToString("N2") + " /= " + invoice.Currency_Code;
                 // Send Amended Invoice to Customer EMAIL & SMS
+
+
+
+
+
                 if (customerdetails.Phone != null)
                 {
                     try { 
@@ -1139,7 +1156,7 @@ namespace JichangeApi.Services
                 INVOICE found = new INVOICE().GetINVOICEMas1(getinvoicedata.Com_Mas_Sno, getinvoicedata.Inv_Mas_Sno);
                 AppendUpdateAuditTrail(invoice.Inv_Mas_Sno, found, invoice, userid);
                 SmsService sms = new SmsService();
-                sms.SendCustomerDeliveryCode(getinvoicedata.Mobile, otp);
+                sms.SendCustomerDeliveryCode(getinvoicedata.Mobile, otp, getinvoicedata.Invoice_No);
                 if (!string.IsNullOrEmpty(getinvoicedata.Email)) { 
                     EmailUtils.SendCustomerDeliveryCodeEmail(getinvoicedata.Email, otp, getinvoicedata.Mobile); 
                 }

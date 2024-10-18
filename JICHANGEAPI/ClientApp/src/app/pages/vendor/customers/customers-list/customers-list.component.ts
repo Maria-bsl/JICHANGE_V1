@@ -62,6 +62,8 @@ import { DeleteBankUserForm as DeleteCustomerForm } from 'src/app/core/models/ba
 import { VendorLoginResponse } from 'src/app/core/models/login-response';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CustomerDetailsForm } from 'src/app/core/models/bank/reports/customer-details-form';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-customers-list',
@@ -86,6 +88,8 @@ import { CustomerDetailsForm } from 'src/app/core/models/bank/reports/customer-d
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    AddItemButtonComponent,
+    MatIconModule,
   ],
   providers: [
     {

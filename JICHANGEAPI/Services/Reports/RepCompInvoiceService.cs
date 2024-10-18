@@ -77,6 +77,23 @@ namespace JichangeApi.Services.Reports
                 throw new Exception(ex.Message);
             }
         }
+        public List<INVOICE> GetCustomerActiveInvoices(long sno)
+        {
+            try
+            {
+                INVOICE inv = new INVOICE();
+                var result = inv.GetPendingDeliveryInvoices(sno);
+                return result;
+            }
+            catch(Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new Exception(ex.Message);
+
+            }
+        }
         public List<INVOICE> GetInvoiceDetailsReport(InvDetRepModel invDetRepModel)
         {
             try

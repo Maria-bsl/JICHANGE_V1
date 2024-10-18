@@ -76,6 +76,7 @@ import {
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { TableUtilities } from 'src/app/utilities/table-utilities';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-amendments',
@@ -92,6 +93,7 @@ import { TableUtilities } from 'src/app/utilities/table-utilities';
     MatSortModule,
     ReportFormInvoiceDetailsComponent,
     MatTableExporterModule,
+    MatIconModule,
   ],
   templateUrl: './amendments.component.html',
   styleUrl: './amendments.component.scss',

@@ -74,6 +74,7 @@ import { EmployeeDetail } from 'src/app/core/models/bank/setup/employee-detail';
 import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-report-form';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-invoice-details',
@@ -92,6 +93,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ReportFormDetailsComponent,
     MatTableExporterModule,
     MatCheckboxModule,
+    MatIconModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './invoice-details.component.html',

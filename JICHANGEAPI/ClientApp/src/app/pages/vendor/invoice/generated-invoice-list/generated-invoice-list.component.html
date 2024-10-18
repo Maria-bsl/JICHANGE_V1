@@ -22,14 +22,11 @@
           <button
             tabindex="0"
             role="button"
-            class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1"
+            class="btn btn-sm tracking-wide bg-white shadow rounded-lg m-1 flex flex-row items-center"
           >
             <span>
-              <i class="bi bi-layout-three-columns text-sm"></i>
+              <mat-icon class="text-lg mb-0.5" matPrefix>table_chart</mat-icon>
             </span>
-            <p *transloco="let t; read: 'defaults'" class="text-xs">
-              {{ t("columns") }}
-            </p>
           </button>
           <ul
             tabindex="0"
@@ -60,8 +57,8 @@
             [placeholder]="t('searchGeneratedInvoiceTable')"
             [formControl]="tableSearch"
           />
-          <span class="absolute left-2 top-1/2 -translate-y-1/2">
-            <i class="bi bi-search text-neutral-content text-lg"></i>
+          <span class="absolute top-1/2 left-2 -translate-y-1/2">
+            <mat-icon matPrefix class="mt-1">search</mat-icon>
           </span>
         </div>
       </div>
@@ -155,8 +152,11 @@
                         class="btn btn-sm btn-ghost border-purple-600 text-purple-600"
                         matTooltip="{{ t('amend') }}"
                       >
-                        <span class="material-symbols-outlined">
+                        <!-- <span class="material-symbols-outlined">
                           <i class="bi bi-arrow-repeat text-lg"></i>
+                        </span> -->
+                        <span class="text-purple-600">
+                          <mat-icon #matPrefix>restart_alt</mat-icon>
                         </span>
                       </button>
                       <button
@@ -167,8 +167,11 @@
                         "
                         matTooltip="{{ t('deliver') }}"
                       >
-                        <span class="text-green-600">
+                        <!-- <span class="text-green-600">
                           <i class="bi bi-truck text-lg"></i>
+                        </span> -->
+                        <span class="text-green-600">
+                          <mat-icon #matPrefix>local_shipping</mat-icon>
                         </span>
                       </button>
                       <button
@@ -177,8 +180,11 @@
                         (click)="cancelInvoice(element)"
                         matTooltip="{{ t('cancel') }}"
                       >
-                        <span class="text-danger-600">
+                        <!-- <span class="text-danger-600">
                           <i class="bi bi-x-circle"></i>
+                        </span> -->
+                        <span class="text-danger-600">
+                          <mat-icon #matPrefix>close</mat-icon>
                         </span>
                       </button>
                     </ng-container>
@@ -188,8 +194,11 @@
                       (click)="openGeneratedInvoiceView(element)"
                       matTooltip="{{ t('view') }}"
                     >
-                      <span class="text-warning">
+                      <!-- <span class="text-warning">
                         <i class="bi bi-eye text-lg"></i>
+                      </span> -->
+                      <span class="text-warning">
+                        <mat-icon #matPrefix>visibility</mat-icon>
                       </span>
                     </button>
                     <button
@@ -198,8 +207,8 @@
                       matTooltip="{{ t('download') }}"
                       (click)="downloadInvoice(element)"
                     >
-                      <span class="material-symbols-outlined text-linkBlue">
-                        <i class="bi bi-download text-lg"></i>
+                      <span class="text-linkBlue">
+                        <mat-icon #matPrefix>download</mat-icon>
                       </span>
                     </button>
                   </div>
@@ -296,8 +305,8 @@
                           class="btn btn-sm btn-ghost border-purple-600 text-purple-600"
                           matTooltip="{{ t('amend') }}"
                         >
-                          <span class="material-symbols-outlined">
-                            <i class="bi bi-arrow-repeat text-lg"></i>
+                          <span class="text-purple-600">
+                            <mat-icon #matPrefix>restart_alt</mat-icon>
                           </span>
                         </button>
                         <button
@@ -312,7 +321,7 @@
                           matTooltip="{{ t('deliver') }}"
                         >
                           <span class="text-green-600">
-                            <i class="bi bi-truck text-lg"></i>
+                            <mat-icon #matPrefix>local_shipping</mat-icon>
                           </span>
                         </button>
                         <button
@@ -322,7 +331,7 @@
                           matTooltip="{{ t('cancel') }}"
                         >
                           <span class="text-danger-600">
-                            <i class="bi bi-x-circle"></i>
+                            <mat-icon #matPrefix>close</mat-icon>
                           </span>
                         </button>
                       </ng-container>
@@ -333,7 +342,7 @@
                         matTooltip="{{ t('view') }}"
                       >
                         <span class="text-warning">
-                          <i class="bi bi-eye text-lg"></i>
+                          <mat-icon #matPrefix>visibility</mat-icon>
                         </span>
                       </button>
                       <button
@@ -342,8 +351,8 @@
                         matTooltip="{{ t('download') }}"
                         (click)="downloadInvoice(element)"
                       >
-                        <span class="material-symbols-outlined text-linkBlue">
-                          <i class="bi bi-download text-lg"></i>
+                        <span class="text-linkBlue">
+                          <mat-icon #matPrefix>download</mat-icon>
                         </span>
                       </button>
                     </div>

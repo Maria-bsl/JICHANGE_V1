@@ -365,7 +365,7 @@ namespace JichangeApi.Utilities
                     var data = em.GetLatestEmailTextsListByFlow("5"); // Invoice Amendment
                  
                     mm.Subject = "Invoice Amendment";
-                    mm.Body = string.Format("Hello {0},<br /> Invoice number {1} has been amended.<br /> New invoice amount is {2}, reference number for payment is {3}. <br /><br />Regards, <br />{4} ", customername, invoiceno, amount, controlno, vendor);
+                    mm.Body = string.Format("Hello {0},<br /> Invoice number {1} has been amended and is waiting approval.<br /> New invoice amount is {2}, reference number for payment is {3}. <br /><br />Regards, <br />{4} ", customername, invoiceno, amount, controlno, vendor);
 
                     if (data != null)
                     {

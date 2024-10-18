@@ -131,19 +131,30 @@ namespace JichangeApi.Controllers.smsservices
 
         }
 
-        public void SendCustomerDeliveryCode(string Mobile_Number, string otp)
+        public void SendCustomerDeliveryCode(string Mobile_Number, string otp,string inv)
         {
             if (Mobile_Number != null)
             {
                 var mobileNumber = Mobile_Number;
 
-                var formattedMessageBody = FormatOtpDeliveryMessageBody(Mobile_Number, otp);
+                var formattedMessageBody = FormatOtpDeliveryMessageBody(Mobile_Number, otp,inv);
 
                 SendSMSAction(mobileNumber, formattedMessageBody);
 
             }
 
         }
+
+
+        public void SendMobileChangedMessage(string customerName,string mobileNo)
+        {
+            if (mobileNo != null)
+            {
+                var formattedBody = FormatMobileNumberChanged(customerName, mobileNo);
+                SendSMSAction(mobileNo, formattedBody);
+            }
+        }
+
 
         private static string FormatWelcomeMessageBody(string customerName)
         {
@@ -160,13 +171,17 @@ namespace JichangeApi.Controllers.smsservices
             return string.Format("{0},JICHANGE verification code is {1}", cust_number, code);
         }
 
+        private static string FormatMobileNumberChanged(string customerName,string mobileNumber)
+        {
+            return string.Format("Hello {0}, This is to inform you that your mobile number has changed to {1}.", customerName, mobileNumber);
+        }
 
-        private static string FormatOtpDeliveryMessageBody(string cust_number, string code)
+        private static string FormatOtpDeliveryMessageBody(string cust_number, string code,string inv)
         {
 
             string encrypt = PasswordGeneratorUtil.GetEncryptedData(cust_number);// MjU1NzUzNjg4ODY3
             var linkurl = ConfigurationManager.AppSettings["MyCodeUrl"] + encrypt;
-            return string.Format("{0},JICHANGE Confirmation code for delivery is {1}, verify through this link: {2}", cust_number, code, linkurl);
+            return string.Format("{0},JICHANGE Confirmation code for invoice {3} delivery is {1}, verify through this link: {2}", cust_number, code, linkurl,inv);
         }
 
         private void SendSMSAction(string visitorMobileNumber, string SmsBody)
@@ -192,6 +207,8 @@ namespace JichangeApi.Controllers.smsservices
                 StreamReader sr = new StreamReader(wr.GetResponseStream(), Encoding.Default);
                 string Res = sr.ReadToEnd();
                 Console.WriteLine(Res);
+
+                System.Diagnostics.Debug.WriteLine($"Message : " + Res);
             }
             catch (Exception Ex)
             {
@@ -248,7 +265,7 @@ namespace JichangeApi.Controllers.smsservices
             {
                 var mobileNumber = Mobile_Number;
 
-                var formattedMessageBody = string.Format("Hello {0}, Invoice number {1} has been amended. New invoice amount is {2}, reference number for payment is {3}. Regards,{4} ", customername,  invoiceno, amount, controlno, vendor);
+                var formattedMessageBody = string.Format("Hello {0}, Invoice number {1} has been amended and is waiting approval. New invoice amount is {2}, reference number for payment is {3}. Regards,{4} ", customername,  invoiceno, amount, controlno, vendor);
 
                 SendSMSAction(mobileNumber, formattedMessageBody);
 

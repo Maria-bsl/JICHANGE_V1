@@ -1,9 +1,11 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers;
 using JichangeApi.Controllers.setup;
+using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models;
 using JichangeApi.Models.form;
 using JichangeApi.Services.Reports;
+using JichangeApi.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +22,8 @@ namespace JichangeApi.Services
         private static readonly List<string> tableColumns = new List<string> { "cust_mas_sno", "customer_name", "pobox_no", "physical_address", "region_id", "district_sno", "ward_sno",
             "tin_no", "vat_no","contact_person","email_address","mobile_no", "posted_by", "posted_date", "comp_mas_sno" };
         private static readonly string tableName = "Customers";
+        private readonly InvoiceService invoiceService = new InvoiceService();
+        private readonly RepCompInvoiceService repInvoice = new RepCompInvoiceService();
         private void AppendInsertAuditTrail(long sno, CustomerMaster customerMaster, long userid)
         {
             var values = new List<string> { sno.ToString(), customerMaster.Cust_Name, customerMaster.PostboxNo, customerMaster.Address, customerMaster.Region_SNO.ToString(), customerMaster.DistSno.ToString(), customerMaster.WardSno.ToString(),
@@ -221,6 +225,43 @@ namespace JichangeApi.Services
                 if (exists != null && exists.Length > 0) throw new ArgumentException(exists);
                 AppendUpdateAuditTrail(customerMaster.Cust_Sno, found, customerMaster, (long)customersForm.userid);
                 customerMaster.CustUpdate(customerMaster);
+                var res = new INVOICE().GetInvRep(new List<long> { (long) customersForm.compid }, new List<long> { found.Cust_Sno }, "", "", false);
+                res = res.Where(e => e.Chus_Mas_No == found.Cust_Sno && e.Status.ToLower().Equals("active")).ToList(); 
+                if (found.Phone != customerMaster.Phone)
+                {
+                    SmsService sms = new SmsService();
+                    sms.SendMobileChangedMessage(found.Cust_Name, customerMaster.Phone);
+                    for (var i =0; i < res.Count(); i++)
+                    {
+                        if (res[i].delivery_status == null && res[i].approval_status == "2")
+                        {
+                            var total = res[i].Total.ToString("N2") + " /= " + res[i].Currency_Code;
+                            sms.SendCustomerInvoiceSMS(found.Cust_Name, res[i].Invoice_No, res[i].Control_No, res[i].Company_Name, total, customerMaster.Phone);
+                        }
+                        if (res[i].delivery_status != null && res[i].delivery_status.ToLower().Equals("pending"))
+                        {
+                            var otp = Services.OTP.GenerateOTP(6);
+                            sms.SendCustomerDeliveryCode(customerMaster.Phone, otp,res[i].Invoice_No);
+                        }
+                    }
+                }
+                if (found.Email != customerMaster.Email)
+                {
+                    for (var i = 0; i < res.Count(); i++)
+                    {
+                        if (res[i].approval_status == "2" && res[i].delivery_status == null)
+                        {
+                            var total = res[i].Total.ToString("N2") + " /= " + res[i].Currency_Code;
+                            EmailUtils.SendCustomerNewInvoiceEmail(customerMaster.Email, found.Cust_Name, res[i].Invoice_No, res[i].Control_No, res[i].Company_Name, total);
+                        }
+                        if (res[i].delivery_status.ToLower().Equals("pending"))
+                        {
+                            var otp = Services.OTP.GenerateOTP(6);
+                            EmailUtils.SendCustomerDeliveryCodeEmail(res[i].Email, otp, res[i].Mobile);
+                        }
+                    }
+                }
+
                 return FindCustomer((long)customersForm.compid, customersForm.CSno);
             }
             catch (ArgumentException ex)

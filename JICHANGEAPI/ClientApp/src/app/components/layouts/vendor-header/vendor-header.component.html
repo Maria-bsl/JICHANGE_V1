@@ -67,15 +67,15 @@
     <button
       [routerLink]="'/vendor'"
       *ngIf="vendor$ | async as vendor"
-      class="flex items-center btn btn-ghost bg-white hover:bg-darkPurple w-fit space-x-2 relative"
+      class="flex items-center btn btn-ghost bg-white group group-hover:bg-darkPurple w-fit space-x-2 relative"
     >
       <img
         class="object-contain max-h-full max-w-max"
-        src="/ClientApp/src/assets/img/logo.png"
+        src="assets/img/logo.png"
         alt="TE Logo"
         loading="lazy"
       />
-      <h1 class="text-lg head-title lg:block hidden">
+      <h1 class="text-lg head-title lg:block hidden group-hover:text-white">
         {{ vendor.Company_Name }}
       </h1>
     </button>
@@ -127,7 +127,7 @@
               {{ header.get("label")?.value }}
             </p>
             <span *ngIf="getHeaderDropdownArray(ind).controls.length > 0">
-              <i class="bi bi-chevron-down"></i>
+              <mat-icon matPrefix>arrow_drop_down</mat-icon>
             </span>
           </a>
         </ng-template>
@@ -162,7 +162,7 @@
           <div class="avatar placeholder">
             <div class="bg-white text-black rounded-full w-8 md:w-10">
               <span>
-                <i class="bi bi-person-circle text-lg"></i>
+                <mat-icon matPrefix>person</mat-icon>
               </span>
             </div>
           </div>
@@ -177,7 +177,8 @@
               class="flex flex-row items-center"
             >
               <span>
-                <i class="bi bi-person-circle text-lg"></i>
+                <!-- <i class="bi bi-person-circle text-lg"></i> -->
+                <mat-icon matPrefix>account_circle</mat-icon>
               </span>
               <div class="flex flex-row items-center justify-between w-full">
                 <p class="text-sm">{{ getUserProfile().Uname }}</p>
@@ -194,7 +195,7 @@
               class="flex flex-row items-center text-red-600"
             >
               <span>
-                <i class="bi bi-box-arrow-right text-lg"></i>
+                <mat-icon matPrefix>logout</mat-icon>
               </span>
               <p *transloco="let t; read: 'roles'">{{ t("logout") }}</p>
             </button>

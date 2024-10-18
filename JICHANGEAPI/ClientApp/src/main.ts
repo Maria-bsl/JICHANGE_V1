@@ -24,13 +24,16 @@ import {
 } from '@angular/router';
 import { toast, NgxSonnerToaster } from 'ngx-sonner';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { provideTransloco } from '@ngneat/transloco';
+import { TranslocoHttpLoader } from './app/transloco-loader';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom([
       AppRoutingModule,
       HttpClientModule,
-      TranslocoRootModule,
+      //TranslocoRootModule,
       MatDialogModule,
       NgIdleKeepaliveModule.forRoot(),
     ]),
@@ -38,6 +41,18 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptors([authInterceptor, timeoutInterceptor])),
     provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideNativeDateAdapter(),
+    provideTransloco({
+      config: {
+        //availableLangs: ['en', 'sw', 'ln', 'fr'],
+        availableLangs: ['en'],
+        defaultLang: 'en',
+        // Remove this option if your application doesn't support changing language in runtime.
+        reRenderOnLangChange: true,
+        prodMode: environment.production,
+        //prodMode: !isDevMode(),
+      },
+      loader: TranslocoHttpLoader,
+    }),
     //provideToastr(),
     // provideToastr({
     //   timeOut: 5000,

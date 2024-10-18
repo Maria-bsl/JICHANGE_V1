@@ -185,7 +185,7 @@ export class AddVendorComponent implements OnInit {
       telno: this.fb.control('', [
         Validators.pattern(AppUtilities.phoneNumberPrefixRegex),
       ]),
-      email: this.fb.control('', []),
+      email: this.fb.control('', [Validators.required, Validators.email]),
       dummy: this.fb.control(true, [Validators.required]),
       details: this.fb.array([], []),
     });
@@ -340,6 +340,15 @@ export class AddVendorComponent implements OnInit {
       this.compname.value
     );
     if (errorMessage.length > 0) return errorMessage;
+    if (
+      message.toLocaleLowerCase().startsWith('the account number') &&
+      message.toLocaleLowerCase().includes('already exists')
+    ) {
+      let match = message.match(/\d+/)!;
+      return this.tr
+        .translate('company.summary.companyForm.dialogs.accountNumberExists')
+        .replace('{}', match[0]);
+    }
     switch (message.toLocaleLowerCase()) {
       case 'Missing Company Name"'.toLocaleLowerCase():
         return this.tr.translate(

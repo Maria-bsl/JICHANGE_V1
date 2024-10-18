@@ -360,6 +360,7 @@ export class HeaderComponent implements OnInit {
   }
   private requestLogout() {
     this.routeLoading = true;
+    console.log(this.getUserProfile());
     this.loginService
       .logout({ userid: this.getUserProfile().Usno })
       .then((result) => {

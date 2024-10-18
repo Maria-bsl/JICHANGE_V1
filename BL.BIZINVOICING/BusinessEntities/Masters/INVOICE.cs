@@ -2728,7 +2728,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Total = (decimal)c.total_amount,
                                     Mobile = cus.mobile_no,
                                     AuditBy = c.posted_by,
-                                    Audit_Date = (DateTime)c.posted_date
+                                    Audit_Date = (DateTime)c.posted_date,
+                                    Invoice_No = c.invoice_no
                                 }).FirstOrDefault();
                 if (adetails != null)
                     return adetails;
@@ -2864,6 +2865,50 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                                  }).ToList();
                     return listinvoice;
                 }
+            }
+        }
+
+        public List<INVOICE> GetPendingDeliveryInvoices(long sno)
+        {
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                List<INVOICE> invoices = (from c in context.invoice_master
+                                          join cu in context.company_users on c.posted_by equals cu.comp_users_sno.ToString()
+                                          join det in context.customer_master on c.cust_mas_sno equals det.cust_mas_sno
+                                          join c1 in context.company_master on c.comp_mas_sno equals c1.comp_mas_sno
+                                          where c.cust_mas_sno == sno && c.due_date > DateTime.Today && c.invoice_expired > DateTime.Today
+                                          select new INVOICE
+                                          {
+                                              Inv_Mas_Sno = c.inv_mas_sno,
+                                              Invoice_No = c.invoice_no,
+                                              Chus_Mas_No = det.cust_mas_sno,
+                                              Chus_Name = det.customer_name,
+                                              Company_Name = c1.company_name,
+                                              Currency_Code = c.currency_code,
+                                              Payment_Type = c.payment_type,
+                                              Customer_ID_Type = c.customer_id_type,
+                                              Customer_ID_No = c.customer_id_no,
+                                              Total = (decimal)c.total_amount,
+                                              AuditBy = cu.username,
+                                              Audit_Date = (DateTime)c.posted_date,
+                                              Total_Vt = (decimal)c.vat_amount,
+                                              Total_Without_Vt = (decimal)c.total_without_vat,
+                                              Control_No = c.control_no,
+                                              p_date = (DateTime)c.posted_date,
+                                              Invoice_Expired_Date = (DateTime)c.invoice_expired,
+                                              Due_Date = (DateTime)c.due_date,
+                                              Invoice_Date = (DateTime)c.invoice_date,
+                                              warrenty = c.warrenty,
+                                              goods_status = c.goods_status,
+                                              delivery_status = c.delivery_status,
+                                              approval_date = approval_date,
+                                              Status = c.delivery_status.ToLower() == "delivered" ? "Completed" :
+                                                       c.due_date < DateTime.Today && c.invoice_expired < DateTime.Today ? "Expired" :
+                                                       c.due_date < DateTime.Today ? "Overdue" :
+                                                       "Active"
+                                          }).OrderBy(e => e.Company_Name).ToList();
+
+                return invoices ?? new List<INVOICE>();
             }
         }
         public List<INVOICE> GetInvRep(List<long> companyIds,List<long> customerIds, string stdate, string enddate,bool allowCancelInvoice)

@@ -61,6 +61,7 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 import { TableUtilities } from 'src/app/utilities/table-utilities';
 import { SubmitMessageBoxComponent } from '../../../components/dialogs/submit-message-box/submit-message-box.component';
+import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
   selector: 'app-company-users',
@@ -84,6 +85,7 @@ import { SubmitMessageBoxComponent } from '../../../components/dialogs/submit-me
     MatSelectModule,
     MatRadioModule,
     SubmitMessageBoxComponent,
+    AddItemButtonComponent,
   ],
   templateUrl: './company-users.component.html',
   styleUrl: './company-users.component.scss',

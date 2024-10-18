@@ -124,7 +124,9 @@ namespace JichangeApi.Services.Companies
                 companyUsers.PostedDate = DateTime.Now;
                 companyUsers.ExpiryDate = System.DateTime.Now.AddMonths(3);
                 companyUsers.PostedBy = userid.ToString();
-                companyUsers.Userpos = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
+                //companyUsers.Userpos = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
+                var userPosition = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
+                companyUsers.Userpos = userPosition;
                 long addedCompSno = companyUsers.AddCompanyUsers1(companyUsers);
                 companyUsers.CompuserSno = addedCompSno;
                 CompanyUsersService.AppendInsertAuditTrail(addedCompSno, companyUsers, userid);
@@ -176,6 +178,60 @@ namespace JichangeApi.Services.Companies
             try
             {
                 CompanyUsers companyUsers = new CompanyUsers();
+                if (companyBankMaster.ValidateCount(companyBankMaster.CompName.ToLower(), companyBankMaster.TinNo))
+                {
+                    return new List<string> { "Company name exists" };
+                }
+                else if (companyBankMaster.ValidateTinNumber(companyBankMaster.TinNo))
+                {
+                    return new List<string> { "Tin number exists" };
+                }
+                else if (companyUsers.ValidateduplicateEmail1(companyBankMaster.Email))
+                {
+                    return new List<string> { "Email exists" };
+                }
+                else if (companyUsers.ValidateMobile(companyBankMaster.MobNo))
+                {
+                    return new List<string> { "Mobile number exists" };
+                }
+                else if (companyUsers.Validateduplicateuser1(companyBankMaster.MobNo))
+                {
+                    return new List<string> { "User already exists" };
+                }
+                else
+                {
+                    return new List<string>();
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new Exception(ex.Message);
+            }
+        }
+        private List<string> CheckCompanyBankErrors(CompanyBankMaster companyBankMaster, CompanyBankAddModel companyBankAddModel)
+        {
+            try
+            {
+                CompanyUsers companyUsers = new CompanyUsers();
+                for (int i = 0; i < companyBankAddModel.details.Count(); i++)
+                {
+                    if (companyBankAddModel.details[i].AccountNo != null && companyBankAddModel.details[i].AccountNo.Length > 0)
+                    {
+                        var detail = companyBankAddModel.details[i];
+                        var isInvalidAccount = detail.Validateaccount(detail.AccountNo);
+                        if (isInvalidAccount)
+                        {
+                            return new List<string> { "The account number " + detail.AccountNo + " already exists." };
+                        }
+                    }
+                }
                 if (companyBankMaster.ValidateCount(companyBankMaster.CompName.ToLower(), companyBankMaster.TinNo))
                 {
                     return new List<string> { "Company name exists" };
@@ -256,6 +312,10 @@ namespace JichangeApi.Services.Companies
                     }
                 }
             }
+            catch (ArgumentException e)
+            {
+                throw new ArgumentException(e.Message);
+            }
             catch (Exception ex)
             {
                 pay.Message = ex.ToString();
@@ -303,6 +363,8 @@ namespace JichangeApi.Services.Companies
             {
                 CompanyBankMaster companyBankMaster = CreateCompanyBankL(addCompanyBankL);
                 List<string> errors = CheckCompanyBankErrors(companyBankMaster);
+                var isInvalidAccount = companyBankMaster.Validateaccount(addCompanyBankL.accno);
+                if (isInvalidAccount) throw new ArgumentException("The account number " + addCompanyBankL.accno + " already exists.");
                 if (errors.Count > 0) { throw new Exception(errors[0]); }
                 long compsno = companyBankMaster.AddCompany(companyBankMaster);
                 AppendInsertAuditTrail(compsno, companyBankMaster, (long)addCompanyBankL.userid);
@@ -325,6 +387,10 @@ namespace JichangeApi.Services.Companies
                 {
                     throw new Exception("Failed to create company");
                 }
+            }
+            catch (ArgumentException e)
+            {
+                throw new ArgumentException(e.Message);
             }
             catch (Exception ex)
             {
@@ -368,7 +434,7 @@ namespace JichangeApi.Services.Companies
             try
             {
                 CompanyBankMaster companyBankMaster = CreateCompanyBank(companyBankAddModel);
-                List<string> errors = CheckCompanyBankErrors(companyBankMaster);
+                List<string> errors = CheckCompanyBankErrors(companyBankMaster, companyBankAddModel);
                 if (errors.Count > 0) { throw new ArgumentException(errors[0]); }
                 long addedCompany = companyBankMaster.AddCompany(companyBankMaster);
                 AppendInsertAuditTrail(addedCompany, companyBankMaster, (long)companyBankAddModel.userid);
