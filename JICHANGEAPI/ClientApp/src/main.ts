@@ -2,7 +2,6 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import { TranslocoRootModule } from './app/transloco-root.module';
 import {
   HttpClientModule,
   provideHttpClient,
@@ -45,7 +44,9 @@ bootstrapApplication(AppComponent, {
       config: {
         //availableLangs: ['en', 'sw', 'ln', 'fr'],
         availableLangs: ['en'],
-        defaultLang: 'en',
+        defaultLang: localStorage.getItem('activeLang')
+          ? localStorage.getItem('activeLang')?.toString()
+          : 'en',
         // Remove this option if your application doesn't support changing language in runtime.
         reRenderOnLangChange: true,
         prodMode: environment.production,

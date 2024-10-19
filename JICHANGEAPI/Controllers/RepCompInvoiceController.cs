@@ -7,7 +7,6 @@ using JichangeApi.Services.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -50,7 +49,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CompanyBankMaster> customers = customerService.GetCompanyNamesList((long) singletonSno.Sno);
+                List<CompanyBankMaster> customers = customerService.GetCompanyNamesList((long)singletonSno.Sno);
                 return GetSuccessResponse(customers);
             }
             catch (Exception ex)
@@ -108,7 +107,7 @@ namespace JichangeApi.Controllers
             try
             {
                 List<INVOICE> invoices = repCompInvoiceService.GetInvoiceReport(invoiceDetailsForm);
-                return GetSuccessResponse(invoices);    
+                return GetSuccessResponse(invoices);
             }
             catch (Exception ex)
             {

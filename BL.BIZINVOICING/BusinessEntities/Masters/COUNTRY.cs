@@ -1,10 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http.Cors;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -47,7 +44,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return false;
             }
         }
-        public bool IsDuplicatedName(string name,long sno)
+        public bool IsDuplicatedName(string name, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {

@@ -1,19 +1,18 @@
 ﻿
+using BL.BIZINVOICING.BusinessEntities.ConstantFile;
 using BL.BIZINVOICING.BusinessEntities.Masters;
+using JichangeApi.Controllers.smsservices;
+using JichangeApi.Models.form;
 using JichangeApi.Models.form.setup.insert;
+using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using PasswordGenerator;
-using System.Net.Mail;
-using System.Net;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using JichangeApi.Models.form;
-using JichangeApi.Models.form.setup.remove;
-using JichangeApi.Controllers.smsservices;
 
 namespace JichangeApi.Controllers.setup
 {
@@ -145,7 +144,7 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        private string GetUserFullname(string firstname,string middlename,string lastname)
+        private string GetUserFullname(string firstname, string middlename, string lastname)
         {
             if (middlename == null && lastname != null)
             {
@@ -157,7 +156,7 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        private EMP_DET CreateEmployeDetail(AddBankUserForm addBankUserForm,DESIGNATION designation)
+        private EMP_DET CreateEmployeDetail(AddBankUserForm addBankUserForm, DESIGNATION designation)
         {
             EMP_DET employeeDetails = new EMP_DET();
             employeeDetails.Emp_Id_No = addBankUserForm.empid;
@@ -181,7 +180,7 @@ namespace JichangeApi.Controllers.setup
             return employeeDetails;
         }
 
-        private HttpResponseMessage InsertBankUser(EMP_DET employee,AddBankUserForm addBankUserForm)
+        private HttpResponseMessage InsertBankUser(EMP_DET employee, AddBankUserForm addBankUserForm)
         {
             try
             {
@@ -203,8 +202,8 @@ namespace JichangeApi.Controllers.setup
                 SmsService sms = new SmsService();
                 sms.SendWelcomeSmsToNewUser(employee.User_name, Utilities.PasswordGeneratorUtil.DecodeFrom64(employee.Password), employee.Mobile_No);
 
-                SendActivationEmail(employee.Email_Address, employee.Full_Name,Utilities.PasswordGeneratorUtil.DecodeFrom64(employee.Password),employee.User_name);
-                AppendInsertAuditTrail(addedEmployee, employee, (long) addBankUserForm.userid);
+                SendActivationEmail(employee.Email_Address, employee.Full_Name, Utilities.PasswordGeneratorUtil.DecodeFrom64(employee.Password), employee.User_name);
+                AppendInsertAuditTrail(addedEmployee, employee, (long)addBankUserForm.userid);
                 return FindEmployee(addedEmployee);
             }
             catch (Exception ex)
@@ -216,12 +215,12 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        private HttpResponseMessage UpdateBankUser(EMP_DET employee,AddBankUserForm addBankUserForm)
+        private HttpResponseMessage UpdateBankUser(EMP_DET employee, AddBankUserForm addBankUserForm)
         {
             try
             {
 
-                bool isExist = employee.isExistEmployee((long) addBankUserForm.sno);
+                bool isExist = employee.isExistEmployee((long)addBankUserForm.sno);
                 if (!isExist) return this.GetNotFoundResponse();
                 bool isDuplicateEmployeeId = employee.isDuplicateEmployeeId(addBankUserForm.empid, (long)addBankUserForm.sno);
                 if (isDuplicateEmployeeId)
@@ -276,9 +275,9 @@ namespace JichangeApi.Controllers.setup
                     this.GetCustomErrorMessageResponse(messages);
                 }
 
-                EMP_DET employeeDetail = CreateEmployeDetail(addBankUserForm,foundDesignation);
+                EMP_DET employeeDetail = CreateEmployeDetail(addBankUserForm, foundDesignation);
                 if ((long)addBankUserForm.sno == 0) { return InsertBankUser(employeeDetail, addBankUserForm); }
-                else { return UpdateBankUser(employeeDetail,addBankUserForm);  }
+                else { return UpdateBankUser(employeeDetail, addBankUserForm); }
             }
             catch (Exception ex)
             {
@@ -294,7 +293,7 @@ namespace JichangeApi.Controllers.setup
         {
             List<string> modelStateErrors = this.ModelStateErrors();
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
-            return FindEmployee((long) getEmployeeForm.sno);
+            return FindEmployee((long)getEmployeeForm.sno);
         }
 
         [HttpGet]
@@ -317,7 +316,7 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        [HttpPost] 
+        [HttpPost]
         public HttpResponseMessage DeleteEmployee(DeleteBankUserForm deleteBankUserForm)
         {
             List<string> modelStateErrors = this.ModelStateErrors();
@@ -325,7 +324,7 @@ namespace JichangeApi.Controllers.setup
             try
             {
                 EMP_DET employee = new EMP_DET();
-                bool isExists = employee.isExistEmployee((long) deleteBankUserForm.sno);
+                bool isExists = employee.isExistEmployee((long)deleteBankUserForm.sno);
                 if (!isExists) return this.GetNotFoundResponse();
                 AppendDeleteAuditTrail((long)deleteBankUserForm.sno, employee, (long)deleteBankUserForm.userid);
                 employee.DeleteEMP((long)deleteBankUserForm.sno);

@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -15,9 +13,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public String Description { get; set; }
         public String Admin1 { get; set; }
         public string Status { get; set; }
-        public long Compmassno   { get; set; }
+        public long Compmassno { get; set; }
         public string AuditBy { get; set; }
-        public DateTime PostedDate   { get; set; }
+        public DateTime PostedDate { get; set; }
 
         public long AddRole(Roles sc)
         {
@@ -52,7 +50,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Code = c.code,
                                     Admin1 = c.admin1,
                                     Status = c.role_status,
-                                    PostedDate =(DateTime) c.posted_date,
+                                    PostedDate = (DateTime)c.posted_date,
                                 }).OrderBy(z => z.PostedDate).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
@@ -66,7 +64,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from c in context.roles_master
-                                where c.role_status == "Active" 
+                                where c.role_status == "Active"
                                 select new Roles
                                 {
                                     Sno = c.sno,

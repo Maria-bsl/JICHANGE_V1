@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json.Nodes;
-using System.Web;
 using System.Web.Http;
 
 namespace JichangeApi.Controllers.setup
@@ -17,7 +15,7 @@ namespace JichangeApi.Controllers.setup
         public static string NO_DATA_FOUND_MESSAGE = "No data found.";
         public static string NOT_FOUND_MESSAGE = "Not found.";
 
-        protected HttpResponseMessage GetList<T,D>(T results)
+        protected HttpResponseMessage GetList<T, D>(T results)
         {
             if (results != null)
             {
@@ -30,7 +28,7 @@ namespace JichangeApi.Controllers.setup
         }
         protected HttpResponseMessage GetServerErrorResponse(string errorMessage)
         {
-            return Request.CreateResponse(new { response = 0, message = new List<string> { SetupBaseController.ERROR_OCCURED_ON_SERVER_MESSAGE,errorMessage } });
+            return Request.CreateResponse(new { response = 0, message = new List<string> { SetupBaseController.ERROR_OCCURED_ON_SERVER_MESSAGE, errorMessage } });
         }
         protected HttpResponseMessage GetAlreadyExistsErrorResponse()
         {

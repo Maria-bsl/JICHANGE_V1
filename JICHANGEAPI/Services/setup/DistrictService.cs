@@ -1,15 +1,8 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
-using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http.Results;
 
 namespace JichangeApi.Services.setup
 {
@@ -52,7 +45,7 @@ namespace JichangeApi.Services.setup
             catch (ArgumentException ex)
             {
                 pay.Message = ex.ToString();
-                pay.AddErrorLogs(pay); 
+                pay.AddErrorLogs(pay);
 
                 throw new ArgumentException(ex.Message);
             }
@@ -128,7 +121,7 @@ namespace JichangeApi.Services.setup
         {
             try
             {
-                DISTRICTS found = FindDistrict((long) addDistrictForm.sno);
+                DISTRICTS found = FindDistrict((long)addDistrictForm.sno);
                 DISTRICTS district = CreateDistrict(addDistrictForm);
                 bool isDuplicate = district.isDuplicateDistrict(district.District_Name, district.SNO, district.Region_Id);
                 DISTRICTS oldDistrict = district.EditDISTRICTS((long)addDistrictForm.sno);
@@ -174,7 +167,7 @@ namespace JichangeApi.Services.setup
                 throw new Exception(ex.Message);
             }
         }
-        public long DeleteDistrict(long sno,long userid)
+        public long DeleteDistrict(long sno, long userid)
         {
             try
             {
@@ -203,7 +196,7 @@ namespace JichangeApi.Services.setup
             try
             {
                 var results = new DISTRICTS().GetDistrict();
-                return results != null ? results : new List<DISTRICTS>();   
+                return results != null ? results : new List<DISTRICTS>();
             }
             catch (Exception ex)
             {

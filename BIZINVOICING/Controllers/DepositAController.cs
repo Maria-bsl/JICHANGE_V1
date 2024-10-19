@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -13,7 +10,7 @@ namespace BIZINVOICING.Controllers
         CompanyBankMaster cbm = new CompanyBankMaster();
         // GET: DepositA
         private readonly dynamic returnNull = null;
-        
+
         public ActionResult DepositA()
         {
             if (Session["sessB"] == null)
@@ -50,7 +47,7 @@ namespace BIZINVOICING.Controllers
 
             return returnNull;
         }
-        
+
         [HttpPost]
         public ActionResult AddAccount(long csno, string account, string reason, string sno, bool dummy)
         {
@@ -73,14 +70,14 @@ namespace BIZINVOICING.Controllers
                     }
                     else
                     {*/
-                     long asno = cd.AddAccount(cd);
+                    long asno = cd.AddAccount(cd);
                     /*cbm.CompSno = csno;
                     cbm.Sus_Ac_SNo = asno;
                     cbm.UpdateAccount(cbm);*/
-                        return Json(ssno, JsonRequestBehavior.AllowGet);
+                    return Json(ssno, JsonRequestBehavior.AllowGet);
                     //}
                 }
-                
+
 
 
             }

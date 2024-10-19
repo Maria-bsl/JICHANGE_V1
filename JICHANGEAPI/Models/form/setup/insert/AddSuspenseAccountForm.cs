@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JichangeApi.Models.form.setup.insert
 {
@@ -11,7 +7,7 @@ namespace JichangeApi.Models.form.setup.insert
         [Required(ErrorMessage = "Missing SNO")]
         public long? sno { get; set; }
         [Required(ErrorMessage = "Missing account", AllowEmptyStrings = false)]
-        public string account { get; set; } 
+        public string account { get; set; }
         [Required(ErrorMessage = "Missing status", AllowEmptyStrings = false)]
         public string status { get; set; }
     }

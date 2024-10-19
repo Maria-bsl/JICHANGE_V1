@@ -1,5 +1,4 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models.form;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using JichangeApi.Services.setup;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -43,7 +41,8 @@ namespace JichangeApi.Controllers.setup
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                if (addDesignationForm.sno == 0) {
+                if (addDesignationForm.sno == 0)
+                {
                     DESIGNATION designation = designationService.InsertDesignation(addDesignationForm);
                     return GetSuccessResponse(designation);
                 }
@@ -102,7 +101,7 @@ namespace JichangeApi.Controllers.setup
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                long deletedDesignation = designationService.DeleteDesignation((long) deleteDesignationForm.sno, (long) deleteDesignationForm.userid);
+                long deletedDesignation = designationService.DeleteDesignation((long)deleteDesignationForm.sno, (long)deleteDesignationForm.userid);
                 return GetSuccessResponse(deletedDesignation);
             }
             catch (ArgumentException ex)

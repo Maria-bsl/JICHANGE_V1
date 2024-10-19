@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -53,14 +50,14 @@ namespace BIZINVOICING.Controllers
             }
             return returnNull;
         }
-        
+
         [HttpPost]
         public ActionResult GetRegion(string rn)
         {
             try
             {
                 long rid = 0;
-                if(string.IsNullOrEmpty(rn))
+                if (string.IsNullOrEmpty(rn))
                 {
 
                 }
@@ -188,7 +185,7 @@ namespace BIZINVOICING.Controllers
             }
             return returnNull;
         }//need to check get methods
-      [HttpPost]
+        [HttpPost]
         public ActionResult GetRegionDetails1(long Sno)
         {
             try
@@ -202,7 +199,7 @@ namespace BIZINVOICING.Controllers
             }
             return returnNull;
         }//need to check get methods
-      
+
 
         [HttpPost]
         public ActionResult GetDistDetails(long Sno)
@@ -235,7 +232,7 @@ namespace BIZINVOICING.Controllers
             return returnNull;
         }
         [HttpPost]
-        public ActionResult GetWardDetails(long sno=1)
+        public ActionResult GetWardDetails(long sno = 1)
         {
             try
             {
@@ -282,12 +279,12 @@ namespace BIZINVOICING.Controllers
 
 
         [HttpPost]
-        public ActionResult AddCustomer(long CSno, /*long Compsno,*/ String CName, String PostboxNo, String Address,long regid,long distsno,long wardsno,
-            String Tinno, String VatNo,String CoPerson, String Mail,  String Mobile_Number, bool dummy, string check_status)
+        public ActionResult AddCustomer(long CSno, /*long Compsno,*/ String CName, String PostboxNo, String Address, long regid, long distsno, long wardsno,
+            String Tinno, String VatNo, String CoPerson, String Mail, String Mobile_Number, bool dummy, string check_status)
         {
             try
             {
-               cm.Cust_Sno = CSno;
+                cm.Cust_Sno = CSno;
                 cm.Cust_Name = CName;
                 cm.PostboxNo = PostboxNo;
                 cm.Address = Address;
@@ -296,15 +293,15 @@ namespace BIZINVOICING.Controllers
                 {
                     cm.Region_SNO = regid;
                 }
-                if(distsno > 0)
+                if (distsno > 0)
                 {
                     cm.DistSno = distsno;
                 }
-                if(wardsno > 0)
+                if (wardsno > 0)
                 {
                     cm.WardSno = wardsno;
                 }
-                
+
                 cm.TinNo = Tinno;
                 cm.VatNo = VatNo;
                 cm.ConPerson = CoPerson;
@@ -318,7 +315,7 @@ namespace BIZINVOICING.Controllers
                 long ssno = 0;
                 if (CSno == 0)
                 {
-                    var result =cm.ValidateCount(CName.ToLower(), Tinno);
+                    var result = cm.ValidateCount(CName.ToLower(), Tinno);
                     //result = false;
                     if (result == true)
                     {
@@ -363,7 +360,7 @@ namespace BIZINVOICING.Controllers
 
                         else
                         {
-                            
+
                             var dd = cm.EditCust(CSno);
                             /*if (dd != null)
                             {
@@ -421,9 +418,9 @@ namespace BIZINVOICING.Controllers
                 //}
                 //else
                 //{
-                    if (sno > 0)
-                    {
-                        var dd = cm.EditCust(sno);
+                if (sno > 0)
+                {
+                    var dd = cm.EditCust(sno);
                     /*if (dd != null)
                     {
                         //String[] list2 = new String[15] { dd.Cust_Sno.ToString(), dd.Cust_Name, dd.PostboxNo, dd.Address, dd.Region_SNO.ToString(), dd.DistSno.ToString(), dd.WardSno.ToString(),
@@ -445,8 +442,8 @@ namespace BIZINVOICING.Controllers
                     }*/
                     //al.Facility_Sno = sno;
                     cm.CustDelete(sno);
-                        return Json(sno, JsonRequestBehavior.AllowGet);
-                    }
+                    return Json(sno, JsonRequestBehavior.AllowGet);
+                }
                 //}
             }
             catch (Exception Ex)

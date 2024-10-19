@@ -1,5 +1,4 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Controllers;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models;
@@ -9,10 +8,6 @@ using JichangeApi.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services
 {
@@ -28,7 +23,7 @@ namespace JichangeApi.Services
         {
             var values = new List<string> { sno.ToString(), customerMaster.Cust_Name, customerMaster.PostboxNo, customerMaster.Address, customerMaster.Region_SNO.ToString(), customerMaster.DistSno.ToString(), customerMaster.WardSno.ToString(),
                                     customerMaster.TinNo, customerMaster.VatNo, customerMaster.ConPerson, customerMaster.Email, customerMaster.Phone, userid.ToString(), DateTime.Now.ToString(),(customerMaster.CompanySno).ToString() };
-            Auditlog.InsertAuditTrail(values, userid, CustomerService.tableName, CustomerService.tableColumns,customerMaster.CompanySno);
+            Auditlog.InsertAuditTrail(values, userid, CustomerService.tableName, CustomerService.tableColumns, customerMaster.CompanySno);
         }
 
         private void AppendUpdateAuditTrail(long sno, CustomerMaster oldCustomer, CustomerMaster newCustomer, long userid)
@@ -47,7 +42,7 @@ namespace JichangeApi.Services
                                     customerMaster.TinNo, customerMaster.VatNo, customerMaster.ConPerson, customerMaster.Email, customerMaster.Phone, userid.ToString(), DateTime.Now.ToString(),(customerMaster.CompanySno).ToString() };
             Auditlog.deleteAuditTrail(values, userid, CustomerService.tableName, CustomerService.tableColumns, customerMaster.CompanySno);
         }
-        public CustomerMaster FindCustomer(long compid,long custid)
+        public CustomerMaster FindCustomer(long compid, long custid)
         {
             try
             {
@@ -63,7 +58,7 @@ namespace JichangeApi.Services
 
                 throw new ArgumentException(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
@@ -79,7 +74,7 @@ namespace JichangeApi.Services
                 Cust_Name = customersForm.CName,
                 PostboxNo = customersForm.PostboxNo,
                 Address = customersForm.Address,
-                CompanySno = (long) customersForm.compid
+                CompanySno = (long)customersForm.compid
             };
             if (customersForm.regid > 0) { customer.Region_SNO = customersForm.regid; }
             if (customersForm.distsno > 0) { customer.DistSno = customersForm.distsno; }
@@ -123,7 +118,7 @@ namespace JichangeApi.Services
                 throw new Exception(ex.Message);
             }
         }
-        public CustomerMaster GetCustomerById(CompSnoModel compSnoModel) 
+        public CustomerMaster GetCustomerById(CompSnoModel compSnoModel)
         {
             try
             {
@@ -196,7 +191,7 @@ namespace JichangeApi.Services
                 if (errors.Length > 0) throw new ArgumentException(errors);
                 long addedCustomer = customerMaster.CustAdd(customerMaster);
                 AppendInsertAuditTrail(addedCustomer, customerMaster, (long)customersForm.userid);
-                
+
                 return FindCustomer(customerMaster.CompanySno, addedCustomer);
             }
             catch (ArgumentException ex)
@@ -219,19 +214,19 @@ namespace JichangeApi.Services
             try
             {
                 CustomerMaster customerMaster = CreateCustomer(customersForm);
-                CustomerMaster found = FindCustomer((long) customersForm.compid, (long) customersForm.CSno);
+                CustomerMaster found = FindCustomer((long)customersForm.compid, (long)customersForm.CSno);
                 if (found == null) throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE);
                 string exists = customerMaster.IsDuplicateCustomer(customerMaster.Phone, customerMaster.Email, customerMaster.TinNo, customerMaster.Cust_Sno);
                 if (exists != null && exists.Length > 0) throw new ArgumentException(exists);
                 AppendUpdateAuditTrail(customerMaster.Cust_Sno, found, customerMaster, (long)customersForm.userid);
                 customerMaster.CustUpdate(customerMaster);
-                var res = new INVOICE().GetInvRep(new List<long> { (long) customersForm.compid }, new List<long> { found.Cust_Sno }, "", "", false);
-                res = res.Where(e => e.Chus_Mas_No == found.Cust_Sno && e.Status.ToLower().Equals("active")).ToList(); 
+                var res = new INVOICE().GetInvRep(new List<long> { (long)customersForm.compid }, new List<long> { found.Cust_Sno }, "", "", false);
+                res = res.Where(e => e.Chus_Mas_No == found.Cust_Sno && e.Status.ToLower().Equals("active")).ToList();
                 if (found.Phone != customerMaster.Phone)
                 {
                     SmsService sms = new SmsService();
                     sms.SendMobileChangedMessage(found.Cust_Name, customerMaster.Phone);
-                    for (var i =0; i < res.Count(); i++)
+                    for (var i = 0; i < res.Count(); i++)
                     {
                         if (res[i].delivery_status == null && res[i].approval_status == "2")
                         {
@@ -241,7 +236,7 @@ namespace JichangeApi.Services
                         if (res[i].delivery_status != null && res[i].delivery_status.ToLower().Equals("pending"))
                         {
                             var otp = Services.OTP.GenerateOTP(6);
-                            sms.SendCustomerDeliveryCode(customerMaster.Phone, otp,res[i].Invoice_No);
+                            sms.SendCustomerDeliveryCode(customerMaster.Phone, otp, res[i].Invoice_No);
                         }
                     }
                 }
@@ -288,7 +283,7 @@ namespace JichangeApi.Services
                 if (invoices.Count > 0) throw new ArgumentException("Failed to delete customer: active invoice prevents deletion.");
                 AppendDeleteAuditTrail((long)deleteCustomerForm.sno, found, (long)deleteCustomerForm.userid);
                 found.CustDelete((long)deleteCustomerForm.sno);
-                return (long) deleteCustomerForm.sno;
+                return (long)deleteCustomerForm.sno;
             }
             catch (ArgumentException ex)
             {
@@ -309,7 +304,7 @@ namespace JichangeApi.Services
         {
             try
             {
-                Customers customers =  new Customers();
+                Customers customers = new Customers();
                 var result = customers.GetCustomersS(compid);
                 return result ?? new List<Customers>();
             }

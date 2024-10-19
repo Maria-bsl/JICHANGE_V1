@@ -1,10 +1,6 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.Companies
 {
@@ -20,14 +16,14 @@ namespace JichangeApi.Services.Companies
                 if (result == null) throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE);
                 return result;
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
 
                 throw new ArgumentException(ex.Message);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);

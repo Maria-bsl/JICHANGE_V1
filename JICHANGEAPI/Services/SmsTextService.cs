@@ -2,13 +2,8 @@
 using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
-using JichangeApi.Services.setup;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace JichangeApi.Services
 {
@@ -42,7 +37,7 @@ namespace JichangeApi.Services
             smsText.SMS_Other = Utilites.RemoveSpecialCharacters(addEmailForm.loctext);
             smsText.SMS_Subject = Utilites.RemoveSpecialCharacters(addEmailForm.sub);
             smsText.SMS_Local = Utilites.RemoveSpecialCharacters(addEmailForm.subloc);
-            smsText.SNO = (long) addEmailForm.sno;
+            smsText.SNO = (long)addEmailForm.sno;
             smsText.AuditBy = addEmailForm.userid.ToString();
             return smsText;
         }
@@ -86,10 +81,10 @@ namespace JichangeApi.Services
                 bool invalid = smsText.ValidateFlowId(smsText.Flow_Id);
                 if (invalid) throw new ArgumentException("Flow Id already exists");
                 long addedSmsText = smsText.AddSMS(smsText);
-                AppendInsertAuditTrail(addedSmsText, smsText, (long) addEmailForm.userid);
+                AppendInsertAuditTrail(addedSmsText, smsText, (long)addEmailForm.userid);
                 return FindSmsText(addedSmsText);
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 throw new ArgumentException(ex.Message);
             }
@@ -109,7 +104,7 @@ namespace JichangeApi.Services
                 bool invalid = smsText.ValidateFlowIdDuplicate(smsText.Flow_Id, (long)addEmailForm.sno);
                 if (invalid) throw new ArgumentException("Flow Id already exists");
                 smsText.UpdateSMS(smsText);
-                AppendUpdateAuditTrail((long) addEmailForm.sno,found,smsText, (long)addEmailForm.userid);
+                AppendUpdateAuditTrail((long)addEmailForm.sno, found, smsText, (long)addEmailForm.userid);
                 return FindSmsText((long)addEmailForm.sno);
             }
             catch (ArgumentException ex)
@@ -122,7 +117,7 @@ namespace JichangeApi.Services
             }
         }
 
-        public long DeleteSmsText(long sno,long userid)
+        public long DeleteSmsText(long sno, long userid)
         {
             try
             {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class UserlogController : AdminBaseController
@@ -12,7 +9,7 @@ namespace BIZINVOICING.Controllers
         EMP_DET ed = new EMP_DET();
         TRACK_DET td = new TRACK_DET();
         // GET: Userlog
-        
+
         public ActionResult Userlog()
         {
             if (Session["sessB"] == null)
@@ -45,7 +42,7 @@ namespace BIZINVOICING.Controllers
             catch (Exception Ex)
             {
                 //Ex.ToString();
-               // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
+                // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
             }
 
             return returnNull;

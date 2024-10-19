@@ -84,147 +84,136 @@ export class MainComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  private prepareReportsRoutes() {
+  private prepareReportsRoutes(route: any) {
     this.breadcrumbService.set(
       '@overview',
-      this.tr.translate(`bankRoutes.reports.overview`)
+      this.tr.translate(`${route}.overview`)
     );
     this.breadcrumbService.set(
       '@invoice',
-      this.tr.translate(`bankRoutes.reports.invoice`)
+      this.tr.translate(`${route}.invoice`)
     );
     this.breadcrumbService.set(
       '@userLog',
-      this.tr.translate(`bankRoutes.reports.userLog`)
+      this.tr.translate(`${route}.userLog`)
     );
     this.breadcrumbService.set(
       '@customer',
-      this.tr.translate(`bankRoutes.reports.vendor`)
+      this.tr.translate(`${route}.vendor`)
     );
-    this.breadcrumbService.set(
-      '@audit',
-      this.tr.translate(`bankRoutes.reports.audit`)
-    );
+    this.breadcrumbService.set('@audit', this.tr.translate(`${route}.audit`));
     this.breadcrumbService.set(
       '@transactions-id',
-      this.tr.translate(`bankRoutes.reports.details`)
+      this.tr.translate(`${route}.details`)
     );
     this.breadcrumbService.set(
       '@payment',
-      this.tr.translate(`bankRoutes.reports.payments`)
+      this.tr.translate(`${route}.payments`)
     );
     this.breadcrumbService.set(
       '@amendment',
-      this.tr.translate(`bankRoutes.reports.amendment`)
+      this.tr.translate(`${route}.amendment`)
     );
     this.breadcrumbService.set(
       '@invoice-consolidated',
-      this.tr.translate(`bankRoutes.reports.invoiceConsolidated`)
+      this.tr.translate(`${route}.invoiceConsolidated`)
     );
     this.breadcrumbService.set(
       '@payment-consolidated',
-      this.tr.translate(`bankRoutes.reports.paymentConsolidated`)
+      this.tr.translate(`${route}.paymentConsolidated`)
     );
     this.breadcrumbService.set(
       '@vendors',
-      this.tr.translate(`bankRoutes.reports.vendorReport`)
+      this.tr.translate(`${route}.vendorReport`)
     );
     this.breadcrumbService.set(
       '@cancelled',
-      this.tr.translate(`bankRoutes.reports.cancelled`)
+      this.tr.translate(`${route}.cancelled`)
     );
     this.breadcrumbService.set('@transactions', {
-      label: this.tr.translate(`bankRoutes.reports.transaction`),
+      label: this.tr.translate(`${route}.transaction`),
       routeInterceptor(routeLink: any, breadcrumb: any) {
         return routeLink.startsWith('/main') ? routeLink : `/main${routeLink}`;
       },
     });
   }
-  private prepareSetupRoutes() {
+  private prepareSetupRoutes(routes: any) {
     this.breadcrumbService.set(
       '@country',
-      this.tr.translate(`bankRoutes.setup.country`)
+      this.tr.translate(`${routes}.country`)
     );
     this.breadcrumbService.set(
       '@region',
-      this.tr.translate(`bankRoutes.setup.region`)
+      this.tr.translate(`${routes}.region`)
     );
     this.breadcrumbService.set(
       '@district',
-      this.tr.translate(`bankRoutes.setup.district`)
+      this.tr.translate(`${routes}.district`)
     );
-    this.breadcrumbService.set(
-      '@ward',
-      this.tr.translate(`bankRoutes.setup.ward`)
-    );
+    this.breadcrumbService.set('@ward', this.tr.translate(`${routes}ward`));
     this.breadcrumbService.set(
       '@currency',
-      this.tr.translate(`bankRoutes.setup.currencies`)
+      this.tr.translate(`${routes}.currencies`)
     );
     this.breadcrumbService.set(
       '@designation',
-      this.tr.translate(`bankRoutes.setup.designation`)
+      this.tr.translate(`${routes}.designation`)
     );
     this.breadcrumbService.set(
       '@branch',
-      this.tr.translate(`bankRoutes.setup.branch`)
+      this.tr.translate(`${routes}.branch`)
     );
     this.breadcrumbService.set(
       '@question',
-      this.tr.translate(`bankRoutes.setup.question`)
+      this.tr.translate(`${routes}.question`)
     );
-    this.breadcrumbService.set(
-      '@smtp',
-      this.tr.translate(`bankRoutes.setup.smtp`)
-    );
-    this.breadcrumbService.set(
-      '@email',
-      this.tr.translate(`bankRoutes.setup.email`)
-    );
+    this.breadcrumbService.set('@smtp', this.tr.translate(`${routes}.smtp`));
+    this.breadcrumbService.set('@email', this.tr.translate(`${routes}.email`));
     this.breadcrumbService.set(
       '@user',
-      this.tr.translate(`bankRoutes.setup.bankUser`)
+      this.tr.translate(`${routes}.bankUser`)
     );
     this.breadcrumbService.set(
       '@language',
-      this.tr.translate(`bankRoutes.setup.language`)
+      this.tr.translate(`${routes}.language`)
     );
     this.breadcrumbService.set(
       '@suspense',
-      this.tr.translate(`bankRoutes.setup.suspense`)
+      this.tr.translate(`${routes}.suspense`)
     );
     this.breadcrumbService.set(
       '@deposit',
-      this.tr.translate(`bankRoutes.setup.deposit`)
+      this.tr.translate(`${routes}.deposit`)
     );
     this.breadcrumbService.set(
       '@sms-settings',
-      this.tr.translate(`bankRoutes.setup.smsSettings`)
+      this.tr.translate(`${routes}.smsSettings`)
     );
     this.breadcrumbService.set(
       '@sms-text',
-      this.tr.translate(`bankRoutes.setup.smsText`)
+      this.tr.translate(`${routes}.smsText`)
     );
   }
-  private prepareCompanyRoutes() {
+  private prepareCompanyRoutes(routes: any) {
     this.breadcrumbService.set(
       '@summary',
-      this.tr.translate(`bankRoutes.company.summary`)
+      this.tr.translate(`${routes}.summary`)
     );
-    this.breadcrumbService.set(
-      '@inbox',
-      this.tr.translate(`bankRoutes.company.inbox`)
-    );
+    this.breadcrumbService.set('@inbox', this.tr.translate(`${routes}.inbox`));
   }
   private prepareBankBreadcrumbs() {
-    this.breadcrumbService.set('@home', this.tr.translate(`bankRoutes.home`));
-    this.breadcrumbService.set(
-      '@profile',
-      this.tr.translate(`bankRoutes.profile`)
-    );
-    this.prepareReportsRoutes();
-    this.prepareSetupRoutes();
-    this.prepareCompanyRoutes();
+    this.tr.selectTranslate('bankRoutes').subscribe({
+      next: (res) => {
+        this.breadcrumbService.set('@home', this.tr.translate(`${res}.home`));
+        this.breadcrumbService.set(
+          '@profile',
+          this.tr.translate(`${res}.profile`)
+        );
+        this.prepareReportsRoutes(res.reports);
+        this.prepareSetupRoutes(res.setup);
+        this.prepareCompanyRoutes(res.company);
+      },
+    });
   }
   private hideNavBarOnScroll() {
     let containerDoc = this.containerDoc.nativeElement;
@@ -241,20 +230,9 @@ export class MainComponent implements OnInit, AfterViewInit {
       prevScrollpos = currentScrollPos;
     };
   }
-  private prepareCurrentTheme() {
-    let theme = localStorage.getItem('theme') as string;
-    if (!theme) {
-      this.selectedThemeIndex = 0;
-    }
-    console.log(localStorage.getItem('theme'));
-    let found = this.themes.find((val) => {
-      return val.label.localeCompare(theme);
-    });
-  }
   ngOnInit(): void {
     this.prepareBankBreadcrumbs();
     this.routeLoaderListener();
-    //this.prepareCurrentTheme();
   }
   ngAfterViewInit(): void {
     this.hideNavBarOnScroll();

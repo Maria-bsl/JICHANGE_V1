@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -77,7 +75,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     From_Address = c.from_address,
                                     Mobile_Service = c.mobile_service,
                                     Effective_Date = (DateTime)c.effective_date,
-                                    AuditBy =c.posted_by,
+                                    AuditBy = c.posted_by,
                                     Audit_Date = (DateTime)c.posted_date,
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)

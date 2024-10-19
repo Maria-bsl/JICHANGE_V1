@@ -56,8 +56,8 @@
   "errors": {
     "errorOccured": "Error occured",
     "verifyConnection": "Please, verify your connection or try again.",
-    "noInternet": "You are offline",
-    "connected": "Back online",
+    "noInternet": "You are offline.",
+    "connected": "You are back online.",
     "noDataFound": "No data found",
     "notFound": "Item not found.",
     "alreadyExists": "{} already exists.",

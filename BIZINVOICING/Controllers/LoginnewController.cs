@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using System.Globalization;
 
 namespace BIZINVOICING.Controllers
 {
@@ -41,7 +36,7 @@ namespace BIZINVOICING.Controllers
                     Session["admin1"] = "Bank";
                     Session["flogin"] = empdata.F_Login;
                     dt.Full_Name = empdata.Full_Name;
-                    dt.Facility_Reg_No =0;
+                    dt.Facility_Reg_No = 0;
                     dt.Ipadd = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] ?? System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"];
                     //dt.Ipadd = System.Web.HttpContext.Current.Request.UserHostAddress;
                     dt.Email = empdata.Email_Address;
@@ -69,7 +64,7 @@ namespace BIZINVOICING.Controllers
                     Session["CompID"] = company.Compmassno;
                     Session["admin1"] = "Companys";
                     Session["flogin"] = company.Flogin;
-                    Session["UfullName"] =company.Username;
+                    Session["UfullName"] = company.Username;
                     //if (company.Usertype == "admin")
                     //{
                     //    Session["admin1"] = "Institution Admin";
@@ -99,20 +94,20 @@ namespace BIZINVOICING.Controllers
                 }
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 e.ToString();
             }
             return null;
         }
 
-     //   [NoCache]
+        //   [NoCache]
         public ActionResult Logout()
         {
             if (Session["UserID"] != null)
             {
                 emp.Detail_Id = Convert.ToInt64(Session["UserID"].ToString());
-               // emp.UpdateOnlyflsg(emp);
+                // emp.UpdateOnlyflsg(emp);
                 var result = dt.EditTRACK(Session["UserID"].ToString());
                 dt.SNO = result.SNO;
                 dt.Posted_by = Session["UserID"].ToString();

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class RepCompNonInvioceController : LangcoController
@@ -12,7 +9,7 @@ namespace BIZINVOICING.Controllers
         INVOICE inv = new INVOICE();
         CustomerMaster cm = new CustomerMaster();
         private readonly dynamic returnNull = null;
-        
+
         public ActionResult RepCompNonInvioce()
         {
             if (Session["sessComp"] == null)
@@ -135,13 +132,13 @@ namespace BIZINVOICING.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult GetInvReport(long Comp,long cusid, string stdate, string enddate)
+        public ActionResult GetInvReport(long Comp, long cusid, string stdate, string enddate)
         {
 
             try
             {
 
-                var result = inv.GetInvRep11(Comp,cusid, stdate, enddate);
+                var result = inv.GetInvRep11(Comp, cusid, stdate, enddate);
                 if (result != null)
                 {
 

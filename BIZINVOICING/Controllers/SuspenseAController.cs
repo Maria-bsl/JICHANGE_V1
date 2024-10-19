@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -74,7 +71,7 @@ namespace BIZINVOICING.Controllers
             return returnNull;
         }
         [HttpPost]
-        public ActionResult AddAccount(string account,  string status, string sno, bool dummy)
+        public ActionResult AddAccount(string account, string status, string sno, bool dummy)
         {
 
             try

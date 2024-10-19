@@ -1,13 +1,8 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
-using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.setup
 {
@@ -137,7 +132,7 @@ namespace JichangeApi.Services.setup
                 throw new Exception(ex.Message);
             }
         }
-        public string Deletecurrency(string code,long userid)
+        public string Deletecurrency(string code, long userid)
         {
             CURRENCY currency = new CURRENCY();
             try

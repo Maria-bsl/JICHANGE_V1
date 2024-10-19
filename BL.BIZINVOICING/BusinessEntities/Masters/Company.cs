@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class Company

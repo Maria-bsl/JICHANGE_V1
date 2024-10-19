@@ -1,6 +1,4 @@
-﻿using JichangeApi.Models.JWTAuthentication;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace JichangeApi
 {

@@ -1,12 +1,10 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models;
-using JichangeApi.Services;
 using JichangeApi.Services.Companies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -18,7 +16,7 @@ namespace JichangeApi.Controllers
     {
         private readonly CompanyInboxService companyInboxService = new CompanyInboxService();
         private readonly Payment pay = new Payment();
-      
+
 
         [HttpPost]
         public HttpResponseMessage GetCompanys(Desibraid desibraid)

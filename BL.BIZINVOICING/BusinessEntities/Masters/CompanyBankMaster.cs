@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class CompanyBankMaster
@@ -24,15 +22,15 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public string WardName { set; get; }
         public string TinNo { set; get; }
         public string VatNo { set; get; }
-        public  string DirectorName { set; get; }
+        public string DirectorName { set; get; }
         public string Email { set; get; }
         public string TelNo { set; get; }
         public string FaxNo { set; get; }
         public string MobNo { set; get; }
         public byte[] CompLogo { set; get; }
-        public byte[]  DirectorSig{ set; get; }
+        public byte[] DirectorSig { set; get; }
         public string Postedby { set; get; }
-        public  DateTime Posteddate { set; get; }
+        public DateTime Posteddate { set; get; }
         public long BankSno { set; get; }
         public long CompanySno { set; get; }
         public long? Branch_Sno { set; get; }
@@ -52,23 +50,23 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 {
                     company_name = T.CompName,
 
-                    pobox_no=T.PostBox,
-                    physical_address=T.Address,
-                    status=T.Status,
-                    region_id=T.RegId,
-                    district_sno=T.DistSno,
-                    ward_sno=T.WardSno,
-                    tin_no=T.TinNo,
-                    vat_no=T.VatNo,
-                    director_name=T.DirectorName,
-                    email_address=T.Email,
-                    telephone_no=T.TelNo,
-                    fax_no=T.FaxNo,
-                    mobile_no=T.MobNo,
+                    pobox_no = T.PostBox,
+                    physical_address = T.Address,
+                    status = T.Status,
+                    region_id = T.RegId,
+                    district_sno = T.DistSno,
+                    ward_sno = T.WardSno,
+                    tin_no = T.TinNo,
+                    vat_no = T.VatNo,
+                    director_name = T.DirectorName,
+                    email_address = T.Email,
+                    telephone_no = T.TelNo,
+                    fax_no = T.FaxNo,
+                    mobile_no = T.MobNo,
                     //comp_logo=T.CompLogo,
                     //director_digital_sig=T.DirectorSig,
-                    posted_by=T.Postedby,
-                    posted_date=DateTime.Now,
+                    posted_by = T.Postedby,
+                    posted_date = DateTime.Now,
                     branch_sno = T.Branch_Sno,
                     checker = T.Checker
 
@@ -83,7 +81,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var list = (from c in context.company_master
-                            where c.comp_mas_sno==sno
+                            where c.comp_mas_sno == sno
                             select new CompanyBankMaster
                             {
                                 CompSno = c.comp_mas_sno,
@@ -131,7 +129,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from c in context.company_master
-                                where c.status == "Pending" && c.branch_sno ==branch
+                                where c.status == "Pending" && c.branch_sno == branch
                                 select c).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails.Count;
@@ -152,11 +150,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return 0;
             }
         }
-        public int GetCompanyRegwisecount(string uid,long no,string name)
+        public int GetCompanyRegwisecount(string uid, long no, string name)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-               if (name == "month")
+                if (name == "month")
                 {
                     return context.company_master.Where(p => p.region_id == no).Count(p => p.posted_date.Value.Month == DateTime.Now.Month);
                 }
@@ -167,14 +165,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 //var adetails = (from c in context.company_master
                 //                    where c.region_id == no
                 //                    select c).ToList();
-                
+
                 //if (adetails != null && adetails.Count > 0)
                 //    return adetails.Count;
                 //else
                 //    return 0;
             }
         }
-        public int GetCompanyRegwisedefaultcount(string uid,long no)
+        public int GetCompanyRegwisedefaultcount(string uid, long no)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -204,11 +202,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
                             select new CompanyBankMaster
                             {
-                                RegId=c.region_sno,
-                                RegName=c.region_name
+                                RegId = c.region_sno,
+                                RegName = c.region_name
                             }).Distinct().ToList();
 
-                if (list != null )
+                if (list != null)
                     return list;
                 else
                     return null;
@@ -220,7 +218,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var list = (from c in context.company_master
-                          
+
                             select new CompanyBankMaster
                             {
                                 CompSno = c.comp_mas_sno,
@@ -240,11 +238,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 company_bank_details bd = new company_bank_details()
                 {
-                     comp_mas_sno= T.CompSno,
-                     bank_name= T.BankName,
-                     bank_branch= T.BankBranch,
-                     account_no= T.AccountNo,
-                     swift_code= T.Swiftcode ,
+                    comp_mas_sno = T.CompSno,
+                    bank_name = T.BankName,
+                    bank_branch = T.BankBranch,
+                    account_no = T.AccountNo,
+                    swift_code = T.Swiftcode,
 
                 };
                 context.company_bank_details.Add(bd);
@@ -265,29 +263,29 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 where sc.status == "Pending"
                                 select new CompanyBankMaster
                                 {
-                                    CompSno =sc.comp_mas_sno,
-                                    CompName=sc.company_name,
-                                    PostBox=sc.pobox_no,
-                                    Address=sc.physical_address,
-                                    RegId=(long)sc.region_id,
+                                    CompSno = sc.comp_mas_sno,
+                                    CompName = sc.company_name,
+                                    PostBox = sc.pobox_no,
+                                    Address = sc.physical_address,
+                                    RegId = (long)sc.region_id,
                                     //RegName=reg.region_name,
-                                    DistSno= (long)sc.district_sno,
+                                    DistSno = (long)sc.district_sno,
                                     //DistName=dist.district_name,
-                                    WardSno= (long)sc.ward_sno,
+                                    WardSno = (long)sc.ward_sno,
                                     //WardName=ward.ward_name,
                                     Branch_Sno = sc.branch_sno,
-                                    TinNo=sc.tin_no,
-                                    VatNo=sc.vat_no,
-                                    DirectorName=sc.director_name,
-                                    Email=sc.email_address,
-                                    TelNo=sc.telephone_no,
-                                    FaxNo=sc.fax_no,
-                                    MobNo=sc.mobile_no,
-                                    Status=sc.status,
+                                    TinNo = sc.tin_no,
+                                    VatNo = sc.vat_no,
+                                    DirectorName = sc.director_name,
+                                    Email = sc.email_address,
+                                    TelNo = sc.telephone_no,
+                                    FaxNo = sc.fax_no,
+                                    MobNo = sc.mobile_no,
+                                    Status = sc.status,
                                     Checker = sc.checker
                                     //CompLogo=sc.comp_logo,
                                     //DirectorSig=sc.director_digital_sig,
-              
+
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
@@ -300,7 +298,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_master
-                                //where sc.status == "Pending"
+                                    //where sc.status == "Pending"
                                 select new CompanyBankMaster
                                 {
                                     CompSno = sc.comp_mas_sno,
@@ -338,7 +336,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_master
-                                    where sc.branch_sno == cno
+                                where sc.branch_sno == cno
                                 select new CompanyBankMaster
                                 {
                                     CompSno = sc.comp_mas_sno,
@@ -417,10 +415,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_master
-                                    join reg in context.suspense_account on sc.sus_acc_sno equals reg.sus_acc_sno
-                                    //join dist in context.district_master on sc.district_sno equals dist.district_sno
-                                    //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                    where sc.comp_mas_sno == cno
+                                join reg in context.suspense_account on sc.sus_acc_sno equals reg.sus_acc_sno
+                                //join dist in context.district_master on sc.district_sno equals dist.district_sno
+                                //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
+                                where sc.comp_mas_sno == cno
                                 where sc.status == "Approved"
                                 select new CompanyBankMaster
                                 {
@@ -459,8 +457,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from c in context.suspense_account
-                                //join dist in context.district_master on sc.district_sno equals dist.district_sno
-                                //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
+                                    //join dist in context.district_master on sc.district_sno equals dist.district_sno
+                                    //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
                                 where c.sus_acc_status == "Active"
                                 select new CompanyBankMaster
                                 {
@@ -490,7 +488,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
 
                                 }).FirstOrDefault();
-                if (adetails != null )
+                if (adetails != null)
                     return adetails;
                 else
                     return null;
@@ -502,35 +500,35 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_master
-                                //join reg in context.region_master on sc.region_id equals reg.region_sno
-                                //join dist in context.district_master on sc.district_sno equals dist.district_sno
-                                //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                 where sc.status=="Pending"
+                                    //join reg in context.region_master on sc.region_id equals reg.region_sno
+                                    //join dist in context.district_master on sc.district_sno equals dist.district_sno
+                                    //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
+                                where sc.status == "Pending"
                                 select new CompanyBankMaster
                                 {
-                                    CompSno =sc.comp_mas_sno,
-                                    CompName=sc.company_name,
-                                    PostBox=sc.pobox_no,
-                                    Address=sc.physical_address,
-                                    RegId=(long)sc.region_id,
+                                    CompSno = sc.comp_mas_sno,
+                                    CompName = sc.company_name,
+                                    PostBox = sc.pobox_no,
+                                    Address = sc.physical_address,
+                                    RegId = (long)sc.region_id,
                                     //RegName=reg.region_name,
-                                    DistSno= (long)sc.district_sno,
+                                    DistSno = (long)sc.district_sno,
                                     Branch_Sno = sc.branch_sno,
                                     //DistName=dist.district_name,
-                                    WardSno= (long)sc.ward_sno,
+                                    WardSno = (long)sc.ward_sno,
                                     //WardName=ward.ward_name,
-                                    TinNo=sc.tin_no,
-                                    VatNo=sc.vat_no,
-                                    DirectorName=sc.director_name,
-                                    Email=sc.email_address,
-                                    TelNo=sc.telephone_no,
-                                    FaxNo=sc.fax_no,
-                                    MobNo=sc.mobile_no,
-                                    Status=sc.status,
+                                    TinNo = sc.tin_no,
+                                    VatNo = sc.vat_no,
+                                    DirectorName = sc.director_name,
+                                    Email = sc.email_address,
+                                    TelNo = sc.telephone_no,
+                                    FaxNo = sc.fax_no,
+                                    MobNo = sc.mobile_no,
+                                    Status = sc.status,
                                     Checker = sc.checker
                                     //CompLogo=sc.comp_logo,
                                     //DirectorSig=sc.director_digital_sig,
-              
+
                                 }).OrderByDescending(e => e.CompSno).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
@@ -594,7 +592,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     //CompLogo=sc.comp_logo,
                                     //DirectorSig=sc.director_digital_sig,
 
-                                }).OrderByDescending(x=> x.CompSno).Take(5).ToList();
+                                }).OrderByDescending(x => x.CompSno).Take(5).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
@@ -602,16 +600,16 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public List<CompanyBankMaster> GetApprovedCompaniesByBranch(long bsno,string status)
+        public List<CompanyBankMaster> GetApprovedCompaniesByBranch(long bsno, string status)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_master
                                     //join reg in context.region_master on sc.region_id equals reg.region_sno
-                                    join bank in context.company_bank_details on sc.comp_mas_sno equals bank.comp_mas_sno
-                                    //join dist in context.district_master on sc.district_sno equals dist.district_sno
-                                    //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                    //where sc.status.ToLower().Equals("approved") && sc.branch_sno ==  0 ? sc.branch_sno == sc.branch_sno : sc.branch_sno == bsno
+                                join bank in context.company_bank_details on sc.comp_mas_sno equals bank.comp_mas_sno
+                                //join dist in context.district_master on sc.district_sno equals dist.district_sno
+                                //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
+                                //where sc.status.ToLower().Equals("approved") && sc.branch_sno ==  0 ? sc.branch_sno == sc.branch_sno : sc.branch_sno == bsno
                                 where ((!string.IsNullOrEmpty(sc.status) && sc.status.ToLower().Equals(status.ToLower())) && (bsno == 0 || sc.branch_sno == bsno)) //bsno == 0 ? true : sc.branch_sno == bsno
                                 select new CompanyBankMaster
                                 {
@@ -655,7 +653,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     //join reg in context.region_master on sc.region_id equals reg.region_sno
                                     //join dist in context.district_master on sc.district_sno equals dist.district_sno
                                     //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                //where sc.status == "Pending"
+                                    //where sc.status == "Pending"
                                 select new CompanyBankMaster
                                 {
                                     CompSno = sc.comp_mas_sno,
@@ -734,7 +732,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     //join reg in context.region_master on sc.region_id equals reg.region_sno
                                     //join dist in context.district_master on sc.district_sno equals dist.district_sno
                                     //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                    where sc.status == stat
+                                where sc.status == stat
                                 select new CompanyBankMaster
                                 {
                                     CompSno = sc.comp_mas_sno,
@@ -776,7 +774,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     //join reg in context.region_master on sc.region_id equals reg.region_sno
                                     //join dist in context.district_master on sc.district_sno equals dist.district_sno
                                     //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                    join bank in context.company_bank_details on sc.comp_mas_sno equals bank.comp_mas_sno
+                                join bank in context.company_bank_details on sc.comp_mas_sno equals bank.comp_mas_sno
                                 where bsno == 0 || sc.branch_sno == bsno//sc.status == "Pending" && 
                                 select new CompanyBankMaster
                                 {
@@ -859,7 +857,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     //join reg in context.region_master on sc.region_id equals reg.region_sno
                                     //join dist in context.district_master on sc.district_sno equals dist.district_sno
                                     //join ward in context.ward_master on sc.ward_sno equals ward.ward_sno
-                                where sc.branch_sno == bsno && sc.status == stat 
+                                where sc.branch_sno == bsno && sc.status == stat
                                 select new CompanyBankMaster
                                 {
                                     CompSno = sc.comp_mas_sno,
@@ -897,17 +895,17 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_bank_details
-                                //join oft in context.standard_terms on sc.term_sno equals oft.term_sno
-                                //join cu in context.standard_currency_master on sc.currency_code equals cu.currency_sno
+                                    //join oft in context.standard_terms on sc.term_sno equals oft.term_sno
+                                    //join cu in context.standard_currency_master on sc.currency_code equals cu.currency_sno
                                 where sc.comp_mas_sno == sno
                                 select new CompanyBankMaster
                                 {
-                                  BankSno= sc.comp_bank_det_sno,
-                                  CompSno=(long)sc.comp_mas_sno,
-                                  BankName=sc.bank_name,
-                                  BankBranch=sc.bank_branch,
-                                  AccountNo=sc.account_no,
-                                  Swiftcode=sc.swift_code,
+                                    BankSno = sc.comp_bank_det_sno,
+                                    CompSno = (long)sc.comp_mas_sno,
+                                    BankName = sc.bank_name,
+                                    BankBranch = sc.bank_branch,
+                                    AccountNo = sc.account_no,
+                                    Swiftcode = sc.swift_code,
                                 }).OrderBy(a => a.BankSno).ToList();
                 if (adetails != null)
                     return adetails;
@@ -939,8 +937,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var edetails = (from c in context.company_master
-                                //join MA in context.standard_grades_structure on c.grade_sno equals MA.grade_sno
-                               where c.comp_mas_sno == sno
+                                    //join MA in context.standard_grades_structure on c.grade_sno equals MA.grade_sno
+                                where c.comp_mas_sno == sno
                                 select new CompanyBankMaster
                                 {
 
@@ -976,7 +974,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var edetails = (from c in context.company_master
                                     //join MA in context.standard_grades_structure on c.grade_sno equals MA.grade_sno
-                                //where c.comp_mas_sno == sno
+                                    //where c.comp_mas_sno == sno
                                 select new CompanyBankMaster
                                 {
 
@@ -1010,9 +1008,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 //var found = context.company_master.Find(sno);
                 var found = (from c in context.company_master
-                             /*join reg in context.region_master on c.region_id equals reg.region_sno
-                             join dist in context.district_master on c.district_sno equals dist.district_sno
-                             join ward in context.ward_master on c.ward_sno equals ward.ward_sno*/
+                                 /*join reg in context.region_master on c.region_id equals reg.region_sno
+                                 join dist in context.district_master on c.district_sno equals dist.district_sno
+                                 join ward in context.ward_master on c.ward_sno equals ward.ward_sno*/
                              join d in context.company_bank_details on sno equals d.comp_mas_sno
                              where c.comp_mas_sno == sno
                              select new CompanyBankMaster
@@ -1062,9 +1060,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     RegId = (long)c.region_id,
                                     RegName = reg.region_name,
                                     DistSno = (long)c.district_sno,
-                                    DistName=dist.district_name,
+                                    DistName = dist.district_name,
                                     WardSno = (long)c.ward_sno,
-                                    WardName=ward.ward_name,
+                                    WardName = ward.ward_name,
                                     TinNo = c.tin_no,
                                     VatNo = c.vat_no,
                                     DirectorName = c.director_name,
@@ -1087,9 +1085,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_bank_details
-                                //join reg in context.standard_terms on sc.term_sno equals reg.term_sno
-                                //join cn in context.standard_currency_master on sc.currency_code equals cn.currency_sno
-                               where sc.comp_mas_sno == sno
+                                    //join reg in context.standard_terms on sc.term_sno equals reg.term_sno
+                                    //join cn in context.standard_currency_master on sc.currency_code equals cn.currency_sno
+                                where sc.comp_mas_sno == sno
                                 select new CompanyBankMaster
                                 {
                                     BankSno = sc.comp_bank_det_sno,
@@ -1130,7 +1128,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_master
-                                    join cn in context.invoice_master on sc.comp_mas_sno equals cn.comp_mas_sno
+                                join cn in context.invoice_master on sc.comp_mas_sno equals cn.comp_mas_sno
                                 //where sc.comp_mas_sno == sno
                                 select new CompanyBankMaster
                                 {
@@ -1201,7 +1199,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var update = (from u in context.company_master
-                              where u.comp_mas_sno == T.CompSno && u.status=="Pending"
+                              where u.comp_mas_sno == T.CompSno && u.status == "Pending"
                               select u).FirstOrDefault();
                 if (update != null)
                 {
@@ -1220,7 +1218,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var update = (from u in context.company_master
-                              where u.comp_mas_sno == T.CompSno 
+                              where u.comp_mas_sno == T.CompSno
                               select u).FirstOrDefault();
                 if (update != null)
                 {
@@ -1241,7 +1239,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 using (BIZINVOICEEntities context = new BIZINVOICEEntities())
                 {
                     var update = (from u in context.company_bank_details
-                                  where u.comp_bank_det_sno == T.BankSno && u.comp_mas_sno== T.CompanySno
+                                  where u.comp_bank_det_sno == T.BankSno && u.comp_mas_sno == T.CompanySno
                                   select u).FirstOrDefault();
                     if (update != null)
                     {
@@ -1250,7 +1248,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                         update.bank_branch = T.BankBranch;
                         update.account_no = T.AccountNo;
                         update.swift_code = T.Swiftcode;
-                       
+
                         context.SaveChanges();
                     }
                 }
@@ -1261,7 +1259,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 {
                     company_bank_details dl = new company_bank_details()
                     {
-                        comp_bank_det_sno=T.CompanySno,
+                        comp_bank_det_sno = T.CompanySno,
                         comp_mas_sno = T.CompanySno,
                         bank_name = T.BankName,
                         bank_branch = T.BankBranch,
@@ -1277,7 +1275,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var noteDetails = (from n in context.company_master.Where(n => n.comp_mas_sno== no)
+                var noteDetails = (from n in context.company_master.Where(n => n.comp_mas_sno == no)
                                    select n).First();
                 if (noteDetails != null)
                 {
@@ -1290,7 +1288,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                context.company_bank_details.RemoveRange(context.company_bank_details.Where(c => c.comp_mas_sno== M.CompSno));
+                context.company_bank_details.RemoveRange(context.company_bank_details.Where(c => c.comp_mas_sno == M.CompSno));
                 context.SaveChanges();
             }
         }
@@ -1308,7 +1306,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return false;
             }
         }
-        public bool ValidateCount(string name,string tinno)
+        public bool ValidateCount(string name, string tinno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -1332,7 +1330,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return validation.Count() > 0;
             }
         }
-        public bool IsDuplicateTinNumber(string tinNumber,long compsno)
+        public bool IsDuplicateTinNumber(string tinNumber, long compsno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -1361,7 +1359,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var validationdeletion = (from v in context.company_master
                                           join a in context.invoice_master on v.comp_mas_sno equals a.comp_mas_sno
-                                          where a.comp_mas_sno == no 
+                                          where a.comp_mas_sno == no
                                           select v);
                 if (validationdeletion.Count() != 0)
                     return true;

@@ -1,6 +1,4 @@
-﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models.form;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using JichangeApi.Services.setup;
@@ -9,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text.Json.Nodes;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -46,7 +43,7 @@ namespace JichangeApi.Controllers.setup
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                if ((long) addEmailForm.sno == 0)
+                if ((long)addEmailForm.sno == 0)
                 {
                     EMAIL email = emailTextService.InsertEmail(addEmailForm);
                     return GetSuccessResponse(email);
@@ -122,7 +119,7 @@ namespace JichangeApi.Controllers.setup
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                long deletedEmail = emailTextService.DeleteEmail((long) deleteEmailTextForm.sno,(long) deleteEmailTextForm.userid);
+                long deletedEmail = emailTextService.DeleteEmail((long)deleteEmailTextForm.sno, (long)deleteEmailTextForm.userid);
                 return GetSuccessResponse(deletedEmail);
 
             }

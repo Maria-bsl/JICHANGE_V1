@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -61,7 +58,7 @@ namespace BIZINVOICING.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddBranch(string branch, string location, string status,  string sno, bool dummy)
+        public ActionResult AddBranch(string branch, string location, string status, string sno, bool dummy)
         {
 
             try
@@ -109,7 +106,7 @@ namespace BIZINVOICING.Controllers
                     string bname = getD.Name;
                     string bloc = getD.Location;
                     bool bflag = true;
-                    if(bname == branch)//&& bloc == location
+                    if (bname == branch)//&& bloc == location
                     {
                         bflag = false;
                     }
@@ -120,38 +117,38 @@ namespace BIZINVOICING.Controllers
                     }
                     else
                     {*/
-                        var result = bm.ValidateBranch(branch);
-                        if (bm.ValidateBranch(branch) && bflag == true)
-                        {
+                    var result = bm.ValidateBranch(branch);
+                    if (bm.ValidateBranch(branch) && bflag == true)
+                    {
 
-                            return Json(result, JsonRequestBehavior.AllowGet);
-                        }
-                        else
+                        return Json(result, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        /*var dd = cy.EditCURRENCY(code);
+                        if (dd != null)
                         {
-                            /*var dd = cy.EditCURRENCY(code);
-                            if (dd != null)
+                            String[] list2 = new String[4] { dd.Currency_Code.ToString(), dd.Currency_Name, Session["UserID"].ToString(), DateTime.Now.ToString() };
+                            String[] list1 = new String[4] { code, cname, Session["UserID"].ToString(), DateTime.Now.ToString() };
+                            for (int i = 0; i < list.Count(); i++)
                             {
-                                String[] list2 = new String[4] { dd.Currency_Code.ToString(), dd.Currency_Name, Session["UserID"].ToString(), DateTime.Now.ToString() };
-                                String[] list1 = new String[4] { code, cname, Session["UserID"].ToString(), DateTime.Now.ToString() };
-                                for (int i = 0; i < list.Count(); i++)
-                                {
-                                    ad.Audit_Type = "Update";
-                                    ad.Columnsname = list[i];
-                                    ad.Table_Name = "Currency";
-                                    ad.Oldvalues = list2[i];
-                                    ad.Newvalues = list1[i];
-                                    ad.AuditBy = Session["UserID"].ToString();
-                                    ad.Audit_Date = DateTime.Now;
-                                    ad.Audit_Time = DateTime.Now;
-                                    ad.AddAudit(ad);
-                                }
-                            }*/
-                            bm.Sno = long.Parse(sno);
-                            bm.UpdateBranch(bm);
-                            ssno = sno;
-                            return Json(ssno, JsonRequestBehavior.AllowGet);
+                                ad.Audit_Type = "Update";
+                                ad.Columnsname = list[i];
+                                ad.Table_Name = "Currency";
+                                ad.Oldvalues = list2[i];
+                                ad.Newvalues = list1[i];
+                                ad.AuditBy = Session["UserID"].ToString();
+                                ad.Audit_Date = DateTime.Now;
+                                ad.Audit_Time = DateTime.Now;
+                                ad.AddAudit(ad);
+                            }
+                        }*/
+                        bm.Sno = long.Parse(sno);
+                        bm.UpdateBranch(bm);
+                        ssno = sno;
+                        return Json(ssno, JsonRequestBehavior.AllowGet);
 
-                        }
+                    }
 
                     //}
                 }

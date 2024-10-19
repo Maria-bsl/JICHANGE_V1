@@ -1,38 +1,3 @@
-<app-display-message-box #displayMessageBox></app-display-message-box>
-<app-display-message-box #sessionTimedOut></app-display-message-box>
-
-<dialog #noInternetModal class="modal">
-  <div class="modal-box bg-transparent">
-    <div role="alert" class="alert alert-error">
-      <span class="material-symbols-outlined text-white"> cancel </span>
-      <span
-        class="text-white text-sm font-inter"
-        *transloco="let t; read: 'errors'"
-        >{{ t("noInternet") }}</span
-      >
-    </div>
-  </div>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
-</dialog>
-
-<dialog #connectedModal class="modal">
-  <div class="modal-box bg-transparent">
-    <div role="alert" class="alert alert-success">
-      <span class="material-symbols-outlined text-white"> check_circle </span>
-      <span
-        class="text-white text-sm font-inter"
-        *transloco="let t; read: 'errors'"
-        >{{ t("connected") }}</span
-      >
-    </div>
-  </div>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
-</dialog>
-<!-- <router-outlet></router-outlet> -->
 <div
   [@mainAnimation]="prepareRoute(outlet, 'animationState')"
   class="h-full w-full relative flex-1"

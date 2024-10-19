@@ -1,23 +1,18 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using BL.BIZINVOICING.BusinessEntities.Masters;
-using System.Runtime.Remoting.Messaging;
-using System.Configuration;
-using System.IO;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Web.Hosting;
 using iTextSharp.text.pdf.draw;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Web.Hosting;
 
 namespace JichangeApi.Utilities
 {
-    public class EmailUtils 
+    public class EmailUtils
     {
         private readonly Payment pay = new Payment();
         public static void SendActivationEmail(string email, string fullname, string pwd, string username)
@@ -118,7 +113,7 @@ namespace JichangeApi.Utilities
                     //string url = "web_url";
                     string weburl = ConfigurationManager.AppSettings["MyWebUrl"];
                     string url = "<a href='" + weburl + "' target='_blank'>" + weburl + "</a>";
-                   
+
                     string body = string.Format("Hello {0},<br /> You have Successfully registered on JICHANGE Portal, <br />{1} Your account is pending for approval. ", company, email);
                     mm.Body = body;
                     mm.IsBodyHtml = true;
@@ -218,7 +213,7 @@ namespace JichangeApi.Utilities
 
         }
 
-        public static void SendSubjectTextBodyEmail(string email,string subject,string text,string body)
+        public static void SendSubjectTextBodyEmail(string email, string subject, string text, string body)
         {
             try
             {
@@ -299,10 +294,10 @@ namespace JichangeApi.Utilities
                     if (data != null)
                     {
                         mm.Subject = data.Subject;
-                        
+
                         /*  Hello "}+customername+{", Kindly pay "}+amount+{" for invoice number "}+invno+{". Payment reference number is "}+controlno+{". Regards, "}+vendor+{" */
 
-                       string content = data.Email_Text.Replace("}+customername+{", customername ).Replace("}+amount+{", amount).Replace("}+invno+{", invoiceno).Replace("}+controlno+{", controlno).Replace("}+vendor+{", vendor);
+                        string content = data.Email_Text.Replace("}+customername+{", customername).Replace("}+amount+{", amount).Replace("}+invno+{", invoiceno).Replace("}+controlno+{", controlno).Replace("}+vendor+{", vendor);
 
                         mm.Body = content;
                     }
@@ -337,7 +332,8 @@ namespace JichangeApi.Utilities
                 }
             }
             catch (Exception Ex)
-            {Payment pay = new Payment { Message = Ex.ToString() };
+            {
+                Payment pay = new Payment { Message = Ex.ToString() };
                 pay.AddErrorLogs(pay);
             }
 
@@ -363,7 +359,7 @@ namespace JichangeApi.Utilities
                 {
                     var m = ss.getSMTPText();
                     var data = em.GetLatestEmailTextsListByFlow("5"); // Invoice Amendment
-                 
+
                     mm.Subject = "Invoice Amendment";
                     mm.Body = string.Format("Hello {0},<br /> Invoice number {1} has been amended and is waiting approval.<br /> New invoice amount is {2}, reference number for payment is {3}. <br /><br />Regards, <br />{4} ", customername, invoiceno, amount, controlno, vendor);
 
@@ -408,7 +404,8 @@ namespace JichangeApi.Utilities
                 }
             }
             catch (Exception Ex)
-            {Payment pay = new Payment { Message = Ex.ToString() };
+            {
+                Payment pay = new Payment { Message = Ex.ToString() };
                 pay.AddErrorLogs(pay);
             }
 
@@ -446,7 +443,7 @@ namespace JichangeApi.Utilities
 
                         /*  Hello "}+customername+{", Invoice number "}+invno+{" with reference number "}+controlno+{" has been cancelled. Reach out for new order and invoice. Regards, "}+vendor+{" */
 
-                        string content = data.Email_Text.Replace("}+customername+{", customername).Replace("}+invno+{", invoiceno).Replace("}+controlno+{", controlno ).Replace("}+vendor+{", vendor);
+                        string content = data.Email_Text.Replace("}+customername+{", customername).Replace("}+invno+{", invoiceno).Replace("}+controlno+{", controlno).Replace("}+vendor+{", vendor);
 
                         mm.Body = content;
                     }
@@ -478,7 +475,8 @@ namespace JichangeApi.Utilities
                 }
             }
             catch (Exception Ex)
-            {Payment pay = new Payment { Message = Ex.ToString() };
+            {
+                Payment pay = new Payment { Message = Ex.ToString() };
                 pay.AddErrorLogs(pay);
             }
 
@@ -531,14 +529,14 @@ namespace JichangeApi.Utilities
             BaseColor HeaderColor = new BaseColor(12, 98, 133, 255); // for table header and total background
             BaseColor tableColor = new BaseColor(11, 99, 133);
             BaseColor ShadesColor = new BaseColor(12, 103, 148);
-            BaseColor textColor = new BaseColor(20, 36, 44); 
+            BaseColor textColor = new BaseColor(20, 36, 44);
 
             // Step 1.0: Create a Paragraph
             Paragraph paragraph = new Paragraph();
             Paragraph paragraph1 = new Paragraph();
             Paragraph paragraph2 = new Paragraph();
             Paragraph paragraph3 = new Paragraph();
-           
+
             // Step 1.1: Add a Tab to Push Content to the Right
             Chunk tab = new Chunk(new VerticalPositionMark()); // Acts as a spacer to the right  BaseColor.GRAY
 
@@ -565,7 +563,7 @@ namespace JichangeApi.Utilities
             paragraph2.Add(leftContent3);
             paragraph2.Alignment = Element.ALIGN_LEFT;
             paragraph2.Add(tab);
-            Chunk rightContent7 = new Chunk("Invoice No : " + invoice.Invoice_No , headerFontbelow);
+            Chunk rightContent7 = new Chunk("Invoice No : " + invoice.Invoice_No, headerFontbelow);
             paragraph2.Add(rightContent7);
             paragraph2.Alignment = Element.ALIGN_RIGHT;
             Chunk leftContent4 = new Chunk("Company Mobile : " + companyinfo.MobNo, headerFontbelow);
@@ -611,7 +609,7 @@ namespace JichangeApi.Utilities
                 AddTableCell(table, item.Item_Unit_Price.ToString("N2"));
                 AddTableCell(table, (item.Item_Qty * item.Item_Unit_Price).ToString("N2"));
             }
-           
+
             // Step 5: Add Total Row
             PdfPCell totalCell = new PdfPCell(new Phrase("Total", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)))
             {
@@ -622,7 +620,7 @@ namespace JichangeApi.Utilities
             };
             table.AddCell(totalCell);
 
-            PdfPCell totalValueCell = new PdfPCell(new Phrase(invoice.Item_Total_Amount.ToString("N2") +" "+ invoice.Currency_Code, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)))
+            PdfPCell totalValueCell = new PdfPCell(new Phrase(invoice.Item_Total_Amount.ToString("N2") + " " + invoice.Currency_Code, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)))
             {
                 HorizontalAlignment = Element.ALIGN_RIGHT,
                 Padding = 8f
@@ -657,14 +655,14 @@ namespace JichangeApi.Utilities
             };
             document.Add(footer);
 
-          
+
             // Close the document
             document.Close();
 
             return filePath;
         }
 
-        
+
         public static string AmmendedInvoicePdf(string invoiceno)
         {
             // Get Invoice and Invoice Items from Invoiceno here
@@ -1011,7 +1009,7 @@ namespace JichangeApi.Utilities
             PdfReader reader = new PdfReader(filePath);
             PdfStamper stamper = new PdfStamper(reader, new FileStream(filePath.Replace($"{invoice.Cust_Name}_{invoice.Inv_Mas_Sno}_Cancelled.pdf", $"{ invoice.Cust_Name }_{ invoice.Inv_Mas_Sno }_Cancelled.pdf"), FileMode.Create));
 
-           // PdfStamper stamper = new PdfStamper(reader, new FileStream(filePath.Replace($"{invoice.Cust_Name}_{invoice.Inv_Mas_Sno}_Cancelled.pdf", $"{ invoice.Cust_Name }_{ invoice.Inv_Mas_Sno }_Cancelled_watermarked.pdf"), FileMode.Create));
+            // PdfStamper stamper = new PdfStamper(reader, new FileStream(filePath.Replace($"{invoice.Cust_Name}_{invoice.Inv_Mas_Sno}_Cancelled.pdf", $"{ invoice.Cust_Name }_{ invoice.Inv_Mas_Sno }_Cancelled_watermarked.pdf"), FileMode.Create));
 
             int totalPages = reader.NumberOfPages;
             PdfContentByte content;

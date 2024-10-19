@@ -1,9 +1,6 @@
 ﻿using DaL.BIZINVOICING.EDMX;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -12,10 +9,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
         #region Properties
 
-            public long user_otp_sno { get; set; }
-            public string code { get; set; }
-            public string mobile_no { get; set; }
-            public DateTime? posted_date { get; set; }
+        public long user_otp_sno { get; set; }
+        public string code { get; set; }
+        public string mobile_no { get; set; }
+        public DateTime? posted_date { get; set; }
         #endregion
 
         #region Method
@@ -41,15 +38,15 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var det = (from n in context.user_otp
-                                   where n.code == otp
-                                   select
-                 new User_otp
-                {
-                    code = n.code,
-                    user_otp_sno = n.user_otp_sno,
-                    mobile_no = n.mobile_no,
-                    posted_date = DateTime.Now
-                }).FirstOrDefault();
+                           where n.code == otp
+                           select
+         new User_otp
+         {
+             code = n.code,
+             user_otp_sno = n.user_otp_sno,
+             mobile_no = n.mobile_no,
+             posted_date = DateTime.Now
+         }).FirstOrDefault();
 
                 if (det != null)
                     return det;
@@ -98,30 +95,30 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
 
         }
-       /* public List<User_otp> GetUser_otp2(long sno)
-        {
-            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
-            {
-                var adetails = (from c in context.user_otp
-                                where c.User_otp == "Active" && c.comp_mas_sno == sno
-                                select new User_otps
-                                {
-                                    Sno = c.sno,
-                                    Compmassno = (long)c.comp_mas_sno,
-                                    Description = c.descript,
-                                    Code = c.code,
-                                    Admin1 = c.admin1,
-                                    Status = c.User_otp_status,
-                                    PostedDate = (DateTime)c.posted_date,
-                                }).OrderBy(z => z.PostedDate).ToList();
-                if (adetails != null && adetails.Count > 0)
-                    return adetails;
-                else
-                    return null;
-            }
-        }
-*/
-       
+        /* public List<User_otp> GetUser_otp2(long sno)
+         {
+             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+             {
+                 var adetails = (from c in context.user_otp
+                                 where c.User_otp == "Active" && c.comp_mas_sno == sno
+                                 select new User_otps
+                                 {
+                                     Sno = c.sno,
+                                     Compmassno = (long)c.comp_mas_sno,
+                                     Description = c.descript,
+                                     Code = c.code,
+                                     Admin1 = c.admin1,
+                                     Status = c.User_otp_status,
+                                     PostedDate = (DateTime)c.posted_date,
+                                 }).OrderBy(z => z.PostedDate).ToList();
+                 if (adetails != null && adetails.Count > 0)
+                     return adetails;
+                 else
+                     return null;
+             }
+         }
+ */
+
         public void UpdateUser_otp(User_otp dep)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())

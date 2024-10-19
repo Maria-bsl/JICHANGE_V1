@@ -1,13 +1,10 @@
-﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using BL.BIZINVOICING.BusinessEntities.Masters;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
-using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models.form;
 using JichangeApi.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -39,7 +36,7 @@ namespace JichangeApi.Controllers
                 }
                 else
                 {
-                    
+
                     var sms = smsSettingsService.UpdateSmsSetting(addSmtpModel);
                     return GetSuccessResponse(sms);
                 }
@@ -63,12 +60,12 @@ namespace JichangeApi.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage DeleteSMTP(long sno,long userid)
+        public HttpResponseMessage DeleteSMTP(long sno, long userid)
         {
             try
             {
 
-                var p = smsSettingsService.DeleteSmsSetting(sno,userid);
+                var p = smsSettingsService.DeleteSmsSetting(sno, userid);
                 return GetSuccessResponse(sno);
             }
             catch (ArgumentException Ex)

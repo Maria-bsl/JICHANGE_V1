@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -97,7 +95,7 @@ namespace JichangeApi.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage DeleteSmsText(long sno,long userid)
+        public HttpResponseMessage DeleteSmsText(long sno, long userid)
         {
             try
             {

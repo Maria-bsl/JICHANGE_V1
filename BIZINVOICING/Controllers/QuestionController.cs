@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class QuestionController : AdminBaseController
@@ -12,14 +10,14 @@ namespace BIZINVOICING.Controllers
         REG_QSTN cty = new REG_QSTN();
         private readonly dynamic returnNull = null;
         Auditlog ad = new Auditlog();
-        String[] list = new String[5] {"sno", "q_name", "q_status", "posted_by", "posted_date" };
+        String[] list = new String[5] { "sno", "q_name", "q_status", "posted_by", "posted_date" };
         public ActionResult Question()
         {
             if (Session["sessB"] == null)
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
-          
+
             return View();
         }
         public ActionResult AddQues(
@@ -36,10 +34,10 @@ namespace BIZINVOICING.Controllers
 
                 cty.Q_Name = q_name;
                 cty.Q_Status = q_qtatus;
-                cty.AuditBy= Session["UserID"].ToString();
+                cty.AuditBy = Session["UserID"].ToString();
                 cty.SNO = sno;
-                
-                    long ssno = 0;
+
+                long ssno = 0;
                 if (sno == 0)
                 {
                     var result = cty.ValidateQSTN(q_name.ToLower());
@@ -50,7 +48,7 @@ namespace BIZINVOICING.Controllers
                     else
                     {
 
-                         ssno = cty.AddREG_QSTN(cty);
+                        ssno = cty.AddREG_QSTN(cty);
                         if (ssno > 0)
                         {
                             String[] list1 = new String[5] { ssno.ToString(), q_name, q_qtatus, Session["UserID"].ToString(), DateTime.Now.ToString() };
@@ -98,7 +96,7 @@ namespace BIZINVOICING.Controllers
                         cty.UpdateREG_QSTN(cty);
                         ssno = sno;
                         return Json(ssno, JsonRequestBehavior.AllowGet);
-                      
+
                     }
                 }
             }
@@ -158,7 +156,7 @@ namespace BIZINVOICING.Controllers
 
             return returnNull;
         }
-      
+
         public ActionResult GetQues()
         {
 

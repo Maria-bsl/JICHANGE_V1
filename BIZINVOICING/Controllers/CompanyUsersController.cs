@@ -1,14 +1,10 @@
-﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using BL.BIZINVOICING.BusinessEntities.Masters;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
-using System.Web;
 using System.Net;
+using System.Net.Mail;
 using System.Web.Mvc;
-using System.IO;
-using System.Xml;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
 
 namespace BIZINVOICING.Controllers
 {
@@ -21,7 +17,7 @@ namespace BIZINVOICING.Controllers
         private readonly dynamic returnNull = null;
         String pwd, drt;
         Auditlog ad = new Auditlog();
-        
+
 
         String[] list = new String[8] { "comp_users_sno", "comp_mas_sno", "username",  "user_type", "created_date", "expiry_date",
              "posted_by", "posted_date"};
@@ -108,7 +104,7 @@ namespace BIZINVOICING.Controllers
                 cu.Compmassno = long.Parse(Session["CompID"].ToString());
                 cu.Username = auname;
                 cu.Mobile = mob;
-               // cu.Re_Ssno = dsno;
+                // cu.Re_Ssno = dsno;
                 cu.Userpos = pos;
                 cu.Email = mail;
                 cu.Fullname = uname;
@@ -139,7 +135,7 @@ namespace BIZINVOICING.Controllers
 
                             SendActivationEmail(mail, auname, pwd, uname);
                             //SendSms(mob, auname, pwd, uname);
-                            String[] list1   = new String[8] { ssno.ToString(), Session["CompID"].ToString(), auname, chname, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(),
+                            String[] list1 = new String[8] { ssno.ToString(), Session["CompID"].ToString(), auname, chname, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(),
               Session["UserID"].ToString(), DateTime.Now.ToString() };
                             //String[] list1 = new String[11] { ssno.ToString(), auname, chname, DateTime.Now.ToString(), DateTime.Now.AddMonths(3).ToString(), Session["UserID"].ToString(), DateTime.Now.ToString(), uname, mail, mob, pos/*,dsno*/};
                             for (int i = 0; i < list.Count(); i++)
@@ -161,7 +157,7 @@ namespace BIZINVOICING.Controllers
                 }
                 else if (sno > 0)
                 {
-                    
+
                     cu.CompuserSno = sno;
                     var ed = cu.EditCompanyUsers(sno);
                     if (ed != null)
@@ -184,7 +180,7 @@ namespace BIZINVOICING.Controllers
                             ad.AddAudit(ad);
                         }
                     }
-                    
+
                     cu.UpdateCompanyUsers(cu);
                     ssno = sno;
                     return Json(ssno, JsonRequestBehavior.AllowGet);
@@ -255,7 +251,7 @@ namespace BIZINVOICING.Controllers
                     //}
                     //else
                     //{
-                        cu.CompuserSno = sno;
+                    cu.CompuserSno = sno;
                     var ed = cu.EditCompanyUsers(sno);
                     if (ed != null)
                     {
@@ -277,8 +273,8 @@ namespace BIZINVOICING.Controllers
                     }
                     cu.DeleteCompany(sno);
 
-                        //cu.DeleteChruchReg(sno);
-                   // }
+                    //cu.DeleteChruchReg(sno);
+                    // }
                     return Json(sno, JsonRequestBehavior.AllowGet);
                 }
 
@@ -342,7 +338,7 @@ namespace BIZINVOICING.Controllers
             catch (Exception Ex)
             {
                 //long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
-               // Utilites.logfile("Instituion user", drt, Ex.ToString());
+                // Utilites.logfile("Instituion user", drt, Ex.ToString());
             }
 
         }

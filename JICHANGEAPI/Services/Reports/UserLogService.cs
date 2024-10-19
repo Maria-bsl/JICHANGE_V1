@@ -1,16 +1,13 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.Reports
 {
     public class UserLogService
     {
         Payment pay = new Payment();
-        public List<TRACK_DET> GetLoginTimesReport(string startDate,string endDate)
+        public List<TRACK_DET> GetLoginTimesReport(string startDate, string endDate)
         {
             try
             {
@@ -23,7 +20,7 @@ namespace JichangeApi.Services.Reports
                 pay.AddErrorLogs(pay);
 
                 throw new Exception(ex.Message);
-            } 
+            }
         }
     }
 }

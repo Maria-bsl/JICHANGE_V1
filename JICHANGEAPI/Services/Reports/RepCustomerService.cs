@@ -1,18 +1,13 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.Reports
 {
     public class RepCustomerService
     {
         Payment pay = new Payment();
-        public List<CustomerMaster> GetCustomerDetailsReport(long compid,long regionId,long districtId)
+        public List<CustomerMaster> GetCustomerDetailsReport(long compid, long regionId, long districtId)
         {
             try
             {

@@ -1,5 +1,4 @@
-﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using BL.BIZINVOICING.BusinessEntities.Masters;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models;
@@ -9,9 +8,7 @@ using JichangeApi.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
 using System.Text;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -28,7 +25,7 @@ namespace JichangeApi.Controllers
         CompanyUsers cus = new CompanyUsers();
         SmsService sms = new SmsService();
         Payment pay = new Payment();
-        
+
         private readonly CompanyUsersService companyUsersService = new CompanyUsersService();
         private readonly ForgetPasswordService forgetPasswordservice = new ForgetPasswordService();
 
@@ -56,7 +53,7 @@ namespace JichangeApi.Controllers
                 }
                 else
                 {
-                    return Request.CreateResponse(new { response = 0, message = new List<string> {"Failed" } });
+                    return Request.CreateResponse(new { response = 0, message = new List<string> { "Failed" } });
                 }
             }
             catch (Exception Ex)
@@ -78,22 +75,24 @@ namespace JichangeApi.Controllers
 
             List<string> modelStateErrors = this.ModelStateErrors();
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
-            try { 
-                    var result1 = cus.CheckUser(m.mobile);
+            try
+            {
+                var result1 = cus.CheckUser(m.mobile);
 
-                    if (result1 != null)
-                    {
-                        var otp = Services.OTP.GenerateOTP(6);
-                        ota.mobile_no = m.mobile;
-                        ota.code = otp;
-                        ota.AddOtp(ota);
+                if (result1 != null)
+                {
+                    var otp = Services.OTP.GenerateOTP(6);
+                    ota.mobile_no = m.mobile;
+                    ota.code = otp;
+                    ota.AddOtp(ota);
 
-                         sms.SendOTPSmsToDeliveryCustomer(m.mobile, otp);
+                    sms.SendOTPSmsToDeliveryCustomer(m.mobile, otp);
 
-                        return GetSuccessResponse(ota);
+                    return GetSuccessResponse(ota);
 
-                    }
-            }catch(Exception ex) 
+                }
+            }
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
@@ -117,7 +116,7 @@ namespace JichangeApi.Controllers
             {
                 User_otp user_Otp = new User_otp();
                 user_Otp = forgetPasswordservice.ValidateOtpHandler(m);
-                if(user_Otp != null) { return GetSuccessResponse(user_Otp); }else { return GetCustomErrorMessageResponse(new List<string> { "User Token has expired, Try Again"}); }
+                if (user_Otp != null) { return GetSuccessResponse(user_Otp); } else { return GetCustomErrorMessageResponse(new List<string> { "User Token has expired, Try Again" }); }
             }
             catch (Exception ex)
             {
@@ -129,7 +128,7 @@ namespace JichangeApi.Controllers
 
             }
 
-            
+
         }
 
 
@@ -137,7 +136,7 @@ namespace JichangeApi.Controllers
         [AllowAnonymous]
         public HttpResponseMessage ChangePwd(ChangePwdModel m)
         {
-           
+
             List<string> modelStateErrors = this.ModelStateErrors();
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             var checkuser = cus.CheckUser(m.mobile);
@@ -148,7 +147,7 @@ namespace JichangeApi.Controllers
             user.CompuserSno = checkuser.CompuserSno;
             var result = companyUsersService.UpdateCompanyUserPassword(user);
             return GetSuccessResponse(result);
-           
+
 
         }
 

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class DistrictController : AdminBaseController
@@ -14,17 +12,17 @@ namespace BIZINVOICING.Controllers
         private readonly dynamic returnNull = null;
         Auditlog ad = new Auditlog();
         EMP_DET ed = new EMP_DET();
-        String[] list = new String[6] { "district_sno", "district_name", "region_id", "district_status","posted_by", "posted_date" };
+        String[] list = new String[6] { "district_sno", "district_name", "region_id", "district_status", "posted_by", "posted_date" };
         public ActionResult District()
         {
             if (Session["sessB"] == null)
             {
-              return  RedirectToAction("Loginnew", "Loginnew");
+                return RedirectToAction("Loginnew", "Loginnew");
             }
-          
+
             return View();
         }
-       
+
         // GET: SMTP/Details/5
         public ActionResult Details(int id)
         {
@@ -32,7 +30,7 @@ namespace BIZINVOICING.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddDistrict(string district_name,long region_id,string district_status,string posted_by,long sno,bool dummy)
+        public ActionResult AddDistrict(string district_name, long region_id, string district_status, string posted_by, long sno, bool dummy)
         {
 
             try
@@ -91,7 +89,7 @@ namespace BIZINVOICING.Controllers
                     }
                     else
                     {
-                        
+
                         var dd = dst.EditDISTRICTS(sno);
                         var dd1 = reg.EditREGION(region_id);
                         if (dd != null)
@@ -115,8 +113,8 @@ namespace BIZINVOICING.Controllers
                         ssno = sno;
                         return Json(ssno, JsonRequestBehavior.AllowGet);
                     }
-                }  
-             }
+                }
+            }
             catch (Exception Ex)
             {
                 Ex.ToString();
@@ -166,7 +164,7 @@ namespace BIZINVOICING.Controllers
                         var result = sno;
                         return Json(dd.District_Name, JsonRequestBehavior.AllowGet);
                     }
-                   
+
                 }
             }
             catch (Exception Ex)
@@ -200,7 +198,7 @@ namespace BIZINVOICING.Controllers
         [HttpPost]
         public ActionResult GetDist()
         {
-            
+
             try
             {
                 var result = dst.GetDistrict();
@@ -223,7 +221,7 @@ namespace BIZINVOICING.Controllers
         }
         public ActionResult GetRegi()
         {
-            
+
             try
             {
                 var result = reg.GetREG();
@@ -237,7 +235,7 @@ namespace BIZINVOICING.Controllers
 
             return returnNull;
         }
-        
+
 
     }
 }

@@ -3,25 +3,16 @@ using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models;
 using JichangeApi.Models.form;
+using JichangeApi.Services;
+using JichangeApi.Services.Companies;
+using JichangeApi.Services.setup;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
+using System.Text.Json.Nodes;
 using System.Web.Http;
 using System.Web.Http.Cors;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text;
-using JichangeApi.Services;
-using JichangeApi.Services.setup;
-using JichangeApi.Services.Companies;
-using JichangeApi.Controllers.smsservices;
-using JichangeApi.Utilities;
 
 namespace JichangeApi.Controllers
 {
@@ -967,7 +958,7 @@ namespace JichangeApi.Controllers
 
 
         [HttpGet]
-        public HttpResponseMessage IsExistInvoice(long compid,string invno)
+        public HttpResponseMessage IsExistInvoice(long compid, string invno)
         {
             try
             {
@@ -979,7 +970,7 @@ namespace JichangeApi.Controllers
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
                 return GetServerErrorResponse(ex.Message);
-            } 
+            }
         }
     }
 

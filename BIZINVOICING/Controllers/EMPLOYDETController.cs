@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Configuration;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
+﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
 using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using System;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+using System.Web.Mvc;
 namespace BIZINVOICING.Controllers
 {
     public class EMPLOYDETController : AdminBaseController
@@ -78,7 +75,7 @@ namespace BIZINVOICING.Controllers
         {
             try
             {
-                 var result = bm.GetBranches_Active();
+                var result = bm.GetBranches_Active();
                 if (Session["desig"] == null)
                 {
                     result = bm.GetBranches_Active();
@@ -94,7 +91,7 @@ namespace BIZINVOICING.Controllers
                         result = bm.GetBranches_Active(long.Parse(Session["BRAID"].ToString()));
                     }
                 }
-                
+
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception Ex)
@@ -109,7 +106,7 @@ namespace BIZINVOICING.Controllers
             try
             {
                 var result = bm.GetBranches_Active();
-                
+
 
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
@@ -138,7 +135,7 @@ namespace BIZINVOICING.Controllers
             return returnNull;
         }
         [HttpPost]
-        public ActionResult AddEmp(string empid, string fullname, String fname, String mname, String lname, long desg,String email, String mobile, String user, String gender, long sno, bool dummy, long branch)
+        public ActionResult AddEmp(string empid, string fullname, String fname, String mname, String lname, long desg, String email, String mobile, String user, String gender, long sno, bool dummy, long branch)
         {
             try
             {
@@ -170,7 +167,7 @@ namespace BIZINVOICING.Controllers
                         pwd = CreateRandomPassword(8);
                         var des = dg.Editdesignation(desg);
                         dt.Password = GetEncryptedData(pwd);
-                       
+
                         if (ssno > 0)
                         {
                             String[] list1 = new String[15] { ssno.ToString(), dt.Emp_Id_No,dt.Full_Name,dt.First_Name, dt.Middle_name,  dt.Last_name,des.Desg_Name.ToString(),dt.Email_Address,
@@ -205,7 +202,7 @@ namespace BIZINVOICING.Controllers
                         dt.Detail_Id = sno;
                         var des = dg.Editdesignation(desg);
                         //var brn = br.Editbranch(bsno);
-                       var  dd = dt.EditEMP(sno);
+                        var dd = dt.EditEMP(sno);
                         if (dd != null)
                         {
                             String[] list2 = new String[15] { dd.Detail_Id.ToString(), dd.Emp_Id_No,dd.Full_Name,dd.First_Name, dd.Middle_name,  dd.Last_name,dd.Desg_name.ToString(),dd.Email_Address,

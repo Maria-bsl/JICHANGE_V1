@@ -1,14 +1,8 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
-using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using static iTextSharp.text.pdf.PdfDocument;
 
 namespace JichangeApi.Services.setup
 {
@@ -123,7 +117,7 @@ namespace JichangeApi.Services.setup
                 throw new Exception(ex.Message);
             }
         }
-        public long DeleteDesignation(long sno,long userid)
+        public long DeleteDesignation(long sno, long userid)
         {
             DESIGNATION designation = new DESIGNATION();
             try

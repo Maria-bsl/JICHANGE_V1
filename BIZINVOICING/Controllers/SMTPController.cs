@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -13,7 +11,7 @@ namespace BIZINVOICING.Controllers
         EMP_DET ed = new EMP_DET();
         Auditlog ad = new Auditlog();
         private readonly dynamic returnNull = null;
-        String[] list = new String[9] { "sno", "from_address", "smtp_address","smtp_port","username","ssl_enable","effective_date", "posted_by", "posted_date" };
+        String[] list = new String[9] { "sno", "from_address", "smtp_address", "smtp_port", "username", "ssl_enable", "effective_date", "posted_by", "posted_date" };
         // GET: SMTP
         public ActionResult SMTP()
         {
@@ -43,7 +41,7 @@ namespace BIZINVOICING.Controllers
                 smtp.SSL_Enable = gender;
                 smtp.AuditBy = Session["UserID"].ToString();
                 smtp.SNO = sno;
-                 long ssno = 0;
+                long ssno = 0;
                 if (sno == 0)
                 {
                     ssno = smtp.AddSMTP(smtp);
@@ -88,8 +86,8 @@ namespace BIZINVOICING.Controllers
                     ssno = sno;
                     return Json(ssno, JsonRequestBehavior.AllowGet);
                 }
-                   
-                
+
+
             }
             catch (Exception ex)
             {
@@ -127,7 +125,7 @@ namespace BIZINVOICING.Controllers
                     var result = sno;
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-              
+
             }
             catch (Exception Ex)
             {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class RepCustomerController : AdminBaseController
@@ -20,13 +17,13 @@ namespace BIZINVOICING.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetcustDetReport(long Comp,long reg,long dist)
+        public ActionResult GetcustDetReport(long Comp, long reg, long dist)
         {
 
             try
             {
 
-                var result = cm.CustGetrep(Comp,reg, dist);
+                var result = cm.CustGetrep(Comp, reg, dist);
                 if (result != null)
                 {
 

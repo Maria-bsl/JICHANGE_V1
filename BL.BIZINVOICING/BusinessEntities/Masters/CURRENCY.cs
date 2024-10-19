@@ -1,13 +1,11 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-  public  class CURRENCY
+    public class CURRENCY
     {
         #region Properties
         public string Currency_Code { get; set; }
@@ -33,11 +31,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return ps.currency_code;
             }
         }
-        public List<CURRENCY> ValidateCURRENCY(String name,String code)
+        public List<CURRENCY> ValidateCURRENCY(String name, String code)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var adetails = (from c in context.currency_master.Where(c=>c.currency_code.ToLower().Equals(code) || c.currency_name.ToLower().Equals(name))
+                var adetails = (from c in context.currency_master.Where(c => c.currency_code.ToLower().Equals(code) || c.currency_name.ToLower().Equals(name))
 
                                 select new CURRENCY
                                 {
@@ -55,10 +53,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var adetails = (from c in context.currency_master.Where(c =>  c.currency_name.ToLower().Equals(name))
+                var adetails = (from c in context.currency_master.Where(c => c.currency_name.ToLower().Equals(name))
                                 select new CURRENCY
                                 {
-                                    
+
                                     Currency_Name = c.currency_name,
 
                                 }).ToList();
@@ -82,12 +80,12 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 //var validation2 = (from c in context.payment_details
                 //                   where (c.currency_code == code)
                 //                   select c);
-                if (validation.Count() > 0 )
+                if (validation.Count() > 0)
                     return true;
                 else
                     return false;
-                
-               
+
+
             }
         }
 
@@ -111,8 +109,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 {
                                     Currency_Code = c.currency_code,
                                     Currency_Name = c.currency_name,
-                                    Audit_Date=c.posted_date,
-                                }).OrderByDescending(z=>z.Audit_Date).ToList();
+                                    Audit_Date = c.posted_date,
+                                }).OrderByDescending(z => z.Audit_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
@@ -157,7 +155,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return null;
             }
         }
-        public void DeleteCURRENCY( string no)
+        public void DeleteCURRENCY(string no)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {

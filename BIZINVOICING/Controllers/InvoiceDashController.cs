@@ -1,21 +1,17 @@
-﻿using System;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Data;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-using System.Globalization;
-using System.Xml;
-using System.Data;
-using BL.BIZINVOICING.BusinessEntities.Masters;
+using System.Web.Mvc;
 namespace BIZINVOICING.Controllers
 {
     public class InvoiceDashController : LangcoController
@@ -32,7 +28,7 @@ namespace BIZINVOICING.Controllers
         string f_Path = System.Web.Configuration.WebConfigurationManager.AppSettings["FileP"].ToString();
         public string ack = string.Empty;
         public string ackm = string.Empty;
-        
+
         public ActionResult InvoiceDash()
         {
             if (Session["sessComp"] == null)

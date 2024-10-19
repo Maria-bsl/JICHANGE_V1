@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Net.Mail;
-using System.Net;
-using System.Text;
+﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
 using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using System;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
+using System.Web.Mvc;
 
 namespace BIZINVOICING.Controllers
 {
@@ -32,7 +29,7 @@ namespace BIZINVOICING.Controllers
                 if (result == null)
                 {
                     result = emp.FPasswordE(Sno);
-                    
+
                 }
                 if (result != null)
                 {

@@ -1,5 +1,4 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models.form;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using JichangeApi.Services.setup;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 

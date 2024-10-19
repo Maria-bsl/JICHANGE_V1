@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -74,14 +72,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Routing_Key = c.routing_key,
                                     Created_Date = (DateTime)c.created_date
 
-                                }).OrderByDescending(c=>c.Created_Date).FirstOrDefault();
+                                }).OrderByDescending(c => c.Created_Date).FirstOrDefault();
                 if (adetails != null)
                     return adetails;
                 else
                     return null;
             }
         }
-        
+
         public Token EditToken(string username)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())

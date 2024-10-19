@@ -1,13 +1,8 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models.form;
-using JichangeApi.Services;
 using JichangeApi.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
@@ -27,8 +22,8 @@ namespace JichangeApi.Controllers.smsservices
         S_SMTP ss = new S_SMTP();
         CustomerMaster cu = new CustomerMaster();
         //private readonly Payment pay = new Payment();
-       /* Payment pay = new Payment { Message = Ex.ToString() };
-        pay.AddErrorLogs(pay);*/
+        /* Payment pay = new Payment { Message = Ex.ToString() };
+         pay.AddErrorLogs(pay);*/
 
         #endregion;
 
@@ -89,7 +84,7 @@ namespace JichangeApi.Controllers.smsservices
         #endregion
 
         #region SMS methods
-        public void SendSuccessSmsToNewUser(string username,string mobile_no)
+        public void SendSuccessSmsToNewUser(string username, string mobile_no)
         {
             if (username != null)
             {
@@ -108,7 +103,7 @@ namespace JichangeApi.Controllers.smsservices
             {
                 var mobileNumber = mobile_no;
 
-                
+
                 var formattedMessageBody = FormatMessageBody(username, password);
 
                 SendSMSAction(mobileNumber, formattedMessageBody);
@@ -131,13 +126,13 @@ namespace JichangeApi.Controllers.smsservices
 
         }
 
-        public void SendCustomerDeliveryCode(string Mobile_Number, string otp,string inv)
+        public void SendCustomerDeliveryCode(string Mobile_Number, string otp, string inv)
         {
             if (Mobile_Number != null)
             {
                 var mobileNumber = Mobile_Number;
 
-                var formattedMessageBody = FormatOtpDeliveryMessageBody(Mobile_Number, otp,inv);
+                var formattedMessageBody = FormatOtpDeliveryMessageBody(Mobile_Number, otp, inv);
 
                 SendSMSAction(mobileNumber, formattedMessageBody);
 
@@ -146,7 +141,7 @@ namespace JichangeApi.Controllers.smsservices
         }
 
 
-        public void SendMobileChangedMessage(string customerName,string mobileNo)
+        public void SendMobileChangedMessage(string customerName, string mobileNo)
         {
             if (mobileNo != null)
             {
@@ -158,7 +153,7 @@ namespace JichangeApi.Controllers.smsservices
 
         private static string FormatWelcomeMessageBody(string customerName)
         {
-            return string.Format("{0}, you have successfully been registered on JICHANGE system, your account is Pending for approval and the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "",  customerName);
+            return string.Format("{0}, you have successfully been registered on JICHANGE system, your account is Pending for approval and the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "", customerName);
         }
 
         private static string FormatMessageBody(string customerName, string password)
@@ -171,22 +166,22 @@ namespace JichangeApi.Controllers.smsservices
             return string.Format("{0},JICHANGE verification code is {1}", cust_number, code);
         }
 
-        private static string FormatMobileNumberChanged(string customerName,string mobileNumber)
+        private static string FormatMobileNumberChanged(string customerName, string mobileNumber)
         {
             return string.Format("Hello {0}, This is to inform you that your mobile number has changed to {1}.", customerName, mobileNumber);
         }
 
-        private static string FormatOtpDeliveryMessageBody(string cust_number, string code,string inv)
+        private static string FormatOtpDeliveryMessageBody(string cust_number, string code, string inv)
         {
 
             string encrypt = PasswordGeneratorUtil.GetEncryptedData(cust_number);// MjU1NzUzNjg4ODY3
             var linkurl = ConfigurationManager.AppSettings["MyCodeUrl"] + encrypt;
-            return string.Format("{0},JICHANGE Confirmation code for invoice {3} delivery is {1}, verify through this link: {2}", cust_number, code, linkurl,inv);
+            return string.Format("{0},JICHANGE Confirmation code for invoice {3} delivery is {1}, verify through this link: {2}", cust_number, code, linkurl, inv);
         }
 
         private void SendSMSAction(string visitorMobileNumber, string SmsBody)
         {
-            
+
             try
             {
                 var sm = smst.getSMTPConfig();
@@ -227,15 +222,15 @@ namespace JichangeApi.Controllers.smsservices
         }
 
 
-       /*
-          New Invoice:
-          Hello (customer name), 
-          Kindly pay (currency & amount) for invoice number (invoice number). Payment reference number is (control number).
-          Regards,
-          (Vendor name)
+        /*
+           New Invoice:
+           Hello (customer name), 
+           Kindly pay (currency & amount) for invoice number (invoice number). Payment reference number is (control number).
+           Regards,
+           (Vendor name)
 
-          ....for email you can attach the invoice....
-       */
+           ....for email you can attach the invoice....
+        */
 
         public void SendCustomerInvoiceSMS(string customername, string invoiceno, string controlno, string vendor, string amount, string mobile_no)
         {
@@ -243,7 +238,7 @@ namespace JichangeApi.Controllers.smsservices
             {
                 var mobileNumber = mobile_no;
 
-                var formattedMessageBody = string.Format("Hello {0}, Kindly pay {1} for invoice number {2}.Payment reference number is {3}. Regards,{4} ", customername, amount,invoiceno, controlno, vendor);
+                var formattedMessageBody = string.Format("Hello {0}, Kindly pay {1} for invoice number {2}.Payment reference number is {3}. Regards,{4} ", customername, amount, invoiceno, controlno, vendor);
 
                 SendSMSAction(mobileNumber, formattedMessageBody);
 
@@ -265,7 +260,7 @@ namespace JichangeApi.Controllers.smsservices
             {
                 var mobileNumber = Mobile_Number;
 
-                var formattedMessageBody = string.Format("Hello {0}, Invoice number {1} has been amended and is waiting approval. New invoice amount is {2}, reference number for payment is {3}. Regards,{4} ", customername,  invoiceno, amount, controlno, vendor);
+                var formattedMessageBody = string.Format("Hello {0}, Invoice number {1} has been amended and is waiting approval. New invoice amount is {2}, reference number for payment is {3}. Regards,{4} ", customername, invoiceno, amount, controlno, vendor);
 
                 SendSMSAction(mobileNumber, formattedMessageBody);
 
@@ -296,21 +291,21 @@ namespace JichangeApi.Controllers.smsservices
 
         }
 
-         /*   private static string FormatInvoiceCancelMessageBody(string customerName, string otp)
-            {
-                return string.Format("{0}, you have successfully been registered on JICHANGE system, your account is Pending for approval and the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "", customerName);
-            }
+        /*   private static string FormatInvoiceCancelMessageBody(string customerName, string otp)
+           {
+               return string.Format("{0}, you have successfully been registered on JICHANGE system, your account is Pending for approval and the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "", customerName);
+           }
 
-            private static string FormatMessageInvoiceBody(string customerName, string password)
-            {
-                return string.Format("{0}, Your account have successfully been approved on JICHANGE system, the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "  and Your password is  {1}", customerName, password);
-            }
+           private static string FormatMessageInvoiceBody(string customerName, string password)
+           {
+               return string.Format("{0}, Your account have successfully been approved on JICHANGE system, the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "  and Your password is  {1}", customerName, password);
+           }
 
-            private static string FormatInvoiceAmmendMessageBody(string cust_number, string code)
-            {
-                return string.Format("{0},JICHANGE verification code is {1}", cust_number, code);
-            }
-        */
+           private static string FormatInvoiceAmmendMessageBody(string cust_number, string code)
+           {
+               return string.Format("{0},JICHANGE verification code is {1}", cust_number, code);
+           }
+       */
 
 
 

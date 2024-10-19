@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class RepCompInvoiceController : LangcoController
@@ -116,7 +113,7 @@ namespace BIZINVOICING.Controllers
             }
             return returnNull;
         }
-    
+
         [HttpPost]
         public ActionResult customerList()
         {
@@ -145,13 +142,13 @@ namespace BIZINVOICING.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult GetInvReport(long Comp,long cusid, string stdate, string enddate)
+        public ActionResult GetInvReport(long Comp, long cusid, string stdate, string enddate)
         {
 
             try
             {
 
-                var result = inv.GetInvRep1(Comp,cusid, stdate, enddate);
+                var result = inv.GetInvRep1(Comp, cusid, stdate, enddate);
                 if (result != null)
                 {
 
@@ -172,13 +169,13 @@ namespace BIZINVOICING.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult GetInvDetReport(long  Comp,string invs, string stdate, string enddate, long Cust)
+        public ActionResult GetInvDetReport(long Comp, string invs, string stdate, string enddate, long Cust)
         {
 
             try
             {
 
-                var result = inv.GetInvDetRep_1(Comp,invs, stdate, enddate, Cust);
+                var result = inv.GetInvDetRep_1(Comp, invs, stdate, enddate, Cust);
                 if (result != null)
                 {
 

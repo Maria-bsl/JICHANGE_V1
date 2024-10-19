@@ -4,7 +4,6 @@ using JichangeApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -32,7 +31,7 @@ namespace JichangeApi.Controllers
             {
                 if (updatePassModel.pwd != updatePassModel.confirmPwd)
                 {
-                    return GetCustomErrorMessageResponse(new List<string> {"Password does not match."});
+                    return GetCustomErrorMessageResponse(new List<string> { "Password does not match." });
                 }
 
                 if (updatePassModel.type == "EMP")
@@ -53,7 +52,7 @@ namespace JichangeApi.Controllers
                         return GetNotFoundResponse();
                     }
                 }
-                    else
+                else
                 {
                     var check1 = cu.Validatepwdbank(GetEncryptedData(updatePassModel.pwd), long.Parse(updatePassModel.userid.ToString()));
                     if (check1 == false)
@@ -84,7 +83,7 @@ namespace JichangeApi.Controllers
             }
 
         }
-      
+
         #region
         /*
             [HttpGet]
@@ -105,66 +104,66 @@ namespace JichangeApi.Controllers
             }
         */
 
-       /* [HttpPost]
-        public HttpResponseMessage Addpwd(String pwd, int qustSno, String qust, String ansr, String posted_by, String type,string userid, long? Instid, long? Usersno)
-        {
-            try
-            {
-                if (type == "Emp")
-                {
-                    var check = Emp.Validatepwdbank(GetEncryptedData(pwd), long.Parse(userid.ToString()));
+        /* [HttpPost]
+         public HttpResponseMessage Addpwd(String pwd, int qustSno, String qust, String ansr, String posted_by, String type,string userid, long? Instid, long? Usersno)
+         {
+             try
+             {
+                 if (type == "Emp")
+                 {
+                     var check = Emp.Validatepwdbank(GetEncryptedData(pwd), long.Parse(userid.ToString()));
 
-                    if (check == false)
-                    {
-                        Emp.Password = GetEncryptedData(pwd);
-                        Emp.SNO = qustSno;
-                        Emp.Q_Name = qust;
-                        Emp.Q_Ans = ansr;
-                        //Emp.F_Login = "true";
-                        Emp.AuditBy = posted_by;
-                        Emp.Detail_Id = (long)Usersno;
-                        Emp.UpdateQuestionEMP(Emp);
-                        return GetSuccessResponse(Usersno);
-                    }
+                     if (check == false)
+                     {
+                         Emp.Password = GetEncryptedData(pwd);
+                         Emp.SNO = qustSno;
+                         Emp.Q_Name = qust;
+                         Emp.Q_Ans = ansr;
+                         //Emp.F_Login = "true";
+                         Emp.AuditBy = posted_by;
+                         Emp.Detail_Id = (long)Usersno;
+                         Emp.UpdateQuestionEMP(Emp);
+                         return GetSuccessResponse(Usersno);
+                     }
 
-                    else
-                    {
-                        return GetNotFoundResponse();
-                    }
-                }
-                else
-                {
-                    var check1 = cu.Validatepwdbank(GetEncryptedData(pwd), long.Parse(userid.ToString()));
-                    if (check1 == false)
-                    {
-                        cu.Password = GetEncryptedData(pwd);
-                        cu.Sno = qustSno;
-                        cu.Qname = qust;
-                        cu.Qans = ansr;
-                        //cu.Flogin = "true";
-                        cu.PostedBy = posted_by;
-                        cu.CompuserSno = (long)Usersno;
-                        cu.UpdateQuestionEMP(cu);
-                       
-                        return GetSuccessResponse(Usersno);
-                    }
-                    else
-                    {
-                      return GetNotFoundResponse();
-                    }
+                     else
+                     {
+                         return GetNotFoundResponse();
+                     }
+                 }
+                 else
+                 {
+                     var check1 = cu.Validatepwdbank(GetEncryptedData(pwd), long.Parse(userid.ToString()));
+                     if (check1 == false)
+                     {
+                         cu.Password = GetEncryptedData(pwd);
+                         cu.Sno = qustSno;
+                         cu.Qname = qust;
+                         cu.Qans = ansr;
+                         //cu.Flogin = "true";
+                         cu.PostedBy = posted_by;
+                         cu.CompuserSno = (long)Usersno;
+                         cu.UpdateQuestionEMP(cu);
+
+                         return GetSuccessResponse(Usersno);
+                     }
+                     else
+                     {
+                       return GetNotFoundResponse();
+                     }
 
 
-                }
+                 }
 
-            }
-            catch (Exception Ex)
-            {
-                Ex.Message.ToString();
-            }
+             }
+             catch (Exception Ex)
+             {
+                 Ex.Message.ToString();
+             }
 
-            return returnNull;
-        }
-*/
+             return returnNull;
+         }
+ */
 
         #endregion
 

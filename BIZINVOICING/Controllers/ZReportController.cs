@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using Newtonsoft.Json.Linq;
+using System;
 using System.IO;
-using System.Text;
 using System.Net;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-using System.Globalization;
-using System.Xml;
-using Newtonsoft.Json.Linq;
-using BL.BIZINVOICING.BusinessEntities.Common;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using System.Text;
+using System.Web.Mvc;
 
 namespace BIZINVOICING.Controllers
 {

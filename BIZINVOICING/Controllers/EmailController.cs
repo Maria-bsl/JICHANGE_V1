@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
 using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 namespace BIZINVOICING.Controllers
 {
     public class EmailController : AdminBaseController
@@ -61,7 +59,7 @@ namespace BIZINVOICING.Controllers
                 cy.Subject = Utilites.RemoveSpecialCharacters(sub);
                 cy.Local_subject = Utilites.RemoveSpecialCharacters(subloc);
                 cy.SNO = sno;
-                cy.AuditBy= Session["UserID"].ToString();
+                cy.AuditBy = Session["UserID"].ToString();
                 long ssno = 0;
                 if (sno == 0)
                 {
@@ -90,7 +88,7 @@ namespace BIZINVOICING.Controllers
                         }
                         return Json(ssno, JsonRequestBehavior.AllowGet);
 
-                     }
+                    }
                 }
                 else if (sno > 0)
                 {
@@ -116,7 +114,7 @@ namespace BIZINVOICING.Controllers
                     ssno = sno;
                     return Json(ssno, JsonRequestBehavior.AllowGet);
 
-                     //}
+                    //}
                 }
 
 
@@ -128,7 +126,7 @@ namespace BIZINVOICING.Controllers
 
             return returnNull;
         }
-        public ActionResult DeleteEmail(int Sno,String name)
+        public ActionResult DeleteEmail(int Sno, String name)
         {
             try
             {
@@ -149,10 +147,10 @@ namespace BIZINVOICING.Controllers
                     }
                 }
                 cy.DeleteEMAIL(Sno);
-                    var result = Sno;
-                    return Json(result, JsonRequestBehavior.AllowGet);
-                
-               
+                var result = Sno;
+                return Json(result, JsonRequestBehavior.AllowGet);
+
+
             }
             catch (Exception Ex)
             {

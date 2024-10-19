@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using System.Web.Security;
-using System.Web.Configuration;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class UpdatepwdController : AdminBaseController
@@ -41,7 +36,7 @@ namespace BIZINVOICING.Controllers
         }
 
         [HttpPost]
-        
+
         public ActionResult Addpwd(String pwd, int qustSno, String qust, String ansr, String posted_by, String type, long? Instid, long? Usersno)
         {
             try
@@ -49,7 +44,7 @@ namespace BIZINVOICING.Controllers
                 if (type == "Emp")
                 {
                     var check = Emp.Validatepwdbank(GetEncryptedData(pwd), long.Parse(Session["UserID"].ToString()));
-                    
+
                     if (check == false)
                     {
                         Emp.Password = GetEncryptedData(pwd);
@@ -68,7 +63,8 @@ namespace BIZINVOICING.Controllers
                         return Json(check, JsonRequestBehavior.AllowGet);
                     }
                 }
-                else {
+                else
+                {
                     var check1 = cu.Validatepwdbank(GetEncryptedData(pwd), long.Parse(Session["UserID"].ToString()));
                     if (check1 == false)
                     {

@@ -3,16 +3,12 @@ using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.setup
 {
     public class BranchService
     {
-        private static readonly List<string> TABLE_COLUMNS = new List<string> { "sno", "name", "location", "status" ,"posted_by", "posted_date" };
+        private static readonly List<string> TABLE_COLUMNS = new List<string> { "sno", "name", "location", "status", "posted_by", "posted_date" };
         private static readonly string TABLE_NAME = "Branch_Name";
         public static void AppendInsertAuditTrail(long sno, BranchM branch, long userid)
         {
@@ -102,7 +98,7 @@ namespace JichangeApi.Services.setup
             }
         }
 
-        public long DeleteBranch(long sno,long userid)
+        public long DeleteBranch(long sno, long userid)
         {
             try
             {

@@ -2,16 +2,10 @@
 using JichangeApi.Controllers.setup;
 using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models;
-using JichangeApi.Services.setup;
 using JichangeApi.Utilities;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using static QRCoder.PayloadGenerator;
 
 namespace JichangeApi.Services.Companies
 {
@@ -52,7 +46,7 @@ namespace JichangeApi.Services.Companies
             Auditlog.deleteAuditTrail(values, userid, COMPANY_BANK, COMPANY_BANK_COLUMNS);
         }
 
-        private void AppendCompanyDeleteAuditTrail(long sno,CompanyBankMaster company,long userid)
+        private void AppendCompanyDeleteAuditTrail(long sno, CompanyBankMaster company, long userid)
         {
             List<string> values = new List<string> { sno.ToString(), company.CompName, company.PostBox, company.Address, company.RegId.ToString(), company.DistSno.ToString(), company.WardSno.ToString(), company.TinNo, company.VatNo, company.DirectorName, company.Email, company.TelNo, company.FaxNo, company.MobNo, userid.ToString(), DateTime.Now.ToString() };
             Auditlog.deleteAuditTrail(values, userid, TABLE_NAME, TABLE_COLUMNS);
@@ -654,7 +648,7 @@ namespace JichangeApi.Services.Companies
                 throw new Exception(ex.Message);
             }
         }
-        public bool DeleteCompany(long companyId,long userid)
+        public bool DeleteCompany(long companyId, long userid)
         {
             try
             {

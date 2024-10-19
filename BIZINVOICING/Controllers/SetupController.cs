@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using BL.BIZINVOICING.BusinessEntities.Common;
 using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.Common;
+using System;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace BIZINVOICING.Controllers
 {
@@ -51,7 +49,7 @@ namespace BIZINVOICING.Controllers
                 }
                 ViewData["TRANS"] = iCount.ToString();
 
-                var result1 = innn.GetINVOICEMas1().Where(x => x.approval_status == null );
+                var result1 = innn.GetINVOICEMas1().Where(x => x.approval_status == null);
                 if (result1 != null)
                 {
                     eCount = result1.Count();
@@ -80,19 +78,19 @@ namespace BIZINVOICING.Controllers
                 ViewData["ACC"] = countcomp;
                 long count = 0;
                 var getCon = pay.GetControl_Dash();
-                if(getCon != null)
+                if (getCon != null)
                 {
-                    
+
                     long amount = 0;
                     long ramount = 0;
                     for (int i = 0; i < getCon.Count; i++)
                     {
                         var getC = pay.GetPayment_Dash(getCon[i].Control_No);
-                        if(getC != null)
+                        if (getC != null)
                         {
                             amount = getC.Sum(x => x.Amount);
                             ramount = getC.Sum(x => x.Requested_Amount);
-                            if(amount == ramount)
+                            if (amount == ramount)
                             {
                                 count = count + 1;
                             }
@@ -167,7 +165,7 @@ namespace BIZINVOICING.Controllers
             }
             else
             {
-                
+
                 var date = DateTime.Now;
                 //var countcust = cm.GetCustcount(long.Parse(Session["CompID"].ToString()), date);
                 //var countinv = innn.Getinvcount(long.Parse(Session["CompID"].ToString()), date);
@@ -224,12 +222,12 @@ namespace BIZINVOICING.Controllers
                     pi = getCon.Count;
                 }*/
                 var getP = innn.GetINVOICEMas_D(long.Parse(Session["CompID"].ToString()));
-                if(getP != null)
+                if (getP != null)
                 {
                     pi = getP.Count;
                 }
                 var dInv = innn.GetINVOICEMas_Pen(long.Parse(Session["CompID"].ToString()));
-                if(dInv != null)
+                if (dInv != null)
                 {
                     count = dInv.Count;
                 }
@@ -255,14 +253,14 @@ namespace BIZINVOICING.Controllers
 
             try
             {
-               
+
                 var countcust1 = cm.GetCustcountind(long.Parse(Session["CompID"].ToString()), name);
                 var countinv1 = innn.Getinvcountind(long.Parse(Session["CompID"].ToString()), name);
                 var countinvapp1 = innn.Getinvcountnlyappind(long.Parse(Session["CompID"].ToString()), name);
                 var totamtwithvat1 = innn.Gettotamtwithvatind(long.Parse(Session["CompID"].ToString()), name);
                 var totamtwithoutvat1 = innn.Gettotamtwithoutvatind(long.Parse(Session["CompID"].ToString()), name);
                 var totvat1 = innn.Gettotvatind(long.Parse(Session["CompID"].ToString()), name);
-                
+
                 var countcust = cm.GetCustcountind(long.Parse(Session["CompID"].ToString()), name);
                 var countinv = innn.Getinvcountind(long.Parse(Session["CompID"].ToString()), name);
                 var countinvapp = innn.Getinvcountnlyappind(long.Parse(Session["CompID"].ToString()), name);
@@ -288,10 +286,22 @@ namespace BIZINVOICING.Controllers
                 ViewData["catC1"] = bycategoryC1;
                 ViewData["catD1"] = bycategoryD1;
                 ViewData["catE1"] = bycategoryE1;
-               
+
                 //return null;
-                var dat = new { cust = countcust, inv = countinv, invapp = countinvapp, amtwitvat = totamtwithvat, witoutvat = totamtwithoutvat, tvat = totvat,
-                catA=bycategoryA1,catB=bycategoryB1,catC=bycategoryC1,catD=bycategoryD1,catE=bycategoryE1};
+                var dat = new
+                {
+                    cust = countcust,
+                    inv = countinv,
+                    invapp = countinvapp,
+                    amtwitvat = totamtwithvat,
+                    witoutvat = totamtwithoutvat,
+                    tvat = totvat,
+                    catA = bycategoryA1,
+                    catB = bycategoryB1,
+                    catC = bycategoryC1,
+                    catD = bycategoryD1,
+                    catE = bycategoryE1
+                };
                 if (dat != null)
                 {
                     return Json(dat, JsonRequestBehavior.AllowGet);
@@ -323,12 +333,19 @@ namespace BIZINVOICING.Controllers
                 var totamtwithvat = innn.Gettotamtwithvat(long.Parse(Session["CompID"].ToString()), date);
                 var totamtwithoutvat = innn.Gettotamtwithoutvat(long.Parse(Session["CompID"].ToString()), date);
                 var totvat = innn.Gettotvat(long.Parse(Session["CompID"].ToString()), date);
-                
 
-                
+
+
                 //return null;
-                var dat = new { cust = countcust, inv = countinv, invapp = countinvapp, amtwitvat = totamtwithvat, witoutvat = totamtwithoutvat, tvat = totvat
-               };
+                var dat = new
+                {
+                    cust = countcust,
+                    inv = countinv,
+                    invapp = countinvapp,
+                    amtwitvat = totamtwithvat,
+                    witoutvat = totamtwithoutvat,
+                    tvat = totvat
+                };
                 if (dat != null)
                 {
                     return Json(dat, JsonRequestBehavior.AllowGet);
@@ -366,7 +383,7 @@ namespace BIZINVOICING.Controllers
                         storecountreg += ", " + "\"" + countRegwisecomp + "\"";
                     }
 
-                    storeregname +=  listreg[i].RegName + ",";
+                    storeregname += listreg[i].RegName + ",";
                 }
                 var regname = storeregname.TrimEnd(',');
                 storecountreg = storecountreg.Replace("\"", "");
@@ -378,7 +395,7 @@ namespace BIZINVOICING.Controllers
                 {
                     name1 = regname,
                     countregi = countreg,
-                    
+
                 };
                 if (dat != null)
                 {

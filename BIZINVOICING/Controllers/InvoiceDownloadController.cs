@@ -1,34 +1,27 @@
-﻿using iTextSharp.text;
+﻿using BL.BIZINVOICING.BusinessEntities.Common;
+using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using BL.BIZINVOICING.BusinessEntities.Masters;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using QRCoder;
-using System.Drawing;
-using System.Drawing.Imaging;
-using Image = iTextSharp.text.Image;
-using System.Text.RegularExpressions;
-using BL.BIZINVOICING.BusinessEntities.Common;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-using System.Globalization;
-using System.Xml;
-using Newtonsoft.Json.Linq;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Net.Mail;
+using System.Web;
+using System.Web.Mvc;
 
 
 namespace BIZINVOICING.Controllers

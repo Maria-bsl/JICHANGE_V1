@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -51,7 +49,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                   where ((!string.IsNullOrEmpty(c.sms_text1)) && (c.sms_text1.ToLower().Equals(mail.ToLower())))
                                   select c);
                 return validation != null ? validation.Count() > 0 : true;
-                
+
                 /*if (validation.Count() > 0)
                     return true;
                 else
@@ -68,7 +66,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public bool ValidateFlowIdDuplicate(string flowId,long sno)
+        public bool ValidateFlowIdDuplicate(string flowId, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -77,7 +75,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public bool ValidateSMS(string mail,long sno)
+        public bool ValidateSMS(string mail, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -102,7 +100,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     SMS_Other = c.sms_text_other,
                                     Effective_Date = (DateTime)c.effective_date,
                                     AuditBy = c.posted_by,
-                                    Audit_Date = (DateTime) c.posted_date
+                                    Audit_Date = (DateTime)c.posted_date
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;

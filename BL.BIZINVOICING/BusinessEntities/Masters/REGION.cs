@@ -1,14 +1,11 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.Entity.Validation;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class REGION
+    public class REGION
     {
         #region Properties
         public long Region_SNO { get; set; }
@@ -23,24 +20,24 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
         public long AddREGION(REGION sc)
         {
-            
-                using ( BIZINVOICEEntities context = new BIZINVOICEEntities())
-                {
-                    region_master ps = new region_master()
-                    {
 
-                        region_name = sc.Region_Name,
-                        country_sno = sc.Country_Sno,
-                        country_name = sc.Country_Name,
-                        region_status = sc.Region_Status,
-                        posted_by = sc.AuditBy,
-                        posted_date = DateTime.Now,
-                    };
-                    context.region_master.Add(ps);
-                    context.SaveChanges();
-                    return ps.region_sno;
-                }
-            
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                region_master ps = new region_master()
+                {
+
+                    region_name = sc.Region_Name,
+                    country_sno = sc.Country_Sno,
+                    country_name = sc.Country_Name,
+                    region_status = sc.Region_Status,
+                    posted_by = sc.AuditBy,
+                    posted_date = DateTime.Now,
+                };
+                context.region_master.Add(ps);
+                context.SaveChanges();
+                return ps.region_sno;
+            }
+
         }
         public bool ValidateREGION(string Region, long name)
         {
@@ -81,7 +78,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var adetails = (from c in context.region_master
                                 join c1 in context.company_master on c.region_sno equals c1.region_id
-                                where c1.comp_mas_sno==Sno
+                                where c1.comp_mas_sno == Sno
                                 select new REGION
                                 {
                                     Region_SNO = c.region_sno,
@@ -110,12 +107,13 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return false;
             }
         }
-        public bool isDuplicatedRegion(string regionName,long regionSno,long countrySno)
+        public bool isDuplicatedRegion(string regionName, long regionSno, long countrySno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var validation = (from c in context.region_master where 
-                                  ((c.region_name.ToLower().Equals(regionName.ToLower())) && c.region_sno != regionSno && c.country_sno != countrySno) 
+                var validation = (from c in context.region_master
+                                  where
+  ((c.region_name.ToLower().Equals(regionName.ToLower())) && c.region_sno != regionSno && c.country_sno != countrySno)
                                   select c);
                 return validation.Count() > 0;
             }
@@ -154,8 +152,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Country_Sno = (long)c.country_sno,
                                     Country_Name = c.country_name,
                                     Region_Status = c.region_status,
-                                    Audit_Date=c.posted_date,
-                                }).OrderByDescending(z=>z.Audit_Date).ToList();
+                                    Audit_Date = c.posted_date,
+                                }).OrderByDescending(z => z.Audit_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
@@ -166,7 +164,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var adetails = (from c in context.region_master.Where(c=>c.region_status=="Active")
+                var adetails = (from c in context.region_master.Where(c => c.region_status == "Active")
 
                                 select new REGION
                                 {
@@ -215,7 +213,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 {
                                     Region_SNO = c.region_sno,
                                     Region_Name = c.region_name
-                                   
+
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;

@@ -1,12 +1,9 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models;
-using JichangeApi.Models.form;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -38,7 +35,7 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        private COUNTRY createCountry(AddCountryForm addCountryForm) 
+        private COUNTRY createCountry(AddCountryForm addCountryForm)
         {
             COUNTRY country = new COUNTRY();
             country.Country_Name = addCountryForm.Country_Name;
@@ -54,7 +51,7 @@ namespace JichangeApi.Controllers.setup
                 bool isExistCountry = country.ValidateLicense(addCountryForm.Country_Name);
                 if (isExistCountry) return this.GetAlreadyExistsErrorResponse();
                 long addedCountry = country.Addcountries(country);
-                AppendInsertCountryAuditTrail(addedCountry,country,(long) addCountryForm.userid);
+                AppendInsertCountryAuditTrail(addedCountry, country, (long)addCountryForm.userid);
                 return this.FindCountry(addedCountry);
             }
             catch (Exception ex)
@@ -66,23 +63,23 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        private void AppendInsertCountryAuditTrail(long countrySno,COUNTRY country,long userid)
+        private void AppendInsertCountryAuditTrail(long countrySno, COUNTRY country, long userid)
         {
             List<string> insertAudits = new List<string> { countrySno.ToString(), country.Country_Name };
             Auditlog.InsertAuditTrail(insertAudits, userid, CountryController.tableName, CountryController.tableColumns);
         }
 
-        private void AppendUpdateCountryAuditTrail(long countrySno,COUNTRY oldCountry,COUNTRY newCountry,long userid)
+        private void AppendUpdateCountryAuditTrail(long countrySno, COUNTRY oldCountry, COUNTRY newCountry, long userid)
         {
             List<string> oldValues = new List<string> { countrySno.ToString(), oldCountry.Country_Name };
             List<string> newValues = new List<string> { countrySno.ToString(), newCountry.Country_Name };
             Auditlog.UpdateAuditTrail(oldValues, newValues, userid, CountryController.tableName, CountryController.tableColumns);
         }
 
-        private void AppendDeleteCountryAuditTrail(long countrySno,COUNTRY country,long userid)
+        private void AppendDeleteCountryAuditTrail(long countrySno, COUNTRY country, long userid)
         {
             List<string> values = new List<string> { countrySno.ToString(), country.Country_Name };
-            Auditlog.deleteAuditTrail(values,userid, CountryController.tableName, CountryController.tableColumns);
+            Auditlog.deleteAuditTrail(values, userid, CountryController.tableName, CountryController.tableColumns);
         }
 
         private HttpResponseMessage UpdateCountry(AddCountryForm addCountryForm)
@@ -96,7 +93,7 @@ namespace JichangeApi.Controllers.setup
                 if (isDuplicatedName) return this.GetAlreadyExistsErrorResponse();
                 COUNTRY oldCountry = country.Editcountries(addCountryForm.sno);
                 long updatedCountry = country.Updatecountries(country);
-                AppendUpdateCountryAuditTrail(updatedCountry, oldCountry, country, (long) addCountryForm.userid);
+                AppendUpdateCountryAuditTrail(updatedCountry, oldCountry, country, (long)addCountryForm.userid);
                 return this.FindCountry(updatedCountry);
             }
             catch (Exception ex)

@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class DISTRICTS
@@ -26,8 +24,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 {
                     district_sno = sc.SNO,
                     district_name = sc.District_Name,
-                    region_id =sc.Region_Id,
-                    district_status=sc.District_Status,
+                    region_id = sc.Region_Id,
+                    district_status = sc.District_Status,
                     posted_by = sc.AuditBy,
                     posted_date = DateTime.Now,
                 };
@@ -41,7 +39,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var validation = (from c in context.district_master
-                                  where (c.district_name == name && c.region_id ==rgn) 
+                                  where (c.district_name == name && c.region_id == rgn)
                                   select c);
                 if (validation.Count() > 0)
                     return false;
@@ -64,13 +62,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public bool isDuplicateDistrict(string district,long districtId,long regionId)
+        public bool isDuplicateDistrict(string district, long districtId, long regionId)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var validation = (from c in context.district_master
-                                  where ((c.district_name.ToLower().Equals(district.ToLower())) && 
-                                  c.district_sno != districtId && c.region_id != regionId) select c);
+                                  where ((c.district_name.ToLower().Equals(district.ToLower())) &&
+                                  c.district_sno != districtId && c.region_id != regionId)
+                                  select c);
                 return validation.Count() > 0;
             }
         }
@@ -126,16 +125,17 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var adetails = (from c in context.district_master join reg in context.region_master on c.region_id equals reg.region_sno
+                var adetails = (from c in context.district_master
+                                join reg in context.region_master on c.region_id equals reg.region_sno
                                 select new DISTRICTS
                                 {
-                                    SNO=c.district_sno,
+                                    SNO = c.district_sno,
                                     District_Name = c.district_name,
                                     Region_Id = (long)c.region_id,
                                     Region_Name = reg.region_name,
-                                    District_Status=c.district_status,
-                                  Audit_Date=c.posted_date,
-                                }).OrderByDescending(z=>z.Audit_Date).ToList();
+                                    District_Status = c.district_status,
+                                    Audit_Date = c.posted_date,
+                                }).OrderByDescending(z => z.Audit_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
@@ -198,7 +198,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return adetails != null ? adetails : null;
             }
         }
-        
+
         public void DeleteDISTRICTS(long no)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
@@ -236,7 +236,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
                 if (UpdateContactInfo != null)
                 {
-                     
+
                     UpdateContactInfo.district_name = dep.District_Name;
                     UpdateContactInfo.region_id = dep.Region_Id;
                     UpdateContactInfo.district_status = dep.District_Status;

@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class ERRORLOG
@@ -71,8 +69,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     StackTrace = sc.Stack_Trace,
                     InnerException = sc.Inner_Exception,
                     RequestURL = sc.Request_URL,
-                    deliveryCode =sc.Delivery_Code,
-                    BrowserType =sc.Browser_Type,
+                    deliveryCode = sc.Delivery_Code,
+                    BrowserType = sc.Browser_Type,
                     AuditDate = DateTime.Now
                 };
                 context.ErrorLogs.Add(ps);

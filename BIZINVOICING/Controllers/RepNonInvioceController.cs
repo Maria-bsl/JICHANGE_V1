@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class RepNonInvioceController : AdminBaseController
@@ -27,7 +24,7 @@ namespace BIZINVOICING.Controllers
             try
             {
 
-              //  var result = inv.GetCustomers();
+                //  var result = inv.GetCustomers();
                 //if (result != null)
                 //{
 
@@ -133,13 +130,13 @@ namespace BIZINVOICING.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult GetInvReport(long Comp,long cusid, string stdate, string enddate)
+        public ActionResult GetInvReport(long Comp, long cusid, string stdate, string enddate)
         {
 
             try
             {
 
-                var result = inv.GetInvRep11(Comp,cusid, stdate, enddate);
+                var result = inv.GetInvRep11(Comp, cusid, stdate, enddate);
                 if (result != null)
                 {
 
@@ -149,7 +146,7 @@ namespace BIZINVOICING.Controllers
                 {
                     return Json(0, JsonRequestBehavior.AllowGet);
                 }
-               // Message = "The cast to value type 'System.Decimal' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type."
+                // Message = "The cast to value type 'System.Decimal' failed because the materialized value is null. Either the result type's generic parameter or the query must use a nullable type."
 
             }
             catch (Exception Ex)
@@ -187,5 +184,5 @@ namespace BIZINVOICING.Controllers
             return null;
 
         }
-        }
+    }
 }

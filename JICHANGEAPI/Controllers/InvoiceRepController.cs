@@ -7,7 +7,6 @@ using JichangeApi.Services.Reports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -74,7 +73,7 @@ namespace JichangeApi.Controllers
             try
             {
                 List<CustomerMaster> customers = invoiceRepService.GetCompanyCustomers(customerDetailsForm);
-                return GetSuccessResponse(customers);   
+                return GetSuccessResponse(customers);
             }
             catch (Exception ex)
             {
@@ -109,7 +108,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CompanyBankMaster> companies = invoiceRepService.GetCompaniesListByBranch((long) branchRef.branch);
+                List<CompanyBankMaster> companies = invoiceRepService.GetCompaniesListByBranch((long)branchRef.branch);
                 return GetSuccessResponse(companies);
             }
             catch (Exception ex)
@@ -149,7 +148,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CompanyBankMaster> companies = invoiceRepService.GetAllCompaniesListByBranch((long) branchRef.branch);
+                List<CompanyBankMaster> companies = invoiceRepService.GetAllCompaniesListByBranch((long)branchRef.branch);
                 return GetSuccessResponse(companies);
             }
             catch (Exception ex)
@@ -187,7 +186,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CustomerMaster> customers = customerService.GetCompanyCustomersList((long) singletonComp.compid);
+                List<CustomerMaster> customers = customerService.GetCompanyCustomersList((long)singletonComp.compid);
                 return GetSuccessResponse(customers);
             }
             catch (Exception ex)

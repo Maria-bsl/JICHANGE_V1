@@ -3,16 +3,9 @@ using JichangeApi.Controllers.setup;
 using JichangeApi.Controllers.smsservices;
 using JichangeApi.Enums;
 using JichangeApi.Models;
-using JichangeApi.Services.setup;
 using JichangeApi.Utilities;
-using QRCoder.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Data.Entity.Infrastructure.Design.Executor;
 
 namespace JichangeApi.Services.Companies
 {
@@ -35,14 +28,14 @@ namespace JichangeApi.Services.Companies
             try
             {
                 CompanyBankMaster companyBankMaster = new CompanyBankMaster();
-                switch (desibraid.design.ToLower()) 
+                switch (desibraid.design.ToLower())
                 {
                     /*case "administrator":
                         List<CompanyBankMaster> pendingCompanies = companyBankMaster.GetCompany1();
                         return pendingCompanies != null ? pendingCompanies : new List<CompanyBankMaster>();*/
                     default:
                         long branch = long.Parse(desibraid.braid.ToString());
-                        List<CompanyBankMaster> branchCompanies = companyBankMaster.GetApprovedCompaniesByBranch(branch,"pending");
+                        List<CompanyBankMaster> branchCompanies = companyBankMaster.GetApprovedCompaniesByBranch(branch, "pending");
                         return branchCompanies ?? new List<CompanyBankMaster>();
                 }
             }
@@ -99,7 +92,7 @@ namespace JichangeApi.Services.Companies
 
                 return companyDeposit;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);

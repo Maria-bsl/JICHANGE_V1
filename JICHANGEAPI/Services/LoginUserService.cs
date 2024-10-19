@@ -1,19 +1,10 @@
-﻿using BL.BIZINVOICING.BusinessEntities.Common;
-using BL.BIZINVOICING.BusinessEntities.Masters;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.Authentication;
 using JichangeApi.Models;
 using JichangeApi.Services.Companies;
 using JichangeApi.Utilities;
-using Org.BouncyCastle.Ocsp;
-using PasswordGenerator;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace JichangeApi.Services
@@ -110,7 +101,7 @@ namespace JichangeApi.Services
             long userid = empData.Detail_Id;
             DESIGNATION designation = new DESIGNATION().Editdesignation(empData.Desg_Id);
             string desig = designation.Desg_Name;
-            long branchId = empData.Branch_Sno != null ? (long) empData.Branch_Sno : 0;
+            long branchId = empData.Branch_Sno != null ? (long)empData.Branch_Sno : 0;
             TRACK_DET tracDet = TrackBankUserDetails(empData);
             JsonObject response = new JsonObject
             {
@@ -177,14 +168,14 @@ namespace JichangeApi.Services
                     return GetCompanyUserProfile(company);
                 }
 
-                if(authLog.userName.ToLower().Equals("super") && authLog.password.Equals("1234")) // $pKwG1rq
+                if (authLog.userName.ToLower().Equals("super") && authLog.password.Equals("1234")) // $pKwG1rq
                 {
-                    
+
                     return GetBankSuperUserProfile(authLog);
                 }
 
 
-                JsonObject response = new JsonObject 
+                JsonObject response = new JsonObject
                 {
                     { "check", "Username or password is incorrect" }
                 };
@@ -202,7 +193,7 @@ namespace JichangeApi.Services
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
 
-                throw new Exception(ex.Message);    
+                throw new Exception(ex.Message);
             }
         }
 

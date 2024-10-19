@@ -1,8 +1,5 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BIZINVOICING.Controllers
@@ -12,7 +9,7 @@ namespace BIZINVOICING.Controllers
         // GET: Role
         Roles ot = new Roles();
         private readonly dynamic returnNull = null;
-        
+
         public ActionResult Role()
         {
             //if (Session["sessComp"] == null)
@@ -62,7 +59,7 @@ namespace BIZINVOICING.Controllers
                 {
                     aID = "00" + 1;
                 }
-              //  ot.Inst_reg = long.Parse(Session["InstituteID"].ToString());
+                //  ot.Inst_reg = long.Parse(Session["InstituteID"].ToString());
                 ot.Code = aID;
                 ot.Description = name;
                 ot.Admin1 = "N";
@@ -170,7 +167,7 @@ namespace BIZINVOICING.Controllers
             catch (Exception Ex)
             {
                 //Ex.ToString();
-               // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
+                // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
             }
 
             return returnNull;
@@ -193,7 +190,7 @@ namespace BIZINVOICING.Controllers
             catch (Exception Ex)
             {
                 //Ex.ToString();
-               // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
+                // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
             }
 
             return returnNull;
@@ -240,7 +237,7 @@ namespace BIZINVOICING.Controllers
             catch (Exception Ex)
             {
                 //Ex.ToString();
-              //  long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
+                //  long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
             }
 
             return returnNull;

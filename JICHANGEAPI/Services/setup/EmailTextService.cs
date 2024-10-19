@@ -2,14 +2,10 @@
 using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
-using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.setup
 {
@@ -26,7 +22,7 @@ namespace JichangeApi.Services.setup
             Auditlog.InsertAuditTrail(values, userid, EmailTextService.TABLE_NAME, EmailTextService.TABLE_COLUMNS);
         }
 
-        private void AppendUpdateAuditTrail(long sno,EMAIL oldEmail,EMAIL newEmail,long userid)
+        private void AppendUpdateAuditTrail(long sno, EMAIL oldEmail, EMAIL newEmail, long userid)
         {
             List<string> oldValues = new List<string> { sno.ToString(), oldEmail.Flow_Id, oldEmail.Email_Text, oldEmail.Effective_Date.ToString(), userid.ToString(), oldEmail.Audit_Date.ToString(), oldEmail.Subject, oldEmail.Local_subject, oldEmail.Local_Text };
             List<string> newValues = new List<string> { sno.ToString(), newEmail.Flow_Id, newEmail.Email_Text, DateTime.Now.ToString(), userid.ToString(), DateTime.Now.ToString(), newEmail.Subject, newEmail.Local_subject, newEmail.Local_Text };
@@ -73,7 +69,7 @@ namespace JichangeApi.Services.setup
 
                 throw new Exception(ex.Message);
             }
-        } 
+        }
 
         public EMAIL InsertEmail(AddEmailForm addEmailForm)
         {
@@ -137,7 +133,7 @@ namespace JichangeApi.Services.setup
                 JsonArray flows = new JsonArray();
                 for (int i = 0; i < EmailTextService.FLOWS.Count(); i++)
                 {
-                    JsonObject flow = new JsonObject { 
+                    JsonObject flow = new JsonObject {
                         { "label", EmailTextService.FLOWS.ElementAt(i) },
                         { "flow", i + 1 }
                     };
@@ -169,7 +165,7 @@ namespace JichangeApi.Services.setup
                 throw new Exception(ex.Message);
             }
         }
-        public long DeleteEmail(long sno,long userid)
+        public long DeleteEmail(long sno, long userid)
         {
             try
             {

@@ -1,9 +1,6 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace JichangeApi.Models.form
 {
@@ -49,13 +46,13 @@ namespace JichangeApi.Models.form
         public string goods_status { get; set; }
         public string delivery_status { get; set; }
 
-       /* string invno, string auname, string date, string edate, string iedate, string ptype, long chus,
-            long comno, string ccode, string ctype, string cino,
-           string twvat, string vtamou, string total, string Inv_remark, int lastrow, 
-            List<INVOICE> details, long sno, string warrenty, string goods_status,
-            string delivery_status,*/
+        /* string invno, string auname, string date, string edate, string iedate, string ptype, long chus,
+             long comno, string ccode, string ctype, string cino,
+            string twvat, string vtamou, string total, string Inv_remark, int lastrow, 
+             List<INVOICE> details, long sno, string warrenty, string goods_status,
+             string delivery_status,*/
 
-         [Required(ErrorMessage = "Missing Reason", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Missing Reason", AllowEmptyStrings = false)]
         public string reason { get; set; }
 
 

@@ -5,7 +5,6 @@ using JichangeApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -333,7 +332,7 @@ namespace JichangeApi.Controllers
 
                     return GetSuccessResponse(statistics);
 
-            }
+                }
 
                 if (request.branch.ToString() != null && !string.IsNullOrEmpty(request.branch.ToString()))
                 {
@@ -354,8 +353,8 @@ namespace JichangeApi.Controllers
                         }
                         var ActiveCompany = ActiveCompanyWithInvoices.ToString();
                         var CompanyWithoutInvoices = vendorCount - ActiveCompanyWithInvoices;
-                       
-                       var result = innn.GetINVOICEMas1().Where(x => x.approval_status == "2" && x.approval_status != "Cancel");
+
+                        var result = innn.GetINVOICEMas1().Where(x => x.approval_status == "2" && x.approval_status != "Cancel");
                         if (result != null)
                         {
                             ApprovedInvoices = result.Count();
@@ -532,7 +531,7 @@ namespace JichangeApi.Controllers
 
                 return GetServerErrorResponse("Invalid request: Body parameter must be provided.");
 
-        }
+            }
             catch (Exception ex)
             {
                 pay.Message = ex.ToString();
@@ -547,62 +546,62 @@ namespace JichangeApi.Controllers
         {
             try
             {
-               
-                if (request.compid.ToString() != "0" && !string.IsNullOrEmpty(request.compid.ToString()))
-                    {
-                        //SingletonComp company = new SingletonComp();
-                        var date = DateTime.Now;
-                        //GetINVOICEMasterByVendor(long.Parse(company.compid.ToString()));
-                        var ApprovedInvoices = innn.GetCount_C(long.Parse(request.compid.ToString()));
-                        long count = 0;
-                        long pi = 0;
-                        var getCon = pay.GetControl_Dash_C(long.Parse(request.compid.ToString()));
-                        if (getCon != null)
-                        {
 
-                            long amount = 0;
-                            long ramount = 0;
-                            for (int i = 0; i < getCon.Count; i++)
+                if (request.compid.ToString() != "0" && !string.IsNullOrEmpty(request.compid.ToString()))
+                {
+                    //SingletonComp company = new SingletonComp();
+                    var date = DateTime.Now;
+                    //GetINVOICEMasterByVendor(long.Parse(company.compid.ToString()));
+                    var ApprovedInvoices = innn.GetCount_C(long.Parse(request.compid.ToString()));
+                    long count = 0;
+                    long pi = 0;
+                    var getCon = pay.GetControl_Dash_C(long.Parse(request.compid.ToString()));
+                    if (getCon != null)
+                    {
+
+                        long amount = 0;
+                        long ramount = 0;
+                        for (int i = 0; i < getCon.Count; i++)
+                        {
+                            var getC = pay.GetPayment_Dash(getCon[i].Control_No);
+                            if (getC != null)
                             {
-                                var getC = pay.GetPayment_Dash(getCon[i].Control_No);
-                                if (getC != null)
+                                amount = getC.Sum(x => x.Amount);
+                                ramount = getC.Sum(x => x.Requested_Amount);
+                                if (amount == ramount)
                                 {
-                                    amount = getC.Sum(x => x.Amount);
-                                    ramount = getC.Sum(x => x.Requested_Amount);
-                                    if (amount == ramount)
-                                    {
-                                        count++;
-                                    }
+                                    count++;
                                 }
                             }
-                            pi = getCon.Count;
                         }
-                        var getP = innn.GetINVOICEMas_D(long.Parse(request.compid.ToString()));
-                        if (getP != null)
-                        {
-                            pi = getP.Count;
-                        }
-                        var dInv = innn.GetINVOICEMas_Pen(long.Parse(request.compid.ToString()));
-                        if (dInv != null)
-                        {
-                            count = dInv.Count;
-                        }
-                        var pi1 = count;
-                        var di1 = count;
-                        var pa1 = pi;
-                        var ExpiredInvoices = innn.GetExpired_VendorCount(long.Parse(request.compid.ToString()));
-                        var DueInvoices = innn.GetDue_VendorCount(long.Parse(request.compid.ToString()));
-                        var PendingVendorInvoices = innn.GetPendingInvoice_VendorCount(long.Parse(request.compid.ToString()));
+                        pi = getCon.Count;
+                    }
+                    var getP = innn.GetINVOICEMas_D(long.Parse(request.compid.ToString()));
+                    if (getP != null)
+                    {
+                        pi = getP.Count;
+                    }
+                    var dInv = innn.GetINVOICEMas_Pen(long.Parse(request.compid.ToString()));
+                    if (dInv != null)
+                    {
+                        count = dInv.Count;
+                    }
+                    var pi1 = count;
+                    var di1 = count;
+                    var pa1 = pi;
+                    var ExpiredInvoices = innn.GetExpired_VendorCount(long.Parse(request.compid.ToString()));
+                    var DueInvoices = innn.GetDue_VendorCount(long.Parse(request.compid.ToString()));
+                    var PendingVendorInvoices = innn.GetPendingInvoice_VendorCount(long.Parse(request.compid.ToString()));
 
-                        var VendorPayment = pay.GetVendor_PaidCounts(long.Parse(request.compid.ToString()));
-                        var VendorUsers = cu.GetVendorUserCounts(long.Parse(request.compid.ToString()));
+                    var VendorPayment = pay.GetVendor_PaidCounts(long.Parse(request.compid.ToString()));
+                    var VendorUsers = cu.GetVendorUserCounts(long.Parse(request.compid.ToString()));
 
-                        var VendorCustomerCount = cm.GetCustCount_C(long.Parse(request.compid.ToString()));
+                    var VendorCustomerCount = cm.GetCustCount_C(long.Parse(request.compid.ToString()));
 
-                        CompanyData id = new CompanyData();
-                        id.InvoiceItemlist = innn.GetControl_D(long.Parse(request.compid.ToString()));
+                    CompanyData id = new CompanyData();
+                    id.InvoiceItemlist = innn.GetControl_D(long.Parse(request.compid.ToString()));
 
-                        var statistics = new List<ItemListModel>
+                    var statistics = new List<ItemListModel>
                         {
                             new ItemListModel { Name = "Transaction", Statistic = VendorPayment.ToString() },
                             new ItemListModel { Name = "Pendings", Statistic = PendingVendorInvoices.ToString() },
@@ -610,9 +609,9 @@ namespace JichangeApi.Controllers
                             new ItemListModel { Name = "Expired", Statistic = ExpiredInvoices.ToString() }
                         };
 
-                        return GetSuccessResponse(statistics);
+                    return GetSuccessResponse(statistics);
 
-                    }
+                }
 
                 if (request.branch.ToString() != null && !string.IsNullOrEmpty(request.branch.ToString()))
                 {
@@ -633,8 +632,8 @@ namespace JichangeApi.Controllers
                         }
                         var ActiveCompany = ActiveCompanyWithInvoices.ToString();
                         var CompanyWithoutInvoices = vendorCount - ActiveCompanyWithInvoices;
-                    
-                       var result = innn.GetINVOICEMas1().Where(x => x.approval_status == "2" && x.approval_status != "Cancel");
+
+                        var result = innn.GetINVOICEMas1().Where(x => x.approval_status == "2" && x.approval_status != "Cancel");
                         if (result != null)
                         {
                             ApprovedInvoices = result.Count();
@@ -786,7 +785,7 @@ namespace JichangeApi.Controllers
                 }
 
                 return GetServerErrorResponse("Invalid request: Body parameter must be provided.");
-               
+
             }
             catch (Exception ex)
             {
@@ -804,11 +803,11 @@ namespace JichangeApi.Controllers
             try
             {
                 if (request.compid.ToString() != "0" && !string.IsNullOrEmpty(request.branch.ToString()))
-                    {
-                        var company = request.compid;
-                        var latestTransBranch = pay.GetLatestTransByCompany((long)company); return GetSuccessResponse(latestTransBranch);
-                    }
-              
+                {
+                    var company = request.compid;
+                    var latestTransBranch = pay.GetLatestTransByCompany((long)company); return GetSuccessResponse(latestTransBranch);
+                }
+
                 if (request.branch.ToString() != null && !string.IsNullOrEmpty(request.branch.ToString()))
                 {
                     var Bankbranch = request.branch;
@@ -816,7 +815,7 @@ namespace JichangeApi.Controllers
 
                     var latestTransBranch = pay.GetLatestTransByBranch((long)Bankbranch); return GetSuccessResponse(latestTransBranch);
                 }
-               
+
                 return GetServerErrorResponse("Request Can not be null");
             }
             catch (Exception ex)

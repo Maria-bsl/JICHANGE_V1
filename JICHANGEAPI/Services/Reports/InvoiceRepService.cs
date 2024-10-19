@@ -3,9 +3,6 @@ using JichangeApi.Models;
 using JichangeApi.Models.form;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.Reports
 {
@@ -67,7 +64,7 @@ namespace JichangeApi.Services.Reports
             {
                 CompanyBankMaster companyBankMaster = new CompanyBankMaster();
                 var result = companyBankMaster.CompGet1();
-                return result ?? new List<CompanyBankMaster> ();
+                return result ?? new List<CompanyBankMaster>();
             }
             catch (Exception ex)
             {
@@ -82,7 +79,7 @@ namespace JichangeApi.Services.Reports
             try
             {
                 CompanyBankMaster companyBankMaster = new CompanyBankMaster();
-                var result = companyBankMaster.GetApprovedCompaniesByBranch(branchId,"approved");
+                var result = companyBankMaster.GetApprovedCompaniesByBranch(branchId, "approved");
                 return result ?? new List<CompanyBankMaster>();
             }
             catch (Exception ex)
@@ -150,7 +147,7 @@ namespace JichangeApi.Services.Reports
             try
             {
                 INVOICE invoice = new INVOICE();
-                var result = invoice.GetInvRep(invoiceDetailsForm.customerIds, invoiceDetailsForm.customerIds, invoiceDetailsForm.stdate, invoiceDetailsForm.enddate,invoiceDetailsForm.allowCancelInvoice);
+                var result = invoice.GetInvRep(invoiceDetailsForm.customerIds, invoiceDetailsForm.customerIds, invoiceDetailsForm.stdate, invoiceDetailsForm.enddate, invoiceDetailsForm.allowCancelInvoice);
                 return result ?? new List<INVOICE>();
             }
             catch (Exception ex)

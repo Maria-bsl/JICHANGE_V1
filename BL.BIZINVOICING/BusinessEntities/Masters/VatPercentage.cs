@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class VatPercentage
+    public class VatPercentage
     {
 
         #region Properties Vat per

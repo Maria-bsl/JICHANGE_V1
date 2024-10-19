@@ -1,14 +1,9 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models;
 using JichangeApi.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http.Cors;
-using System.Web.Mvc;
 
 namespace JichangeApi.Controllers
 {

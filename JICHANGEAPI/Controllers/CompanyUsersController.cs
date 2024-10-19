@@ -1,16 +1,12 @@
-﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using BL.BIZINVOICING.BusinessEntities.Masters;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models;
 using JichangeApi.Models.form;
-using JichangeApi.Services;
 using JichangeApi.Services.Companies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -21,7 +17,7 @@ namespace JichangeApi.Controllers
     {
         private readonly CompanyUsersService companyUsersService = new CompanyUsersService();
         private readonly Payment pay = new Payment();
-       
+
         [HttpPost]
         public HttpResponseMessage GetCompanyUserss(SingletonComp singletonComp)
         {
@@ -95,7 +91,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                if ((long) addCompanyUserForm.sno == 0)
+                if ((long)addCompanyUserForm.sno == 0)
                 {
                     CompanyUsers user = companyUsersService.InsertCompanyUser(addCompanyUserForm);
                     return GetSuccessResponse(user);

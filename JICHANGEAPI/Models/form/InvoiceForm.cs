@@ -1,15 +1,12 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace JichangeApi.Models.form
 {
     public class InvoiceForm : MainForm
     {
-        
+
         [Required(ErrorMessage = "Comp ID is missing", AllowEmptyStrings = false)]
         public long? compid { get; set; }
 
@@ -48,7 +45,7 @@ namespace JichangeApi.Models.form
         public string goods_status { get; set; }
         public string delivery_status { get; set; }
 
-        
+
 
 
     }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Data.Entity.Validation;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class RegionController : AdminBaseController
@@ -25,11 +22,11 @@ namespace BIZINVOICING.Controllers
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
-         //   ed.Detail_Id = Convert.ToInt64(Session["UserID"].ToString());
-           // ed.UpdateOnlyflsgtrue(ed);
+            //   ed.Detail_Id = Convert.ToInt64(Session["UserID"].ToString());
+            // ed.UpdateOnlyflsgtrue(ed);
             return View();
         }
-       
+
         [HttpPost]
         public ActionResult GetRegionDetails()
         {
@@ -60,7 +57,7 @@ namespace BIZINVOICING.Controllers
             {
                 var items = cty.GETcountries();
                 return Json(items, JsonRequestBehavior.AllowGet);
-               
+
             }
             catch (Exception Ex)
             {
@@ -84,7 +81,7 @@ namespace BIZINVOICING.Controllers
             //r.Region_SNO = long.Parse(Request["sno"]);
             //string dummy1 = Request["dummy"];
             //bool dummy = bool.Parse(dummy1);
-             r.Region_Name = region;
+            r.Region_Name = region;
             r.Country_Sno = csno;
             r.Country_Name = country;
             r.Region_Status = Status;
@@ -196,9 +193,9 @@ namespace BIZINVOICING.Controllers
                     }
 
                     r.UpdateREGION(r);
-                     ssno = sno;
-                     return Json(ssno, JsonRequestBehavior.AllowGet);
-                   
+                    ssno = sno;
+                    return Json(ssno, JsonRequestBehavior.AllowGet);
+
                 }
             }
 
@@ -235,7 +232,7 @@ namespace BIZINVOICING.Controllers
                             ad.Audit_Time = DateTime.Now;
                             ad.AddAudit(ad);
                         }
-                       // r.DeleteREGION(sno);
+                        // r.DeleteREGION(sno);
                     }
                     var result = sno;
                     r.DeleteREGION(sno);
@@ -250,7 +247,7 @@ namespace BIZINVOICING.Controllers
 
             return returnNull;
         }
-       
+
 
     }
 }

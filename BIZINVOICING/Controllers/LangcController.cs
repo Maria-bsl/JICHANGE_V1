@@ -1,9 +1,7 @@
-﻿using System;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class LangcoController : Controller
@@ -204,7 +202,7 @@ namespace BIZINVOICING.Controllers
                             //ViewData["compmas"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             //das = lang.EditColumn("Company Master", "Company Name");
                             //ViewData["compname"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
-                            
+
                             //das = lang.EditColumn("Company Master", "Director Name");
                             //ViewData["dirnam"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             //das = lang.EditColumn("Company Master", "Telephone No");
@@ -273,7 +271,7 @@ namespace BIZINVOICING.Controllers
                             ViewData["EID"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Customers", "Mobile No");
                             ViewData["Mno"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
-                            
+
 
 
 
@@ -289,7 +287,7 @@ namespace BIZINVOICING.Controllers
                             ViewData["fname"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Company Users", "Add Company Users");
                             ViewData["addcomuse"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
-                            
+
                             das = lang.EditColumn("Invoice", "Invoice Details");
                             ViewData["invdet"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Invoice", "Invoice");
@@ -384,8 +382,8 @@ namespace BIZINVOICING.Controllers
                             ViewData["Geninv"] = "Generated Invoice";
                             ViewData["geninvdet"] = "Generated Invoice Details";
 
-                            ViewData["addnewr"] =  "Add New Row" ;
-                            ViewData["remove"] =  "Remove" ;
+                            ViewData["addnewr"] = "Add New Row";
+                            ViewData["remove"] = "Remove";
                             ViewData["addcomuse"] = "Add Company Users";
                             ViewData["custdets"] = "Customer Details";
                             ViewData["addcusts"] = "Add Customer";
@@ -828,7 +826,7 @@ namespace BIZINVOICING.Controllers
         EMP_DET ed = new EMP_DET();
         CompanyUsers ch = new CompanyUsers();
         private readonly dynamic returnNull = null;
-        
+
         public ActionResult Langc()
         {
             try
@@ -924,7 +922,7 @@ namespace BIZINVOICING.Controllers
                 var data = lang.ValidateTemp(long.Parse(Session["CompID"].ToString()), tbname, name);
                 if (data != false)
                 {
-                    var result = lang.EditTemp(long.Parse(Session["CompID"].ToString()),tbname, name);
+                    var result = lang.EditTemp(long.Parse(Session["CompID"].ToString()), tbname, name);
 
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
@@ -998,10 +996,10 @@ namespace BIZINVOICING.Controllers
 
 
 
-    
 
 
-    
+
+
 
 
 

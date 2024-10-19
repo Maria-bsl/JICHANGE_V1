@@ -1,39 +1,36 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL.BIZINVOICING.BusinessEntities.Common;
-using DaL.BIZINVOICING.EDMX;
 
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class TRARegistration
+    public class TRARegistration
     {
 
-         public int? ack_code    { get; set; }
-       public string ack_message  { get; set; }
-       public string regid        { get; set; }
-       public string serial       { get; set; }
-       public string uin          { get; set; }
-       public int tin_no       { get; set; }
-       public string vrn          { get; set; }
-       public string mobile_no    { get; set; }
-       public string street       { get; set; }
-       public string city         { get; set; }
-       public string address      { get; set; }
-       public string country      { get; set; }
-       public string company_name { get; set; }
-       public string receiptcode  { get; set; }
-       public string region       { get; set; }
-       public long gc             { get; set; }
-       public string taxoffice    { get; set; }
-       public string username     { get; set; }
-       public string password     { get; set; }
-       public string tokenpath    { get; set; }
-       public string posted_by    { get; set; }
-       public DateTime posted_date { get; set; }
+        public int? ack_code { get; set; }
+        public string ack_message { get; set; }
+        public string regid { get; set; }
+        public string serial { get; set; }
+        public string uin { get; set; }
+        public int tin_no { get; set; }
+        public string vrn { get; set; }
+        public string mobile_no { get; set; }
+        public string street { get; set; }
+        public string city { get; set; }
+        public string address { get; set; }
+        public string country { get; set; }
+        public string company_name { get; set; }
+        public string receiptcode { get; set; }
+        public string region { get; set; }
+        public long gc { get; set; }
+        public string taxoffice { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string tokenpath { get; set; }
+        public string posted_by { get; set; }
+        public DateTime posted_date { get; set; }
         public string reg_ack_det_sno { get; set; }
         public long reg_ack_sno { get; set; }
         public string tax_code { get; set; }
@@ -53,7 +50,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 registration_ack obj = new registration_ack()
                 {
-                    ack_code= Tra.ack_code,
+                    ack_code = Tra.ack_code,
                     ack_message = Tra.ack_message,
                     regid = Tra.regid,
                     serial = Tra.serial,
@@ -95,7 +92,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 var UpdateContactInfo = (from u in context.registration_ack
                                          where u.reg_ack_sno == dep.reg_ack_sno
                                          select u).FirstOrDefault();
-                
+
                 if (UpdateContactInfo != null)
                 {
 
@@ -147,10 +144,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 registration_ack_details pc = new registration_ack_details()
                 {
 
-    
-                    reg_ack_sno =sc.reg_ack_sno,
-                    tax_code =sc.tax_code,
-                    tax_percentage =sc.tax_percentage
+
+                    reg_ack_sno = sc.reg_ack_sno,
+                    tax_code = sc.tax_code,
+                    tax_percentage = sc.tax_percentage
 
                 };
                 context.registration_ack_details.Add(pc);
@@ -168,20 +165,20 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
                                 select new TRARegistration
                                 {
-                                     ack_code=c.ack_code,
-                                     username=c.username,
-                                     password=c.password,
-                                     regid=c.regid,
-                                     serial=c.serial,
-                                     receiptcode=c.receiptcode,
-                                     vrn = c.vrn,
-                                     uin = c.uin,
-                                     company_name = c.company_name,
-                                     street = c.street,
-                                     mobile_no = c.mobile_no,
-                                     country = c.country,
-                                     address = c.address,
-                                     posted_date = (DateTime)c.posted_date
+                                    ack_code = c.ack_code,
+                                    username = c.username,
+                                    password = c.password,
+                                    regid = c.regid,
+                                    serial = c.serial,
+                                    receiptcode = c.receiptcode,
+                                    vrn = c.vrn,
+                                    uin = c.uin,
+                                    company_name = c.company_name,
+                                    street = c.street,
+                                    mobile_no = c.mobile_no,
+                                    country = c.country,
+                                    address = c.address,
+                                    posted_date = (DateTime)c.posted_date
 
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)

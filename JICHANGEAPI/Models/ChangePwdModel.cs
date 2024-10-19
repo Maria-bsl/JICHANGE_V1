@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JichangeApi.Models
 {
-    public class ChangePwdModel :SingletonMobile
+    public class ChangePwdModel : SingletonMobile
     {
-        [Required(ErrorMessage ="Missing Password", AllowEmptyStrings =false)]
+        [Required(ErrorMessage = "Missing Password", AllowEmptyStrings = false)]
         public string password { get; set; }
     }
 }

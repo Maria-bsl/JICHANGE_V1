@@ -1,10 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL.BIZINVOICING.BusinessEntities.Common;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class CompanyUsers
@@ -18,7 +15,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public string pwd { get; set; }
         public String Password { get; set; }
         public String Descript { get; set; }
-        public String  Usertype { get; set; }
+        public String Usertype { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ExpiryDate { get; set; }
         public String Flogin { get; set; }
@@ -37,7 +34,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public string Userpos { get; set; }
         public int Mail_sta { get; set; }
         public string PostedBy { get; set; }
-        public DateTime PostedDate {get; set; }
+        public DateTime PostedDate { get; set; }
         #endregion properties
 
         public long AddCompanyUsers(CompanyUsers sc)
@@ -89,7 +86,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     username = sc.Username,
                     password = sc.Password,
                     user_type = sc.Usertype,
-                    f_login=sc.Flogin,
+                    f_login = sc.Flogin,
                     created_date = sc.CreatedDate,
                     expiry_date = sc.ExpiryDate,
                     email_address = sc.Email,
@@ -117,10 +114,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 }).FirstOrDefault();
                 if (edetails != null)
                     return edetails;
-                
-                    else
-                        return null;
-                
+
+                else
+                    return null;
+
             }
         }
 
@@ -147,17 +144,17 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                
-                    var edetails = (from c in context.company_users.Where(c => c.comp_users_sno == uno)
-                                    select new CompanyUsers
-                                    {
-                                        Loc_Name = c.localization,
 
-                                    }).FirstOrDefault();
-                    if (edetails != null)
-                        return edetails;
-                    else return null;
-                
+                var edetails = (from c in context.company_users.Where(c => c.comp_users_sno == uno)
+                                select new CompanyUsers
+                                {
+                                    Loc_Name = c.localization,
+
+                                }).FirstOrDefault();
+                if (edetails != null)
+                    return edetails;
+                else return null;
+
             }
 
         }
@@ -195,13 +192,13 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from sc in context.company_users
-                                //join c in context.roles_master on sc.user_type equals c.code
+                                    //join c in context.roles_master on sc.user_type equals c.code
                                 select new CompanyUsers
                                 {
                                     CompuserSno = sc.comp_users_sno,
                                     //Compmassno = (long)sc.comp_mas_sno,
                                     Username = sc.username,
-                                   //Descript=c.descript,
+                                    //Descript=c.descript,
                                     //Password = sc.password,
                                     Usertype = sc.user_type,
                                     //CreatedDate = (DateTime)sc.created_date,
@@ -237,7 +234,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var adetails = (from sc in context.company_users
                                 where sc.comp_mas_sno == cno
-                                    //join c in context.roles_master on sc.user_type equals c.code
+                                //join c in context.roles_master on sc.user_type equals c.code
                                 select new CompanyUsers
                                 {
                                     CompuserSno = sc.comp_users_sno,
@@ -346,7 +343,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
 
                 var edetails = (from c in context.company_users
-                                    join c1 in context.company_master on c.comp_mas_sno equals c1.comp_mas_sno
+                                join c1 in context.company_master on c.comp_mas_sno equals c1.comp_mas_sno
                                 where c.username == uname && c.password == pwd && c1.status.ToLower().Equals("approved") && c.log_status == null
                                 select new CompanyUsers
                                 {
@@ -409,7 +406,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var update = (from sc in context.company_users
-                              where sc.comp_users_sno== T.CompuserSno
+                              where sc.comp_users_sno == T.CompuserSno
                               select sc).FirstOrDefault();
                 if (update != null)
                 {
@@ -460,9 +457,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                               select sc).FirstOrDefault();
                 if (update != null)
                 {
-                    
+
                     update.password = T.Password;
-                   
+
                     context.SaveChanges();
                 }
             }
@@ -492,8 +489,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 var validationU = (from c in context.company_users
                                    where (c.email_address == name)
                                    select c);
-               
-                if (validationU.Count() > 0||validationM.Count() > 0 )
+
+                if (validationU.Count() > 0 || validationM.Count() > 0)
                     return true;
                 else
                     return false;
@@ -503,12 +500,12 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                
+
                 var validationU = (from c in context.company_users
                                    where (c.email_address == name && c.email_address != null)
                                    select c);
-               
-                if (validationU.Count() > 0 )
+
+                if (validationU.Count() > 0)
                     return true;
                 else
                     return false;
@@ -550,14 +547,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var UpdateContactInfo = (from u in context.company_users
-                                         where u.comp_users_sno == dep.CompuserSno 
+                                         where u.comp_users_sno == dep.CompuserSno
                                          select u).FirstOrDefault();
 
                 if (UpdateContactInfo != null)
                 {
-                 /*   UpdateContactInfo.sno = dep.Sno;
-                    UpdateContactInfo.q_name = dep.Qname;
-                    UpdateContactInfo.q_ans = dep.Qans;*/
+                    /*   UpdateContactInfo.sno = dep.Sno;
+                       UpdateContactInfo.q_name = dep.Qname;
+                       UpdateContactInfo.q_ans = dep.Qans;*/
                     UpdateContactInfo.password = dep.Password;
                     //UpdateContactInfo.f_login = dep.Flogin;
                     UpdateContactInfo.posted_by = dep.PostedBy;
@@ -596,7 +593,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                    where (c.username == name)
                                    select c);
 
-                if (validationU.Count() > 0 )
+                if (validationU.Count() > 0)
                     return true;
                 else
                     return false;
@@ -612,20 +609,20 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-    public long? GetVendorUserCounts(long company_sno)
-    {
-        using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+        public long? GetVendorUserCounts(long company_sno)
         {
-            var users = (from c in context.company_users
-                               where (c.comp_mas_sno == company_sno)
-                               select c);
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                var users = (from c in context.company_users
+                             where (c.comp_mas_sno == company_sno)
+                             select c);
 
-            if (users.Count() > 0)
-                return users.Count();
-            else
-                return 0;
+                if (users.Count() > 0)
+                    return users.Count();
+                else
+                    return 0;
+            }
         }
-    }
 
     }
 

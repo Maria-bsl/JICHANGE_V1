@@ -3,9 +3,6 @@ using JichangeApi.Models;
 using JichangeApi.Models.form;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services.Reports
 {
@@ -17,8 +14,8 @@ namespace JichangeApi.Services.Reports
             try
             {
                 INVOICE invoice = new INVOICE();
-                var result = invoice.GetCustomers1((long) singletonSno.Sno);
-                return result != null ? result : new List<INVOICE>();   
+                var result = invoice.GetCustomers1((long)singletonSno.Sno);
+                return result != null ? result : new List<INVOICE>();
             }
             catch (Exception ex)
             {
@@ -28,7 +25,7 @@ namespace JichangeApi.Services.Reports
                 throw new Exception(ex.Message);
             }
         }
-        public List<INVOICE> GetInvoiceNumbersByCustomerId(long customerId) 
+        public List<INVOICE> GetInvoiceNumbersByCustomerId(long customerId)
         {
             try
             {
@@ -66,7 +63,7 @@ namespace JichangeApi.Services.Reports
             try
             {
                 INVOICE invoice = new INVOICE();
-                var result = invoice.GetInvRep(invoiceDetailsForm.companyIds, invoiceDetailsForm.customerIds, invoiceDetailsForm.stdate, invoiceDetailsForm.enddate,invoiceDetailsForm.allowCancelInvoice);
+                var result = invoice.GetInvRep(invoiceDetailsForm.companyIds, invoiceDetailsForm.customerIds, invoiceDetailsForm.stdate, invoiceDetailsForm.enddate, invoiceDetailsForm.allowCancelInvoice);
                 return result ?? new List<INVOICE>();
             }
             catch (Exception ex)
@@ -85,7 +82,7 @@ namespace JichangeApi.Services.Reports
                 var result = inv.GetPendingDeliveryInvoices(sno);
                 return result;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);

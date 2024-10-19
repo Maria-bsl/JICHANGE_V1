@@ -19,6 +19,7 @@ import { LoginService } from './core/services/login.service';
 import { AppUtilities } from './utilities/app-utilities';
 import { DisplayMessageBoxComponent } from './components/dialogs/display-message-box/display-message-box.component';
 import { mainAnimations } from './components/layouts/main/router-transition-animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -36,29 +37,27 @@ import { mainAnimations } from './components/layouts/main/router-transition-anim
   animations: [mainAnimations],
 })
 export class AppComponent implements OnInit {
-  private idleState = 'Not started.';
-  private timedOut = false;
-  lastPing?: Date = undefined;
-  @ViewChild('noInternetModal') noInternetModal!: ElementRef;
-  @ViewChild('connectedModal') connectedModal!: ElementRef;
-  @ViewChild('displayMessageBox')
-  displayMessageBox!: DisplayMessageBoxComponent;
-  @ViewChild('sessionTimedOut') sessionTimedOut!: DisplayMessageBoxComponent;
-  constructor(
-    private tr: TranslocoService,
-    private loginService: LoginService,
-    private router: Router
-  ) {}
-  private verifyInternet() {
+  constructor(private tr: TranslocoService, private snackbar: MatSnackBar) {}
+  private onlineEventListener() {
     window.addEventListener('online', () => {
-      (this.connectedModal.nativeElement as HTMLDialogElement).showModal();
-    });
-    window.addEventListener('offline', () => {
-      (this.noInternetModal.nativeElement as HTMLDialogElement).showModal();
+      let message = this.tr.translate('errors.connected');
+      let action = this.tr.translate('actions.ok');
+      this.snackbar.open(message, action);
     });
   }
+  private offlineEventListener() {
+    window.addEventListener('offline', () => {
+      let message = this.tr.translate('errors.noInternet');
+      let action = this.tr.translate('actions.ok');
+      this.snackbar.open(message, action);
+    });
+  }
+  private internetConnectionChangedListener() {
+    this.onlineEventListener();
+    this.offlineEventListener();
+  }
   ngOnInit(): void {
-    this.verifyInternet();
+    this.internetConnectionChangedListener();
   }
   prepareRoute(outlet: RouterOutlet, animate: string): boolean {
     return (

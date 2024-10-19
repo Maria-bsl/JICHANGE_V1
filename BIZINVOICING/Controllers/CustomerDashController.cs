@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -17,7 +14,7 @@ namespace BIZINVOICING.Controllers
         DISTRICTS d = new DISTRICTS();
         WARD w = new WARD();
         private readonly dynamic returnNull = null;
-        
+
         public ActionResult CustomerDash()
         {
             if (Session["sessComp"] == null)
@@ -448,6 +445,6 @@ namespace BIZINVOICING.Controllers
             return returnNull;
         }
 
-        
+
     }
 }

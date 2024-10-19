@@ -1,12 +1,10 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class REG_QSTN
+    public class REG_QSTN
     {
         #region Properties
         public long SNO { get; set; }
@@ -67,11 +65,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-              
+
                 var validationq = (from c in context.emp_detail
-                                    where (c.sno == no)
-                                    select c);
-                if (validationq.Count()>0)
+                                   where (c.sno == no)
+                                   select c);
+                if (validationq.Count() > 0)
                     return true;
                 else
                     return false;
@@ -87,8 +85,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     SNO = c.sno,
                                     Q_Name = c.q_name,
                                     Q_Status = c.q_status,
-                                    Audit_Date=c.posted_date,
-                                }).OrderByDescending(z=>z.Audit_Date).ToList();
+                                    Audit_Date = c.posted_date,
+                                }).OrderByDescending(z => z.Audit_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else

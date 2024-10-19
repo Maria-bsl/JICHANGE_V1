@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DaL.BIZINVOICING.EDMX;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -92,7 +88,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return null;
             }
         }
-        
+
         /*public void Deletecountries(long no)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
@@ -112,7 +108,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
         }*/
 
-        
+
 
         #endregion Methods
 

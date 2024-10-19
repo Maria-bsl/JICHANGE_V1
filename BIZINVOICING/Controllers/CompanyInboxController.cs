@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
+using System.Data;
 using System.IO;
-using System.Text;
-using System.Net;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-using System.Globalization;
-using System.Xml;
-using System.Data;
+using System.Text;
+using System.Web.Mvc;
 namespace BIZINVOICING.Controllers
 {
     public class CompanyInboxController : AdminBaseController
@@ -89,7 +78,7 @@ namespace BIZINVOICING.Controllers
                 cd.Comp_Mas_Sno = compsno;
                 //cd.Reason = 
                 cd.AuditBy = Session["UserID"].ToString();
-                
+
                 /*var getTin = c.EditCompanyss(compsno);
                 if(getTin != null)
                 {
@@ -188,7 +177,7 @@ namespace BIZINVOICING.Controllers
                 c.UpdateCompanysta(c);
                 cd.AddAccount(cd);
                 return Json(compsno, JsonRequestBehavior.AllowGet);
-               
+
             }
             catch (Exception Ex)
             {
@@ -245,7 +234,7 @@ namespace BIZINVOICING.Controllers
                 objtra.Pfx_Pass = pwd;
                 objtra.Certi_Path = @f_Path + "/Certificates";
                 objtra.Inv_Path = @f_Path + "/Invoices";
-                objtra.Log_Path = @f_Path ;
+                objtra.Log_Path = @f_Path;
                 if (ssno == 0)
                 {
                     ssno = tra.AddTRARegistration(objtra);//add data

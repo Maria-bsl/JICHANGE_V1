@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class DesginationController : AdminBaseController
@@ -22,7 +20,7 @@ namespace BIZINVOICING.Controllers
             }
             return View();
         }
-        
+
         public ActionResult GetdesDetails()
         {
             try
@@ -47,13 +45,13 @@ namespace BIZINVOICING.Controllers
         }
 
         [HttpPost]
-        public ActionResult Adddesg(string desg,long sno,bool dummy)
+        public ActionResult Adddesg(string desg, long sno, bool dummy)
         {
             try
             {
                 des.Desg_Name = desg;
                 des.Desg_Id = sno;
-                des.AuditBy= Session["UserID"].ToString();
+                des.AuditBy = Session["UserID"].ToString();
                 long ssno = 0;
                 if (sno == 0)
                 {
@@ -116,7 +114,7 @@ namespace BIZINVOICING.Controllers
                         return Json(ssno, JsonRequestBehavior.AllowGet);
 
                     }
-                    
+
                 }
             }
             catch (Exception Ex)
@@ -131,11 +129,11 @@ namespace BIZINVOICING.Controllers
             try
             {
                 var check = des.ValidateDeletion(sno);
-                if(check==true)
+                if (check == true)
                 {
                     return Json(check, JsonRequestBehavior.AllowGet);
                 }
-                else if(sno > 0)
+                else if (sno > 0)
                 {
                     var dd = des.Editdesignation(sno);
                     if (dd != null)

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using System.Text;
 namespace BIZINVOICING.Controllers
 {
     public class CountryController : AdminBaseController
@@ -24,13 +21,13 @@ namespace BIZINVOICING.Controllers
             }
             return View();
         }
-        public ActionResult AddCount(string country_name,long sno,bool dummy)
+        public ActionResult AddCount(string country_name, long sno, bool dummy)
         {
             try
             {
-                cty.Country_Name =country_name;
+                cty.Country_Name = country_name;
                 cty.SNO = sno;
-                 long ssno = 0;
+                long ssno = 0;
                 if (sno == 0)
                 {
                     var result = cty.ValidateLicense(country_name.ToLower());
@@ -93,8 +90,8 @@ namespace BIZINVOICING.Controllers
                     }
 
                 }
-                   
-                
+
+
             }
             catch (Exception Ex)
             {
@@ -196,6 +193,6 @@ namespace BIZINVOICING.Controllers
 
             return returnNull;
         }
-       
+
     }
 }

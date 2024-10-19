@@ -1,8 +1,8 @@
+using JichangeApi.Areas.HelpPage.ModelDescriptions;
+using JichangeApi.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using JichangeApi.Areas.HelpPage.ModelDescriptions;
-using JichangeApi.Areas.HelpPage.Models;
 
 namespace JichangeApi.Areas.HelpPage.Controllers
 {

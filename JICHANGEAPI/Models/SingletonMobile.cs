@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JichangeApi.Models
 {
     public class SingletonMobile
     {
-        [Required(ErrorMessage ="Missing Mobile Number", AllowEmptyStrings =false)]
+        [Required(ErrorMessage = "Missing Mobile Number", AllowEmptyStrings = false)]
         public string mobile { get; set; }
     }
 }

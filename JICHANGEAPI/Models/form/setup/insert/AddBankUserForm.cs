@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JichangeApi.Models.form.setup.insert
 {
     public class AddBankUserForm : MainForm
     {
-        [Required(ErrorMessage = "Missing employee number",AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Missing employee number", AllowEmptyStrings = false)]
         public string empid { get; set; }
         [Required(ErrorMessage = "Missing first name", AllowEmptyStrings = false)]
         public string fname { get; set; }

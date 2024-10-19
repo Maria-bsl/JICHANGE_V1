@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -56,7 +53,8 @@ namespace BIZINVOICING.Controllers
             }
 
             return null;
-        }[HttpPost]
+        }
+        [HttpPost]
         public ActionResult CustList1(long Sno)
         {
 
@@ -251,7 +249,7 @@ namespace BIZINVOICING.Controllers
                     }
                 }
 
-                
+
 
             }
             catch (Exception Ex)
@@ -262,13 +260,13 @@ namespace BIZINVOICING.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult GetInvReport(long Comp, long cusid,string stdate,string enddate)
+        public ActionResult GetInvReport(long Comp, long cusid, string stdate, string enddate)
         {
 
             try
             {
 
-                var result = inv.GetInvRep(Comp,cusid, stdate, enddate);
+                var result = inv.GetInvRep(Comp, cusid, stdate, enddate);
                 if (result != null)
                 {
 
@@ -289,13 +287,13 @@ namespace BIZINVOICING.Controllers
             return null;
         }
         [HttpPost]
-        public ActionResult GetInvDetReport(long Comp,long invs, string stdate, string enddate, long Cust)
+        public ActionResult GetInvDetReport(long Comp, long invs, string stdate, string enddate, long Cust)
         {
 
             try
             {
 
-                var result = inv.GetInvDetRep(Comp,invs, stdate, enddate, Cust);
+                var result = inv.GetInvDetRep(Comp, invs, stdate, enddate, Cust);
                 if (result != null)
                 {
 

@@ -1,11 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL.BIZINVOICING.BusinessEntities.Common;
-using DaL.BIZINVOICING.EDMX;
-using Org.BouncyCastle.Crypto.Macs;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -36,30 +32,30 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public decimal Amment_Amount { get; set; }
         public decimal Total { get; set; }
         public decimal Item_Qty { get; set; }
-       
+
         public string AuditBy { get; set; }
 
         public string Reason { get; set; }
-        
+
         public string goods_status { get; set; }
         public string delivery_status { get; set; }
         public DateTime Audit_Date { get; set; }
 
 
-       
+
         public DateTime p_date { get; set; }
         public long Inv_Can_No { get; set; }
         public long Inv_Amm_No { get; set; }
         public long Cust_Mas_No { get; set; }
-        
+
         public string Control_No { get; set; }
-        public long? vendor_id { get;  set; }
-        public string vendor { get;  set; }
-        public long? branch_sno { get;  set; }
-        public string branch { get;  set; }
-        public int no_of_invoices { get;  set; }
-        public decimal? invoice_amount { get;  set; }
-        public int no_of_payments { get;  set; }
+        public long? vendor_id { get; set; }
+        public string vendor { get; set; }
+        public long? branch_sno { get; set; }
+        public string branch { get; set; }
+        public int no_of_invoices { get; set; }
+        public decimal? invoice_amount { get; set; }
+        public int no_of_payments { get; set; }
 
         public long? receipt_amount;
         #endregion Properties
@@ -239,7 +235,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public List<InvoiceC> GetAmendRep(List<long> companyIds,List<long> customerIds,List<long> invoiceIds, string stdate, string enddate)
+        public List<InvoiceC> GetAmendRep(List<long> companyIds, List<long> customerIds, List<long> invoiceIds, string stdate, string enddate)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -253,7 +249,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                            join cus in context.customer_master on c.cust_mas_sno equals cus.cust_mas_sno
                                            join d in context.company_master on det.comp_mas_sno equals d.comp_mas_sno
                                            where (det.approval_status != "Cancel")
-                                           && (companyIds.Contains(0) || companyIds.Contains((long) c.comp_mas_sno))
+                                           && (companyIds.Contains(0) || companyIds.Contains((long)c.comp_mas_sno))
                                            && (customerIds.Contains(0) || customerIds.Contains((long)c.cust_mas_sno))
                                            && (invoiceIds.Contains(0) || invoiceIds.Contains((long)c.inv_mas_sno))
                                            && (!fdate.HasValue || fdate <= c.posted_date)
@@ -316,7 +312,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public List<InvoiceC> GetCancelRep(List<long> companyIds,List<long> customerIds,List<long> invoiceIds, string stdate, string enddate)
+        public List<InvoiceC> GetCancelRep(List<long> companyIds, List<long> customerIds, List<long> invoiceIds, string stdate, string enddate)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -366,7 +362,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 List<InvoiceC> listinvoice = (from c in context.invoice_cancellation
                                               join det in context.invoice_master on c.inv_mas_sno equals det.inv_mas_sno
                                               join cus in context.customer_master on c.cust_mas_sno equals cus.cust_mas_sno
-                                              where (cust == 0 ? true : c.cust_mas_sno == cust) 
+                                              where (cust == 0 ? true : c.cust_mas_sno == cust)
                                               && (!fdate.HasValue || fdate >= c.posted_date)
                                               && (!tdate.HasValue || tdate <= c.posted_date)
                                               && (Comp == 0 ? true : c.comp_mas_sno == Comp)
@@ -403,7 +399,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                              join B in context.company_master on A.comp_mas_sno equals B.comp_mas_sno
                              join C in context.branch_name on B.branch_sno equals C.sno
                              where A.approval_status == "2"
-                             && (!fdate.HasValue || fdate <= A.invoice_date) 
+                             && (!fdate.HasValue || fdate <= A.invoice_date)
                              && (!tdate.HasValue || tdate >= A.invoice_date)
                              group new { A, B, C } by new
                              {
@@ -424,7 +420,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                  invoice_amount = g.Sum(x => x.A.total_amount)
                              };
 
-            
+
 
                 var list = result.ToList();
 
@@ -471,28 +467,28 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                              };
 
 
-               /* var result = from A in context.payment_details
-                             join B in context.company_master on A.comp_mas_sno equals B.comp_mas_sno
-                             join C in context.branch_name on B.branch_sno equals C.sno
-                             where A.status.Contains("Passed") &&
-                                   A.payment_date >= fdate &&
-                                   A.payment_date <= tdate
-                             group A by new
-                             {
-                                 A.comp_mas_sno,
-                                 B.company_name,
-                                 B.branch_sno,
-                                 C.name
-                             } into g
-                             select new InvoiceC
-                             {
-                                 vendor_id = g.Key.comp_mas_sno,
-                                 vendor = g.Key.company_name,
-                                 branch_sno = g.Key.branch_sno,
-                                 branch = g.Key.name,
-                                 no_of_payments = g.Count(),
-                                 Receipt_amount = g.Sum(x => x.paid_amount)
-                             };*/
+                /* var result = from A in context.payment_details
+                              join B in context.company_master on A.comp_mas_sno equals B.comp_mas_sno
+                              join C in context.branch_name on B.branch_sno equals C.sno
+                              where A.status.Contains("Passed") &&
+                                    A.payment_date >= fdate &&
+                                    A.payment_date <= tdate
+                              group A by new
+                              {
+                                  A.comp_mas_sno,
+                                  B.company_name,
+                                  B.branch_sno,
+                                  C.name
+                              } into g
+                              select new InvoiceC
+                              {
+                                  vendor_id = g.Key.comp_mas_sno,
+                                  vendor = g.Key.company_name,
+                                  branch_sno = g.Key.branch_sno,
+                                  branch = g.Key.name,
+                                  no_of_payments = g.Count(),
+                                  Receipt_amount = g.Sum(x => x.paid_amount)
+                              };*/
 
                 var list = result.ToList();
 

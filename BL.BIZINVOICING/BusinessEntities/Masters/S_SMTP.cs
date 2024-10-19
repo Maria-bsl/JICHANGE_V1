@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -185,12 +183,12 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public bool isDuplicateSmtp(long smtpId,string fromAddress,string username)
+        public bool isDuplicateSmtp(long smtpId, string fromAddress, string username)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var noteDetails = (from n in context.smtp_settings
-                                   where ( (n.from_address.ToLower().Equals(fromAddress.ToLower()) || n.username.ToLower().Equals(username.ToLower()) ) && n.sno != smtpId)
+                                   where ((n.from_address.ToLower().Equals(fromAddress.ToLower()) || n.username.ToLower().Equals(username.ToLower())) && n.sno != smtpId)
                                    select n).First();
 
                 return noteDetails != null;

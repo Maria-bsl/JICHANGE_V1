@@ -1,10 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -31,7 +28,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
         public string Posted_by { get; set; }
         public DateTime Posted_Date { get; set; }
-        public string Company_Name { get;  set; }
+        public string Company_Name { get; set; }
 
 
         #endregion Properties
@@ -45,21 +42,21 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 {
 
                     customer_name = T.Cust_Name,
-                    pobox_no= T.PostboxNo,
+                    pobox_no = T.PostboxNo,
                     physical_address = T.Address,
                     region_id = T.Region_SNO,
-                    comp_mas_sno=T.CompanySno,
+                    comp_mas_sno = T.CompanySno,
                     //Region_Name = a.region_name,
-                   district_sno = T.DistSno,
+                    district_sno = T.DistSno,
                     //DistName = b.district_name,
-                   ward_sno = T.WardSno,
+                    ward_sno = T.WardSno,
                     //WardName = d.ward_name,
                     //reg dist ward
                     tin_no = T.TinNo,
                     vat_no = T.VatNo,
                     contact_person = T.ConPerson,
-                    email_address=T.Email,
-                    mobile_no = T.Phone, 
+                    email_address = T.Email,
+                    mobile_no = T.Phone,
                     posted_by = T.Posted_by,
                     posted_date = DateTime.Now,
                     checker = T.Checker
@@ -70,14 +67,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return sd.cust_mas_sno;
             }
         }
-        public int GetCustcountind(long uid,string name)
+        public int GetCustcountind(long uid, string name)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 if (name == "today")
                 {
 
-                    return context.customer_master.Where(p => p.comp_mas_sno == uid).Count(p => p.posted_date.Value.Day == DateTime.Now.Day );
+                    return context.customer_master.Where(p => p.comp_mas_sno == uid).Count(p => p.posted_date.Value.Day == DateTime.Now.Day);
                 }
                 else if (name == "week")
                 {
@@ -106,8 +103,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public int GetCustcount(long uid, DateTime date)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
-            {var adetails = (from c in context.customer_master
-                where c.comp_mas_sno == uid && c.posted_date == date
+            {
+                var adetails = (from c in context.customer_master
+                                where c.comp_mas_sno == uid && c.posted_date == date
                                 select c).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails.Count;
@@ -115,7 +113,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return 0;
             }
         }
-        
+
         public void CustUpdate(CustomerMaster T)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
@@ -126,7 +124,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 if (update != null)
                 {
                     update.customer_name = T.Cust_Name;
-                     update.pobox_no = T.PostboxNo;
+                    update.pobox_no = T.PostboxNo;
                     update.physical_address = T.Address;
                     update.region_id = T.Region_SNO;
                     //Region_Name = a.region_name,
@@ -143,9 +141,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     update.posted_by = T.Posted_by;
                     update.posted_date = DateTime.Now;
                     update.checker = T.Checker;
-                     context.SaveChanges(); 
-                   
-                    
+                    context.SaveChanges();
+
+
                 }
             }
         }
@@ -188,19 +186,19 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var update = (from c in context.customer_master
-                              
+
                               where c.cust_mas_sno == sno
                               select new CustomerMaster
                               {
-                                  Cust_Sno=c.cust_mas_sno,
-                                  Cust_Name=c.customer_name,
-                                  PostboxNo=c.pobox_no,
-                                  Address=c.physical_address,
-                                  TinNo=c.tin_no,
-                                  VatNo=c.vat_no,
-                                  ConPerson=c.contact_person,
-                                  Email=c.email_address,
-                                  Phone=c.mobile_no,
+                                  Cust_Sno = c.cust_mas_sno,
+                                  Cust_Name = c.customer_name,
+                                  PostboxNo = c.pobox_no,
+                                  Address = c.physical_address,
+                                  TinNo = c.tin_no,
+                                  VatNo = c.vat_no,
+                                  ConPerson = c.contact_person,
+                                  Email = c.email_address,
+                                  Phone = c.mobile_no,
                                   Checker = c.checker
                               }).FirstOrDefault();
                 if (update != null)
@@ -220,9 +218,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 where (compid == 0 || c.comp_mas_sno == compid)
                                 select new CustomerMaster
                                 {
-                                    Cust_Sno= c.cust_mas_sno,
-                                   Cust_Name = c.customer_name,
-                                    
+                                    Cust_Sno = c.cust_mas_sno,
+                                    Cust_Name = c.customer_name,
+
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
@@ -237,7 +235,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var adetails = (from c in context.customer_master
                                 join c1 in context.company_master on c.comp_mas_sno equals c1.comp_mas_sno
-                                where (companyIds.Contains(0) || companyIds.Contains((long) c.comp_mas_sno))
+                                where (companyIds.Contains(0) || companyIds.Contains((long)c.comp_mas_sno))
                                 select new CustomerMaster
                                 {
                                     Cust_Sno = c.cust_mas_sno,
@@ -306,14 +304,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 Cust_Sno = c.cust_mas_sno,
                                 Cust_Name = c.customer_name,
                                 Company_Name = c.company_master.company_name,
-                               /* PostboxNo = c.pobox_no,
-                                Address = c.physical_address,
-                                Region_SNO = c.region_id,
-                                DistSno = c.district_sno,
-                                WardSno = c.ward_sno,
-                                TinNo = c.tin_no,
-                                VatNo = c.vat_no,
-                                ConPerson = c.contact_person,*/
+                                /* PostboxNo = c.pobox_no,
+                                 Address = c.physical_address,
+                                 Region_SNO = c.region_id,
+                                 DistSno = c.district_sno,
+                                 WardSno = c.ward_sno,
+                                 TinNo = c.tin_no,
+                                 VatNo = c.vat_no,
+                                 ConPerson = c.contact_person,*/
                                 Email = c.email_address,
                                 Phone = c.mobile_no,
                                 Checker = c.checker
@@ -331,16 +329,16 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var list = (from c in context.customer_master
-                            where c.comp_mas_sno==sno
+                            where c.comp_mas_sno == sno
                             select new CustomerMaster
                             {
                                 Cust_Sno = c.cust_mas_sno,
                                 Cust_Name = c.customer_name,
                                 PostboxNo = c.pobox_no,
                                 Address = c.physical_address,
-                                Region_SNO=c.region_id,
-                                DistSno=c.district_sno,
-                                WardSno =c.ward_sno,
+                                Region_SNO = c.region_id,
+                                DistSno = c.district_sno,
+                                WardSno = c.ward_sno,
                                 TinNo = c.tin_no,
                                 VatNo = c.vat_no,
                                 ConPerson = c.contact_person,
@@ -361,16 +359,16 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var list = (from c in context.customer_master
-                            //where c.comp_mas_sno==sno
+                                //where c.comp_mas_sno==sno
                             select new CustomerMaster
                             {
                                 Cust_Sno = c.cust_mas_sno,
                                 Cust_Name = c.customer_name,
                                 PostboxNo = c.pobox_no,
                                 Address = c.physical_address,
-                                Region_SNO=c.region_id,
-                                DistSno=c.district_sno,
-                                WardSno =c.ward_sno,
+                                Region_SNO = c.region_id,
+                                DistSno = c.district_sno,
+                                WardSno = c.ward_sno,
                                 TinNo = c.tin_no,
                                 VatNo = c.vat_no,
                                 ConPerson = c.contact_person,
@@ -390,11 +388,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                if (reg==0)
+                if (reg == 0)
                 {
                     var list = (from c in context.customer_master
                                 where (reg == 0 ? c.region_id == c.region_id : c.region_id == reg)
-                                             
+
 
 
                                 select new CustomerMaster
@@ -446,10 +444,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 }).ToList();
                     return list;
                 }
-                
-                    
-                
-               
+
+
+
+
             }
 
         }
@@ -466,7 +464,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                  {
                                      Cust_Sno = c.cust_mas_sno,
                                      Cust_Name = c.customer_name,
-                                     
+
                                      PostboxNo = c.pobox_no,
                                      Address = c.physical_address,
                                      Region_SNO = c.region_id,
@@ -488,16 +486,16 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         }
 
 
-        public List<CustomerMaster> CustGetrep(long Comp,long reg, long dist)
+        public List<CustomerMaster> CustGetrep(long Comp, long reg, long dist)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                if (reg==0)
+                if (reg == 0)
                 {
                     var list = (from c in context.customer_master
                                 where (reg == 0 ? c.region_id == c.region_id : c.region_id == reg)
 
-                                &&(Comp == 0 ? c.comp_mas_sno == c.comp_mas_sno : c.comp_mas_sno == Comp)
+                                && (Comp == 0 ? c.comp_mas_sno == c.comp_mas_sno : c.comp_mas_sno == Comp)
 
                                 select new CustomerMaster
                                 {
@@ -517,7 +515,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Email = c.email_address,
                                     Phone = c.mobile_no,
                                     Checker = c.checker,
-                                    Posted_Date = (DateTime) c.posted_date
+                                    Posted_Date = (DateTime)c.posted_date
                                 }).OrderByDescending(z => z.Cust_Sno).ToList();
                     return list;
                 }
@@ -549,18 +547,18 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 }).ToList();
                     return list;
                 }
-                
-                    
-                
-               
+
+
+
+
             }
 
         }
-        public List<CustomerMaster> CustGetrep1(long Comp,long reg, long dist)
+        public List<CustomerMaster> CustGetrep1(long Comp, long reg, long dist)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                if (reg==0)
+                if (reg == 0)
                 {
                     var list = (from c in context.customer_master
                                 where (reg == 0 ? c.region_id == c.region_id : c.region_id == reg)
@@ -616,10 +614,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 }).ToList();
                     return list;
                 }
-                
-                    
-                
-               
+
+
+
+
             }
 
         }
@@ -684,7 +682,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                             join a in context.region_master on c.region_id equals a.region_sno
                             join b in context.district_master on c.district_sno equals b.district_sno
                             join d in context.ward_master on c.ward_sno equals d.ward_sno
-                            where c.cust_mas_sno == sno 
+                            where c.cust_mas_sno == sno
                             select new CustomerMaster
                             {
                                 Cust_Sno = c.cust_mas_sno,
@@ -697,7 +695,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 DistName = b.district_name, //was commented
                                 WardSno = c.ward_sno,
                                 WardName = d.ward_name, //was commented
-                                CompanySno=(long)c.comp_mas_sno,
+                                CompanySno = (long)c.comp_mas_sno,
                                 TinNo = c.tin_no,
                                 VatNo = c.vat_no,
                                 ConPerson = c.contact_person,
@@ -722,7 +720,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                             select new CustomerMaster
                             {
                                 TinNo = c.tin_no
-                       
+
                             }).FirstOrDefault();
 
                 if (list != null)
@@ -757,13 +755,13 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         //            return null;
         //    }
         //}
-        public bool ValidateCount(string dno,string tin)
+        public bool ValidateCount(string dno, string tin)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
 
                 var validation = (from c in context.customer_master
-                                 where (c.customer_name == dno) || (c.tin_no == tin && c.tin_no != null && c.tin_no != "")
+                                  where (c.customer_name == dno) || (c.tin_no == tin && c.tin_no != null && c.tin_no != "")
                                   select c);
                 if (validation.Count() > 0)
                     return true;
@@ -771,7 +769,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return false;
             }
         }
-        public string IsDuplicateCustomer(string mobileNumber,string email,string tinNumber)
+        public string IsDuplicateCustomer(string mobileNumber, string email, string tinNumber)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -797,7 +795,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public string IsDuplicateCustomer(string mobileNumber, string email, string tinNumber,long sno)
+        public string IsDuplicateCustomer(string mobileNumber, string email, string tinNumber, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -828,14 +826,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-               
+
 
                 var validationUpdate2 = (from v in context.customer_master
                                          join b in context.invoice_master on v.cust_mas_sno equals b.cust_mas_sno
                                          where b.cust_mas_sno == ssno
                                          select v);
-                
-                if (validationUpdate2.Count() != 0 )
+
+                if (validationUpdate2.Count() != 0)
                     return true;
                 else
                     return false;

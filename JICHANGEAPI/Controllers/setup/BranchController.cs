@@ -1,13 +1,10 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models;
-using JichangeApi.Models.form;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using JichangeApi.Services.setup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -104,7 +101,7 @@ namespace JichangeApi.Controllers.setup
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                var branchId = branchService.DeleteBranch((long) form.sno, (long) form.userid);
+                var branchId = branchService.DeleteBranch((long)form.sno, (long)form.userid);
                 return GetSuccessResponse(branchId);
             }
             catch (ArgumentException ex)

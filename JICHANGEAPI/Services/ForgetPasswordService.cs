@@ -1,15 +1,10 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Controllers.setup;
 using JichangeApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
 
 namespace JichangeApi.Services
 {
-    public class ForgetPasswordService 
+    public class ForgetPasswordService
     {
         Payment pay = new Payment();
 
@@ -62,7 +57,7 @@ namespace JichangeApi.Services
             }
             catch (Exception ex)
             {
-                
+
                 pay.Error_Text = ex.ToString();
                 pay.AddErrorLogs(pay);
 

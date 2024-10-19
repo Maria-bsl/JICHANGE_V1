@@ -1,15 +1,13 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class DESIGNATION
     {
         #region Properties
-        public long Desg_Id { get; set; }     
+        public long Desg_Id { get; set; }
         public string Desg_Name { get; set; }
 
         public string AuditBy { get; set; }
@@ -22,7 +20,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 designation_list ps = new designation_list()
                 {
-                  
+
                     desg_name = sc.Desg_Name,
                     posted_by = sc.AuditBy,
                     posted_date = DateTime.Now,
@@ -32,12 +30,12 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return ps.desg_id;
             }
         }
-        public bool ValidateDesignation( String name)
+        public bool ValidateDesignation(String name)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var validation = (from c in context.designation_list
-                                  where ( c.desg_name.ToLower().Equals(name.ToLower()) )
+                                  where (c.desg_name.ToLower().Equals(name.ToLower()))
                                   select c);
                 if (validation.Count() > 0)
                     return true;
@@ -46,7 +44,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public bool isDuplicate(string designationName,long designationSno)
+        public bool isDuplicate(string designationName, long designationSno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -88,8 +86,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 {
                                     Desg_Id = c.desg_id,
                                     Desg_Name = c.desg_name,
-                                    Audit_Date=c.posted_date,
-                                }).OrderByDescending(z=>z.Audit_Date).ToList();
+                                    Audit_Date = c.posted_date,
+                                }).OrderByDescending(z => z.Audit_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
@@ -129,7 +127,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Desg_Name = c.desg_name,
                                     AuditBy = c.posted_by,
                                     Audit_Date = c.posted_date
-                                    
+
                                 }).FirstOrDefault();
                 if (edetails != null)
                     return edetails;
@@ -166,7 +164,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
                 if (UpdateContactInfo != null)
                 {
-                    UpdateContactInfo.desg_name = dep. Desg_Name;
+                    UpdateContactInfo.desg_name = dep.Desg_Name;
                     UpdateContactInfo.posted_by = dep.AuditBy;
                     UpdateContactInfo.posted_date = DateTime.Now;
 
@@ -182,4 +180,4 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
     }
 }
 
-   
+

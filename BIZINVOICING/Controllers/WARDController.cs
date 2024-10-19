@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class WARDController : AdminBaseController
     {
         // GET: WARD
-       
+
         //   S_SMTP smtp = new S_SMTP();
         DISTRICTS dst = new DISTRICTS();
         REGION reg = new REGION();
@@ -17,14 +15,14 @@ namespace BIZINVOICING.Controllers
         private readonly dynamic returnNull = null;
         EMP_DET ed = new EMP_DET();
         Auditlog ad = new Auditlog();
-        String[] list = new String[7] { "ward_sno", "ward_name", "region_id","district_sno", "ward_status", "posted_by", "posted_date" };
+        String[] list = new String[7] { "ward_sno", "ward_name", "region_id", "district_sno", "ward_status", "posted_by", "posted_date" };
         public ActionResult WARD()
         {
             if (Session["sessB"] == null)
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
-          //  ed.Detail_Id = Convert.ToInt64(Session["UserID"].ToString());
+            //  ed.Detail_Id = Convert.ToInt64(Session["UserID"].ToString());
             //ed.UpdateOnlyflsgtrue(ed);
             return View();
         }
@@ -208,7 +206,7 @@ namespace BIZINVOICING.Controllers
                     //  var result = sno;
 
 
-               }
+                }
 
             }
             catch (Exception Ex)

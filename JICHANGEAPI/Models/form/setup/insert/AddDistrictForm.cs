@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JichangeApi.Models.form.setup.insert
 {
     public class AddDistrictForm : MainForm
     {
-        [Required(ErrorMessage = "Missing district name",AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Missing district name", AllowEmptyStrings = false)]
         public string district_name { get; set; }
         [Required(ErrorMessage = "Missing region")]
         public long? region_id { get; set; }

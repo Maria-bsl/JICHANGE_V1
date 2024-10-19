@@ -1,12 +1,10 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class EMAIL
+    public class EMAIL
     {
         #region Properties
         public long SNO { get; set; }
@@ -29,9 +27,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 {
                     flow_id = sc.Flow_Id,
                     email_text1 = sc.Email_Text,
-                    email_text_local=sc.Local_Text,
-                    email_sub=sc.Subject,
-                    email_sub_local=sc.Local_subject,
+                    email_text_local = sc.Local_Text,
+                    email_sub = sc.Subject,
+                    email_sub_local = sc.Local_subject,
                     effective_date = DateTime.Now,
                     posted_by = sc.AuditBy,
                     posted_date = DateTime.Now,
@@ -46,7 +44,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var validation = (from c in context.email_text
-                                  where (c.flow_id ==id)
+                                  where (c.flow_id == id)
                                   select c);
                 if (validation.Count() > 0)
                     return true;
@@ -54,7 +52,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return false;
             }
         }
-        public bool IsDuplicateFlow(string flow,long sno)
+        public bool IsDuplicateFlow(string flow, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -74,11 +72,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     SNO = c.sno,
                                     Flow_Id = c.flow_id,
                                     Email_Text = c.email_text1,
-                                    Local_Text=c.email_text_local,
-                                    Subject=c.email_sub,
-                                    Local_subject=c.email_sub_local,
+                                    Local_Text = c.email_text_local,
+                                    Subject = c.email_sub,
+                                    Local_subject = c.email_sub_local,
                                     Effective_Date = (DateTime)c.effective_date
-                                }).OrderByDescending(z=>z.Effective_Date).ToList();
+                                }).OrderByDescending(z => z.Effective_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
@@ -111,7 +109,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var edetails = (from c in context.email_text.Where(c=>c.flow_id==name)
+                var edetails = (from c in context.email_text.Where(c => c.flow_id == name)
                                 orderby c.effective_date descending
                                 select new EMAIL
                                 {

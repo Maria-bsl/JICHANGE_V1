@@ -1,21 +1,13 @@
-﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using BL.BIZINVOICING.BusinessEntities.Masters;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models;
 using JichangeApi.Models.form.setup.remove;
-using JichangeApi.Services;
 using JichangeApi.Services.Companies;
 using JichangeApi.Services.setup;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
-using System.Text;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -465,7 +457,7 @@ public HttpResponseMessage GetApp()
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                var isDeleted = companyBankService.DeleteCompany(deleteDesignationForm.sno, (long) deleteDesignationForm.userid);
+                var isDeleted = companyBankService.DeleteCompany(deleteDesignationForm.sno, (long)deleteDesignationForm.userid);
                 return GetSuccessResponse(deleteDesignationForm.sno);
             }
             catch (ArgumentException ex)

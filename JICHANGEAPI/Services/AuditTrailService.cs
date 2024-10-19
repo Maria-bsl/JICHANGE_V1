@@ -2,11 +2,8 @@
 using JichangeApi.Models.form;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace JichangeApi.Services
 {
@@ -19,7 +16,7 @@ namespace JichangeApi.Services
             {
                 Auditlog ad = new Auditlog();
                 var count = ad.GetAuditReportCount(auditTrailForm.Startdate, auditTrailForm.Enddate, auditTrailForm.tbname, auditTrailForm.act, auditTrailForm.userid.ToString());
-                var audit_logs = ad.GetAuditReport(auditTrailForm.Startdate, auditTrailForm.Enddate, auditTrailForm.tbname, auditTrailForm.act, auditTrailForm.userid.ToString(),(int) auditTrailForm.pageNumber,(int) auditTrailForm.pageSize);
+                var audit_logs = ad.GetAuditReport(auditTrailForm.Startdate, auditTrailForm.Enddate, auditTrailForm.tbname, auditTrailForm.act, auditTrailForm.userid.ToString(), (int)auditTrailForm.pageNumber, (int)auditTrailForm.pageSize);
                 string logs = JsonSerializer.Serialize(audit_logs);
                 string length = JsonSerializer.Serialize(count);
                 JsonObject jsonObject = new JsonObject(); //JsonNode.Parse(jsonString).AsObject();
@@ -68,7 +65,7 @@ namespace JichangeApi.Services
                 var tableNames = new Auditlog().SelectTableNamesByAuditBy(userid);
                 return tableNames;
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 throw new ArgumentException(ex.Message);
             }

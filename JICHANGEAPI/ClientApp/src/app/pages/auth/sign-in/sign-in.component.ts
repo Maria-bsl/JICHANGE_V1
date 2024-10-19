@@ -165,13 +165,13 @@ export class SignInComponent implements OnInit {
   }
   openControlNumberDetailsDialog() {
     let dialogRef = this.dialog.open(ControlNumberDetailsComponent, {
-      width: '600px',
+      width: '800px',
       disableClose: true,
     });
   }
   openVendorRegistrationDialog() {
     let dialogRef = this.dialog.open(VendorRegistrationComponent, {
-      width: '600px',
+      width: '800px',
       disableClose: true,
     });
     dialogRef.componentInstance.addedVendor.asObservable().subscribe(() => {

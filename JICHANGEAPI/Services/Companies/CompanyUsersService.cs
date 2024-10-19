@@ -4,14 +4,8 @@ using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models;
 using JichangeApi.Models.form;
 using JichangeApi.Utilities;
-using Org.BouncyCastle.Asn1.Ocsp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
-using static QRCoder.PayloadGenerator;
 
 namespace JichangeApi.Services.Companies
 {
@@ -23,13 +17,13 @@ namespace JichangeApi.Services.Companies
         public static readonly string TABLE_NAME = "Companyusers";
         public static void AppendInsertAuditTrail(long sno, CompanyUsers user, long userid)
         {
-            List<string> values = new List<string> { sno.ToString(), user.Compmassno.ToString(), user.Username, user.Usertype, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(),userid.ToString(), DateTime.Now.ToString() };
-            Auditlog.InsertAuditTrail(values, userid, CompanyUsersService.TABLE_NAME,CompanyUsersService.TABLE_COLUMNS,user.Compmassno);
+            List<string> values = new List<string> { sno.ToString(), user.Compmassno.ToString(), user.Username, user.Usertype, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(), userid.ToString(), DateTime.Now.ToString() };
+            Auditlog.InsertAuditTrail(values, userid, CompanyUsersService.TABLE_NAME, CompanyUsersService.TABLE_COLUMNS, user.Compmassno);
         }
         public static void AppendUpdateAuditTrail(long sno, CompanyUsers oldUser, CompanyUsers newUser, long userid)
         {
-            List<string> oldUserValues = new List<string> { sno.ToString(), oldUser.Compmassno.ToString(), oldUser.Username, oldUser.Usertype, oldUser.CreatedDate.ToString(), oldUser.ExpiryDate.ToString(),userid.ToString(), oldUser.PostedDate.ToString() };
-            List<string> newUserValues = new List<string> { sno.ToString(), newUser.Compmassno.ToString(), newUser.Username, newUser.Usertype, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(),userid.ToString(), DateTime.Now.ToString() };
+            List<string> oldUserValues = new List<string> { sno.ToString(), oldUser.Compmassno.ToString(), oldUser.Username, oldUser.Usertype, oldUser.CreatedDate.ToString(), oldUser.ExpiryDate.ToString(), userid.ToString(), oldUser.PostedDate.ToString() };
+            List<string> newUserValues = new List<string> { sno.ToString(), newUser.Compmassno.ToString(), newUser.Username, newUser.Usertype, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(), userid.ToString(), DateTime.Now.ToString() };
             Auditlog.UpdateAuditTrail(oldUserValues, newUserValues, userid, CompanyUsersService.TABLE_NAME, CompanyUsersService.TABLE_COLUMNS, newUser.Compmassno);
         }
         public static void AppendDeleteAuditTrail(long sno, CompanyUsers user, long userid)
@@ -80,7 +74,7 @@ namespace JichangeApi.Services.Companies
             try
             {
                 CompanyUsers companyUsers = new CompanyUsers();
-                List<CompanyUsers> result = companyUsers.GetCompanyUsers1((long) singletonComp.compid);
+                List<CompanyUsers> result = companyUsers.GetCompanyUsers1((long)singletonComp.compid);
                 return result ?? new List<CompanyUsers>();
             }
             catch (Exception ex)
@@ -155,7 +149,7 @@ namespace JichangeApi.Services.Companies
                     EmailUtils.SendActivationEmail(user.Email, user.Fullname, PasswordGeneratorUtil.DecodeFrom64(found.Password), user.Username);
                 }
 
-                if(user.Mobile != found.Mobile)
+                if (user.Mobile != found.Mobile)
                 {
                     SmsService sms = new SmsService();
                     sms.SendWelcomeSmsToNewUser(user.Username, PasswordGeneratorUtil.DecodeFrom64(found.Password), user.Mobile);
@@ -179,7 +173,7 @@ namespace JichangeApi.Services.Companies
             }
         }
 
-        public CompanyUsers ResendUserCredentials(string method,long companyUserId)
+        public CompanyUsers ResendUserCredentials(string method, long companyUserId)
         {
             try
             {
@@ -210,10 +204,10 @@ namespace JichangeApi.Services.Companies
         {
             try
             {
-               /* CompanyUsers user = CreateCompanyUser(addCompanyUserForm);
-                CompanyUsers found = user.EditCompanyUsers((long)addCompanyUserForm.sno);
-                if (found != null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
-                AppendUpdateAuditTrail((long)addCompanyUserForm.sno, found, user, (long)addCompanyUserForm.userid);*/
+                /* CompanyUsers user = CreateCompanyUser(addCompanyUserForm);
+                 CompanyUsers found = user.EditCompanyUsers((long)addCompanyUserForm.sno);
+                 if (found != null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
+                 AppendUpdateAuditTrail((long)addCompanyUserForm.sno, found, user, (long)addCompanyUserForm.userid);*/
                 user.UpdateCompanyUsersP(user);
                 return EditCompanyUser((long)user.CompuserSno);
             }
@@ -297,7 +291,7 @@ namespace JichangeApi.Services.Companies
             try
             {
                 CompanyUsers companyUser = new CompanyUsers();
-                CompanyUsers found = companyUser.EditCompanyUsers((long) form.sno);
+                CompanyUsers found = companyUser.EditCompanyUsers((long)form.sno);
                 if (found == null) throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE);
                 AppendDeleteAuditTrail((long)form.sno, found, (long)form.userid);
                 found.DeleteCompany((long)form.sno);

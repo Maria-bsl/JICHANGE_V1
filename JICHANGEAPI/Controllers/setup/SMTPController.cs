@@ -1,12 +1,10 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models.form;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -17,7 +15,7 @@ namespace JichangeApi.Controllers.setup
     {
         Payment pay = new Payment();
         private static readonly List<string> tableColumns = new List<string> { "sno", "from_address", "smtp_address", "smtp_port", "username", "ssl_enable", "effective_date", "posted_by", "posted_date" };
-        private static readonly string tableName = "Smtp Settings"; 
+        private static readonly string tableName = "Smtp Settings";
 
         [HttpPost]
         public HttpResponseMessage GetSmtpDetails()
@@ -72,7 +70,7 @@ namespace JichangeApi.Controllers.setup
 
 
 
-        private HttpResponseMessage InsertSmtp(S_SMTP smtp,AddSmtpForm addSmtpForm)
+        private HttpResponseMessage InsertSmtp(S_SMTP smtp, AddSmtpForm addSmtpForm)
         {
             try
             {
@@ -92,7 +90,7 @@ namespace JichangeApi.Controllers.setup
                 AppendInsertAuditTrail(addedSno, smtp, (long)addSmtpForm.userid);
                 return FindSmtp(addedSno);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
@@ -101,11 +99,11 @@ namespace JichangeApi.Controllers.setup
             }
         }
 
-        private HttpResponseMessage UpdateSmtp(S_SMTP smtp,AddSmtpForm addSmtpForm)
+        private HttpResponseMessage UpdateSmtp(S_SMTP smtp, AddSmtpForm addSmtpForm)
         {
             try
             {
-                var isExist = smtp.isExistSMTP((long) addSmtpForm.sno);
+                var isExist = smtp.isExistSMTP((long)addSmtpForm.sno);
                 if (!isExist) { return this.GetNotFoundResponse(); }
                 S_SMTP fetchedSMTP = smtp.EditSMTP((long)addSmtpForm.sno);
                 long updatedSmtp = smtp.UpdateSMTP(smtp);
@@ -130,9 +128,9 @@ namespace JichangeApi.Controllers.setup
             {
                 S_SMTP smtp = CreateSmtp(addSmtpForm);
                 if (addSmtpForm.sno == 0) { return InsertSmtp(smtp, addSmtpForm); }
-                else { return UpdateSmtp(smtp,addSmtpForm); }
+                else { return UpdateSmtp(smtp, addSmtpForm); }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
@@ -169,7 +167,7 @@ namespace JichangeApi.Controllers.setup
             try
             {
                 S_SMTP smtp = new S_SMTP();
-                bool isExist = smtp.isExistSMTP((long) deleteSmtpForm.sno);
+                bool isExist = smtp.isExistSMTP((long)deleteSmtpForm.sno);
                 if (!isExist) return this.GetNotFoundResponse();
                 S_SMTP found = smtp.EditSMTP((long)deleteSmtpForm.sno);
                 AppendDeleteAuditTrail((long)deleteSmtpForm.sno, found, (long)deleteSmtpForm.userid);

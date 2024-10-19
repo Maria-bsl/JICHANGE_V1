@@ -1,25 +1,23 @@
-﻿using System;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Data;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
-using System.Globalization;
 using System.Xml;
-using System.Data;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
-public class GenerateTokenController : Controller
+    public class GenerateTokenController : Controller
     {
         // GET: GenerateToken
         INVOICE inv = new INVOICE();
@@ -58,7 +56,7 @@ public class GenerateTokenController : Controller
             var gAPI = areg.getAPI();
             var tokenvalue = string.Empty;
             var objtra = tra.GetDataU();
-            if (objtra == null )
+            if (objtra == null)
             {
                 DataSet dsItems = new DataSet();
                 DataSet dsItemsInvoice = new DataSet();
@@ -248,7 +246,7 @@ public class GenerateTokenController : Controller
                         }
 
                     }
-                    
+
 
 
                 }

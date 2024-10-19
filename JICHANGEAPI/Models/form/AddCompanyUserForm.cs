@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace JichangeApi.Models.form
 {
@@ -13,7 +8,7 @@ namespace JichangeApi.Models.form
         public string pos { get; set; }
         [Required(ErrorMessage = "Missing auname", AllowEmptyStrings = true)]
         public string auname { get; set; }
-        [Required(ErrorMessage = "Missing mob", AllowEmptyStrings = false)]        
+        [Required(ErrorMessage = "Missing mob", AllowEmptyStrings = false)]
         public string mob { get; set; }
         [Required(ErrorMessage = "Missing uname", AllowEmptyStrings = true)]
         public string uname { get; set; }

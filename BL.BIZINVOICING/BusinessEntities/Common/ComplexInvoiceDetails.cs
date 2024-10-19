@@ -1,14 +1,10 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
-using DaL.BIZINVOICING.EDMX;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BL.BIZINVOICING.BusinessEntities.Common
 {
-   public class ComplexInvoiceDetails
+    public class ComplexInvoiceDetails
     {
         public CustomerMaster Customerdata { get; set; }
         public CompanyBankMaster CompanyData { get; set; }

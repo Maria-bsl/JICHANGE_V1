@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class C_Deposit
@@ -89,7 +87,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var adetails = (from c in context.company_deposit_account
                                 join d in context.company_master on c.comp_mas_sno equals d.comp_mas_sno
-                                
+
                                 select new C_Deposit
                                 {
                                     Comp_Dep_Acc_Sno = c.comp_dep_acc_sno,
@@ -121,7 +119,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Comp_Mas_Sno = (long)c.comp_mas_sno,
                                     Audit_Date = c.posted_date,
                                 }).OrderByDescending(z => z.Comp_Dep_Acc_Sno).FirstOrDefault();
-                if (adetails != null )
+                if (adetails != null)
                     return adetails;
                 else
                     return null;

@@ -1,17 +1,12 @@
 ﻿using DaL.BIZINVOICING.EDMX;
-using iTextSharp.text;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls.Primitives;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class Auditlog
+    public class Auditlog
     {
         public long Audit_Sno { get; set; }
         public long Comp_Sno { get; set; }
@@ -36,7 +31,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             public string AuditorName { get; set; }
             public string ipAddress { get; set; }
             public DateTime Audit_Date { get; set; }
-        } 
+        }
 
 
         public long AddAudit(Auditlog sc)
@@ -51,7 +46,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     old_value = sc.Oldvalues,
                     new_value = sc.Newvalues,
                     posted_by = sc.AuditBy,
-                   comp_mas_sno = sc.Comp_Sno,
+                    comp_mas_sno = sc.Comp_Sno,
                     posted_date = DateTime.Now,
                     posted_time = DateTime.Now,
                 };
@@ -123,18 +118,18 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var length = (from v in context.audit_log
-                             //join dets in context.emp_detail on v.posted_by equals dets.emp_detail_id.ToString()
-                             join tracks in (
-                                 from t in context.track_details
-                                 group t by t.posted_by into g
-                                 select g.FirstOrDefault()
-                             ) on v.posted_by equals tracks.posted_by into trackGroup
-                             from track in trackGroup.DefaultIfEmpty()
-                             //where !string.IsNullOrEmpty(auditBy) && v.posted_by == auditBy
-                             where string.IsNullOrEmpty(action) || v.audit_type == action
-                             where string.IsNullOrEmpty(tableName) || v.table_name == tableName
-                             where ((!fromDate.HasValue || v.posted_time >= fromDate) && (!toDate.HasValue || v.posted_time <= toDate))
-                             select v).Count();
+                                  //join dets in context.emp_detail on v.posted_by equals dets.emp_detail_id.ToString()
+                              join tracks in (
+                                  from t in context.track_details
+                                  group t by t.posted_by into g
+                                  select g.FirstOrDefault()
+                              ) on v.posted_by equals tracks.posted_by into trackGroup
+                              from track in trackGroup.DefaultIfEmpty()
+                                  //where !string.IsNullOrEmpty(auditBy) && v.posted_by == auditBy
+                              where string.IsNullOrEmpty(action) || v.audit_type == action
+                              where string.IsNullOrEmpty(tableName) || v.table_name == tableName
+                              where ((!fromDate.HasValue || v.posted_time >= fromDate) && (!toDate.HasValue || v.posted_time <= toDate))
+                              select v).Count();
                 return length;
             }
         }
@@ -213,7 +208,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public List<CustomAuditReport> GetAuditReport(string startDate,string endDate,string tableName,string action,string auditBy,int pageNumber,int pageSize)
+        public List<CustomAuditReport> GetAuditReport(string startDate, string endDate, string tableName, string action, string auditBy, int pageNumber, int pageSize)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -225,14 +220,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 if (!string.IsNullOrEmpty(endDate)) toDate = DateTime.Parse(endDate);
 
                 var results = (from v in context.audit_log
-                               //join dets in context.emp_detail on v.posted_by equals dets.emp_detail_id.ToString()
+                                   //join dets in context.emp_detail on v.posted_by equals dets.emp_detail_id.ToString()
                                join tracks in (
                                    from t in context.track_details
                                    group t by t.posted_by into g
                                    select g.FirstOrDefault()
                                ) on v.posted_by equals tracks.posted_by into trackGroup
-                               from track in trackGroup.DefaultIfEmpty() 
-                               //where !string.IsNullOrEmpty(auditBy) && v.posted_by == auditBy
+                               from track in trackGroup.DefaultIfEmpty()
+                                   //where !string.IsNullOrEmpty(auditBy) && v.posted_by == auditBy
                                where string.IsNullOrEmpty(action) || v.audit_type == action
                                where string.IsNullOrEmpty(tableName) || v.table_name == tableName
                                where ((!fromDate.HasValue || v.posted_time >= fromDate) && (!toDate.HasValue || v.posted_time <= toDate))
@@ -247,13 +242,13 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                    AuditBy = v.posted_by,
                                    Audit_Date = (DateTime)v.posted_time,
                                    AuditorName = track.full_name,
-                                   ipAddress = track != null ? track.ipadd : null 
+                                   ipAddress = track != null ? track.ipadd : null
                                }).OrderByDescending(z => z.Audit_Date).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
                 return results ?? new List<CustomAuditReport>();
             }
         }
 
-        public List<Auditlog> GetBloglist(DateTime frm, DateTime to, string tn, string ac, String name,long branch)
+        public List<Auditlog> GetBloglist(DateTime frm, DateTime to, string tn, string ac, String name, long branch)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -535,7 +530,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
             }
         }
-        public List<Auditlog> GetBloglist1(DateTime frm, DateTime to, string tn, string ac, String name,long sno)
+        public List<Auditlog> GetBloglist1(DateTime frm, DateTime to, string tn, string ac, String name, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -548,7 +543,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                    //join dets in context.institution_users on v.posted_by equals dets.insti_users_sno.ToString()
                                    //join inst in context.institution_registration on v.insti_reg_sno equals inst.insti_reg_sno
                                    where v.table_name == tn && v.posted_date >= frm && v.posted_date <= to /*&& v.insti_reg_sno == inst.insti_reg_sno*/ &&
-                                     v.audit_type == v.audit_type && v.comp_mas_sno==sno
+                                     v.audit_type == v.audit_type && v.comp_mas_sno == sno
                                    select new Auditlog
                                    {
                                        Audit_Sno = v.audit_sno,
@@ -668,8 +663,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     if (ac == "All")
                     {
                         var det = (from v in context.audit_log
-                                   //join dets in context.institution_users on v.posted_by equals dets.insti_users_sno.ToString()
-                                   //join inst in context.institution_registration on v.insti_reg_sno equals inst.insti_reg_sno
+                                       //join dets in context.institution_users on v.posted_by equals dets.insti_users_sno.ToString()
+                                       //join inst in context.institution_registration on v.insti_reg_sno equals inst.insti_reg_sno
                                    where v.table_name == tn && v.posted_date >= frm && v.posted_date <= to /*&& v.insti_reg_sno == isno*/ &&
                                      v.audit_type == v.audit_type
                                    select new Auditlog
@@ -697,8 +692,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     else
                     {
                         var det = (from v in context.audit_log
-                                   //join dets in context.institution_users on v.posted_by equals dets.insti_users_sno.ToString()
-                                   //join inst in context.institution_registration on v.insti_reg_sno equals inst.insti_reg_sno
+                                       //join dets in context.institution_users on v.posted_by equals dets.insti_users_sno.ToString()
+                                       //join inst in context.institution_registration on v.insti_reg_sno equals inst.insti_reg_sno
                                    where v.table_name == tn && v.posted_date >= frm && v.posted_date <= to /*&& v.insti_reg_sno == isno*/ &&
                                      v.audit_type == ac
                                    select new Auditlog
@@ -724,7 +719,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                         }
                     }
                 }
-                
+
 
                 else
                 {
@@ -756,7 +751,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public static void InsertAuditTrail(List<string> values, long userid, string tableName,List<string> tableColumns,long compid = 0)
+        public static void InsertAuditTrail(List<string> values, long userid, string tableName, List<string> tableColumns, long compid = 0)
         {
             Debug.Assert(values.Count() == tableColumns.Count(), "Audit trail lists must be of the same size");
             Auditlog ad = new Auditlog();
@@ -774,7 +769,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public static void UpdateAuditTrail(List<string> oldValues,List<string> newValues,long userid,string tableName,List<string> tableColumns,long compid = 0)
+        public static void UpdateAuditTrail(List<string> oldValues, List<string> newValues, long userid, string tableName, List<string> tableColumns, long compid = 0)
         {
             Debug.Assert(oldValues.Count() == tableColumns.Count(), "Audit trail lists must be of the same size");
             Debug.Assert(newValues.Count() == tableColumns.Count(), "Audit trail lists must be of the same size");
@@ -794,7 +789,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public static void deleteAuditTrail(List<string> values, long userid, string tableName, List<string> tableColumns,long compid = 0)
+        public static void deleteAuditTrail(List<string> values, long userid, string tableName, List<string> tableColumns, long compid = 0)
         {
             Debug.Assert(values.Count() == tableColumns.Count(), "Audit trail lists must be of the same size");
             Auditlog ad = new Auditlog();

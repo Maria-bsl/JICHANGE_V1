@@ -1,16 +1,14 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-  public  class TRACK_DET
+    public class TRACK_DET
     {
         #region Properties
         public long SNO { get; set; }
-        
+
         public string Full_Name { get; set; }
         public long? Facility_Reg_No { get; set; }
         public string Ipadd { get; set; }
@@ -19,7 +17,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         public string Posted_by { get; set; }
         public string Description { get; set; }
         public DateTime? Logout_Time { get; set; }
-       
+
         #endregion properties
         #region methods
 
@@ -32,11 +30,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     full_name = sc.Full_Name,
                     ipadd = sc.Ipadd,
                     email = sc.Email,
-                    comp_mas_sno=sc.Facility_Reg_No,
+                    comp_mas_sno = sc.Facility_Reg_No,
                     login_time = sc.Login_Time,
                     posted_by = sc.Posted_by,
                     descrip = sc.Description,
-                    
+
                 };
                 context.track_details.Add(ps);
                 context.SaveChanges();
@@ -52,7 +50,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 if (!string.IsNullOrEmpty(enddate)) toDate = DateTime.Parse(enddate);
 
                 List<TRACK_DET> listlogtime = (from td in context.track_details
-                                               where td.comp_mas_sno == 0 
+                                               where td.comp_mas_sno == 0
                                                && (!fromDate.HasValue || fromDate <= td.login_time)
                                                 && (!toDate.HasValue || toDate >= td.login_time)
                                                select new TRACK_DET
@@ -143,21 +141,22 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Posted_by = c.posted_by,
                                     Description = c.descrip,
                                     Logout_Time = c.logout_time,
-                                    
+
                                 }).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
                     return null;
             }
-        }public List<TRACK_DET> Getfunctiontrackdet1(string stdate, string enddate)
+        }
+        public List<TRACK_DET> Getfunctiontrackdet1(string stdate, string enddate)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 if (stdate == "" && enddate == "")
                 {
                     List<TRACK_DET> listlogtime = (from td in context.track_details
-                                                   where td.comp_mas_sno !=0
+                                                   where td.comp_mas_sno != 0
 
                                                    select new TRACK_DET
                                                    {
@@ -180,7 +179,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     DateTime tdate = DateTime.Parse(edate).AddHours(23).AddMinutes(59).AddSeconds(59);
 
                     List<TRACK_DET> listlogtime = (from td in context.track_details
-                                                   where ((td.login_time >= fdate && td.login_time <= tdate) && (td.comp_mas_sno!=0))
+                                                   where ((td.login_time >= fdate && td.login_time <= tdate) && (td.comp_mas_sno != 0))
                                                    select new TRACK_DET
                                                    {
                                                        Full_Name = td.full_name,
@@ -213,7 +212,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         //            return false;
         //    }
         //}
-       
+
         //public TRACK_DET getTRACKText(String chsno,String psno)
         //{
         //    using (BIZINVOICEEntities context = new BIZINVOICEEntities())
@@ -230,7 +229,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         //                            Login_Time=(DateTime)c.login_time,
         //                            Posted_by = c.posted_by,
         //                            Description = c.descrip,
-                                    
+
 
         //                        }).OrderByDescending(c => c.Login_Time).Take(1).FirstOrDefault();
         //        if (edetails != null)
@@ -252,10 +251,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Full_Name = c.full_name,
                                     Ipadd = c.ipadd,
                                     Email = c.email,
-                                    Login_Time =(DateTime)c.login_time,
+                                    Login_Time = (DateTime)c.login_time,
                                     Posted_by = c.posted_by,
                                     Description = c.descrip,
-                                   
+
 
                                 }).OrderByDescending(c => c.Login_Time).Take(1).FirstOrDefault();
 
@@ -288,7 +287,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var UpdateContactInfo = (from u in context.track_details.Where(c => c.sno ==dep.SNO)
+                var UpdateContactInfo = (from u in context.track_details.Where(c => c.sno == dep.SNO)
                                          select u).OrderByDescending(c => c.login_time).Take(1).FirstOrDefault();
 
                 if (UpdateContactInfo != null)
@@ -308,12 +307,12 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 if (UpdateContactInfo != null)
                 {
                     UpdateContactInfo.logout_time = DateTime.Now;
-                    
+
                     context.SaveChanges();
                 }
                 //int count = context.institution_registration.Count(p => p.insti_reg_sno == name);
             }
-           
+
         }
 
         #endregion Methods

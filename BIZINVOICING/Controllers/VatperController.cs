@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using System.Text;
 
 namespace BIZINVOICING.Controllers
 {
@@ -14,14 +11,14 @@ namespace BIZINVOICING.Controllers
         VatPercentage vatper = new VatPercentage();
         private readonly dynamic returnNull = null;
         Auditlog ad = new Auditlog();
-        String[] list = new String[6] { "vat_per_sno", "vat_percentage",  "posted_by", "posted_date","vat_category", "vat_description" };
+        String[] list = new String[6] { "vat_per_sno", "vat_percentage", "posted_by", "posted_date", "vat_category", "vat_description" };
         public ActionResult VatPercentage()
         {
             if (Session["sessB"] == null)
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
-             return View();
+            return View();
         }
 
 
@@ -97,13 +94,13 @@ namespace BIZINVOICING.Controllers
                     }
                     else
                     {
-                        
+
                         var dd = vatper.Editcountries(sno);
                         if (dd != null)
                         {
                             String[] list1 = new String[6] { ssno.ToString(), vat_percentageValue.ToString(), Session["UserID"].ToString(), DateTime.Now.ToString(), vat_cat, vat_desc };
-                            String[] list2 = new String[6] { dd.vat_per_sno.ToString(), dd.vat_percentageValue.ToString(), Session["UserID"].ToString(), DateTime.Now.ToString(), dd.Vat_Category,dd.Vat_Description };
-                           // String[] list1 = new String[5] { dd.SNO.ToString(), q_name, q_qtatus, Session["UserID"].ToString(), DateTime.Now.ToString() };
+                            String[] list2 = new String[6] { dd.vat_per_sno.ToString(), dd.vat_percentageValue.ToString(), Session["UserID"].ToString(), DateTime.Now.ToString(), dd.Vat_Category, dd.Vat_Description };
+                            // String[] list1 = new String[5] { dd.SNO.ToString(), q_name, q_qtatus, Session["UserID"].ToString(), DateTime.Now.ToString() };
                             for (int i = 0; i < list.Count(); i++)
                             {
                                 ad.Audit_Type = "Update";

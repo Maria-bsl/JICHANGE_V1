@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class TableDetails
+    public class TableDetails
     {
 
         #region Properties
@@ -23,7 +19,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from mr in context.table_details
-                                where !string.IsNullOrEmpty(mr.table_name) && mr.table_name.ToLower().Equals(tab.ToLower()) 
+                                where !string.IsNullOrEmpty(mr.table_name) && mr.table_name.ToLower().Equals(tab.ToLower())
                                 select new TableDetails
                                 {
                                     tab_name = mr.table_name,

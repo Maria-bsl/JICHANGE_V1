@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
     public class EMP_DET
@@ -192,7 +190,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var adetails = (from c in context.emp_detail
                                 join d in context.designation_list on c.desg_id equals d.desg_id
-                                
+
                                 select new EMP_DET
                                 {
                                     Detail_Id = c.emp_detail_id,
@@ -204,7 +202,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Last_name = c.last_name,
                                     User_name = c.username,
                                     Mobile_No = c.mobile_no,
-                                   // Branch_Name = br.branch_name1,
+                                    // Branch_Name = br.branch_name1,
                                     Branch_Sno = c.branch_Sno,
                                     Desg_Id = (long)c.desg_id,
                                     Email_Address = c.email_id,
@@ -242,7 +240,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 employee.User_name = exists.username;
                 employee.Mobile_No = exists.mobile_no;
                 employee.Branch_Sno = exists.branch_Sno;
-                employee.Desg_Id = (long) exists.desg_id;
+                employee.Desg_Id = (long)exists.desg_id;
                 employee.Desg_name = designation.GetDesignation().Find(e => e.Desg_Id == exists.desg_id).Desg_Name;
                 //employee.Branch_Name = branch.GetBranches().Find(e => e.Branch_Sno == exists.branch_Sno).Name;
                 employee.Email_Address = exists.email_id;
@@ -260,7 +258,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var adetails = (from c in context.emp_detail
                                 join d in context.designation_list on c.desg_id equals d.desg_id
-                              //  join br in context.branch_name on c.branch_sno equals br.sno
+                                //  join br in context.branch_name on c.branch_sno equals br.sno
                                 where c.emp_status == "Active"
                                 select new EMP_DET
                                 {
@@ -288,7 +286,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return null;
             }
         }
-        public bool isDuplicateEmployeeId(string employeeId,long sno)
+        public bool isDuplicateEmployeeId(string employeeId, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -298,7 +296,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return validation.Count() > 0;
             }
         }
-        public bool isDuplicateEmployeeUsername(string username,long sno)
+        public bool isDuplicateEmployeeUsername(string username, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -369,7 +367,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var edetails = (from c in context.emp_detail
                                 join d in context.designation_list on c.desg_id equals d.desg_id
-                            //    join br in context.branch_name on c.branch_sno equals br.sno
+                                //    join br in context.branch_name on c.branch_sno equals br.sno
                                 where c.emp_detail_id == chsno && c.emp_status == "Active"
                                 select new EMP_DET
                                 {
@@ -402,7 +400,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
                 var edetails = (from c in context.emp_detail
                                 join d in context.designation_list on c.desg_id equals d.desg_id
-                             //   join br in context.branch_name on c.branch_sno equals br.sno
+                                //   join br in context.branch_name on c.branch_sno equals br.sno
                                 where c.emp_detail_id == sno
                                 select new EMP_DET
                                 {
@@ -446,7 +444,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 //var validationM = (from c in context.member_registration
                 //                   where (c.username == id && c.status == "Approved")
                 //                   select c);
-                if (validation.Count() > 0 )
+                if (validation.Count() > 0)
                     return true;
                 else
                     return false;
@@ -459,7 +457,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 var validation = (from c in context.emp_detail
                                   where (c.pwd == id)
                                   select c);
-               
+
                 if (validation.Count() > 0)
                     return true;
                 else
@@ -471,11 +469,11 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         //{
         //    using (BIZINVOICEEntities context = new BIZINVOICEEntities())
         //    {
-               
+
         //        var validationTu = (from c in context.institution_users
         //                            where (c.password == id && c.insti_reg_sno == sno && c.insti_users_sno==uid)
         //                            select c);
-                
+
         //        if (validationTu.Count() > 0)
         //            return true;
         //        else
@@ -539,7 +537,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
 
                 var edetails = (from c in context.emp_detail
-                                //join c1 in context.company_master on c.co
+                                    //join c1 in context.company_master on c.co
                                 where c.username == uname && c.pwd == pwd && c.emp_status == "Active" && c.log_status == null
                                 select new EMP_DET
                                 {
@@ -637,7 +635,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 }
                 return 0;
             }
-        } 
+        }
 
         public void Updatelang(EMP_DET dep)
         {
@@ -659,14 +657,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var UpdateContactInfo = (from u in context.emp_detail
-                                         where u.emp_detail_id == dep.Detail_Id 
+                                         where u.emp_detail_id == dep.Detail_Id
                                          select u).FirstOrDefault();
 
                 if (UpdateContactInfo != null)
                 {
-                  /*  UpdateContactInfo.sno = dep.SNO;
-                    UpdateContactInfo.q_name = dep.Q_Name;
-                    UpdateContactInfo.q_ans = dep.Q_Ans;*/
+                    /*  UpdateContactInfo.sno = dep.SNO;
+                      UpdateContactInfo.q_name = dep.Q_Name;
+                      UpdateContactInfo.q_ans = dep.Q_Ans;*/
                     UpdateContactInfo.pwd = dep.Password;
                     //UpdateContactInfo.f_login = dep.F_Login;
                     UpdateContactInfo.posted_by = dep.AuditBy;
@@ -699,7 +697,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
                 if (UpdateContactInfo != null)
                 {
-                    UpdateContactInfo.pwd =dep.Password;
+                    UpdateContactInfo.pwd = dep.Password;
                     context.SaveChanges();
                 }
             }

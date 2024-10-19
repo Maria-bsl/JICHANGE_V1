@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http.Filters;
 using System.Web.Http;
+using System.Web.Http.Filters;
 
 namespace JichangeApi.Models.JWTAuthentication
 {
@@ -23,7 +21,7 @@ namespace JichangeApi.Models.JWTAuthentication
 
         public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
-           
+
             var controllerContext = context.ActionContext.ControllerContext;
             var descriptor = context.ActionContext.ActionDescriptor;
 

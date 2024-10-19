@@ -7,7 +7,6 @@ using JichangeApi.Services.setup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -44,7 +43,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CustomerMaster> customers = customerService.GetCompanyCustomersList((long) singletonComp.compid);
+                List<CustomerMaster> customers = customerService.GetCompanyCustomersList((long)singletonComp.compid);
                 return GetSuccessResponse(customers);
             }
             catch (Exception ex)
@@ -91,7 +90,7 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                List<CompanyBankMaster> companies = customerService.GetCompanyNamesList((long) singletonComp.compid);
+                List<CompanyBankMaster> companies = customerService.GetCompanyNamesList((long)singletonComp.compid);
                 return GetSuccessResponse(companies);
             }
             catch (Exception ex)
@@ -242,7 +241,7 @@ namespace JichangeApi.Controllers
             catch (Exception Ex)
             {
                 pay.Message = Ex.ToString();
-                pay.AddErrorLogs(pay); 
+                pay.AddErrorLogs(pay);
 
                 return Request.CreateResponse(new { response = 0, message = new List<string> { "An error occured on the server", Ex.ToString() } });
             }
@@ -255,14 +254,14 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                if (customersForm.CSno == 0) 
-                { 
-                    CustomerMaster customer = customerService.InsertCustomer(customersForm); 
+                if (customersForm.CSno == 0)
+                {
+                    CustomerMaster customer = customerService.InsertCustomer(customersForm);
                     return GetSuccessResponse(customer);
                 }
-                else 
+                else
                 {
-                    CustomerMaster customer = customerService.UpdateCustomer(customersForm);  
+                    CustomerMaster customer = customerService.UpdateCustomer(customersForm);
                     return GetSuccessResponse(customer);
                 }
             }
@@ -277,14 +276,14 @@ namespace JichangeApi.Controllers
             catch (Exception ex)
             {
                 pay.Message = ex.ToString();
-                pay.AddErrorLogs(pay); 
+                pay.AddErrorLogs(pay);
 
                 return this.GetServerErrorResponse(ex.Message);
             }
         }
 
         [HttpGet]
-        public HttpResponseMessage FindCustomer(long companyid,long customerId)
+        public HttpResponseMessage FindCustomer(long companyid, long customerId)
         {
             try
             {

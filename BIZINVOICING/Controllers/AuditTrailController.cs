@@ -1,9 +1,7 @@
-﻿using System;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 
 namespace BIZINVOICING.Controllers
 {
@@ -13,10 +11,10 @@ namespace BIZINVOICING.Controllers
         TableDetails tb = new TableDetails();
         EMP_DET ed = new EMP_DET();
         Auditlog ad = new Auditlog();
-        
+
         public ActionResult AuditTrail()
         {
-            if (Session["sessB"] == null && (Session["sessComp"] == null)) 
+            if (Session["sessB"] == null && (Session["sessComp"] == null))
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
@@ -68,7 +66,8 @@ namespace BIZINVOICING.Controllers
             }
 
             return null;
-        }[HttpPost]
+        }
+        [HttpPost]
         public ActionResult getdet1(string tbname, string Startdate, string Enddate, string act)
         {
             try

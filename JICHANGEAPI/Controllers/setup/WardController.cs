@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.Cors;
-using BL.BIZINVOICING.BusinessEntities.Masters;
-using JichangeApi.Models.form;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Models.form.setup.insert;
 using JichangeApi.Models.form.setup.remove;
 using JichangeApi.Services.setup;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace JichangeApi.Controllers.setup
 {
@@ -51,7 +49,7 @@ namespace JichangeApi.Controllers.setup
                 else
                 {
                     WARD ward = wardService.UpdateWard(addWardForm);
-                    return GetSuccessResponse(ward);    
+                    return GetSuccessResponse(ward);
                 }
             }
             catch (ArgumentException ex)

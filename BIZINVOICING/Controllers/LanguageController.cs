@@ -1,9 +1,7 @@
-﻿using System;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class AdminBaseController : Controller
@@ -134,7 +132,7 @@ namespace BIZINVOICING.Controllers
                             //ViewData["denom"] = b1.Loc_Oth == null ? "Denomination" : b1.Loc_Oth;
                             //b1 = lang.EditColumn("Diocese", "Diocese Registration");
                             //ViewData["dioc"] = b1.Loc_Oth == null ? "Diocese Registration" : b1.Loc_Oth;
-                            
+
                             //var set = lang.EditColumn("Bank Dashboard", "Setup");
                             //ViewData["setup"] = set.Loc_Oth == null ? "Setup" : set.Loc_Oth;
                             var reg = lang.EditColumn("Region", "Region");
@@ -183,14 +181,14 @@ namespace BIZINVOICING.Controllers
 
                             var dd = lang.EditColumn("Designation", "Designation");
                             ViewData["Desg"] = dd.Loc_Oth == null ? "Designation" : dd.Loc_Oth;
-                             dd = lang.EditColumn("Designation", "Add Designation");
+                            dd = lang.EditColumn("Designation", "Add Designation");
                             ViewData["addDesg"] = dd.Loc_Oth == null ? "Add Designation" : dd.Loc_Oth;
                             dd = lang.EditColumn("Designation", "Designation Details");
                             ViewData["Desgdets"] = dd.Loc_Oth == null ? "Designation Details" : dd.Loc_Oth;
 
                             var qs = lang.EditColumn("Question", "Security Question");
                             ViewData["Sques"] = qs.Loc_Oth == null ? "Security Question" : qs.Loc_Oth;
-                             qs = lang.EditColumn("Question", "Question Name");
+                            qs = lang.EditColumn("Question", "Question Name");
                             ViewData["Sques"] = qs.Loc_Oth == null ? "Question Name" : qs.Loc_Oth;
                             qs = lang.EditColumn("Question", "Answer");
                             ViewData["Sansw"] = qs.Loc_Oth == null ? "Answer" : qs.Loc_Oth;
@@ -273,7 +271,7 @@ namespace BIZINVOICING.Controllers
                             ViewData["BAp"] = app.Loc_Oth == null ? "Approval" : app.Loc_Oth;
                             app = lang.EditColumn("Bank Menu", "Language");
                             ViewData["Blang"] = app.Loc_Oth == null ? "Language" : app.Loc_Oth;
-                           
+
                             app = lang.EditColumn("Bank Menu", "Setup");
                             ViewData["setup"] = app.Loc_Oth == null ? "Setup" : app.Loc_Oth;
                             var up = lang.EditColumn("Bank Menu", "Return");
@@ -286,14 +284,14 @@ namespace BIZINVOICING.Controllers
                             ViewData["BApe"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Bank Menu", "Generatedinvoices");
                             ViewData["Geninv"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
-                             das = lang.EditColumn("Language", "Language");
+                            das = lang.EditColumn("Language", "Language");
                             ViewData["lang"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Language", "Select Language");
                             ViewData["sellang"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
 
                             das = lang.EditColumn("Vat Percentage", "Vat Percentage");
                             ViewData["vatper"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
-                             das = lang.EditColumn("Vat Percentage", "Add Vat Percentage");
+                            das = lang.EditColumn("Vat Percentage", "Add Vat Percentage");
                             ViewData["addvatper"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Vat Percentage", "Vat Category");
                             ViewData["vatcat"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
@@ -304,7 +302,7 @@ namespace BIZINVOICING.Controllers
 
                             das = lang.EditColumn("Company Master", "Company");
                             ViewData["comp"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
-                             das = lang.EditColumn("Company Master", "Add Company");
+                            das = lang.EditColumn("Company Master", "Add Company");
                             ViewData["addcomp"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
                             das = lang.EditColumn("Company Master", "Company Master");
                             ViewData["compmas"] = das.Loc_Oth == null ? das.Loc_Eng : das.Loc_Oth;
@@ -613,20 +611,20 @@ namespace BIZINVOICING.Controllers
                         }
                         else
                         {
-                            ViewData["Atra"] = "Audit Trails" ;
-                            ViewData["Spag"] =  "Select Page" ;
-                            ViewData["Coln"] =  "Column Name" ;
-                            ViewData["Oval"] =  "Old Value" ;
-                            ViewData["Nval"] =  "New Value" ;
-                            ViewData["PoMb"] =  "Posted/Modified By" ;
+                            ViewData["Atra"] = "Audit Trails";
+                            ViewData["Spag"] = "Select Page";
+                            ViewData["Coln"] = "Column Name";
+                            ViewData["Oval"] = "Old Value";
+                            ViewData["Nval"] = "New Value";
+                            ViewData["PoMb"] = "Posted/Modified By";
                             ViewData["Adat"] = "Audit Date";
                             ViewData["Sansw"] = "Answer";
-   
-                               ViewData["invamt"] = "Invoice Amount";
+
+                            ViewData["invamt"] = "Invoice Amount";
                             ViewData["tota"] = "Total";
                             ViewData["uselog"] = "UserLog Report";
-                            ViewData["addnewr"] =  "Add New Row" ;
-                            ViewData["dele"] = "Delete" ;
+                            ViewData["addnewr"] = "Add New Row";
+                            ViewData["dele"] = "Delete";
                             ViewData["bnkdets"] = "Bank Details";
                             ViewData["compdet"] = "Company Details";
                             ViewData["bnknam"] = "Bank Name";
@@ -636,84 +634,84 @@ namespace BIZINVOICING.Controllers
                             ViewData["userdets"] = "User Details";
                             ViewData["vatperdets"] = "Vat Percentage Details";
                             ViewData["emailtdet"] = "Email Details";
-                            ViewData["smtpdets"] =  "Smtp Details" ;
+                            ViewData["smtpdets"] = "Smtp Details";
                             ViewData["coutdets"] = "Country Details";
-                            ViewData["Regiondets"] = "Region Details" ;
-                            ViewData["distdets"] =  "District Details";
-                            ViewData["Warddets"] = "Ward Details" ;
-                            ViewData["Desgdets"] =  "Designation Details" ;
-                            ViewData["currcod"] =  "Currency Code" ;
-                            ViewData["curr"] = "Currency" ;
-                            ViewData["currdets"] =  "Currency Details" ;
-                            ViewData["currname"] =  "Currency Name" ;
-                            ViewData["addcurre"] =  "Add Currency" ;
-                            ViewData["Squesdets"] =  "Security Question Details" ;
+                            ViewData["Regiondets"] = "Region Details";
+                            ViewData["distdets"] = "District Details";
+                            ViewData["Warddets"] = "Ward Details";
+                            ViewData["Desgdets"] = "Designation Details";
+                            ViewData["currcod"] = "Currency Code";
+                            ViewData["curr"] = "Currency";
+                            ViewData["currdets"] = "Currency Details";
+                            ViewData["currname"] = "Currency Name";
+                            ViewData["addcurre"] = "Add Currency";
+                            ViewData["Squesdets"] = "Security Question Details";
                             ViewData["ipaddr"] = "Ip Address";
                             ViewData["usegrp"] = "User Group";
                             ViewData["logtym"] = "Login Time";
                             ViewData["logouttym"] = "Logout Time";
                             ViewData["Sno"] = "Sno";
-                            ViewData["Actions"] =  "Actions";
-                            ViewData["Status"] =  "Status" ;
-                            ViewData["date"] =  "Date" ;
-                            ViewData["cmt"] =  "Comment" ;
-                            ViewData["cby"] =  "Comment By" ;
-                            ViewData["change"] =  "Change Password" ;
-                            ViewData["ccpp"] ="Current Password" ;
-                            ViewData["np"] = "New Password" ;
-                            ViewData["ccp"] =  "Confirm Password" ;
-                            ViewData["Sub"] =  "Submit" ;
-                            ViewData["PDF"] = "PDF" ;
-                            ViewData["Excel"] =  "Excel" ;
-                            ViewData["Close"] =  "Close" ;
-                            ViewData["Save"] = "Save" ;
-                            ViewData["Create"] =  "Create" ;
-                            ViewData["Update"] =  "Update" ;
-                            ViewData["cout"] =  "Country" ;
-                            ViewData["addcout"] =  "Add Country";
-                            ViewData["Region"] =  "Region" ;
-                            ViewData["addRegion"] =  "Add Region" ;
-                            ViewData["District"] =  "District" ;
-                            ViewData["addDistrict"] =  "Add District";
-                            ViewData["Ward"] = "Ward" ;
-                            ViewData["addWard"] =  "Add Ward" ;
-                            ViewData["Cust"] =  "Customer" ;
-                            ViewData["sdate"] =  "Start Date" ;
-                            ViewData["edate"] =  "End Date" ;
-                            ViewData["Desg"] = "Designation" ;
-                            ViewData["addDesg"] =  "Add Designation";
+                            ViewData["Actions"] = "Actions";
+                            ViewData["Status"] = "Status";
+                            ViewData["date"] = "Date";
+                            ViewData["cmt"] = "Comment";
+                            ViewData["cby"] = "Comment By";
+                            ViewData["change"] = "Change Password";
+                            ViewData["ccpp"] = "Current Password";
+                            ViewData["np"] = "New Password";
+                            ViewData["ccp"] = "Confirm Password";
+                            ViewData["Sub"] = "Submit";
+                            ViewData["PDF"] = "PDF";
+                            ViewData["Excel"] = "Excel";
+                            ViewData["Close"] = "Close";
+                            ViewData["Save"] = "Save";
+                            ViewData["Create"] = "Create";
+                            ViewData["Update"] = "Update";
+                            ViewData["cout"] = "Country";
+                            ViewData["addcout"] = "Add Country";
+                            ViewData["Region"] = "Region";
+                            ViewData["addRegion"] = "Add Region";
+                            ViewData["District"] = "District";
+                            ViewData["addDistrict"] = "Add District";
+                            ViewData["Ward"] = "Ward";
+                            ViewData["addWard"] = "Add Ward";
+                            ViewData["Cust"] = "Customer";
+                            ViewData["sdate"] = "Start Date";
+                            ViewData["edate"] = "End Date";
+                            ViewData["Desg"] = "Designation";
+                            ViewData["addDesg"] = "Add Designation";
                             ViewData["Sques"] = "Security Question";
-                            ViewData["Sques"] =  "Question Name" ;
-                            ViewData["addSques"] ="Add Security Question" ;
-                            ViewData["smtp"] = "Smtp" ;
-                            ViewData["frmaddr"] =  "From Address" ;
-                            ViewData["addsmtp"] =  "Add Smtp" ;
-                            ViewData["pwd"] =  "Password" ;
-                            ViewData["sslena"] =  "SSL Enable" ;
-                            ViewData["smtpadd"] = "Smtp Address" ;
-                            ViewData["portnum"] = "Port Number" ;
-                            ViewData["Un"] =  "User Name" ;
-                            ViewData["BU"] = "Bank User" ;
-                            ViewData["ffname"] =  "First Name" ;
-                            ViewData["mname"] =  "Middle Name" ;
-                            ViewData["lname"] =  "Last Name" ;
-                            ViewData["Mno"] =  "Mobile No" ;
-                            ViewData["EID"] = "Email ID" ;
+                            ViewData["Sques"] = "Question Name";
+                            ViewData["addSques"] = "Add Security Question";
+                            ViewData["smtp"] = "Smtp";
+                            ViewData["frmaddr"] = "From Address";
+                            ViewData["addsmtp"] = "Add Smtp";
+                            ViewData["pwd"] = "Password";
+                            ViewData["sslena"] = "SSL Enable";
+                            ViewData["smtpadd"] = "Smtp Address";
+                            ViewData["portnum"] = "Port Number";
+                            ViewData["Un"] = "User Name";
+                            ViewData["BU"] = "Bank User";
+                            ViewData["ffname"] = "First Name";
+                            ViewData["mname"] = "Middle Name";
+                            ViewData["lname"] = "Last Name";
+                            ViewData["Mno"] = "Mobile No";
+                            ViewData["EID"] = "Email ID";
                             ViewData["fname"] = "Full Name";
-                            ViewData["empid"] = "Employee Id" ;
-                            ViewData["adduser"] = "Add User" ;
-                            ViewData["et"] = "Email Text" ;
-                            ViewData["floid"] =  "Flow Id" ;
+                            ViewData["empid"] = "Employee Id";
+                            ViewData["adduser"] = "Add User";
+                            ViewData["et"] = "Email Text";
+                            ViewData["floid"] = "Flow Id";
                             ViewData["subeng"] = "Subject English";
-                            ViewData["subswa"] = "Subject Swahili" ;
-                            ViewData["emailswa"] =  "Email Swahili Text" ;
-                            ViewData["emailtxt"] =  "Add Email Text" ;
-                            ViewData["BAp"] = "Approval" ;
+                            ViewData["subswa"] = "Subject Swahili";
+                            ViewData["emailswa"] = "Email Swahili Text";
+                            ViewData["emailtxt"] = "Add Email Text";
+                            ViewData["BAp"] = "Approval";
                             ViewData["Blang"] = "Language";
-                            ViewData["setup"] =  "Setup" ;
-                            ViewData["BRt"] =  "Return" ;
+                            ViewData["setup"] = "Setup";
+                            ViewData["BRt"] = "Return";
                             ViewData["Brep"] = "Reports";
-                            ViewData["dash"] =  "Dashboard";
+                            ViewData["dash"] = "Dashboard";
                             ViewData["BApe"] = "Approve";
                             ViewData["Geninv"] = "Generatedinvoices";
                             ViewData["lang"] = "Language";
@@ -1106,17 +1104,17 @@ namespace BIZINVOICING.Controllers
             }
             catch (Exception Ex)
             {
-               // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
+                // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
                 Ex.Message.ToString();
             }
-            base.OnActionExecuting(filterContext); 
+            base.OnActionExecuting(filterContext);
 
             //var result1 = smtp.Getinstparishcount(long.Parse(Session["InstituteID"].ToString()), Session["admin1"].ToString(), long.Parse(Session["UserID"].ToString()));
             //var a = System.Convert.ToInt32(result1);
             object rCount = 0;
             if (Session["UserID"] != null)
             {
-               // rCount = noti.getBilnkbankCo(long.Parse(Session["InstituteID"].ToString()), long.Parse(Session["UserID"].ToString()));
+                // rCount = noti.getBilnkbankCo(long.Parse(Session["InstituteID"].ToString()), long.Parse(Session["UserID"].ToString()));
             }
 
             if (rCount != null)
@@ -1136,7 +1134,7 @@ namespace BIZINVOICING.Controllers
         // GET: Language
         Language lang = new Language();
         EMP_DET ed = new EMP_DET();
-        CompanyUsers ch =new CompanyUsers();
+        CompanyUsers ch = new CompanyUsers();
         private readonly dynamic returnNull = null;
         public ActionResult Language()
         {
@@ -1152,7 +1150,7 @@ namespace BIZINVOICING.Controllers
             }
             catch (Exception Ex)
             {
-               // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
+                // long errorLogID = ApplicationError.ErrorHandling(Ex, Request.Url.ToString(), Request.Browser.Type);
                 Ex.ToString();
             }
             return View();

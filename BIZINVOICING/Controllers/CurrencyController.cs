@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BL.BIZINVOICING.BusinessEntities.Masters;
+using System;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using BL.BIZINVOICING.BusinessEntities.Masters;
 namespace BIZINVOICING.Controllers
 {
     public class CurrencyController : AdminBaseController
@@ -11,7 +9,7 @@ namespace BIZINVOICING.Controllers
         // GET: Currency
         CURRENCY cy = new CURRENCY();
         Auditlog ad = new Auditlog();
-     
+
         String[] list = new String[4] { "currency_code", "currency_name", "posted_by", "posted_date" };
         private readonly dynamic returnNull = null;
         EMP_DET ed = new EMP_DET();
@@ -63,7 +61,7 @@ namespace BIZINVOICING.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCurrency(string code, String cname, string sno,bool dummy)
+        public ActionResult AddCurrency(string code, String cname, string sno, bool dummy)
         {
 
             try
@@ -71,14 +69,14 @@ namespace BIZINVOICING.Controllers
 
                 cy.Currency_Code = code.ToUpper();
                 cy.Currency_Name = cname;
-                cy.AuditBy= Session["UserID"].ToString();
+                cy.AuditBy = Session["UserID"].ToString();
                 string ssno = "0";
                 if (sno == "0")
                 {
-                    var result = cy.ValidateCURRENCY(cname.ToLower(),code.ToLower());
-                    if (result!=null)
+                    var result = cy.ValidateCURRENCY(cname.ToLower(), code.ToLower());
+                    if (result != null)
                     {
-                        
+
                         return Json(result, JsonRequestBehavior.AllowGet);
                     }
                     else
@@ -139,15 +137,15 @@ namespace BIZINVOICING.Controllers
                                 }
                             }
                             cy.UpdateCURRENCY(cy);
-                           ssno = sno;
-                           return Json(ssno, JsonRequestBehavior.AllowGet);
-                            
+                            ssno = sno;
+                            return Json(ssno, JsonRequestBehavior.AllowGet);
+
                         }
 
                     }
                 }
-                 
-               
+
+
             }
             catch (Exception Ex)
             {

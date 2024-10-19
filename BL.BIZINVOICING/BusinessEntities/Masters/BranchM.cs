@@ -1,9 +1,7 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -42,7 +40,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var validation = (from c in context.branch_name
-                                  where(c.name.ToLower() == name.ToLower())//&& c.location == code
+                                  where (c.name.ToLower() == name.ToLower())//&& c.location == code
                                   select c);
                 if (validation.Count() > 0)
                     return true;
@@ -51,7 +49,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public bool IsDuplicatedName(String name,long sno)
+        public bool IsDuplicatedName(String name, long sno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {

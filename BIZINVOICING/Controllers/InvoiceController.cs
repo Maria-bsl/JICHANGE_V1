@@ -1,26 +1,21 @@
-﻿using System;
+﻿using BL.BIZINVOICING.BusinessEntities.ConstantFile;
+using BL.BIZINVOICING.BusinessEntities.Masters;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.IO;
-using System.Text;
+using System.Linq;
 using System.Net;
-using System.Net.Mail;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Newtonsoft.Json;
+using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
-using System.Globalization;
-using System.Xml;
-using System.Data;
-using BL.BIZINVOICING.BusinessEntities.ConstantFile;
-using System.Configuration;
-using System.Data.SqlClient;
-
-using BL.BIZINVOICING.BusinessEntities.Masters;
+using System.Web.Mvc;
 namespace BIZINVOICING.Controllers
 {
     public class InvoiceController : LangcoController
@@ -40,7 +35,7 @@ namespace BIZINVOICING.Controllers
         EMAIL em = new EMAIL();
         S_SMTP ss = new S_SMTP();
         C_Deposit cd = new C_Deposit();
-        
+
         String pwd, drt;
         string strConnString = ConfigurationManager.ConnectionStrings["SchCon"].ToString();
         string f_Path = System.Web.Configuration.WebConfigurationManager.AppSettings["FileP"].ToString();
@@ -50,12 +45,12 @@ namespace BIZINVOICING.Controllers
 
         public ActionResult Invoice()
         {
-            if(Session["sessComp"] == null)
+            if (Session["sessComp"] == null)
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
             #region TokenGen
-           
+
             /*var gVRN = tra.GetDataU();
             if (gVRN != null)
             {
@@ -70,7 +65,7 @@ namespace BIZINVOICING.Controllers
             {
                 return RedirectToAction("Loginnew", "Loginnew");
             }
-            
+
             return View();
         }
         public ActionResult Invoice_A()
@@ -359,10 +354,11 @@ namespace BIZINVOICING.Controllers
                 {
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
-                else {
+                else
+                {
                     return Json(0, JsonRequestBehavior.AllowGet);
                 }
-            
+
             }
             catch (Exception Ex)
             {
@@ -470,7 +466,7 @@ namespace BIZINVOICING.Controllers
         {
             try
             {
-                var result = inv.GetINVOICEMas(long.Parse(Session["CompID"].ToString())).Where(x=>x.approval_status=="2");
+                var result = inv.GetINVOICEMas(long.Parse(Session["CompID"].ToString())).Where(x => x.approval_status == "2");
                 if (result != null)
                 {
                     return Json(result, JsonRequestBehavior.AllowGet);
@@ -496,8 +492,8 @@ namespace BIZINVOICING.Controllers
         {
             try
             {
-                var result = inv.GetINVOICEMas(long.Parse(Session["CompID"].ToString())).Where(x => x.Inv_Mas_Sno == invid).FirstOrDefault(); 
-               if (result != null)
+                var result = inv.GetINVOICEMas(long.Parse(Session["CompID"].ToString())).Where(x => x.Inv_Mas_Sno == invid).FirstOrDefault();
+                if (result != null)
                 {
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
@@ -554,7 +550,7 @@ namespace BIZINVOICING.Controllers
                 Ex.ToString();
             }
 
-             return null;
+            return null;
         }
         public ActionResult GetcompanyS()
         {
@@ -585,7 +581,7 @@ namespace BIZINVOICING.Controllers
                 }
                 else
                 {
-                    
+
                     return Json(result, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -628,7 +624,7 @@ namespace BIZINVOICING.Controllers
 
             return null;
         }
-        
+
         public ActionResult GetCustomers()
         {
             try
@@ -661,12 +657,12 @@ namespace BIZINVOICING.Controllers
         }
         #endregion
 
-        public ActionResult GetInvNo(string invno,int invmasno)
-            {
+        public ActionResult GetInvNo(string invno, int invmasno)
+        {
             try
             {
                 //var result = inv.GetINVOICEMas().Where(x=>x.Invoice_No== invno && x.Com_Mas_Sno == long.Parse(Session["CompID"].ToString())).FirstOrDefault();
-                if(inv.ValidateNo(invno, long.Parse(Session["CompID"].ToString())))
+                if (inv.ValidateNo(invno, long.Parse(Session["CompID"].ToString())))
                 {
                     return Json("EXIST", JsonRequestBehavior.AllowGet);
                 }
@@ -683,15 +679,15 @@ namespace BIZINVOICING.Controllers
 
         #region Save Update Invoice
         [HttpPost]
-        public ActionResult AddInvoice(string invno, string auname, string date,string edate, string iedate, string ptype, long chus, long comno, string ccode,string ctype,string cino,
-            string twvat, string vtamou, string total, string Inv_remark,int lastrow, List<INVOICE> details, long sno, string warrenty, string goods_status, string delivery_status)
+        public ActionResult AddInvoice(string invno, string auname, string date, string edate, string iedate, string ptype, long chus, long comno, string ccode, string ctype, string cino,
+            string twvat, string vtamou, string total, string Inv_remark, int lastrow, List<INVOICE> details, long sno, string warrenty, string goods_status, string delivery_status)
         {
             try
             {
-                
+
                 DateTime dates = DateTime.Now;
-                DateTime dates1=DateTime.Now;
-                DateTime dates2= DateTime.Now;
+                DateTime dates1 = DateTime.Now;
+                DateTime dates2 = DateTime.Now;
                 //dates = DateTime.ParseExact(date, "dd/MM/yyyy", null);
                 dates = DateTime.Parse(date);
                 if (!string.IsNullOrEmpty(edate))
@@ -732,7 +728,7 @@ namespace BIZINVOICING.Controllers
                         return Json("EXIST", JsonRequestBehavior.AllowGet);
                     }
                     ssno = inv.Addinvoi(inv);
-                     for (int i = 0; i < details.Count; i++)
+                    for (int i = 0; i < details.Count; i++)
                     {
                         if (details[i].Inv_Mas_Sno == 0)
                         {
@@ -752,7 +748,7 @@ namespace BIZINVOICING.Controllers
                     }
 
                 }
-                else if(sno > 0 && goods_status == "Approve")
+                else if (sno > 0 && goods_status == "Approve")
                 {
                     string cno = string.Empty;
                     cno = sno.ToString().PadLeft(8, '0');
@@ -771,7 +767,7 @@ namespace BIZINVOICING.Controllers
                 {
                     var getI = inv.EditINVOICEMas(sno);
                     bool flag = true;
-                    if(getI.Invoice_No == invno)
+                    if (getI.Invoice_No == invno)
                     {
                         flag = false;
                     }
@@ -832,7 +828,7 @@ namespace BIZINVOICING.Controllers
                 //string[] sdate2 = iedate.Split('/');
                 dates2 = DateTime.ParseExact(iedate, "dd/MM/yyyy", null);
                 //iedate = sdate2[0] + "-" + sdate2[1] + "-" + sdate2[2];
-           
+
 
                 inv.Invoice_No = invno;
                 inv.Invoice_Date = dates;
@@ -915,14 +911,14 @@ namespace BIZINVOICING.Controllers
                         SmtpClient client = new SmtpClient();
                         int port = 0;
                         MailMessage message1 = new MailMessage();
-                        string subject = "Control No : " + getI.Control_No+" Amended";//"Your ePermit payment receipt";
-                        string btext = "Dear " +  ", <br><br>";
+                        string subject = "Control No : " + getI.Control_No + " Amended";//"Your ePermit payment receipt";
+                        string btext = "Dear " + ", <br><br>";
                         //btext = btext + "Please find attachement of your payment receipt <br><br> Regards,<br>Schools<br />";
                         btext = btext + "<br><br> Regards,<br>Schools<br />";
                         //string body = btext;
                         string body = "Dear: " + getD.Cust_Name + "<br><br>";
-                        body +="Your control no amended for following details " + "<br /><br />";
-                        body += "Old Invoice Amount: "+ String.Format("{0:n0}", getI.Item_Total_Amount) + "<br /><br />";
+                        body += "Your control no amended for following details " + "<br /><br />";
+                        body += "Old Invoice Amount: " + String.Format("{0:n0}", getI.Item_Total_Amount) + "<br /><br />";
                         body += "New Invoice Amount: " + String.Format("{0:n0}", total) + "<br /><br />";
                         body += "Thanks," + "<br /><br /> JICHANGE";
                         var esmtp = ss.getSMTPText();
@@ -984,7 +980,7 @@ namespace BIZINVOICING.Controllers
                         }
                         else
                         {*/
-                            rs2["AccountNumber"] = "0";
+                        rs2["AccountNumber"] = "0";
                         //}
                         rs2["Message"] = txtM;
                         rs2["trials"] = 0;
@@ -1143,7 +1139,7 @@ namespace BIZINVOICING.Controllers
 
                         client.Send(message1);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         pay.Error_Text = ex.ToString();
                         pay.AddErrorLogs(pay);
@@ -1154,7 +1150,7 @@ namespace BIZINVOICING.Controllers
                         SqlConnection cn = new SqlConnection(strConnString);
                         cn.Open();
                         string txtM = string.Empty;
-                        txtM = "Your Control no has been cancelled, Invoice amount: " + String.Format("{0:n0}", getI.Item_Total_Amount) + Environment.NewLine ;// + "TZS " + String.Format("{0:n0}", fee) + " imelipwa kwa ajili ya " + chkFee.Fee_Type + " kupitia ";
+                        txtM = "Your Control no has been cancelled, Invoice amount: " + String.Format("{0:n0}", getI.Item_Total_Amount) + Environment.NewLine;// + "TZS " + String.Format("{0:n0}", fee) + " imelipwa kwa ajili ya " + chkFee.Fee_Type + " kupitia ";
                         //txtM = txtM + servicePaymentDetails.transactionChannel + Environment.NewLine + "Namba ya muamala: " + servicePaymentDetails.paymentReference + " Namba ya stakabadhi: " + servicePaymentDetails.transactionRef + Environment.NewLine + "Kiasi unachodaiwa ni TZS " + String.Format("{0:n0}", bamount) + Environment.NewLine + "Ahsante, " + chkFee.Facility_Name;
                         DataSet ds2 = new DataSet();
                         SqlDataAdapter da2 = new SqlDataAdapter(new SqlCommand("select * from tbMessages_sms", cn));
@@ -1211,10 +1207,10 @@ namespace BIZINVOICING.Controllers
                 decimal pamount = 0;
                 decimal bamount = 0;
                 var getC = inv.GetControl_A(control);
-                if(getC != null)
+                if (getC != null)
                 {
                     var getP = pay.GetPayment_Paid(control);
-                    if(getP != null)
+                    if (getP != null)
                     {
                         pamount = getP.Sum(a => a.Amount);
                     }
@@ -1228,7 +1224,7 @@ namespace BIZINVOICING.Controllers
                     return Json(false, JsonRequestBehavior.AllowGet);
                 }
 
-                    
+
             }
             catch (Exception Ex)
             {

@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using DaL.BIZINVOICING.EDMX;
-using System.Reflection;
-using System.ComponentModel;
 namespace BL.BIZINVOICING.BusinessEntities.ConstantFile
 {
     public class Utilites
@@ -91,7 +86,7 @@ namespace BL.BIZINVOICING.BusinessEntities.ConstantFile
         //    _regex = new Regex(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$",
         //          RegexOptions.CultureInvariant | RegexOptions.Compiled);
         //}
-      public static bool  IsValidEmail(string strIn)
+        public static bool IsValidEmail(string strIn)
         {
             // Return true if strIn is in valid e-mail format.
             return Regex.IsMatch(strIn, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
@@ -135,33 +130,33 @@ namespace BL.BIZINVOICING.BusinessEntities.ConstantFile
             System.IO.StreamWriter sw = null;
             String Message = "";
 
-           
+
+            try
+            {
+                string path = @"D:\Logs\Clogs.txt";
+                sw = new System.IO.StreamWriter(path, true);
+                Message = Environment.NewLine + "Date: " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss") + Environment.NewLine + "ClassName: " + ClassName + Environment.NewLine + "ErrorNumber: " + ErrorNumber + Environment.NewLine + "ErrorMessage: " + ErrorMessage + Environment.NewLine;
+                sw.WriteLine(Message);
+            }
+            catch (Exception ex)
+            {
                 try
                 {
-                    string path= @"D:\Logs\Clogs.txt";
-                    sw = new System.IO.StreamWriter(path, true);
-                    Message = Environment.NewLine + "Date: " + DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss") + Environment.NewLine + "ClassName: " + ClassName + Environment.NewLine + "ErrorNumber: " + ErrorNumber + Environment.NewLine + "ErrorMessage: " + ErrorMessage + Environment.NewLine;
-                    sw.WriteLine(Message);
-                }
-                catch (Exception ex)
-                {
-                    try
-                    {
-                        String exception = ex.ToString();
+                    String exception = ex.ToString();
                     sw = new System.IO.StreamWriter("~/Logs/Clogs.txt", true);
                     //sw = new System.IO.StreamWriter(@"D:\SAIT\logs\aarogyasri.txt", true);
                     Message = Environment.NewLine + "Date: " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss") + Environment.NewLine + "ClassName: Debug" + Environment.NewLine + "ErrorMessage:" + ex.ToString() + Environment.NewLine;
-                        sw.WriteLine(Message);
-                    }
-                    catch (Exception Ex1)
-                    { }
+                    sw.WriteLine(Message);
+                }
+                catch (Exception Ex1)
+                { }
 
-                }
-                finally
-                {
-                    sw.Close();
-                }
-            
+            }
+            finally
+            {
+                sw.Close();
+            }
+
 
         }
     }

@@ -1,14 +1,8 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Models.form.setup.insert;
-using JichangeApi.Models.form.setup.remove;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using static iTextSharp.text.pdf.PdfDocument;
 
 namespace JichangeApi.Services.setup
 {
@@ -19,7 +13,7 @@ namespace JichangeApi.Services.setup
 
         private void AppendInsertAuditTrail(long sno, S_Account susAcc, long userid)
         {
-            List<string> values = new List<string> { sno.ToString(), susAcc.Sus_Acc_No,susAcc.Status, userid.ToString(), DateTime.Now.ToString() };
+            List<string> values = new List<string> { sno.ToString(), susAcc.Sus_Acc_No, susAcc.Status, userid.ToString(), DateTime.Now.ToString() };
             Auditlog.InsertAuditTrail(values, userid, TABLE_NAME, TABLE_COLUMNS);
         }
 
@@ -80,7 +74,7 @@ namespace JichangeApi.Services.setup
                 bool isExist = suspenseAccount.ValidateAccount(suspenseAccount.Sus_Acc_No.ToLower());
                 if (isExist) throw new ArgumentException(SetupBaseController.ALREADY_EXISTS_MESSAGE);
                 long addedSuspenseAccount = suspenseAccount.AddAccount(suspenseAccount);
-                AppendInsertAuditTrail(addedSuspenseAccount, suspenseAccount,(long) addSuspenseAccountForm.userid);
+                AppendInsertAuditTrail(addedSuspenseAccount, suspenseAccount, (long)addSuspenseAccountForm.userid);
                 return FindSuspenseAccount(addedSuspenseAccount);
             }
             catch (ArgumentException ex)
@@ -97,7 +91,7 @@ namespace JichangeApi.Services.setup
         {
             try
             {
-                var found = FindSuspenseAccount((long) addSuspenseAccountForm.sno);
+                var found = FindSuspenseAccount((long)addSuspenseAccountForm.sno);
                 var suspenseAccount = CreateSuspenseAccount(addSuspenseAccountForm);
                 bool isDuplicate = suspenseAccount.isDuplicateAccountNumber(addSuspenseAccountForm.account, (long)addSuspenseAccountForm.sno);
                 if (isDuplicate) { throw new ArgumentException(SetupBaseController.ALREADY_EXISTS_MESSAGE); }
@@ -120,7 +114,7 @@ namespace JichangeApi.Services.setup
             try
             {
                 S_Account found = new S_Account().EditAccount(sno);
-                if (found == null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE);  }
+                if (found == null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
                 return found;
             }
             catch (ArgumentException ex)
@@ -133,7 +127,7 @@ namespace JichangeApi.Services.setup
             }
         }
 
-        public long DeleteSuspenseAccount(long sno,long userid)
+        public long DeleteSuspenseAccount(long sno, long userid)
         {
             try
             {

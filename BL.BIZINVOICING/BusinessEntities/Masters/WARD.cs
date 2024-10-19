@@ -1,12 +1,10 @@
-﻿using System;
+﻿using DaL.BIZINVOICING.EDMX;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DaL.BIZINVOICING.EDMX;
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
-   public class WARD
+    public class WARD
     {
 
         #region Properties
@@ -41,12 +39,12 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 return ps.ward_sno;
             }
         }
-        public bool ValidateWARD(long rgn,string name,long rname)
+        public bool ValidateWARD(long rgn, string name, long rname)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var validation = (from c in context.ward_master
-                                  where (c.district_sno == rgn && c.ward_name.ToLower().Equals(name.ToLower())  && c.region_id == rname)
+                                  where (c.district_sno == rgn && c.ward_name.ToLower().Equals(name.ToLower()) && c.region_id == rname)
                                   select c);
                 if (validation.Count() > 0)
                     return true;
@@ -54,7 +52,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return false;
             }
         }
-        public bool isDuplicateWard(long districtId,string wardName,long regionId)
+        public bool isDuplicateWard(long districtId, string wardName, long regionId)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -124,9 +122,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                   where (c.ward_sno == sno)
                                   select c);
                 var validation1 = (from c in context.ward_master
-                                  join det in context.company_master on c.ward_sno equals det.ward_sno
-                                  where (c.ward_sno == sno)
-                                  select c);
+                                   join det in context.company_master on c.ward_sno equals det.ward_sno
+                                   where (c.ward_sno == sno)
+                                   select c);
                 if (validation.Count() > 0 || validation.Count() > 0)
                     return true;
                 else
@@ -137,8 +135,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var adetails = (from c in context.ward_master join det in context.region_master on c.region_id equals det.region_sno 
-                                 join dis in context.district_master on c.district_sno equals dis.district_sno
+                var adetails = (from c in context.ward_master
+                                join det in context.region_master on c.region_id equals det.region_sno
+                                join dis in context.district_master on c.district_sno equals dis.district_sno
                                 select new WARD
                                 {
                                     SNO = c.ward_sno,
@@ -148,20 +147,20 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Region_Id = (long)c.region_id,
                                     District_Sno = (long)c.district_sno,
                                     Ward_Status = c.ward_status,
-                                    Audit_Date=c.posted_date,
-                                }).OrderByDescending(z=>z.Audit_Date).ToList();
+                                    Audit_Date = c.posted_date,
+                                }).OrderByDescending(z => z.Audit_Date).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails;
                 else
                     return null;
             }
         }
-       
+
         public List<WARD> GetWARDActive()
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-                var adetails = (from c in context.ward_master.Where(z=>z.ward_status=="Active")
+                var adetails = (from c in context.ward_master.Where(z => z.ward_status == "Active")
                                 select new WARD
                                 {
                                     SNO = c.ward_sno,
