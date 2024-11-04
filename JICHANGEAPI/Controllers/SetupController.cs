@@ -259,6 +259,26 @@ namespace JichangeApi.Controllers
 */
         #endregion
 
+        /*public HttpResponseMessage Overview2(RequestSetupModel request)
+        {
+            try
+            {
+                CompanyBankMaster companyMaster = new CompanyBankMaster();
+                if (request.branch != null && request.branch > 0) {
+                    List<CompanyBankMaster> companys = companyMaster.GetCompany_S((long)request.branch);
+                    HashSet<long> companyIds = companys.Select(e => e.CompSno).ToHashSet();
+                    
+                }
+            }
+            catch(Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                return GetServerErrorResponse(ex.ToString());
+            }
+        }*/
+
 
         [HttpPost]
         public HttpResponseMessage Overview(RequestSetupModel request)
@@ -274,7 +294,7 @@ namespace JichangeApi.Controllers
                     var ApprovedInvoices = innn.GetCount_C((long)request.compid);
                     long count = 0;
                     long pi = 0;
-                    var getCon = pay.GetControl_Dash_C((long)request.compid);
+                    var getCon = pay.GetStatusPassedPayments(new List<long> { (long)request.compid });
                     if (getCon != null)
                     {
 
@@ -555,7 +575,7 @@ namespace JichangeApi.Controllers
                     var ApprovedInvoices = innn.GetCount_C(long.Parse(request.compid.ToString()));
                     long count = 0;
                     long pi = 0;
-                    var getCon = pay.GetControl_Dash_C(long.Parse(request.compid.ToString()));
+                    var getCon = pay.GetStatusPassedPayments(new List<long> { long.Parse(request.compid.ToString()) });
                     if (getCon != null)
                     {
 

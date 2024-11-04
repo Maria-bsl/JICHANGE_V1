@@ -680,5 +680,22 @@ namespace JichangeApi.Services.Companies
             }
         }
 
+        public List<CompanyBankMaster> GetCompaniesByBranch(long branchId)
+        {
+            try
+            {
+                CompanyBankMaster companyMaster = new CompanyBankMaster();
+                List<CompanyBankMaster> companys = companyMaster.GetCompany_S(branchId);
+                return companys;
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new Exception(ex.Message);
+            }
+        }
+
     }
 }

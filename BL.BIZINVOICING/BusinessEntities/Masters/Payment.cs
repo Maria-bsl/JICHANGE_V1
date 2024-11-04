@@ -652,14 +652,35 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 else
                     return null;
             }
+        } 
+
+        public List<Payment> GetStatusPassedPaymentsWithin(DateTime startDate, DateTime endDate, HashSet<long> companies)
+        {
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                var payments = (from c in context.payment_details
+                                where (c.status == "Passed" && companies.Contains((long) c.comp_mas_sno))
+                                && (startDate <= c.payment_date)
+                                && (endDate >= c.payment_date)
+                                select new Payment
+                                {
+                                    Control_No = c.control_no,
+                                    Requested_Amount = (long)c.requested_amount,
+                                    Amount = (long)c.paid_amount,
+                                    Balance = c.amount30,
+                                    Payment_Date = c.payment_date,
+                                    Payment_Time = c.payment_time
+                                }).Distinct().ToList();
+                return payments;
+            }
         }
 
-        public List<Payment> GetControl_Dash_C(long cno)
+        public List<Payment> GetStatusPassedPayments(List<long> companyIds)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var edetails = (from c in context.payment_details
-                                where (c.status == "Passed" && c.comp_mas_sno == cno)
+                                where (c.status == "Passed" && companyIds.Contains((long) c.comp_mas_sno))
 
                                 select new Payment
                                 {
