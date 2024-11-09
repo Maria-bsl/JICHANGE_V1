@@ -3,6 +3,7 @@ using BL.BIZINVOICING.BusinessEntities.Masters;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.draw;
+using JichangeApi.Masters;
 using System;
 using System.Configuration;
 using System.IO;
@@ -237,6 +238,54 @@ namespace JichangeApi.Utilities
                     smtpClient.UseDefaultCredentials = false;
                     smtpClient.EnableSsl = Convert.ToBoolean(esmtp.SSL_Enable);
                     smtpClient.Credentials = new NetworkCredential(esmtp.SMTP_UName, Utilites.DecodeFrom64(esmtp.SMTP_Password));
+                }
+                smtpClient.Send(mailMessage);
+            }
+            catch (ArgumentException ex)
+            {
+                Payment pay = new Payment
+                {
+                    Message = ex.ToString()
+                };
+                pay.AddErrorLogs(pay);
+                throw new ArgumentException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                Payment pay = new Payment
+                {
+                    Message = ex.ToString()
+                };
+                pay.AddErrorLogs(pay);
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public static void SendSubjectTextBodyEmail(string email, string subject, string body)
+        {
+            try
+            {
+                /*S_SMTP smtp = new S_SMTP();*/
+                SmtpClient smtpClient = new SmtpClient();
+                MailMessage mailMessage = new MailMessage();
+                SmtpSettingsMaster smtpSettingsMaster = new SmtpSettingsMaster();
+                var smtp = smtpSettingsMaster.GetBaseSupportSmtpSetting();
+                if (smtp == null) throw new ArgumentException("Error occured with the smtp");
+                int port = Int32.Parse(smtp.smtp_port);
+                if (string.IsNullOrEmpty(smtp.username))
+                {
+                    smtpClient = new SmtpClient(smtp.smtp_address, port);
+                    mailMessage = new MailMessage(smtp.from_address, email, subject, body);
+                    mailMessage.IsBodyHtml = true;
+                }
+                else
+                {
+                    mailMessage = new MailMessage(smtp.from_address, email, subject, body);
+                    mailMessage.IsBodyHtml = true;
+                    smtpClient = new SmtpClient(smtp.smtp_address, port);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = Convert.ToBoolean(smtp.ssl_enable);
+                    smtpClient.Credentials = new NetworkCredential(smtp.username, Utilites.DecodeFrom64(smtp.smtp_password));
                 }
                 smtpClient.Send(mailMessage);
             }

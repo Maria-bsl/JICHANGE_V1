@@ -23,12 +23,17 @@ namespace JichangeApi.Controllers
         [HttpPost]
         public HttpResponseMessage AddLogins(AuthLog authLog)
         {
-            List<string> modelStateErrors = this.ModelStateErrors();
-            if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
+            List<string> modelStateErrors = ModelStateErrors();
+            if (modelStateErrors.Count() > 0) { return GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
                 JsonObject user = loginUserService.LoginUser(authLog);
                 return SuccessJsonResponse(user);
+            }
+            catch (ArgumentException ex)
+            {
+                List<string> messages = new List<string> { ex.Message };
+                return this.GetCustomErrorMessageResponse(messages);
             }
             catch (Exception ex)
             {

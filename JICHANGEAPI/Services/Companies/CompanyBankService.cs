@@ -123,7 +123,7 @@ namespace JichangeApi.Services.Companies
                 companyUsers.Userpos = userPosition;
                 long addedCompSno = companyUsers.AddCompanyUsers1(companyUsers);
                 companyUsers.CompuserSno = addedCompSno;
-                CompanyUsersService.AppendInsertAuditTrail(addedCompSno, companyUsers, userid);
+                VendorService.AppendInsertAuditTrail(addedCompSno, companyUsers, userid);
                 return companyUsers;
             }
             catch (Exception ex)

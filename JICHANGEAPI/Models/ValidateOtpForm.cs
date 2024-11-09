@@ -2,7 +2,7 @@
 
 namespace JichangeApi.Models
 {
-    public class SingletonVOtp : SingletonMobile
+    public class ValidateOtpForm : SingletonMobile
     {
 
         [Required(ErrorMessage = "Missing Otp Code", AllowEmptyStrings = false)]

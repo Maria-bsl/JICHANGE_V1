@@ -35,38 +35,6 @@ namespace JichangeApi.Services
             }
         }
 
-        /*public string GetControlNumberPaymentDetails(string controlNumber)
-        {
-            var url = "http://183.83.33.156:90/Payment/api/PaymentDetails/GetDetails";
-            var data = new
-            {
-                paymentReference = controlNumber
-            };
-            
-        }
-
-        public long GetVendorOverviewTransactionsStat(long vendorId)
-        {
-            try
-            {
-                int monthsBefore = 1;
-                var payments = GetLatestTransactionsPayments(vendorId, monthsBefore);
-                foreach (var payment in payments)
-                {
-                    var details = GetControlNumberPaymentDetails(payment.Control_No);
-                }
-            }
-            catch (NullReferenceException ex)
-            {
-                return 0;
-            }
-        }*/
-
-        /*public ItemListModel GetTransactionsOverview(HashSet<long> companies, int monthsBefore)
-        {
-
-        }*/
-
         public void GetBankerOverview(long branchId)
         {
             try

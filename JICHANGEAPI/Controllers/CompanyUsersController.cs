@@ -15,7 +15,7 @@ namespace JichangeApi.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CompanyUsersController : SetupBaseController
     {
-        private readonly CompanyUsersService companyUsersService = new CompanyUsersService();
+        private readonly VendorService companyUsersService = new VendorService();
         private readonly Payment pay = new Payment();
 
         [HttpPost]

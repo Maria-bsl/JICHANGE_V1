@@ -1,15 +1,18 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Masters;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Controllers.smsservices;
+using JichangeApi.Masters;
 using JichangeApi.Models;
+using JichangeApi.Models.Entities;
 using JichangeApi.Models.form;
 using JichangeApi.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Nodes;
 
 namespace JichangeApi.Services.Companies
 {
-    public class CompanyUsersService
+    public class VendorService
     {
         Payment pay = new Payment();
         private static readonly List<string> TABLE_COLUMNS = new List<string> { "comp_users_sno", "comp_mas_sno", "username",  "user_type", "created_date", "expiry_date",
@@ -18,18 +21,18 @@ namespace JichangeApi.Services.Companies
         public static void AppendInsertAuditTrail(long sno, CompanyUsers user, long userid)
         {
             List<string> values = new List<string> { sno.ToString(), user.Compmassno.ToString(), user.Username, user.Usertype, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(), userid.ToString(), DateTime.Now.ToString() };
-            Auditlog.InsertAuditTrail(values, userid, CompanyUsersService.TABLE_NAME, CompanyUsersService.TABLE_COLUMNS, user.Compmassno);
+            Auditlog.InsertAuditTrail(values, userid, VendorService.TABLE_NAME, VendorService.TABLE_COLUMNS, user.Compmassno);
         }
         public static void AppendUpdateAuditTrail(long sno, CompanyUsers oldUser, CompanyUsers newUser, long userid)
         {
             List<string> oldUserValues = new List<string> { sno.ToString(), oldUser.Compmassno.ToString(), oldUser.Username, oldUser.Usertype, oldUser.CreatedDate.ToString(), oldUser.ExpiryDate.ToString(), userid.ToString(), oldUser.PostedDate.ToString() };
             List<string> newUserValues = new List<string> { sno.ToString(), newUser.Compmassno.ToString(), newUser.Username, newUser.Usertype, System.DateTime.Now.ToString(), System.DateTime.Now.AddMonths(3).ToString(), userid.ToString(), DateTime.Now.ToString() };
-            Auditlog.UpdateAuditTrail(oldUserValues, newUserValues, userid, CompanyUsersService.TABLE_NAME, CompanyUsersService.TABLE_COLUMNS, newUser.Compmassno);
+            Auditlog.UpdateAuditTrail(oldUserValues, newUserValues, userid, VendorService.TABLE_NAME, VendorService.TABLE_COLUMNS, newUser.Compmassno);
         }
         public static void AppendDeleteAuditTrail(long sno, CompanyUsers user, long userid)
         {
             List<string> values = new List<string> { sno.ToString(), user.Compmassno.ToString(), user.Username, user.Usertype, user.CreatedDate.ToString(), user.ExpiryDate.ToString(), user.PostedBy, user.PostedDate.ToString() };
-            Auditlog.deleteAuditTrail(values, userid, CompanyUsersService.TABLE_NAME, CompanyUsersService.TABLE_COLUMNS, user.Compmassno);
+            Auditlog.deleteAuditTrail(values, userid, VendorService.TABLE_NAME, VendorService.TABLE_COLUMNS, user.Compmassno);
         }
 
         private CompanyUsers CreateCompanyUser(AddCompanyUserForm addCompanyUserForm)
@@ -204,10 +207,6 @@ namespace JichangeApi.Services.Companies
         {
             try
             {
-                /* CompanyUsers user = CreateCompanyUser(addCompanyUserForm);
-                 CompanyUsers found = user.EditCompanyUsers((long)addCompanyUserForm.sno);
-                 if (found != null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
-                 AppendUpdateAuditTrail((long)addCompanyUserForm.sno, found, user, (long)addCompanyUserForm.userid);*/
                 user.UpdateCompanyUsersP(user);
                 return EditCompanyUser((long)user.CompuserSno);
             }

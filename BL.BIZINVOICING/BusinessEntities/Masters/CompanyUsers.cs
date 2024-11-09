@@ -341,7 +341,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
-
+                
                 var edetails = (from c in context.company_users
                                 join c1 in context.company_master on c.comp_mas_sno equals c1.comp_mas_sno
                                 where c.username == uname && c.password == pwd && c1.status.ToLower().Equals("approved") && c.log_status == null

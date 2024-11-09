@@ -138,7 +138,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                 }
             }
         }
-
+        
 
         public bool ValidateUser_otp(string sno)
         {

@@ -161,9 +161,16 @@ namespace JichangeApi.Controllers.smsservices
             return string.Format("{0}, Your account have successfully been approved on JICHANGE system, the URL is " + ConfigurationManager.AppSettings["MyWebUrl"] + "  and Your password is  {1}", customerName, password);
         }
 
-        private static string FormatOtpMessageBody(string cust_number, string code)
+        public static string FormatOtpMessageBody(string cust_number, string code)
         {
+
             return string.Format("{0},JICHANGE verification code is {1}", cust_number, code);
+            //var link = "<a href=\"http://yoursite.com/url/page2.aspx\">Link to page2</a>";
+        }
+
+        public static string FormatOtpMessageBody(string fullName, string code, string url)
+        {
+            return string.Format("<h1>Hello {0}</h1> <br> <p> Click <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"{2}\">here</a> to enter your verification code. <p> <br> <p>Your verification code is {1}</p>", fullName, code,url);
         }
 
         private static string FormatMobileNumberChanged(string customerName, string mobileNumber)
