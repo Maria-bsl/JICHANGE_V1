@@ -26,6 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <_MigrateToProjectGuid>ba051d59-5e8e-4857-8454-120ae6ade17d</_MigrateToProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -287,7 +288,9 @@
     <Compile Include="Services\OTP.cs" />
     <Compile Include="Services\Reports\RepCompInvoiceService.cs" />
     <Compile Include="Services\Reports\RepCustomerService.cs" />
+    <Compile Include="Services\RequesterService.cs" />
     <Compile Include="Services\RoleService.cs" />
+    <Compile Include="Services\SetupService.cs" />
     <Compile Include="Services\setup\BranchService.cs" />
     <Compile Include="Services\setup\EmailTextService.cs" />
     <Compile Include="Services\setup\SuspenseAService.cs" />
