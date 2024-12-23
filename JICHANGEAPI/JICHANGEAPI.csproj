@@ -571,37 +571,6 @@
     <Content Include="invoices\Emmanuel_60255_amended.pdf" />
     <Content Include="invoices\Invoice_T03902.pdf" />
     <Content Include="invoices\Publius Julius_T03902.pdf" />
-    <Content Include="Scripts\ClientApp\assets\i18n\auth\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\auth\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\company\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\company\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\dashboard\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\dashboard\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\reports\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\reports\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\setup\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\bank\setup\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\company\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\company\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\customer\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\customer\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\dashboard\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\dashboard\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\generated\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\generated\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\invoice\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\invoice\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\reports\en.json" />
-    <Content Include="Scripts\ClientApp\assets\i18n\vendor\reports\sw.json" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-4.webp" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-5.avif" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-6.avif" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-8.avif" />
-    <Content Include="Scripts\ClientApp\assets\temp\data.json" />
-    <Content Include="Scripts\ClientApp\bootstrap-icons.70a9dee9e5ab72aa.woff" />
-    <Content Include="Scripts\ClientApp\bootstrap-icons.bfa90bda92a84a6a.woff2" />
     <Content Include="ClientApp\.angular\cache\18.2.8\angular-webpack\02a8d19f939b3dcd23dad2a93936bc5965815c4e\0.pack" />
     <Content Include="ClientApp\.angular\cache\18.2.8\angular-webpack\02a8d19f939b3dcd23dad2a93936bc5965815c4e\1.pack" />
     <Content Include="ClientApp\.angular\cache\18.2.8\angular-webpack\02a8d19f939b3dcd23dad2a93936bc5965815c4e\2.pack" />
@@ -1787,46 +1756,6 @@
     <Content Include="ClientApp\tsconfig.json" />
     <Content Include="ClientApp\tsconfig.spec.json" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\ClientApp\147.8dac344a23d458a6.js" />
-    <Content Include="Scripts\ClientApp\239.1c2bfad6c3c2e5e4.js" />
-    <Content Include="Scripts\ClientApp\3rdpartylicenses.txt" />
-    <Content Include="Scripts\ClientApp\475.125a4b906e5b5586.js" />
-    <Content Include="Scripts\ClientApp\66.c6ba10ec3cb32461.js" />
-    <Content Include="Scripts\ClientApp\962.cbf05ce752f01439.js" />
-    <Content Include="Scripts\ClientApp\973.d97fe30fded65581.js" />
-    <Content Include="Scripts\ClientApp\assets\img\b-4.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-1.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-2.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-3.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-7.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\bg-9.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\Cancelled.png" />
-    <Content Include="Scripts\ClientApp\assets\img\check-mark.png" />
-    <Content Include="Scripts\ClientApp\assets\img\customer-review.png" />
-    <Content Include="Scripts\ClientApp\assets\img\gb.png" />
-    <Content Include="Scripts\ClientApp\assets\img\girl-1 %281%29.jpg" />
-    <Content Include="Scripts\ClientApp\assets\img\icons\arrow_right_alt_FILL0_wght400_GRAD0_opsz24.png" />
-    <Content Include="Scripts\ClientApp\assets\img\icons\description_FILL0_wght400_GRAD0_opsz24.png" />
-    <Content Include="Scripts\ClientApp\assets\img\icons\download_FILL0_wght400_GRAD0_opsz24.png" />
-    <Content Include="Scripts\ClientApp\assets\img\icons\more_vert_FILL0_wght400_GRAD0_opsz24.png" />
-    <Content Include="Scripts\ClientApp\assets\img\jichangelogo.png" />
-    <Content Include="Scripts\ClientApp\assets\img\LB-featured-image-template.png" />
-    <Content Include="Scripts\ClientApp\assets\img\logo-1.png" />
-    <Content Include="Scripts\ClientApp\assets\img\logo-3.png" />
-    <Content Include="Scripts\ClientApp\assets\img\logo.png" />
-    <Content Include="Scripts\ClientApp\assets\img\man.png" />
-    <Content Include="Scripts\ClientApp\assets\img\sample-signature.png" />
-    <Content Include="Scripts\ClientApp\assets\img\transaction.png" />
-    <Content Include="Scripts\ClientApp\assets\img\tz.png" />
-    <Content Include="Scripts\ClientApp\assets\img\WhatsApp-Image-2023-03-23-at-12.15.59-PM.jpeg" />
-    <Content Include="Scripts\ClientApp\assets\img\wilsan-u-LltVVoYNpIw-unsplash.jpg" />
-    <Content Include="Scripts\ClientApp\bootstrap-icons.svg" />
-    <Content Include="Scripts\ClientApp\favicon.ico" />
-    <Content Include="Scripts\ClientApp\index.html" />
-    <Content Include="Scripts\ClientApp\main.c22744a234820adf.js" />
-    <Content Include="Scripts\ClientApp\polyfills.702a62fb92d5fdf1.js" />
-    <Content Include="Scripts\ClientApp\runtime.b5a71d318768cc58.js" />
-    <Content Include="Scripts\ClientApp\styles.742bf1f10786f16c.css" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -2399,10 +2328,10 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <!-- <Target Name="BeforeBuild" AfterTargets="ComputeFilesToPublish">
+  <Target Name="BeforeBuild" AfterTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build named-chunks prod base-href /" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr prod named-chunks" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --named-chunks --omit=dev -- --base-href /" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --prod --named-chunks" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
       <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
@@ -2412,5 +2341,5 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </ResolvedFileToPublish>
     </ItemGroup>
-  </Target> -->
+  </Target>
 </Project>

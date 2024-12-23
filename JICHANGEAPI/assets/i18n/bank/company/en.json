@@ -148,7 +148,8 @@
         "noBranchesFound": "There were no branch found.",
         "noRegionsFound": "There were no regions found.",
         "noDistrictsFound": "There are no saved districts in {}.",
-        "noWardsFound": "There are no saved wards in {}."
+        "noWardsFound": "There are no saved wards in {}.",
+        "accountNumberExists": "The account number {} is already in use."
       }
     }
   },

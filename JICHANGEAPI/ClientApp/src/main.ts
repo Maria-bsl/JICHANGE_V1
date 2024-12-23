@@ -43,7 +43,7 @@ bootstrapApplication(AppComponent, {
     provideTransloco({
       config: {
         //availableLangs: ['en', 'sw', 'ln', 'fr'],
-        availableLangs: ['en'],
+        availableLangs: ['en','sw'],
         defaultLang: localStorage.getItem('activeLang')
           ? localStorage.getItem('activeLang')?.toString()
           : 'en',
