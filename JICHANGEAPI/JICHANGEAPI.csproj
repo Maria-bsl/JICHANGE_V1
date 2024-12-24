@@ -1822,7 +1822,7 @@
     <Content Include="Scripts\ClientApp\assets\img\wilsan-u-LltVVoYNpIw-unsplash.jpg" />
     <Content Include="Scripts\ClientApp\favicon.ico" />
     <Content Include="Scripts\ClientApp\index.html" />
-    <Content Include="Scripts\ClientApp\main.d3b4abde75d39e5c.js" />
+    <Content Include="Scripts\ClientApp\main.8f0c730ed059fa1e.js" />
     <Content Include="Scripts\ClientApp\polyfills.06c008af07a279fd.js" />
     <Content Include="Scripts\ClientApp\runtime.69e6e7f936153f40.js" />
     <Content Include="Scripts\ClientApp\styles.4249a9b8d2f6a177.css" />
