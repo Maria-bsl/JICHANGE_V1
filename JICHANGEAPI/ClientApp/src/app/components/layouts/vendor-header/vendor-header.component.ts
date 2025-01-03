@@ -204,7 +204,7 @@ export class VendorHeaderComponent implements OnInit {
   private requestLogout() {
     this.routeLoading = true;
     this.loginService
-      .logout({ userid: this.getUserProfile().Usno })
+      .logoutVendor({ userid: this.getUserProfile().Usno })
       .then((result) => {
         this.routeLoading = false;
         this.appConfig.clearSessionStorage();

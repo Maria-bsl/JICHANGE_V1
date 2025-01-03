@@ -39,7 +39,6 @@ namespace JichangeApi.Controllers
             }
         }
 
-        [AllowAnonymous]
         [HttpPost]
         public HttpResponseMessage Logout(MainForm mainForm)
         {
@@ -55,6 +54,32 @@ namespace JichangeApi.Controllers
                 pay.Message = ex.ToString();
                 pay.AddErrorLogs(pay);
 
+                return GetServerErrorResponse(ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        public HttpResponseMessage LogoutVendor(MainForm mainForm)
+        {
+            List<string> modelStateErrors = this.ModelStateErrors();
+            if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
+            try
+            {
+                long userid = loginUserService.LogoutVendorUser((long)mainForm.userid);
+                return GetSuccessResponse(userid);
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                List<string> messages = new List<string> { ex.Message };
+                return this.GetCustomErrorMessageResponse(messages);
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
                 return GetServerErrorResponse(ex.ToString());
             }
         }

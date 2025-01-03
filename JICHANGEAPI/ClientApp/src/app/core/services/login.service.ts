@@ -38,6 +38,15 @@ export class LoginService {
     );
     return data;
   }
+  public async logoutVendor(body: { userid: number | string }) {
+    let data = await lastValueFrom(
+      this.client.performPost<
+        { userid: number | string },
+        HttpDataResponse<number>
+        >(`/api/LoginUser/LogoutVendor`, body)
+    );
+    return data;
+  }
   public async sendResetPasswordLink(body: { name: string }) {
     let data = await lastValueFrom(
       this.client.performPost<{ name: string }, HttpDataResponse<string>>(

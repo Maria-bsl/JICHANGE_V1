@@ -286,7 +286,8 @@ namespace JichangeApi.Controllers
             try
             {
 
-                if (request.compid.ToString() != "0" && !string.IsNullOrEmpty(request.branch.ToString()))
+
+                if (request.compid.ToString() != "0")
                 {
                     //SingletonComp company = new SingletonComp();
                     var date = DateTime.Now;
@@ -354,7 +355,7 @@ namespace JichangeApi.Controllers
 
                 }
 
-                if (request.branch.ToString() != null && !string.IsNullOrEmpty(request.branch.ToString()))
+                if (!string.IsNullOrEmpty(request.branch.ToString()))
                 {
                     var Bankbranch = request.branch;
                     if (Bankbranch == 0)

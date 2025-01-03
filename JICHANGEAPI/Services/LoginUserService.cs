@@ -197,6 +197,37 @@ namespace JichangeApi.Services
             }
         }
 
+        public long LogoutVendorUser(long userid)
+        {
+            try
+            {
+                CompanyUsers company = new CompanyUsers().GetCompanyUsers(userid);
+                if (company == null)
+                {
+                    throw new ArgumentException("User does not exist");
+                }
+                else
+                {
+                    var companyUser = TrackCompanyUserDetails(company);
+                    return userid;
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new ArgumentException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         public long LogoutUser(long userid)
         {
