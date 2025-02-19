@@ -18,7 +18,7 @@ namespace JichangeApi.Models
         public string tin { get; set; }
         public string vat { get; set; }
         public string dname { get; set; }
-        [Required(ErrorMessage = "Missing email", AllowEmptyStrings = false)]
+        //[Required(ErrorMessage = "Missing email", AllowEmptyStrings = false)]
         public string email { get; set; }
         public string telno { get; set; }
         public string fax { get; set; }

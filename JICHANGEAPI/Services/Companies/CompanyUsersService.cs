@@ -204,11 +204,15 @@ namespace JichangeApi.Services.Companies
         {
             try
             {
-                /* CompanyUsers user = CreateCompanyUser(addCompanyUserForm);
-                 CompanyUsers found = user.EditCompanyUsers((long)addCompanyUserForm.sno);
-                 if (found != null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
-                 AppendUpdateAuditTrail((long)addCompanyUserForm.sno, found, user, (long)addCompanyUserForm.userid);*/
+                var currentUser = EditCompanyUser((long)user.CompuserSno);
+                var currentPasswordDecoded = PasswordGeneratorUtil.DecodeFrom64(currentUser.Password);
+                var newPasswordDecoded = PasswordGeneratorUtil.DecodeFrom64(user.Password);
+                if (currentPasswordDecoded == newPasswordDecoded)
+                {
+                    throw new ArgumentException("Old password cannot match new password.");
+                }
                 user.UpdateCompanyUsersP(user);
+                AppendUpdateAuditTrail((long)currentUser.CompuserSno, currentUser, user, long.Parse(currentUser.PostedBy));
                 return EditCompanyUser((long)user.CompuserSno);
             }
             catch (ArgumentException ex)

@@ -2398,10 +2398,10 @@
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <Target Name="BeforeBuild" AfterTargets="ComputeFilesToPublish">
+  <!-- <Target Name="BeforeBuild" AfterTargets="ComputeFilesToPublish">
     <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build --named-chunks --omit=dev -- --base-href /" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr --prod --named-chunks" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build named-chunks omit=dev base-href /" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:ssr prod named-chunks" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
       <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
@@ -2411,5 +2411,5 @@
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       </ResolvedFileToPublish>
     </ItemGroup>
-  </Target>
+  </Target> -->
 </Project>

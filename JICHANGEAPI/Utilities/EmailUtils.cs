@@ -383,7 +383,7 @@ namespace JichangeApi.Utilities
                     string pdfPath = AmmendedInvoicePdf(invoiceno);
                     Attachment pdfAttachment = new Attachment(pdfPath);
                     mm.Attachments.Add(pdfAttachment);
-
+                    
 
                     mm.IsBodyHtml = true;
                     if (string.IsNullOrEmpty(m.SMTP_UName))

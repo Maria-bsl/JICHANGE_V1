@@ -3,6 +3,7 @@ using DaL.BIZINVOICING.EDMX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace BL.BIZINVOICING.BusinessEntities.Masters
 {
@@ -269,7 +270,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
             }
         }
-        public void UpdateInvoiMas(INVOICE dep)
+        public void UpdateInvoiceMaster(INVOICE dep)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -291,7 +292,6 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     UpdateContactInfo.vat_amount = dep.Vat_Amount;
                     UpdateContactInfo.inv_remarks = dep.Inv_Remarks;
                     UpdateContactInfo.posted_by = dep.AuditBy;
-                    //UpdateContactInfo.posted_date = DateTime.Now;
                     UpdateContactInfo.customer_id_type = dep.Customer_ID_Type;
                     UpdateContactInfo.customer_id_no = dep.Customer_ID_No;
                     context.SaveChanges();
@@ -1201,7 +1201,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public INVOICE GetINVOICEMas1(long cno, long invid)
+        public INVOICE FindInvoiceByCompanyIdAndInvoiceNumber(long cno, long invid)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
@@ -1231,7 +1231,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Total = (decimal)c.total_amount,
                                     Total_Vt = (decimal)c.vat_amount,
                                     Total_Without_Vt = (decimal)c.total_without_vat,
-                                    //Vat_Amount = (long)c.vat_amount,
+                                    Vat_Amount = (long)c.vat_amount,
                                     warrenty = c.warrenty,
                                     goods_status = c.goods_status,
                                     delivery_status = c.delivery_status,
@@ -1362,6 +1362,127 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
+        public List<INVOICE> GetchDetails(long cno)
+        {
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                var adetails = (from c in context.invoice_master
+                                join det in context.customer_master on c.cust_mas_sno equals det.cust_mas_sno
+                                join cmp in context.company_master on c.comp_mas_sno equals cmp.comp_mas_sno
+                                join cur in context.currency_master on c.currency_code equals cur.currency_code
+                                where
+                                (c.approval_status != "2" || c.approval_status != "Cancel") && 
+                                (string.IsNullOrEmpty(c.delivery_status) || (!c.delivery_status.ToLower().Equals("delivered")))
+                                && (c.comp_mas_sno == cno)
+                                && c.invoice_expired >= DateTime.Today
+                                select new INVOICE
+                                {
+                                    Com_Mas_Sno = c.company_master.comp_mas_sno,
+                                    Company_Name = cmp.company_name,
+                                    Inv_Mas_Sno = c.inv_mas_sno,
+                                    Invoice_No = c.invoice_no,
+                                    Invoice_Date = c.invoice_date,
+                                    Due_Date = c.due_date,
+                                    Invoice_Expired_Date = c.invoice_expired,
+                                    Payment_Type = c.payment_type,
+                                    Chus_Mas_No = (long)c.cust_mas_sno,
+                                    Chus_Name = det.customer_name,
+                                    Currency_Code = c.currency_code,
+                                    Currency_Name = cur.currency_name,
+                                    Control_No = c.control_no,
+                                    Remarks = c.inv_remarks,
+                                    Customer_ID_Type = c.customer_id_type,
+                                    Customer_ID_No = c.customer_id_no,
+                                    Total = (decimal)c.total_amount,
+                                    Total_Vt = (decimal)c.vat_amount,
+                                    Total_Without_Vt = (decimal)c.total_without_vat,
+                                    //Vat_Amount = (long)c.vat_amount,
+                                    warrenty = c.warrenty,
+                                    AuditBy = c.posted_by,
+                                    p_date = (DateTime)c.posted_date,
+                                    goods_status = c.goods_status,
+                                    delivery_status = c.delivery_status,
+                                    grand_count = (int)c.grand_count,
+                                    daily_count = (int)c.daily_count,
+                                    approval_status = c.approval_status,
+                                    approval_date = (DateTime)c.approval_date,
+                                    //Status = GetInvoiceStatus(c.delivery_status,c.due_date,c.invoice_expired) //c.due_date >= DateTime.Today ? "On Time" : "Overdue"
+                                    Status = c.delivery_status.ToLower() == "delivered" ? "Completed" :
+                                                       c.due_date < DateTime.Today && c.invoice_expired < DateTime.Today ? "Expired" :
+                                                       c.due_date < DateTime.Today ? "Overdue" :
+                                                       "Active"
+                                }).ToList();
+
+
+                /*if (adetails != null && adetails.Count > 0)
+                    return adetails;
+                else
+                    return null;*/
+                return adetails != null ? adetails : new List<INVOICE>();
+            }
+        }
+
+        public List<INVOICE> GetSignedDetails(long cno)
+        {
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                var adetails = (from c in context.invoice_master
+                                join det in context.customer_master on c.cust_mas_sno equals det.cust_mas_sno
+                                join cmp in context.company_master on c.comp_mas_sno equals cmp.comp_mas_sno
+                                join cur in context.currency_master on c.currency_code equals cur.currency_code
+                                join cancel in context.invoice_cancellation on c.inv_mas_sno equals cancel.inv_mas_sno into cancellationGroup
+                                from cancel in cancellationGroup.DefaultIfEmpty()
+                                where cancel == null &&
+                                (string.IsNullOrEmpty(c.delivery_status) || (!c.delivery_status.ToLower().Equals("delivered")))
+                                && (c.comp_mas_sno == cno)
+                                && c.invoice_expired >= DateTime.Today
+                                select new INVOICE
+                                {
+                                    Com_Mas_Sno = c.company_master.comp_mas_sno,
+                                    Company_Name = cmp.company_name,
+                                    Inv_Mas_Sno = c.inv_mas_sno,
+                                    Invoice_No = c.invoice_no,
+                                    Invoice_Date = c.invoice_date,
+                                    Due_Date = c.due_date,
+                                    Invoice_Expired_Date = c.invoice_expired,
+                                    Payment_Type = c.payment_type,
+                                    Chus_Mas_No = (long)c.cust_mas_sno,
+                                    Chus_Name = det.customer_name,
+                                    Currency_Code = c.currency_code,
+                                    Currency_Name = cur.currency_name,
+                                    Control_No = c.control_no,
+                                    Remarks = c.inv_remarks,
+                                    Customer_ID_Type = c.customer_id_type,
+                                    Customer_ID_No = c.customer_id_no,
+                                    Total = (decimal)c.total_amount,
+                                    Total_Vt = (decimal)c.vat_amount,
+                                    Total_Without_Vt = (decimal)c.total_without_vat,
+                                    //Vat_Amount = (long)c.vat_amount,
+                                    warrenty = c.warrenty,
+                                    AuditBy = c.posted_by,
+                                    p_date = (DateTime)c.posted_date,
+                                    goods_status = c.goods_status,
+                                    delivery_status = c.delivery_status,
+                                    grand_count = (int)c.grand_count,
+                                    daily_count = (int)c.daily_count,
+                                    approval_status = c.approval_status,
+                                    approval_date = (DateTime)c.approval_date,
+                                    //Status = GetInvoiceStatus(c.delivery_status,c.due_date,c.invoice_expired) //c.due_date >= DateTime.Today ? "On Time" : "Overdue"
+                                    Status = c.delivery_status.ToLower() == "delivered" ? "Completed" :
+                                                       c.due_date < DateTime.Today && c.invoice_expired < DateTime.Today ? "Expired" :
+                                                       c.due_date < DateTime.Today ? "Overdue" :
+                                                       "Active"
+                                }).ToList();
+
+
+                /*if (adetails != null && adetails.Count > 0)
+                    return adetails;
+                else
+                    return null;*/
+                return adetails != null ? adetails : new List<INVOICE>();
+            }
+        }
+
         public List<INVOICE> GetINVOICEMas(long cno)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
@@ -1371,11 +1492,9 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 join cmp in context.company_master on c.comp_mas_sno equals cmp.comp_mas_sno
                                 join cur in context.currency_master on c.currency_code equals cur.currency_code
                                 where
-                                          /* !(from d in context.payment_details
-                                                    select d.invoice_sno).Contains(c.invoice_no) &&*/
-                                          (string.IsNullOrEmpty(c.delivery_status) || (!c.delivery_status.ToLower().Equals("delivered")))
-                                          && (c.comp_mas_sno == cno)
-                                          && c.invoice_expired >= DateTime.Today
+                                (string.IsNullOrEmpty(c.delivery_status) || (!c.delivery_status.ToLower().Equals("delivered")))
+                                && (c.comp_mas_sno == cno)
+                                && c.invoice_expired >= DateTime.Today
                                 select new INVOICE
                                 {
                                     Com_Mas_Sno = c.company_master.comp_mas_sno,
@@ -1812,14 +1931,14 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             }
         }
 
-        public InvoicePDfData GetINVOICEpdf(long invoicenumber)
+        public InvoicePDfData FindInvoiceAndBankDetailsByInvoiceSno(long invoicenumber)
         {
             using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from c in context.invoice_master
                                 join det in context.customer_master on c.cust_mas_sno equals det.cust_mas_sno
-                                join dets in context.company_master on c.comp_mas_sno equals dets.comp_mas_sno
-                                join bks in context.company_bank_details on dets.comp_mas_sno equals bks.comp_mas_sno
+                                join comp in context.company_master on c.comp_mas_sno equals comp.comp_mas_sno
+                                join bank in context.company_bank_details on comp.comp_mas_sno equals bank.comp_mas_sno
                                 where c.inv_mas_sno == invoicenumber
                                 select new InvoicePDfData
                                 {
@@ -1839,10 +1958,10 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Cust_Sno = (long)c.cust_mas_sno,
                                     CompanySno = (long)c.comp_mas_sno,
                                     Invoice_No = c.invoice_no,
-                                    BankName = bks.bank_name,
-                                    AccountNo = bks.account_no,
+                                    BankName = bank.bank_name,
+                                    AccountNo = bank.account_no,
                                     Cust_Name = det.customer_name,
-                                    CompContactPerson = dets.director_name,
+                                    CompContactPerson = comp.director_name,
                                     CustPhone = det.mobile_no,
                                     ConPerson = det.contact_person,
                                     Item_Total_Amount = (decimal)c.total_amount,
@@ -1863,11 +1982,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     approval_status = c.approval_status == null ? "0" : c.approval_status.ToString(),
                                     Inv_Mas_Sno = c.inv_mas_sno,
                                     approval_date = approval_date
-
-
                                 }).FirstOrDefault();
-
-
 
                 if (adetails != null)
                     return adetails;
@@ -1875,7 +1990,6 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     return null;
             }
         }
-
 
         public InvoicePDfData GetInvoiceByInvoiceNo(string invoicenumber)
         {
@@ -2149,7 +2263,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 join det in context.customer_master on c.cust_mas_sno equals det.cust_mas_sno
                                 join dets in context.company_master on c.comp_mas_sno equals dets.comp_mas_sno
                                 //join bks in context.company_bank_details on dets.comp_mas_sno equals bks.comp_mas_sno
-                                where c.control_no == cno && c.approval_status == "2"
+                                where c.control_no == cno && c.approval_status == "2" && c.invoice_expired >= DateTime.Today
                                 select new InvoicePDfData
                                 {
                                     Payment_Type = c.payment_type,
@@ -2167,8 +2281,6 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Cust_Sno = (long)c.cust_mas_sno,
                                     CompanySno = (long)c.comp_mas_sno,
                                     Invoice_No = c.invoice_no,
-                                    //BankName = bks.bank_name,
-                                    //AccountNo = bks.account_no,
                                     Cust_Name = det.customer_name,
                                     CustEmail = det.email_address,
                                     CompContactPerson = dets.director_name,
@@ -2922,7 +3034,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                           join cu in context.company_users on c.posted_by equals cu.comp_users_sno.ToString()
                                           join det in context.customer_master on c.cust_mas_sno equals det.cust_mas_sno
                                           join c1 in context.company_master on c.comp_mas_sno equals c1.comp_mas_sno
-                                          where (allowCancelInvoice ? allowCancelInvoice : c.approval_status == "2")
+                                          where (allowCancelInvoice ? allowCancelInvoice : (c.approval_status == "2"))
+                                          //where (allowCancelInvoice ? allowCancelInvoice : (c.approval_status != null))
                                           && ((companyIds.Contains(0)) || (companyIds.Contains((long)c.comp_mas_sno)))
                                           && ((customerIds.Contains(0)) || (customerIds.Contains((long)c.cust_mas_sno)))
                                           && (!fromDate.HasValue || fromDate <= c.invoice_date)

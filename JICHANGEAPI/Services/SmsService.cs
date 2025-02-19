@@ -91,7 +91,7 @@ namespace JichangeApi.Controllers.smsservices
                 var mobileNumber = mobile_no;
                 var formattedMessageBody = FormatWelcomeMessageBody(username);
 
-                SendSMSAction(mobileNumber, formattedMessageBody);
+                SendSMSAction(mobile_no, formattedMessageBody);
 
             }
 

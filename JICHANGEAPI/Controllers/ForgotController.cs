@@ -29,7 +29,6 @@ namespace JichangeApi.Controllers
         private readonly CompanyUsersService companyUsersService = new CompanyUsersService();
         private readonly ForgetPasswordService forgetPasswordservice = new ForgetPasswordService();
 
-
         [HttpPost]
         public HttpResponseMessage Getemail(String Sno)
         {
@@ -77,20 +76,29 @@ namespace JichangeApi.Controllers
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
             try
             {
-                var result1 = cus.CheckUser(m.mobile);
-
-                if (result1 != null)
+                CompanyUsers companyUser = cus.CheckUser(m.mobile);
+                if (companyUser != null)
                 {
                     var otp = Services.OTP.GenerateOTP(6);
                     ota.mobile_no = m.mobile;
                     ota.code = otp;
+                    ota.posted_date = companyUser.PostedDate;
                     ota.AddOtp(ota);
 
                     sms.SendOTPSmsToDeliveryCustomer(m.mobile, otp);
 
                     return GetSuccessResponse(ota);
-
                 }
+                EMP_DET empDetail = emp.CheckUserBank(m.mobile);
+                if (empDetail != null)
+                {
+                    var otp = Services.OTP.GenerateOTP(6);
+                    ota.mobile_no = m.mobile;
+                    ota.code = otp;
+                    ota.AddOtp(ota);
+                    sms.SendOTPSmsToDeliveryCustomer(m.mobile, otp);
+                }
+                return GetCustomErrorMessageResponse(new List<string> { "Mobile number not found." });
             }
             catch (Exception ex)
             {
@@ -136,19 +144,37 @@ namespace JichangeApi.Controllers
         [AllowAnonymous]
         public HttpResponseMessage ChangePwd(ChangePwdModel m)
         {
-
             List<string> modelStateErrors = this.ModelStateErrors();
             if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
-            var checkuser = cus.CheckUser(m.mobile);
-            var empuser = emp.CheckUserBank(m.mobile);
-            CompanyUsers user = new CompanyUsers();
-            user.Password = PasswordGeneratorUtil.GetEncryptedData(m.password);
-            user.Mobile = m.mobile;
-            user.CompuserSno = checkuser.CompuserSno;
-            var result = companyUsersService.UpdateCompanyUserPassword(user);
-            return GetSuccessResponse(result);
+            try
+            {
+                CompanyUsers vendor = forgetPasswordservice.UpdateCompanyUserPassword(m.mobile, m.password);
+                if (vendor != null)
+                {
+                    return GetSuccessResponse(vendor);
+                }
+                EMP_DET bankUser = forgetPasswordservice.UpdateBankUserPassword(m.mobile, m.password);
+                if (bankUser != null)
+                {
+                    return GetSuccessResponse(bankUser);
+                }
+                throw new ArgumentException(NOT_FOUND_MESSAGE);
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
 
-
+                List<string> messages = new List<string> { ex.Message };
+                return this.GetCustomErrorMessageResponse(messages);
+            }
+            catch(Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+                ex.ToString();
+                return GetServerErrorResponse(ex.ToString());
+            }
         }
 
 

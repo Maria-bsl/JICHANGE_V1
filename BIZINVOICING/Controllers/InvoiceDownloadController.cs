@@ -58,7 +58,7 @@ namespace BIZINVOICING.Controllers
             // TRAPDFDOWnload(1);
             InvoicePDfData inovoicedata = new InvoicePDfData();
             int invoicenumber = Id;
-            inovoicedata = inv.GetINVOICEpdf(invoicenumber);
+            inovoicedata = inv.FindInvoiceAndBankDetailsByInvoiceSno(invoicenumber);
             inovoicedata.AmountWords = changeToWords(inovoicedata.Item_Total_Amount.ToString(), false).ToString();
             inovoicedata.InvoiceItemlist = inv.GetInvoiceDetails(invoicenumber);
             inovoicedata.Vat_Percentage = inovoicedata.InvoiceItemlist[0].Vat_Percentage == null ? 0 : inovoicedata.InvoiceItemlist[0].Vat_Percentage;
@@ -125,7 +125,7 @@ namespace BIZINVOICING.Controllers
             TRARegistration objtra = new TRARegistration();
 
             int invoicenumber = Id;
-            inovoicedata = inv.GetINVOICEpdf(invoicenumber);
+            inovoicedata = inv.FindInvoiceAndBankDetailsByInvoiceSno(invoicenumber);
             inovoicedata.AmountWords = changeToWords(inovoicedata.Item_Total_Amount.ToString(), false).ToString();
             inovoicedata.InvoiceItemlist = inv.GetInvoiceDetails(invoicenumber);
             inovoicedata.Vat_Percentage = inovoicedata.InvoiceItemlist[0].Vat_Percentage;
@@ -549,7 +549,7 @@ namespace BIZINVOICING.Controllers
                 TRARegistration objtra = new TRARegistration();
                 var gAPI = areg.getAPI();
                 int invoicenumber = Id;
-                inovoicedata = inv.GetINVOICEpdf(invoicenumber);
+                inovoicedata = inv.FindInvoiceAndBankDetailsByInvoiceSno(invoicenumber);
                 //var getCust = inv.GetINVOICEpdf(invoicenumber);
                 inovoicedata.AmountWords = changeToWords(inovoicedata.Item_Total_Amount.ToString(), false).ToString();
                 inovoicedata.InvoiceItemlist = inv.GetInvoiceDetails(invoicenumber);
@@ -778,7 +778,7 @@ namespace BIZINVOICING.Controllers
 
                 try
                 {
-                    var getD = inv.GetINVOICEpdf(invoicenumber);
+                    var getD = inv.FindInvoiceAndBankDetailsByInvoiceSno(invoicenumber);
                     #region somecomment
                     //HttpWebRequest requestnew = null;
                     /*string xml1 = "<RCT><DATE>" + getD.Posteddate.ToString("yyyy-MM-dd") + "</DATE><TIME>" + getD.Posteddate.ToString("HH:mm:ss") + "</TIME>";

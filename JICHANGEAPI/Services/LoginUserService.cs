@@ -173,13 +173,7 @@ namespace JichangeApi.Services
 
                     return GetBankSuperUserProfile(authLog);
                 }
-
-
-                JsonObject response = new JsonObject
-                {
-                    { "check", "Username or password is incorrect" }
-                };
-                return response;
+                throw new ArgumentException("Username or password is incorrect");
             }
             catch (ArgumentException ex)
             {

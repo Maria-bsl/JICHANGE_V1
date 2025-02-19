@@ -117,9 +117,9 @@ namespace JichangeApi.Services.Companies
                 companyUsers.CreatedDate = DateTime.Now;
                 companyUsers.PostedDate = DateTime.Now;
                 companyUsers.ExpiryDate = System.DateTime.Now.AddMonths(3);
-                companyUsers.PostedBy = userid.ToString();
+                companyUsers.PostedBy = userid == 0 ? null : userid.ToString();
                 //companyUsers.Userpos = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
-                var userPosition = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
+                var userPosition = "Admin"; //roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
                 companyUsers.Userpos = userPosition;
                 long addedCompSno = companyUsers.AddCompanyUsers1(companyUsers);
                 companyUsers.CompuserSno = addedCompSno;
@@ -180,7 +180,7 @@ namespace JichangeApi.Services.Companies
                 {
                     return new List<string> { "Tin number exists" };
                 }
-                else if (companyUsers.ValidateduplicateEmail1(companyBankMaster.Email))
+                else if (!string.IsNullOrEmpty(companyBankMaster.Email) && companyUsers.ValidateduplicateEmail1(companyBankMaster.Email))
                 {
                     return new List<string> { "Email exists" };
                 }
@@ -359,7 +359,7 @@ namespace JichangeApi.Services.Companies
                 List<string> errors = CheckCompanyBankErrors(companyBankMaster);
                 var isInvalidAccount = companyBankMaster.Validateaccount(addCompanyBankL.accno);
                 if (isInvalidAccount) throw new ArgumentException("The account number " + addCompanyBankL.accno + " already exists.");
-                if (errors.Count > 0) { throw new Exception(errors[0]); }
+                if (errors.Count > 0) { throw new ArgumentException(errors[0]); }
                 long compsno = companyBankMaster.AddCompany(companyBankMaster);
                 AppendInsertAuditTrail(compsno, companyBankMaster, (long)addCompanyBankL.userid);
                 if (compsno > 0)
@@ -372,7 +372,11 @@ namespace JichangeApi.Services.Companies
                     AppendInsertCompanyBankDetailAuditTrail(detsno, companyBankMaster, (long)addCompanyBankL.userid);
 
                     new SmsService().SendSuccessSmsToNewUser(addCompanyBankL.mob, addCompanyBankL.mob);
-                    EmailUtils.SendSuccessEmail(companyBankMaster.Email, companyBankMaster.CompName);
+                    
+                    if (!string.IsNullOrEmpty(addCompanyBankL.email))
+                    {
+                        EmailUtils.SendSuccessEmail(companyBankMaster.Email, companyBankMaster.CompName);
+                    }
 
 
                     return compsno;

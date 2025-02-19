@@ -30,6 +30,11 @@ namespace JichangeApi.Controllers
                 JsonObject user = loginUserService.LoginUser(authLog);
                 return SuccessJsonResponse(user);
             }
+            catch (ArgumentException ex)
+            {
+                List<string> messages = new List<string> { ex.Message };
+                return this.GetCustomErrorMessageResponse(messages);
+            }
             catch (Exception ex)
             {
                 pay.Error_Text = ex.ToString();

@@ -92,7 +92,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                     email_address = sc.Email,
                     mobile_no = sc.Mobile,
                     posted_date = sc.PostedDate,
-                    posted_by = sc.PostedBy
+                    posted_by = sc.PostedBy,
+                    user_position = sc.Userpos
                 };
                 context.company_users.Add(pc);
                 context.SaveChanges();
@@ -326,7 +327,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     Userpos = sc.user_position,
                                     //Mail_sta = (int)sc.mail_status,
                                     //PostedBy = sc.posted_by,
-                                    //PostedDate = (DateTime)sc.posted_date
+                                    PostedDate = (DateTime)sc.posted_date
                                 }).FirstOrDefault();
                 if (edetails != null)
                     return edetails;
@@ -392,7 +393,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                     //Ctime = (DateTime)sc.ctime,
                                     Userpos = sc.user_position,
                                     //Mail_sta = (int)sc.mail_status,
-                                    //PostedBy = sc.posted_by,
+                                    PostedBy = sc.posted_by,
                                     //PostedDate = (DateTime)sc.posted_date
                                 }).FirstOrDefault();
                 if (edetails != null)
@@ -502,7 +503,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
             {
 
                 var validationU = (from c in context.company_users
-                                   where (c.email_address == name && c.email_address != null)
+                                   where (c.email_address != null && c.email_address == name)
                                    select c);
 
                 if (validationU.Count() > 0)

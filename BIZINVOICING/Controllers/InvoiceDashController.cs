@@ -708,7 +708,7 @@ namespace BIZINVOICING.Controllers
                 {
 
                     inv.Inv_Mas_Sno = sno;
-                    inv.UpdateInvoiMas(inv);
+                    inv.UpdateInvoiceMaster(inv);
                     inv.DeleteInvoicedet(inv);
                     for (int i = 0; i < details.Count; i++)
                     {

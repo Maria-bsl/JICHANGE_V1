@@ -330,6 +330,7 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                            && (invoiceIds.Contains(0) || invoiceIds.Contains((long)c.inv_mas_sno))
                                            && (!fdate.HasValue || fdate <= c.posted_date)
                                            && (!tdate.HasValue || tdate >= c.posted_date)
+                                           && det.approval_status == "2"
 
                                            select new InvoiceC
                                            {

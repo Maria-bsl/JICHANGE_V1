@@ -776,7 +776,7 @@ namespace BIZINVOICING.Controllers
                         return Json("EXIST", JsonRequestBehavior.AllowGet);
                     }
                     inv.Inv_Mas_Sno = sno;
-                    inv.UpdateInvoiMas(inv);
+                    inv.UpdateInvoiceMaster(inv);
                     inv.DeleteInvoicedet(inv);
                     for (int i = 0; i < details.Count; i++)
                     {
@@ -855,7 +855,7 @@ namespace BIZINVOICING.Controllers
 
                 if (sno > 0)
                 {
-                    var getI = inv.GetINVOICEpdf(sno);
+                    var getI = inv.FindInvoiceAndBankDetailsByInvoiceSno(sno);
                     if (getI != null)
                     {
                         if (Decimal.Parse(total) == getI.Item_Total_Amount)
@@ -882,7 +882,7 @@ namespace BIZINVOICING.Controllers
 
 
                     inv.Inv_Mas_Sno = sno;
-                    inv.UpdateInvoiMas(inv);
+                    inv.UpdateInvoiceMaster(inv);
                     inv.DeleteInvoicedet(inv);
                     for (int i = 0; i < details.Count; i++)
                     {
@@ -1050,7 +1050,7 @@ namespace BIZINVOICING.Controllers
 
                 if (sno > 0)
                 {
-                    var getI = inv.GetINVOICEpdf(sno);
+                    var getI = inv.FindInvoiceAndBankDetailsByInvoiceSno(sno);
                     if (getI != null)
                     {
                         if (pay.Validate_Invoice(getI.Control_No, getI.CompanySno))
