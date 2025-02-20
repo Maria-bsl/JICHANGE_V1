@@ -119,8 +119,8 @@ namespace JichangeApi.Services.Companies
                 companyUsers.ExpiryDate = System.DateTime.Now.AddMonths(3);
                 companyUsers.PostedBy = userid == 0 ? null : userid.ToString();
                 //companyUsers.Userpos = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
-                var userPosition = "Admin"; //roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
-                companyUsers.Userpos = userPosition;
+                //roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
+                companyUsers.Userpos = roleService.GetRoleList().Find(e => e.Description.ToLower().Equals("admin")).Sno.ToString();
                 long addedCompSno = companyUsers.AddCompanyUsers1(companyUsers);
                 companyUsers.CompuserSno = addedCompSno;
                 CompanyUsersService.AppendInsertAuditTrail(addedCompSno, companyUsers, userid);

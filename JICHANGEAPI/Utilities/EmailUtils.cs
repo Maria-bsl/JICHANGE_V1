@@ -1057,7 +1057,7 @@ namespace JichangeApi.Utilities
 
 
 
-        private static void AddTableHeader(PdfPTable table, string headerText)
+        public static void AddTableHeader(PdfPTable table, string headerText)
         {
 
             BaseColor LabelColor = new BaseColor(12, 98, 133, 255);
@@ -1071,7 +1071,7 @@ namespace JichangeApi.Utilities
             table.AddCell(headerCell);
         }
 
-        private static void AddTableCell(PdfPTable table, string text)
+        public static void AddTableCell(PdfPTable table, string text)
         {
             PdfPCell cell = new PdfPCell(new Phrase(text, new Font(Font.FontFamily.HELVETICA, 12)))
             {

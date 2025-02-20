@@ -12,7 +12,7 @@ namespace JichangeApi.Services
             try
             {
                 List<Roles> roles = new Roles().GetRole();
-                return roles != null ? roles : new List<Roles>();
+                return roles ?? new List<Roles>();
             }
             catch (Exception ex)
             {

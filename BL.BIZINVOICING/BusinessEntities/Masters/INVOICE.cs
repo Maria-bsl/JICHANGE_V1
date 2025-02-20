@@ -1371,7 +1371,8 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
                                 join cmp in context.company_master on c.comp_mas_sno equals cmp.comp_mas_sno
                                 join cur in context.currency_master on c.currency_code equals cur.currency_code
                                 where
-                                (c.approval_status != "2" || c.approval_status != "Cancel") && 
+                                //(c.approval_status != "2" || c.approval_status != "Cancel") && 
+                                c.approval_status != "2" && 
                                 (string.IsNullOrEmpty(c.delivery_status) || (!c.delivery_status.ToLower().Equals("delivered")))
                                 && (c.comp_mas_sno == cno)
                                 && c.invoice_expired >= DateTime.Today

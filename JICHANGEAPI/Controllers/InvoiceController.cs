@@ -250,6 +250,35 @@ namespace JichangeApi.Controllers
             }
         }
 
+        [HttpPost]
+        public HttpResponseMessage downloadInvoice(DownloadInvoice downloadInvoice)
+        {
+            List<string> modelStateErrors = this.ModelStateErrors();
+            if (modelStateErrors.Count() > 0) { return this.GetCustomErrorMessageResponse(modelStateErrors); }
+            try
+            {
+                return invoiceService.downloadPdf((long)downloadInvoice.compid, (long)downloadInvoice.invId, downloadInvoice.lang);
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                List<string> messages = new List<string> { ex.Message };
+                return this.GetCustomErrorMessageResponse(messages);
+            }
+            catch (Exception Ex)
+            {
+                //Utilites.logfile("GetInvoiceDetailsbyid", "0", Ex.ToString());
+                //pay.Error_Text = Ex.ToString();
+                //pay.AddErrorLogs(pay);
+                pay.Message = Ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                return GetServerErrorResponse(Ex.Message);
+            }
+        }
+
         #endregion
 
 

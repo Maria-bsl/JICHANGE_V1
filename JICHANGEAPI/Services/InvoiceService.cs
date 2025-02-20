@@ -1,5 +1,7 @@
 ﻿using BL.BIZINVOICING.BusinessEntities.Common;
 using BL.BIZINVOICING.BusinessEntities.Masters;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using JichangeApi.Controllers.setup;
 using JichangeApi.Controllers.smsservices;
 using JichangeApi.Models;
@@ -8,9 +10,17 @@ using JichangeApi.Services.Companies;
 using JichangeApi.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Web.Hosting;
+using iTextSharp.text.pdf.draw;
+using System.Globalization;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Net;
 
 namespace JichangeApi.Services
 {
@@ -1195,5 +1205,234 @@ namespace JichangeApi.Services
             }
         }
 
+        private HttpResponseMessage DownloadInvoiceFormat(INVOICE invoice, List<INVOICE> details, string lang)
+        {
+            Func<string> invoiceTr = () => { return lang == "en" ? "INVOICE" : "ANKARA"; };
+            Func<string> companyNameTr = () => { return lang == "en" ? "Company name:" : "Jina la kampuni:"; };
+            Func<string> customerNameTr = () => { return lang == "en" ? "Customer name:" : "Jina la Wateja:"; };
+            Func<string> companyAddressTr = () => { return lang == "en" ? "Company address:" : "Anwani ya kampuni:"; };
+            Func<string> controlNumberTr = () => { return lang == "en" ? "Control number:" : "Nambari ya kudhibiti:"; };
+            Func<string> tinNumberTr = () => { return lang == "en" ? "TIN:" : "TIN:"; };
+            Func<string> invoiceNoTr = () => { return lang == "en" ? "Invoice number:" : "Nambari ya ankara:"; };
+            Func<string> companyMobileTr = () => { return lang == "en" ? "Company mobile:" : "Kampuni ya simu:"; };
+            Func<string> dateCreatedTr = () => { return lang == "en" ? "Date Created:" : "tarehe iliyoundwa:"; };
+
+            Func<string> descriptionTr = () => { return lang == "en" ? "Description" : "Maelezo"; };
+            Func<string> quantityTr = () => { return lang == "en" ? "Quantity" : "Kiasi"; };
+            Func<string> unitPriceTr = () => { return lang == "en" ? "Unit Price" : "Bei ya kitengo"; };
+            Func<string> amountTr = () => { return lang == "en" ? "Amount" : "Idadi"; };
+            Func<string> grandTotalTr = () => { return lang == "en" ? "Grand Total" : "Jumla kubwa"; };
+
+            Func<string> howToPayTr = () => { return lang == "en" ? "How to pay" : "Jinsi ya kulipa"; };
+            Func<string> payByDialingTr = () => { return lang == "en" ? "Pay by dialing *150*03# or SimBanking App, any CRDB Branch, CRDB Agency or mobile networks." : "Lipa kwa kupiga *150*03# au Programu ya SimBanking, Tawi lolote la CRDB, Wakala wa CRDB au mitandao ya simu."; };
+            Func<string> systemGeneratedInvoiceTr = () => { return lang == "en" ? "System Generated Invoice." : "Ankara Iliyozalishwa na Mfumo"; };
+            Func<string> dateTr = () => { return lang == "en" ? "Date" : "Tarehe"; };
+
+
+            // Set the file path for the PDF
+            string filePath = Path.Combine(HostingEnvironment.ApplicationHost.GetPhysicalPath() + ConfigurationManager.AppSettings["invoices"], $"{invoice.Chus_Name}_{invoice.Inv_Mas_Sno}_invoice.pdf");
+            // Create a new PDF document
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                Document document = new Document(PageSize.A4, 25, 25, 10, 10);
+                PdfWriter.GetInstance(document, new FileStream(filePath, FileMode.Create));
+                PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+                document.Open();
+
+
+                // Path to your logo image
+                string logoPath = Path.Combine(HostingEnvironment.ApplicationHost.GetPhysicalPath() + ConfigurationManager.AppSettings["invoices"], "logo.png");
+                if (File.Exists(logoPath))
+                {
+                    Image logo = Image.GetInstance(logoPath);
+                    logo.ScalePercent(24f); // Resize the logo if needed
+                    logo.Alignment = Element.ALIGN_CENTER;
+                    document.Add(logo);
+                }
+
+                //define colors
+                BaseColor LabelColor = new BaseColor(37, 150, 190); // RGB Base custom color
+                BaseColor HeaderColor = new BaseColor(12, 98, 133, 255); // for table header and total background
+                BaseColor tableColor = new BaseColor(11, 99, 133);
+                BaseColor ShadesColor = new BaseColor(12, 103, 148);
+                BaseColor textColor = new BaseColor(20, 36, 44);  // RED Color
+
+                // Step 1.0: Create a Paragraph
+                Paragraph paragraph = new Paragraph();
+                Paragraph paragraph1 = new Paragraph();
+                Paragraph paragraph2 = new Paragraph();
+                Paragraph paragraph3 = new Paragraph();
+
+                // Step 1.1: Add a Tab to Push Content to the Right
+                Chunk tab = new Chunk(new VerticalPositionMark()); // Acts as a spacer to the right  BaseColor.GRAY
+
+                Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, HeaderColor);
+                Font headerFontbelow = FontFactory.GetFont(FontFactory.HELVETICA, 12, textColor);
+
+                var companyinfo = new CompanyBankMaster().FindCompanyById(invoice.Com_Mas_Sno);
+
+
+                Paragraph header = new Paragraph(invoiceTr(), headerFont);
+                header.Alignment = Element.ALIGN_CENTER;
+                Chunk leftContent1 = new Chunk($"{companyNameTr()} {invoice.Company_Name}", headerFontbelow);
+                paragraph.Add(leftContent1);
+                paragraph.Alignment = Element.ALIGN_LEFT;
+                paragraph.Add(tab);
+                Chunk rightContent5 = new Chunk($"{customerNameTr()} {invoice.Chus_Name}", headerFontbelow);
+                paragraph.Add(rightContent5);
+                paragraph.Alignment = Element.ALIGN_RIGHT;
+                Chunk leftContent2 = new Chunk($"{companyAddressTr()} {companyinfo.Address}", headerFontbelow);
+                paragraph1.Add(leftContent2);
+                paragraph1.Alignment = Element.ALIGN_LEFT;
+                paragraph1.Add(tab);
+                Chunk rightContent6 = new Chunk($"{controlNumberTr()} {invoice.Control_No} - {invoice.Payment_Type}", headerFontbelow);
+                paragraph1.Add(rightContent6);
+                paragraph1.Alignment = Element.ALIGN_RIGHT;
+                Chunk leftContent3 = new Chunk($"{tinNumberTr()} {companyinfo.TinNo}", headerFontbelow);
+                paragraph2.Add(leftContent3);
+                paragraph2.Alignment = Element.ALIGN_LEFT;
+                paragraph2.Add(tab);
+                Chunk rightContent7 = new Chunk($"{invoiceNoTr()} {invoice.Invoice_No}", headerFontbelow);
+                paragraph2.Add(rightContent7);
+                paragraph2.Alignment = Element.ALIGN_RIGHT;
+                Chunk leftContent4 = new Chunk($"{companyMobileTr()} {companyinfo.MobNo}", headerFontbelow);
+                paragraph3.Add(leftContent4);
+                paragraph3.Alignment = Element.ALIGN_LEFT;
+                paragraph3.Add(tab);
+                Chunk rightContent8 = new Chunk($"{dateCreatedTr()} {invoice.Invoice_Date.GetValueOrDefault().Date.ToString("ddd-MMM-yyyy")}", headerFontbelow);
+                paragraph3.Add(rightContent8);
+                paragraph3.Alignment = Element.ALIGN_RIGHT;
+
+                document.Add(header);
+                document.Add(paragraph);
+                document.Add(paragraph2);
+                document.Add(paragraph3);
+                document.Add(paragraph1);
+
+                // Add a blank line after the header
+                document.Add(new Paragraph("\n"));
+
+                // Step 3: Create Table for Invoice Details
+                PdfPTable table = new PdfPTable(4)
+                {
+                    WidthPercentage = 100, // Table width as percentage of page width
+                    SpacingBefore = 20f,
+                    SpacingAfter = 30f
+                }; // 4 columns
+
+                // Set column widths
+                float[] columnWidths = { 3f, 1.2f, 1.3f, 2f };
+                table.SetWidths(columnWidths);
+
+                // Add table headers
+                EmailUtils.AddTableHeader(table, descriptionTr());
+                EmailUtils.AddTableHeader(table, quantityTr());
+                EmailUtils.AddTableHeader(table, unitPriceTr());
+                EmailUtils.AddTableHeader(table, amountTr());
+
+                // Step 4: Add Invoice Items
+                foreach (var item in details)
+                {
+                    EmailUtils.AddTableCell(table, item.Item_Description);
+                    EmailUtils.AddTableCell(table, item.Item_Qty.ToString());
+                    EmailUtils.AddTableCell(table, item.Item_Unit_Price.ToString("N2"));
+                    EmailUtils.AddTableCell(table, (item.Item_Qty * item.Item_Unit_Price).ToString("N2"));
+                }
+
+                // Step 5: Add Total Row
+                PdfPCell totalCell = new PdfPCell(new Phrase(grandTotalTr(), new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)))
+                {
+                    BackgroundColor = HeaderColor,
+                    Colspan = 3,
+                    HorizontalAlignment = Element.ALIGN_RIGHT,
+                    Padding = 8f
+                };
+                table.AddCell(totalCell);
+
+                PdfPCell totalValueCell = new PdfPCell(new Phrase(invoice.Total.ToString("N2") + " " + invoice.Currency_Code, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD)))
+                {
+                    HorizontalAlignment = Element.ALIGN_RIGHT,
+                    Padding = 8f
+                };
+                table.AddCell(totalValueCell);
+
+                // Add the table to the document
+                document.Add(table);
+
+                // Step 6: How to Pay
+                Paragraph footer_how = new Paragraph(howToPayTr(), FontFactory.GetFont(FontFactory.HELVETICA, 10, textColor))
+                {
+                    Alignment = Element.ALIGN_LEFT,
+                    SpacingBefore = 12f
+                };
+
+                document.Add(footer_how);
+                // Lipia kwa kupiga *150 * 03# au SimBanking App, Tawi lolote la CRDB, CRDB Wakala au mitandao ya simu.
+                Paragraph footer_pay = new Paragraph(payByDialingTr(), FontFactory.GetFont(FontFactory.HELVETICA, 10, textColor))
+                {
+                    Alignment = Element.ALIGN_LEFT,
+                    SpacingBefore = 12f
+                };
+                document.Add(footer_pay);
+
+                document.Add(new Paragraph("\n"));
+
+                // Step 7: Add Footer with Thank You Message
+                //Paragraph footer = new Paragraph(systemGeneratedInvoiceTr() + " Date : " + System.DateTime.Now, FontFactory.GetFont(FontFactory.HELVETICA, 10, textColor))
+                Paragraph footer = new Paragraph($"{systemGeneratedInvoiceTr()} {dateTr()} {System.DateTime.Now}", FontFactory.GetFont(FontFactory.HELVETICA, 10, textColor))
+                {
+                    Alignment = Element.ALIGN_CENTER,
+                    SpacingBefore = 12f
+                };
+                document.Add(footer);
+
+
+                // Close the document
+                document.Close();
+
+                byte[] pdfBytes = memoryStream.ToArray();
+
+                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(pdfBytes)
+                };
+
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+                {
+                    FileName = "invoice.pdf"
+                };
+
+                return response;
+
+                //return filePath;
+            }
+        }
+
+        public HttpResponseMessage downloadPdf(long compid, long inv,string lang)
+        {
+            try
+            {
+                INVOICE found = new INVOICE().FindInvoiceByCompanyIdAndInvoiceNumber(compid, inv);
+                if (found == null) { throw new ArgumentException(SetupBaseController.NOT_FOUND_MESSAGE); }
+                List<INVOICE> details = found.GetInvoiceDetails(inv);
+                return DownloadInvoiceFormat(found,details, lang);
+                
+            }
+            catch (ArgumentException ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new ArgumentException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                pay.Message = ex.ToString();
+                pay.AddErrorLogs(pay);
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
