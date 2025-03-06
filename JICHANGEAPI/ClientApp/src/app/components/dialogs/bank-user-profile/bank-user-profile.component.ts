@@ -16,18 +16,17 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankLoginResponse } from 'src/app/core/models/login-response';
 
 @Component({
-  selector: 'app-bank-user-profile',
-  templateUrl: './bank-user-profile.component.html',
-  styleUrls: ['./bank-user-profile.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    LanguageSelectorComponent,
-    RouterModule,
-    DisplayMessageBoxComponent,
-    TranslocoModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-bank-user-profile',
+    templateUrl: './bank-user-profile.component.html',
+    styleUrls: ['./bank-user-profile.component.scss'],
+    imports: [
+        CommonModule,
+        LanguageSelectorComponent,
+        RouterModule,
+        DisplayMessageBoxComponent,
+        TranslocoModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BankUserProfileComponent {
   @ViewChild('displayMessageBox')

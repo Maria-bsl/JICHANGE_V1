@@ -46,32 +46,31 @@ import { from } from 'rxjs';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-customers-dialog',
-  templateUrl: './customers-dialog.component.html',
-  styleUrls: ['./customers-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    SubmitMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    PhoneNumberInputComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    OptionalConfirmMessageBoxComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/customer', alias: 'customer' },
-    },
-  ],
+    selector: 'app-customers-dialog',
+    templateUrl: './customers-dialog.component.html',
+    styleUrls: ['./customers-dialog.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        SubmitMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        PhoneNumberInputComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        OptionalConfirmMessageBoxComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/customer', alias: 'customer' },
+        },
+    ]
 })
 export class CustomersDialogComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

@@ -54,38 +54,37 @@ import { TableUtilities } from 'src/app/utilities/table-utilities';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-district-list',
-  templateUrl: './district-list.component.html',
-  styleUrls: ['./district-list.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    RemoveItemDialogComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    AddItemButtonComponent,
-    MatIconModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-district-list',
+    templateUrl: './district-list.component.html',
+    styleUrls: ['./district-list.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        RemoveItemDialogComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        AddItemButtonComponent,
+        MatIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class DistrictListComponent implements OnInit {
   public startLoading: boolean = false;

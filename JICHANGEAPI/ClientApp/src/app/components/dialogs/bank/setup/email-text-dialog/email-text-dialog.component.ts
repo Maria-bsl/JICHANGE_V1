@@ -45,30 +45,29 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-email-text-dialog',
-  templateUrl: './email-text-dialog.component.html',
-  styleUrls: ['./email-text-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-email-text-dialog',
+    templateUrl: './email-text-dialog.component.html',
+    styleUrls: ['./email-text-dialog.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class EmailTextDialogComponent implements OnInit {
   // public flows: string[] = [

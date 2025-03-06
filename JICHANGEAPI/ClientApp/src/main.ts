@@ -2,11 +2,7 @@ import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppComponent } from './app/app.component';
 import { importProvidersFrom } from '@angular/core';
-import {
-  HttpClientModule,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppRoutingModule, routes } from './app/app-routing.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {

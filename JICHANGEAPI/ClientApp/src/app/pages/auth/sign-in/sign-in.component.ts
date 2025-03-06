@@ -43,28 +43,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss'],
-  standalone: true,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    NgxLoadingModule,
-    TranslocoModule,
-    RouterModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.scss'],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        NgxLoadingModule,
+        TranslocoModule,
+        RouterModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignInComponent implements OnInit {
   public startLoading: boolean = false;

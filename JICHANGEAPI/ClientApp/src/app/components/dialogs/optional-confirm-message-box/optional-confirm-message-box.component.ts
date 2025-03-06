@@ -12,12 +12,11 @@ import {
 import { TranslocoModule, TranslocoService } from '@ngneat/transloco';
 
 @Component({
-  selector: 'app-optional-confirm-message-box',
-  standalone: true,
-  imports: [TranslocoModule, CommonModule],
-  templateUrl: './optional-confirm-message-box.component.html',
-  styleUrl: './optional-confirm-message-box.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-optional-confirm-message-box',
+    imports: [TranslocoModule, CommonModule],
+    templateUrl: './optional-confirm-message-box.component.html',
+    styleUrl: './optional-confirm-message-box.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OptionalConfirmMessageBoxComponent {
   @ViewChild('optionalConfirmMessageBox')

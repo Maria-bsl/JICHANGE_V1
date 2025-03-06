@@ -32,24 +32,23 @@ import { DisplayMessageBoxComponent } from '../../../display-message-box/display
 import { LoaderInfiniteSpinnerComponent } from '../../../../../reusables/loader-infinite-spinner/loader-infinite-spinner.component';
 
 @Component({
-  selector: 'app-audit-trails-report-form',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  templateUrl: './audit-trails-report-form.component.html',
-  styleUrl: './audit-trails-report-form.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  schemas: [NO_ERRORS_SCHEMA],
+    selector: 'app-audit-trails-report-form',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    templateUrl: './audit-trails-report-form.component.html',
+    styleUrl: './audit-trails-report-form.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class AuditTrailsReportFormComponent implements OnInit {
   public selectPageOptions: string[] = [];

@@ -70,44 +70,43 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-generated-invoice-list',
-  templateUrl: './generated-invoice-list.component.html',
-  styleUrls: ['./generated-invoice-list.component.scss'],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/generated', alias: 'generated' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  standalone: true,
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    NgxLoadingModule,
-    MatDialogModule,
-    RouterModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SuccessMessageBoxComponent,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    LoaderRainbowComponent,
-    CancelGeneratedInvoiceComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    SubmitMessageBoxComponent,
-    MatTooltipModule,
-    MatIconModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-generated-invoice-list',
+    templateUrl: './generated-invoice-list.component.html',
+    styleUrls: ['./generated-invoice-list.component.scss'],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/generated', alias: 'generated' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        NgxLoadingModule,
+        MatDialogModule,
+        RouterModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SuccessMessageBoxComponent,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        LoaderRainbowComponent,
+        CancelGeneratedInvoiceComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        SubmitMessageBoxComponent,
+        MatTooltipModule,
+        MatIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class GeneratedInvoiceListComponent implements OnInit {
   //public userProfile!: LoginResponse;

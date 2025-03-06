@@ -28,23 +28,22 @@ import { NgxSonnerToaster } from 'ngx-sonner';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [mainModuleAnimations],
-  schemas: [NO_ERRORS_SCHEMA],
-  imports: [
-    HeaderComponent,
-    RouterModule,
-    FooterComponent,
-    CommonModule,
-    BreadcrumbModule,
-    NgxLoadingModule,
-    NgxSonnerToaster,
-    MatIconModule,
-  ],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [mainModuleAnimations],
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        HeaderComponent,
+        RouterModule,
+        FooterComponent,
+        CommonModule,
+        BreadcrumbModule,
+        NgxLoadingModule,
+        NgxSonnerToaster,
+        MatIconModule,
+    ]
 })
 export class MainComponent implements OnInit, AfterViewInit {
   public themes: { label: string; color: string }[] = [

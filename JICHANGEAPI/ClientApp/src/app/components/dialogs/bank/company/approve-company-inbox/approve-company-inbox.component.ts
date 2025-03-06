@@ -71,35 +71,34 @@ interface ApprovedCompany {
 }
 
 @Component({
-  selector: 'app-approve-company-inbox',
-  standalone: true,
-  imports: [
-    TranslocoModule,
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    FormsModule,
-    LoaderInfiniteSpinnerComponent,
-    SuccessMessageBoxComponent,
-    SubmitMessageBoxComponent,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  templateUrl: './approve-company-inbox.component.html',
-  styleUrl: './approve-company-inbox.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/company', alias: 'company' },
-    },
-  ],
-  schemas: [NO_ERRORS_SCHEMA],
+    selector: 'app-approve-company-inbox',
+    imports: [
+        TranslocoModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        FormsModule,
+        LoaderInfiniteSpinnerComponent,
+        SuccessMessageBoxComponent,
+        SubmitMessageBoxComponent,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    templateUrl: './approve-company-inbox.component.html',
+    styleUrl: './approve-company-inbox.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/company', alias: 'company' },
+        },
+    ],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class ApproveCompanyInboxComponent implements OnInit {
   public startLoading: boolean = false;

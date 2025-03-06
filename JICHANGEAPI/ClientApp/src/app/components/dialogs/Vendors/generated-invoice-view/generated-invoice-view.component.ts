@@ -37,25 +37,24 @@ import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinit
 import { VendorLoginResponse } from 'src/app/core/models/login-response';
 
 @Component({
-  selector: 'app-generated-invoice-view',
-  templateUrl: './generated-invoice-view.component.html',
-  styleUrls: ['./generated-invoice-view.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    CancelledDialogComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/generated', alias: 'generated' },
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-generated-invoice-view',
+    templateUrl: './generated-invoice-view.component.html',
+    styleUrls: ['./generated-invoice-view.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        CancelledDialogComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/generated', alias: 'generated' },
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeneratedInvoiceViewComponent implements OnInit {
   public startLoading: boolean = false;

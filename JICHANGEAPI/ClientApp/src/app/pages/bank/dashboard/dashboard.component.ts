@@ -85,41 +85,40 @@ import Chart from 'chart.js/auto';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    RouterModule,
-    DashboardOverviewCardComponent,
-    TranslocoModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    MatDialogModule,
-    ReactiveFormsModule,
-    ApproveCompanyInboxComponent,
-    SuccessMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    TableFormHeadersComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatIconModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/dashboard', alias: 'dashboard' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: ['./dashboard.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        RouterModule,
+        DashboardOverviewCardComponent,
+        TranslocoModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        MatDialogModule,
+        ReactiveFormsModule,
+        ApproveCompanyInboxComponent,
+        SuccessMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        TableFormHeadersComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatIconModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/dashboard', alias: 'dashboard' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class DashboardComponent implements OnInit {
   public startLoading: boolean = false;

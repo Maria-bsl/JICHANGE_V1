@@ -66,42 +66,41 @@ import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-it
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-customers-list',
-  templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    RouterModule,
-    RemoveItemDialogComponent,
-    SuccessMessageBoxComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    AddItemButtonComponent,
-    MatIconModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/customer', alias: 'customer' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-customers-list',
+    templateUrl: './customers-list.component.html',
+    styleUrls: ['./customers-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        RouterModule,
+        RemoveItemDialogComponent,
+        SuccessMessageBoxComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        AddItemButtonComponent,
+        MatIconModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/customer', alias: 'customer' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class CustomersListComponent implements OnInit {
   public startLoading: boolean = false;

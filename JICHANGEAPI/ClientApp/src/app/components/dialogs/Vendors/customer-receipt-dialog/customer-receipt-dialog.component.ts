@@ -25,16 +25,15 @@ import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 import { from } from 'rxjs';
 
 @Component({
-  selector: 'app-customer-receipt-dialog',
-  templateUrl: './customer-receipt-dialog.component.html',
-  styleUrls: ['./customer-receipt-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    TranslocoModule,
-  ],
+    selector: 'app-customer-receipt-dialog',
+    templateUrl: './customer-receipt-dialog.component.html',
+    styleUrls: ['./customer-receipt-dialog.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        TranslocoModule,
+    ]
 })
 export class CustomerReceiptDialogComponent implements OnInit {
   public formGroups: FormGroup[] = [];

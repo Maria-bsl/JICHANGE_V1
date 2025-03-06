@@ -64,32 +64,31 @@ import { VendorLoginResponse } from 'src/app/core/models/login-response';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
 
 @Component({
-  selector: 'app-invoice-details-dialog',
-  templateUrl: './invoice-details-dialog.component.html',
-  styleUrls: ['./invoice-details-dialog.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    ConfirmAddCustomerDialogComponent,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    SubmitMessageBoxComponent,
-    MatDialogModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-    },
-  ],
+    selector: 'app-invoice-details-dialog',
+    templateUrl: './invoice-details-dialog.component.html',
+    styleUrls: ['./invoice-details-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        ConfirmAddCustomerDialogComponent,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        SubmitMessageBoxComponent,
+        MatDialogModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+        },
+    ]
 })
 export class InvoiceDetailsDialogComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

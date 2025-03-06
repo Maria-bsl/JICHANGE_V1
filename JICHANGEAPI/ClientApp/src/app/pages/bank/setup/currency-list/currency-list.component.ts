@@ -54,38 +54,37 @@ import { TableUtilities } from 'src/app/utilities/table-utilities';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-currency-list',
-  templateUrl: './currency-list.component.html',
-  styleUrls: ['./currency-list.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    RemoveItemDialogComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-currency-list',
+    templateUrl: './currency-list.component.html',
+    styleUrls: ['./currency-list.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        RemoveItemDialogComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class CurrencyListComponent implements OnInit {
   public startLoading: boolean = false;

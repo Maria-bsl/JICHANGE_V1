@@ -66,44 +66,43 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
-  selector: 'app-branch-list',
-  templateUrl: './branch-list.component.html',
-  styleUrls: ['./branch-list.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    LoaderRainbowComponent,
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-    RemoveItemDialogComponent,
-    SuccessMessageBoxComponent,
-    MatPaginatorModule,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [
-    toggle,
-    listAnimationMobile,
-    listAnimationDesktop,
-    inOutAnimation,
-  ],
+    selector: 'app-branch-list',
+    templateUrl: './branch-list.component.html',
+    styleUrls: ['./branch-list.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        LoaderRainbowComponent,
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+        RemoveItemDialogComponent,
+        SuccessMessageBoxComponent,
+        MatPaginatorModule,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [
+        toggle,
+        listAnimationMobile,
+        listAnimationDesktop,
+        inOutAnimation,
+    ]
 })
 export class BranchListComponent implements OnInit {
   public startLoading: boolean = false;

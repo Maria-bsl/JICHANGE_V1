@@ -53,31 +53,30 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'app-report-form-details',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    TranslocoModule,
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  templateUrl: './report-form-details.component.html',
-  styleUrl: './report-form-details.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/reports', alias: 'reports' },
-    },
-  ],
+    selector: 'app-report-form-details',
+    imports: [
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        TranslocoModule,
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
+    templateUrl: './report-form-details.component.html',
+    styleUrl: './report-form-details.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/reports', alias: 'reports' },
+        },
+    ]
 })
 export class ReportFormDetailsComponent implements OnInit {
   private customersSubject = new BehaviorSubject<Customer[]>([]);

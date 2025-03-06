@@ -69,36 +69,35 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
-  selector: 'app-add-vendor',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    PhoneNumberInputComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    NgxSonnerToaster,
-    RouterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-  ],
-  templateUrl: './add-vendor.component.html',
-  styleUrl: './add-vendor.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/company', alias: 'company' },
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-add-vendor',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        PhoneNumberInputComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        NgxSonnerToaster,
+        RouterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatRadioModule,
+    ],
+    templateUrl: './add-vendor.component.html',
+    styleUrl: './add-vendor.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/company', alias: 'company' },
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class AddVendorComponent implements OnInit {
   public startLoading: boolean = false;

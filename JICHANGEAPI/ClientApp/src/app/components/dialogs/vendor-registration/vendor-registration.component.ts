@@ -46,29 +46,28 @@ import { MatRadioModule } from '@angular/material/radio';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-vendor-registration',
-  templateUrl: './vendor-registration.component.html',
-  styleUrls: ['./vendor-registration.component.scss'],
-  standalone: true,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgxLoadingModule,
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    PhoneNumberInputComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
+    selector: 'app-vendor-registration',
+    templateUrl: './vendor-registration.component.html',
+    styleUrls: ['./vendor-registration.component.scss'],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgxLoadingModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        PhoneNumberInputComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ]
 })
 export class VendorRegistrationComponent implements OnInit {
   public startLoading: boolean = false;

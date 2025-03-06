@@ -15,21 +15,20 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-phone-number-input',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    TranslocoModule,
-  ],
-  templateUrl: './phone-number-input.component.html',
-  styleUrl: './phone-number-input.component.scss',
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-phone-number-input',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        TranslocoModule,
+    ],
+    templateUrl: './phone-number-input.component.html',
+    styleUrl: './phone-number-input.component.scss',
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PhoneNumberInputComponent implements OnInit {
   public prefixes: string[] = ['255'];

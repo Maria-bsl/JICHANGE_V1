@@ -60,25 +60,24 @@ interface Header {
 }
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
-  imports: [
-    LanguageSelectorComponent,
-    RouterModule,
-    TranslocoModule,
-    CommonModule,
-    ReactiveFormsModule,
-    ChatAgentComponent,
-    MatDialogModule,
-    DisplayMessageBoxComponent,
-    NgxLoadingModule,
-    MatIconModule,
-    MatTooltipModule,
-  ],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
+    imports: [
+        LanguageSelectorComponent,
+        RouterModule,
+        TranslocoModule,
+        CommonModule,
+        ReactiveFormsModule,
+        ChatAgentComponent,
+        MatDialogModule,
+        DisplayMessageBoxComponent,
+        NgxLoadingModule,
+        MatIconModule,
+        MatTooltipModule,
+    ]
 })
 export class HeaderComponent implements OnInit {
   private idleState = 'Not started.';

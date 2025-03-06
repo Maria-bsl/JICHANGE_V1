@@ -15,17 +15,16 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import * as json from 'src/assets/temp/data.json';
 
 @Component({
-  selector: 'app-transaction-details-edit',
-  templateUrl: './transaction-details-edit.component.html',
-  styleUrls: ['./transaction-details-edit.component.scss'],
-  standalone: true,
-  imports: [TranslocoModule, CommonModule, ReactiveFormsModule, MatIconModule],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-  ],
+    selector: 'app-transaction-details-edit',
+    templateUrl: './transaction-details-edit.component.html',
+    styleUrls: ['./transaction-details-edit.component.scss'],
+    imports: [TranslocoModule, CommonModule, ReactiveFormsModule, MatIconModule],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+    ]
 })
 export class TransactionDetailsEditComponent implements OnInit {
   public formGroup!: FormGroup;

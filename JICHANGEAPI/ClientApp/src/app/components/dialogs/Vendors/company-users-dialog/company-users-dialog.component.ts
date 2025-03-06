@@ -44,31 +44,30 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-company-users-dialog',
-  templateUrl: './company-users-dialog.component.html',
-  styleUrls: ['./company-users-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    PhoneNumberInputComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/company', alias: 'company' },
-    },
-  ],
+    selector: 'app-company-users-dialog',
+    templateUrl: './company-users-dialog.component.html',
+    styleUrls: ['./company-users-dialog.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        PhoneNumberInputComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/company', alias: 'company' },
+        },
+    ]
 })
 export class CompanyUsersDialogComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

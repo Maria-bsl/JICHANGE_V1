@@ -58,40 +58,39 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-created-invoice-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    LoaderInfiniteSpinnerComponent,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    MatDialogModule,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    CancelGeneratedInvoiceComponent,
-    SubmitMessageBoxComponent,
-    MatTableModule,
-    MatSortModule,
-    RouterLink,
-    MatTooltipModule,
-    AddItemButtonComponent,
-    MatIconModule,
-  ],
-  templateUrl: './created-invoice-list.component.html',
-  styleUrl: './created-invoice-list.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-created-invoice-list',
+    imports: [
+        CommonModule,
+        LoaderInfiniteSpinnerComponent,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        MatDialogModule,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        CancelGeneratedInvoiceComponent,
+        SubmitMessageBoxComponent,
+        MatTableModule,
+        MatSortModule,
+        RouterLink,
+        MatTooltipModule,
+        AddItemButtonComponent,
+        MatIconModule,
+    ],
+    templateUrl: './created-invoice-list.component.html',
+    styleUrl: './created-invoice-list.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class CreatedInvoiceListComponent implements OnInit {
   public tableHeadersFormGroup!: FormGroup;

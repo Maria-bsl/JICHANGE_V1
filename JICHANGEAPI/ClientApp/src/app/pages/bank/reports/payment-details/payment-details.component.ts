@@ -83,38 +83,37 @@ import tailwindcss from 'tailwindcss';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-payment-details',
-  standalone: true,
-  imports: [
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    MatPaginatorModule,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    ReportFormInvoiceDetailsComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './payment-details.component.html',
-  styleUrl: './payment-details.component.scss',
-  schemas: [NO_ERRORS_SCHEMA],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-payment-details',
+    imports: [
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        MatPaginatorModule,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        ReportFormInvoiceDetailsComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './payment-details.component.html',
+    styleUrl: './payment-details.component.scss',
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class PaymentDetailsComponent implements OnInit {
   public filterFormData: {

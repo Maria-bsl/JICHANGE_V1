@@ -68,58 +68,54 @@ import { TablePaginationComponent } from 'src/app/components/table-pagination/ta
 import { LoaderRainbowComponent } from 'src/app/reusables/loader-rainbow/loader-rainbow.component';
 
 @Component({
-  selector: 'app-audit-trails',
-  standalone: true,
-  imports: [
-    TranslocoModule,
-    CommonModule,
-    TableDateFiltersComponent,
-    ReactiveFormsModule,
-    LoaderRainbowComponent,
-    DisplayMessageBoxComponent,
-    TablePaginationComponent,
-    MatPaginatorModule,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTableExporterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatRadioModule,
-    MatProgressSpinnerModule,
-    AuditTrailsReportFormComponent,
-  ],
-  templateUrl: './audit-trails.component.html',
-  styleUrl: './audit-trails.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    listAnimationMobile,
-    listAnimationDesktop,
-    inOutAnimation,
-    trigger('detailExpand', [
-      state('collapsed,void', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition(
-        'expanded <=> collapsed',
-        animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
-      ),
-    ]),
-  ],
+    selector: 'app-audit-trails',
+    imports: [
+        TranslocoModule,
+        CommonModule,
+        TableDateFiltersComponent,
+        ReactiveFormsModule,
+        LoaderRainbowComponent,
+        DisplayMessageBoxComponent,
+        TablePaginationComponent,
+        MatPaginatorModule,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTableExporterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatRadioModule,
+        MatProgressSpinnerModule,
+        AuditTrailsReportFormComponent,
+    ],
+    templateUrl: './audit-trails.component.html',
+    styleUrl: './audit-trails.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [
+        listAnimationMobile,
+        listAnimationDesktop,
+        inOutAnimation,
+        trigger('detailExpand', [
+            state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+            state('expanded', style({ height: '*' })),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ]
 })
 export class AuditTrailsComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

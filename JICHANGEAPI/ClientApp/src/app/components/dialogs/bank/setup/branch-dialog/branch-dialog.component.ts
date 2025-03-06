@@ -42,32 +42,31 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-branch-dialog',
-  templateUrl: './branch-dialog.component.html',
-  styleUrls: ['./branch-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-branch-dialog',
+    templateUrl: './branch-dialog.component.html',
+    styleUrls: ['./branch-dialog.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class BranchDialogComponent implements OnInit {
   public branchForm!: FormGroup;

@@ -52,33 +52,32 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'app-report-form-invoice-details',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    DisplayMessageBoxComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  templateUrl: './report-form-invoice-details.component.html',
-  styleUrl: './report-form-invoice-details.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/reports', alias: 'reports' },
-    },
-  ],
+    selector: 'app-report-form-invoice-details',
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        DisplayMessageBoxComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
+    templateUrl: './report-form-invoice-details.component.html',
+    styleUrl: './report-form-invoice-details.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/reports', alias: 'reports' },
+        },
+    ]
 })
 export class ReportFormInvoiceDetailsComponent extends ReportFormDetailsComponent {
   @Input() public allowCancelledInvoices: boolean = false;

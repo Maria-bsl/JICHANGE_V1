@@ -57,41 +57,40 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-consolidated-report',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    MatTableExporterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  templateUrl: './consolidated-report.component.html',
-  styleUrl: './consolidated-report.component.scss',
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-consolidated-report',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        ReactiveFormsModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+        MatTableExporterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
+    templateUrl: './consolidated-report.component.html',
+    styleUrl: './consolidated-report.component.scss',
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class ConsolidatedReportComponent implements OnInit {
   public tableLoading: boolean = false;

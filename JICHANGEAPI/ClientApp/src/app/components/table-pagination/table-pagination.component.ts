@@ -5,11 +5,10 @@ import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-table-pagination',
-  templateUrl: './table-pagination.component.html',
-  styleUrls: ['./table-pagination.component.scss'],
-  standalone: true,
-  imports: [CommonModule, RouterModule, TranslocoModule, MatPaginatorModule],
+    selector: 'app-table-pagination',
+    templateUrl: './table-pagination.component.html',
+    styleUrls: ['./table-pagination.component.scss'],
+    imports: [CommonModule, RouterModule, TranslocoModule, MatPaginatorModule]
 })
 export class TablePaginationComponent {
   public itemsPerPage: number[] = [5, 10, 20];

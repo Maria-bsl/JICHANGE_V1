@@ -66,40 +66,39 @@ import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-it
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-country-list',
-  templateUrl: './country-list.component.html',
-  styleUrls: ['./country-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    NgxLoadingModule,
-    MatDialogModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    LoaderRainbowComponent,
-    RemoveItemDialogComponent,
-    MatPaginatorModule,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    AddItemButtonComponent,
-    MatIconModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-country-list',
+    templateUrl: './country-list.component.html',
+    styleUrls: ['./country-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        NgxLoadingModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        LoaderRainbowComponent,
+        RemoveItemDialogComponent,
+        MatPaginatorModule,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        AddItemButtonComponent,
+        MatIconModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class CountryListComponent implements OnInit {
   public startLoading: boolean = false;

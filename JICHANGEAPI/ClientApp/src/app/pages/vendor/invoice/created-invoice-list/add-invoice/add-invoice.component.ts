@@ -64,37 +64,36 @@ import { CompanyUserService } from 'src/app/core/services/vendor/company-user.se
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-add-invoice',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatIconModule,
-  ],
-  templateUrl: './add-invoice.component.html',
-  styleUrl: './add-invoice.component.scss',
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-add-invoice',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        MatTooltipModule,
+        MatIconModule,
+    ],
+    templateUrl: './add-invoice.component.html',
+    styleUrl: './add-invoice.component.scss',
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class AddInvoiceComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

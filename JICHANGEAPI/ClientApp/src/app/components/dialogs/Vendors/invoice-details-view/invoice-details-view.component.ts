@@ -35,25 +35,24 @@ import { VendorLoginResponse } from 'src/app/core/models/login-response';
 import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 
 @Component({
-  selector: 'app-invoice-details-view',
-  templateUrl: './invoice-details-view.component.html',
-  styleUrl: './invoice-details-view.component.scss',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    CancelledDialogComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/generated', alias: 'generated' },
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-invoice-details-view',
+    templateUrl: './invoice-details-view.component.html',
+    styleUrl: './invoice-details-view.component.scss',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        CancelledDialogComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/generated', alias: 'generated' },
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InvoiceDetailsViewComponent implements OnInit {
   public startLoading: boolean = false;

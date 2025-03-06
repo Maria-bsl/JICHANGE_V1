@@ -77,38 +77,37 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-invoice-details',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatPaginatorModule,
-    TableDateFiltersComponent,
-    MatDialogModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    ReportFormDetailsComponent,
-    MatTableExporterModule,
-    MatCheckboxModule,
-    MatIconModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './invoice-details.component.html',
-  styleUrl: './invoice-details.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-invoice-details',
+    imports: [
+        CommonModule,
+        MatPaginatorModule,
+        TableDateFiltersComponent,
+        MatDialogModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        ReportFormDetailsComponent,
+        MatTableExporterModule,
+        MatCheckboxModule,
+        MatIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './invoice-details.component.html',
+    styleUrl: './invoice-details.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class InvoiceDetailsComponent implements OnInit {
   public startLoading: boolean = false;

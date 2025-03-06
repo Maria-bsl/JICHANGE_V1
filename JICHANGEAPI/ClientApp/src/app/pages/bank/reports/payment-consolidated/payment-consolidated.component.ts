@@ -57,41 +57,40 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-payment-consolidated',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    MatTableExporterModule,
-    ReportFormInvoiceDetailsComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  templateUrl: './payment-consolidated.component.html',
-  styleUrl: './payment-consolidated.component.scss',
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-payment-consolidated',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        ReactiveFormsModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+        MatTableExporterModule,
+        ReportFormInvoiceDetailsComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
+    templateUrl: './payment-consolidated.component.html',
+    styleUrl: './payment-consolidated.component.scss',
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class PaymentConsolidatedComponent implements OnInit {
   // public tableData: {

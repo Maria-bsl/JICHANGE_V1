@@ -65,39 +65,38 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
-  selector: 'app-designation-list',
-  templateUrl: './designation-list.component.html',
-  styleUrls: ['./designation-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    LoaderRainbowComponent,
-    RemoveItemDialogComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-designation-list',
+    templateUrl: './designation-list.component.html',
+    styleUrls: ['./designation-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        LoaderRainbowComponent,
+        RemoveItemDialogComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class DesignationListComponent implements OnInit {
   public startLoading: boolean = false;

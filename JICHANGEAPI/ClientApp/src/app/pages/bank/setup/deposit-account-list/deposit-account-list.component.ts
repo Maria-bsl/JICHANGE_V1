@@ -49,32 +49,31 @@ import {
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-  selector: 'app-deposit-account-list',
-  templateUrl: './deposit-account-list.component.html',
-  styleUrls: ['./deposit-account-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    RemoveItemDialogComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-deposit-account-list',
+    templateUrl: './deposit-account-list.component.html',
+    styleUrls: ['./deposit-account-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        RemoveItemDialogComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class DepositAccountListComponent implements OnInit {
   public tableHeadersFormGroup!: FormGroup;

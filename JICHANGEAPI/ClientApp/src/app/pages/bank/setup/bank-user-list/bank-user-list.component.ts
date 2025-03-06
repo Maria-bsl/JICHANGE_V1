@@ -60,38 +60,37 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
-  selector: 'app-bank-user-list',
-  templateUrl: './bank-user-list.component.html',
-  styleUrls: ['./bank-user-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    RemoveItemDialogComponent,
-    DisplayMessageBoxComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-bank-user-list',
+    templateUrl: './bank-user-list.component.html',
+    styleUrls: ['./bank-user-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        RemoveItemDialogComponent,
+        DisplayMessageBoxComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class BankUserListComponent implements OnInit {
   public startLoading: boolean = false;

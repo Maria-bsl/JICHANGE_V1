@@ -36,25 +36,24 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
-  selector: 'app-control-number-details',
-  templateUrl: './control-number-details.component.html',
-  styleUrls: ['./control-number-details.component.scss'],
-  standalone: true,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
-  imports: [
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+    selector: 'app-control-number-details',
+    templateUrl: './control-number-details.component.html',
+    styleUrls: ['./control-number-details.component.scss'],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
+    imports: [
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+    ]
 })
 export class ControlNumberDetailsComponent implements OnInit {
   public startLoading: boolean = false;

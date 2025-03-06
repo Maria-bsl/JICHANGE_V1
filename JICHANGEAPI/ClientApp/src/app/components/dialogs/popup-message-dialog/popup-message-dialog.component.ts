@@ -21,11 +21,10 @@ import anime from 'animejs';
 export type PopupState = 'success' | 'error' | 'warning' | 'info';
 
 @Component({
-  selector: 'app-popup-message-dialog',
-  imports: [MatIconModule, MatButtonModule, MatDialogModule, TranslocoModule],
-  templateUrl: './popup-message-dialog.component.html',
-  styleUrl: './popup-message-dialog.component.scss',
-  standalone: true,
+    selector: 'app-popup-message-dialog',
+    imports: [MatIconModule, MatButtonModule, MatDialogModule, TranslocoModule],
+    templateUrl: './popup-message-dialog.component.html',
+    styleUrl: './popup-message-dialog.component.scss'
 })
 export class PopupMessageDialogComponent implements AfterViewInit {
   @Output() buttonClicked = new EventEmitter<void>();

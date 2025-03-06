@@ -43,32 +43,31 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-suspense-account-dialog',
-  templateUrl: './suspense-account-dialog.component.html',
-  styleUrls: ['./suspense-account-dialog.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-suspense-account-dialog',
+    templateUrl: './suspense-account-dialog.component.html',
+    styleUrls: ['./suspense-account-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class SuspenseAccountDialogComponent implements OnInit {
   public suspenseAccountForm!: FormGroup;

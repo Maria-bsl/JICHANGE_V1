@@ -44,31 +44,30 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-district-dialog',
-  templateUrl: './district-dialog.component.html',
-  styleUrls: ['./district-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-district-dialog',
+    templateUrl: './district-dialog.component.html',
+    styleUrls: ['./district-dialog.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class DistrictDialogComponent implements OnInit {
   public districtForm!: FormGroup;

@@ -9,11 +9,10 @@ import {
 import { TranslocoModule } from '@ngneat/transloco';
 
 @Component({
-  selector: 'app-submit-message-box',
-  templateUrl: './submit-message-box.component.html',
-  styleUrls: ['./submit-message-box.component.scss'],
-  standalone: true,
-  imports: [TranslocoModule],
+    selector: 'app-submit-message-box',
+    templateUrl: './submit-message-box.component.html',
+    styleUrls: ['./submit-message-box.component.scss'],
+    imports: [TranslocoModule]
 })
 export class SubmitMessageBoxComponent {
   @Output()

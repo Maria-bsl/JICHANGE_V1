@@ -64,42 +64,41 @@ import { SubmitMessageBoxComponent } from '../../../components/dialogs/submit-me
 import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
-  selector: 'app-company-users',
-  standalone: true,
-  imports: [
-    MatPaginatorModule,
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    TranslocoModule,
-    MatDialogModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-    SubmitMessageBoxComponent,
-    AddItemButtonComponent,
-  ],
-  templateUrl: './company-users.component.html',
-  styleUrl: './company-users.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/company', alias: 'company' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-company-users',
+    imports: [
+        MatPaginatorModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        TranslocoModule,
+        MatDialogModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+        SubmitMessageBoxComponent,
+        AddItemButtonComponent,
+    ],
+    templateUrl: './company-users.component.html',
+    styleUrl: './company-users.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/company', alias: 'company' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class CompanyUsersComponent implements OnInit {
   public startLoading: boolean = false;

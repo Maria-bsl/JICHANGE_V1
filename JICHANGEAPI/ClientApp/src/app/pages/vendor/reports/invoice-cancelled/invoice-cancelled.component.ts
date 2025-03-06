@@ -89,40 +89,39 @@ import autoTable from 'jspdf-autotable';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-invoice-cancelled',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    NgxLoadingModule,
-    MatDialogModule,
-    RouterModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    ReportFormInvoiceDetailsComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  templateUrl: './invoice-cancelled.component.html',
-  styleUrl: './invoice-cancelled.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-invoice-cancelled',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        NgxLoadingModule,
+        MatDialogModule,
+        RouterModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        ReportFormInvoiceDetailsComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    templateUrl: './invoice-cancelled.component.html',
+    styleUrl: './invoice-cancelled.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class InvoiceCancelledComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

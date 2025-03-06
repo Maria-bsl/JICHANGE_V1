@@ -13,26 +13,25 @@ import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinite-spinner/loader-infinite-spinner.component';
 
 @Component({
-  selector: 'app-admendments',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    NgxLoadingModule,
-    MatDialogModule,
-    RouterModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  templateUrl: './admendments.component.html',
-  styleUrl: './admendments.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-    },
-  ],
+    selector: 'app-admendments',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        NgxLoadingModule,
+        MatDialogModule,
+        RouterModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    templateUrl: './admendments.component.html',
+    styleUrl: './admendments.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+        },
+    ]
 })
 export class AdmendmentsComponent implements OnInit {
   public startLoading: boolean = false;

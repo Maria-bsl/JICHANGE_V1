@@ -22,18 +22,17 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { VendorLoginResponse } from 'src/app/core/models/login-response';
 
 @Component({
-  selector: 'app-refund-invoice',
-  standalone: true,
-  templateUrl: './refund-invoice.component.html',
-  styleUrl: './refund-invoice.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-  ],
+    selector: 'app-refund-invoice',
+    templateUrl: './refund-invoice.component.html',
+    styleUrl: './refund-invoice.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+    ]
 })
 export class RefundInvoiceComponent implements OnInit {
   public generatedInvoice!: GeneratedInvoice;

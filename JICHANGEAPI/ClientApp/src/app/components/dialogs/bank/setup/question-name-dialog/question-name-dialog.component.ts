@@ -34,25 +34,24 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankLoginResponse } from 'src/app/core/models/login-response';
 
 @Component({
-  selector: 'app-question-name-dialog',
-  templateUrl: './question-name-dialog.component.html',
-  styleUrls: ['./question-name-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-question-name-dialog',
+    templateUrl: './question-name-dialog.component.html',
+    styleUrls: ['./question-name-dialog.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class QuestionNameDialogComponent implements OnInit {
   public startLoading: boolean = false;

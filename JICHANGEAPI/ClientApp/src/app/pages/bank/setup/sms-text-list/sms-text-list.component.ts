@@ -49,37 +49,36 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-sms-text-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    RemoveItemDialogComponent,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  templateUrl: './sms-text-list.component.html',
-  styleUrl: './sms-text-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
+    selector: 'app-sms-text-list',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatPaginatorModule,
+        RemoveItemDialogComponent,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    templateUrl: './sms-text-list.component.html',
+    styleUrl: './sms-text-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ]
 })
 export class SmsTextListComponent implements OnInit {
   public tableFormGroup!: FormGroup;

@@ -120,40 +120,30 @@ const TREE_DATA: FoodNode[] = [
 ];
 
 @Component({
-  selector: 'app-vendor',
-  templateUrl: './vendor.component.html',
-  styleUrls: ['./vendor.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    VendorHeaderComponent,
-    FooterComponent,
-    BreadcrumbModule,
-    NgxLoadingModule,
-    NgxSonnerToaster,
-    TranslocoModule,
-    MatIconModule,
-    CdkAccordionModule,
-  ],
-  animations: [
-    vendorAnimations,
-    trigger('contentExpansion', [
-      state(
-        'expanded',
-        style({ height: '*', opacity: 1, visibility: 'visible' })
-      ),
-      state(
-        'collapsed',
-        style({ height: '0px', opacity: 0, visibility: 'hidden' })
-      ),
-      transition(
-        'expanded <=> collapsed',
-        animate('300ms cubic-bezier(.37,1.04,.68,.98)')
-      ),
-    ]),
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-vendor',
+    templateUrl: './vendor.component.html',
+    styleUrls: ['./vendor.component.scss'],
+    imports: [
+        CommonModule,
+        RouterModule,
+        VendorHeaderComponent,
+        FooterComponent,
+        BreadcrumbModule,
+        NgxLoadingModule,
+        NgxSonnerToaster,
+        TranslocoModule,
+        MatIconModule,
+        CdkAccordionModule,
+    ],
+    animations: [
+        vendorAnimations,
+        trigger('contentExpansion', [
+            state('expanded', style({ height: '*', opacity: 1, visibility: 'visible' })),
+            state('collapsed', style({ height: '0px', opacity: 0, visibility: 'hidden' })),
+            transition('expanded <=> collapsed', animate('300ms cubic-bezier(.37,1.04,.68,.98)')),
+        ]),
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VendorComponent implements OnInit, AfterViewInit {
   public routeLoading: boolean = false;

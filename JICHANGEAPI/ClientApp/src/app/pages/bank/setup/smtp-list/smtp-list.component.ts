@@ -52,38 +52,37 @@ import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 import { TableUtilities } from 'src/app/utilities/table-utilities';
 
 @Component({
-  selector: 'app-smtp-list',
-  templateUrl: './smtp-list.component.html',
-  styleUrls: ['./smtp-list.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    RemoveItemDialogComponent,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-smtp-list',
+    templateUrl: './smtp-list.component.html',
+    styleUrls: ['./smtp-list.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        RemoveItemDialogComponent,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class SmtpListComponent implements OnInit {
   public tableLoading: boolean = false;

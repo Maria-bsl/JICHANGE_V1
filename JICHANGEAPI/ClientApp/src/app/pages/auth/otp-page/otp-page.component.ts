@@ -32,25 +32,24 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 
 @Component({
-  selector: 'app-otp-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    TranslocoModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
-  templateUrl: './otp-page.component.html',
-  styleUrl: './otp-page.component.scss',
-  animations: [divToggle],
+    selector: 'app-otp-page',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        TranslocoModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
+    templateUrl: './otp-page.component.html',
+    styleUrl: './otp-page.component.scss',
+    animations: [divToggle]
 })
 export class OtpPageComponent implements OnInit {
   public startLoading: boolean = false;

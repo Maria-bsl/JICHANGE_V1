@@ -76,40 +76,39 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-inbox-approval',
-  templateUrl: './inbox-approval.component.html',
-  styleUrls: ['./inbox-approval.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    RouterModule,
-    TranslocoModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    SuccessMessageBoxComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  schemas: [NO_ERRORS_SCHEMA],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/company', alias: 'company' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-inbox-approval',
+    templateUrl: './inbox-approval.component.html',
+    styleUrls: ['./inbox-approval.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslocoModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        SuccessMessageBoxComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/company', alias: 'company' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class InboxApprovalComponent implements OnInit {
   public startLoading: boolean = false;

@@ -36,28 +36,27 @@ import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 import { TableUtilities } from 'src/app/utilities/table-utilities';
 
 @Component({
-  selector: 'app-question-name-list',
-  templateUrl: './question-name-list.component.html',
-  styleUrls: ['./question-name-list.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    RemoveItemDialogComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-question-name-list',
+    templateUrl: './question-name-list.component.html',
+    styleUrls: ['./question-name-list.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        RemoveItemDialogComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class QuestionNameListComponent implements OnInit {
   public tableHeadersFormGroup!: FormGroup;

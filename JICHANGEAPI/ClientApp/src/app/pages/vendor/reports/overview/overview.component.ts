@@ -44,26 +44,25 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-overview',
-  standalone: true,
-  imports: [
-    TableDateFiltersComponent,
-    CommonModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './overview.component.html',
-  styleUrl: './overview.component.scss',
-  schemas: [NO_ERRORS_SCHEMA],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-  ],
+    selector: 'app-overview',
+    imports: [
+        TableDateFiltersComponent,
+        CommonModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './overview.component.html',
+    styleUrl: './overview.component.scss',
+    schemas: [NO_ERRORS_SCHEMA],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+    ]
 })
 export class OverviewComponent implements OnInit, AfterViewInit {
   public buildPageLoading: boolean = false;

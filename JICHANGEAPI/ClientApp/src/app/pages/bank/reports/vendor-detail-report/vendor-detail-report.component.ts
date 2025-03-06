@@ -63,40 +63,39 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-vendor-detail-report',
-  standalone: true,
-  templateUrl: './vendor-detail-report.component.html',
-  styleUrl: './vendor-detail-report.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslocoModule,
-    CommonModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    MatTableExporterModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-vendor-detail-report',
+    templateUrl: './vendor-detail-report.component.html',
+    styleUrl: './vendor-detail-report.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        TranslocoModule,
+        CommonModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+        MatTableExporterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class VendorDetailReportComponent implements OnInit {
   public startLoading: boolean = false;

@@ -61,34 +61,33 @@ import { TableDataService } from 'src/app/core/services/table-data.service';
 import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 
 @Component({
-  selector: 'app-overview',
-  templateUrl: './overview.component.html',
-  styleUrls: ['./overview.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslocoModule,
-    CommonModule,
-    RouterModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatSortModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        TranslocoModule,
+        CommonModule,
+        RouterModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatSortModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class OverviewComponent implements OnInit, AfterViewInit {
   @ViewChild('transactionsChart', { static: false })

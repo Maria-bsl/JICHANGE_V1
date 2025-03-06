@@ -48,32 +48,31 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    SubmitMessageBoxComponent,
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'auth', alias: 'auth' },
-    },
-  ],
+    selector: 'app-profile',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        SubmitMessageBoxComponent,
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'auth', alias: 'auth' },
+        },
+    ]
 })
 export class ProfileComponent implements OnInit {
   public languages: { imgUrl: string; code: string; name: string }[] = [

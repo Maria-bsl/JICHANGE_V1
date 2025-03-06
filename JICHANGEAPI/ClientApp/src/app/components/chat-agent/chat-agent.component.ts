@@ -10,12 +10,10 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { RequestClientService } from 'src/app/core/services/request-client.service';
 
 @Component({
-  selector: 'app-chat-agent',
-  templateUrl: './chat-agent.component.html',
-  styleUrls: ['./chat-agent.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
-  //changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-chat-agent',
+    templateUrl: './chat-agent.component.html',
+    styleUrls: ['./chat-agent.component.scss'],
+    imports: [CommonModule]
 })
 export class ChatAgentComponent {
   public serviceTexts: any[] = [];

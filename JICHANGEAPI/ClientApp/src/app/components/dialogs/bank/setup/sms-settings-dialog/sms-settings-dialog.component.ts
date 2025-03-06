@@ -46,32 +46,31 @@ import { HttpDataResponse } from 'src/app/core/models/http-data-response';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-sms-settings-dialog',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslocoModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-    PhoneNumberInputComponent,
-    OptionalConfirmMessageBoxComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  templateUrl: './sms-settings-dialog.component.html',
-  styleUrl: './sms-settings-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-sms-settings-dialog',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        TranslocoModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+        PhoneNumberInputComponent,
+        OptionalConfirmMessageBoxComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    templateUrl: './sms-settings-dialog.component.html',
+    styleUrl: './sms-settings-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class SmsSettingsDialogComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

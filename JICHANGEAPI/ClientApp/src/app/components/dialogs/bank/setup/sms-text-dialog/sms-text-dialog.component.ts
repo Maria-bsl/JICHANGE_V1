@@ -42,24 +42,23 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-sms-text-dialog',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  templateUrl: './sms-text-dialog.component.html',
-  styleUrl: './sms-text-dialog.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-sms-text-dialog',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    templateUrl: './sms-text-dialog.component.html',
+    styleUrl: './sms-text-dialog.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SmsTextDialogComponent implements OnInit, AfterViewInit {
   public startLoading: boolean = false;

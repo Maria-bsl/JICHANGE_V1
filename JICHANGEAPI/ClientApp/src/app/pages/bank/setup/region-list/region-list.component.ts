@@ -61,44 +61,43 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
-  selector: 'app-region-list',
-  templateUrl: './region-list.component.html',
-  styleUrls: ['./region-list.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    RemoveItemDialogComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-    AddItemButtonComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-region-list',
+    templateUrl: './region-list.component.html',
+    styleUrls: ['./region-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        RemoveItemDialogComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+        AddItemButtonComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class RegionListComponent implements OnInit {
   public tableLoading: boolean = false;

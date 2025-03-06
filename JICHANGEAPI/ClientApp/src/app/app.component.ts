@@ -22,19 +22,18 @@ import { mainAnimations } from './components/layouts/main/router-transition-anim
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterModule,
-    TranslocoModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-  ],
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
-  animations: [mainAnimations],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        RouterModule,
+        TranslocoModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+    ],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
+    animations: [mainAnimations]
 })
 export class AppComponent implements OnInit {
   constructor(private tr: TranslocoService, private snackbar: MatSnackBar) {}

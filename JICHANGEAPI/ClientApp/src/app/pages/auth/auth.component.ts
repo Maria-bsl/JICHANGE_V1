@@ -6,18 +6,17 @@ import { FooterComponent } from 'src/app/components/layouts/footer/footer.compon
 import { opacityFadeTrigger } from './auth-animations';
 
 @Component({
-  selector: 'app-auth',
-  templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss'],
-  standalone: true,
-  imports: [
-    RouterModule,
-    CommonModule,
-    LanguageSelectorComponent,
-    FooterComponent,
-  ],
-  animations: [opacityFadeTrigger],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-auth',
+    templateUrl: './auth.component.html',
+    styleUrls: ['./auth.component.scss'],
+    imports: [
+        RouterModule,
+        CommonModule,
+        LanguageSelectorComponent,
+        FooterComponent,
+    ],
+    animations: [opacityFadeTrigger],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthComponent {
   prepareRoute(outlet: RouterOutlet, animate: string): boolean {

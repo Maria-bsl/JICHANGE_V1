@@ -34,24 +34,23 @@ import { PhoneNumberInputComponent } from 'src/app/reusables/phone-number-input/
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 
 @Component({
-  selector: 'app-change-password',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslocoModule,
-    PhoneNumberInputComponent,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  templateUrl: './change-password.component.html',
-  styleUrl: './change-password.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
+    selector: 'app-change-password',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        TranslocoModule,
+        PhoneNumberInputComponent,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
+    templateUrl: './change-password.component.html',
+    styleUrl: './change-password.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }]
 })
 export class ChangePasswordComponent implements OnInit {
   public startLoading: boolean = false;

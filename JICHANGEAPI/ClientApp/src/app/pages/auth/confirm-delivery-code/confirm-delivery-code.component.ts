@@ -25,19 +25,18 @@ import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinit
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 
 @Component({
-  selector: 'app-confirm-delivery-code',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    SubmitMessageBoxComponent,
-  ],
-  templateUrl: './confirm-delivery-code.component.html',
-  styleUrl: './confirm-delivery-code.component.scss',
+    selector: 'app-confirm-delivery-code',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        SubmitMessageBoxComponent,
+    ],
+    templateUrl: './confirm-delivery-code.component.html',
+    styleUrl: './confirm-delivery-code.component.scss'
 })
 export class ConfirmDeliveryCodeComponent implements OnInit {
   public startLoading: boolean = false;

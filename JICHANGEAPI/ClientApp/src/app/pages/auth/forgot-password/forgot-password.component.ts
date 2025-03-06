@@ -37,27 +37,26 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgxLoadingModule,
-    ReactiveFormsModule,
-    TranslocoModule,
-    CommonModule,
-    RouterModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    PhoneNumberInputComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }],
+    selector: 'app-forgot-password',
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        NgxLoadingModule,
+        ReactiveFormsModule,
+        TranslocoModule,
+        CommonModule,
+        RouterModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        PhoneNumberInputComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+    ],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'auth' }]
 })
 export class ForgotPasswordComponent implements OnInit {
   public startLoading: boolean = false;

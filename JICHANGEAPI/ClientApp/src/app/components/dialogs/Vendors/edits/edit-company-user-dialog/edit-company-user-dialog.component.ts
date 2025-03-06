@@ -27,20 +27,19 @@ import { AppUtilities } from 'src/app/utilities/app-utilities';
 import { PhoneNumberInputComponent } from 'src/app/reusables/phone-number-input/phone-number-input.component';
 
 @Component({
-  selector: 'app-edit-company-user-dialog',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    PhoneNumberInputComponent,
-  ],
-  templateUrl: './edit-company-user-dialog.component.html',
-  styleUrl: './edit-company-user-dialog.component.scss',
+    selector: 'app-edit-company-user-dialog',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        PhoneNumberInputComponent,
+    ],
+    templateUrl: './edit-company-user-dialog.component.html',
+    styleUrl: './edit-company-user-dialog.component.scss'
 })
 export class EditCompanyUserDialogComponent implements OnInit {
   public startLoading: boolean = false;

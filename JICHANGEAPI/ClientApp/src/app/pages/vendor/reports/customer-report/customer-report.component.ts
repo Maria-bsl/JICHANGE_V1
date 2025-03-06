@@ -7,24 +7,23 @@ import { TableDateFiltersComponent } from 'src/app/components/cards/table-date-f
 import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinite-spinner/loader-infinite-spinner.component';
 
 @Component({
-  selector: 'app-customer-report',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatPaginatorModule,
-    TableDateFiltersComponent,
-    MatDialogModule,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  templateUrl: './customer-report.component.html',
-  styleUrl: './customer-report.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-  ],
+    selector: 'app-customer-report',
+    imports: [
+        CommonModule,
+        MatPaginatorModule,
+        TableDateFiltersComponent,
+        MatDialogModule,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    templateUrl: './customer-report.component.html',
+    styleUrl: './customer-report.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+    ]
 })
 export class CustomerReportComponent implements OnInit {
   constructor() {}

@@ -82,43 +82,42 @@ import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-re
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-transaction-details',
-  templateUrl: './transaction-details.component.html',
-  styleUrls: ['./transaction-details.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    RemoveItemDialogComponent,
-    TableDateFiltersComponent,
-    SuccessMessageBoxComponent,
-    ReactiveFormsModule,
-    TranslocoModule,
-    MatDialogModule,
-    RouterModule,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTableExporterModule,
-    MatTooltipModule,
-    ReportFormDetailsComponent,
-    ReportFormInvoiceDetailsComponent,
-    MatIconModule,
-  ],
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-transaction-details',
+    templateUrl: './transaction-details.component.html',
+    styleUrls: ['./transaction-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        RemoveItemDialogComponent,
+        TableDateFiltersComponent,
+        SuccessMessageBoxComponent,
+        ReactiveFormsModule,
+        TranslocoModule,
+        MatDialogModule,
+        RouterModule,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTableExporterModule,
+        MatTooltipModule,
+        ReportFormDetailsComponent,
+        ReportFormInvoiceDetailsComponent,
+        MatIconModule,
+    ],
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class TransactionDetailsComponent implements OnInit {
   public headersFormGroup!: FormGroup;

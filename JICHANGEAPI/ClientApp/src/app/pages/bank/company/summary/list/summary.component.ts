@@ -79,42 +79,41 @@ import { MatIconModule } from '@angular/material/icon';
 import { TableColumnsComponent } from 'src/app/reusables/table-columns/table-columns.component';
 
 @Component({
-  selector: 'app-summary',
-  templateUrl: './summary.component.html',
-  styleUrls: ['./summary.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    RouterModule,
-    TranslocoModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    LoaderRainbowComponent,
-    ReactiveFormsModule,
-    SuccessMessageBoxComponent,
-    DisplayMessageBoxComponent,
-    MatTableModule,
-    MatSortModule,
-    MatListModule,
-    MatTableExporterModule,
-    MatTooltipModule,
-    AddItemButtonComponent,
-    MatIconModule,
-  ],
-  schemas: [NO_ERRORS_SCHEMA],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/company', alias: 'company' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-summary',
+    templateUrl: './summary.component.html',
+    styleUrls: ['./summary.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        RouterModule,
+        TranslocoModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        LoaderRainbowComponent,
+        ReactiveFormsModule,
+        SuccessMessageBoxComponent,
+        DisplayMessageBoxComponent,
+        MatTableModule,
+        MatSortModule,
+        MatListModule,
+        MatTableExporterModule,
+        MatTooltipModule,
+        AddItemButtonComponent,
+        MatIconModule,
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/company', alias: 'company' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class SummaryComponent implements OnInit {
   public startLoading: boolean = false;

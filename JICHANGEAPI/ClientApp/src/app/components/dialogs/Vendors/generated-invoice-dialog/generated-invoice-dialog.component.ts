@@ -27,22 +27,21 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-generated-invoice-dialog',
-  templateUrl: './generated-invoice-dialog.component.html',
-  styleUrls: ['./generated-invoice-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/generated', alias: 'generated' },
-    },
-  ],
+    selector: 'app-generated-invoice-dialog',
+    templateUrl: './generated-invoice-dialog.component.html',
+    styleUrls: ['./generated-invoice-dialog.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/generated', alias: 'generated' },
+        },
+    ]
 })
 export class GeneratedInvoiceDialogComponent implements OnInit {
   @ViewChild('displayMessageBox')

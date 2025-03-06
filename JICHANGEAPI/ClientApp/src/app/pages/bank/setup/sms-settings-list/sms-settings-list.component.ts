@@ -52,37 +52,36 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-item-button.component';
 
 @Component({
-  selector: 'app-sms-settings-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    RemoveItemDialogComponent,
-    MatIconModule,
-    AddItemButtonComponent,
-  ],
-  templateUrl: './sms-settings-list.component.html',
-  styleUrl: './sms-settings-list.component.scss',
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
+    selector: 'app-sms-settings-list',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        RemoveItemDialogComponent,
+        MatIconModule,
+        AddItemButtonComponent,
+    ],
+    templateUrl: './sms-settings-list.component.html',
+    styleUrl: './sms-settings-list.component.scss',
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ]
 })
 export class SmsSettingsListComponent implements OnInit {
   public startLoading: boolean = false;

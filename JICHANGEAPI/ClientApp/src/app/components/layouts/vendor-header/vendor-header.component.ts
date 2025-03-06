@@ -55,22 +55,21 @@ type Header = {
 };
 
 @Component({
-  selector: 'app-vendor-header',
-  templateUrl: './vendor-header.component.html',
-  styleUrls: ['./vendor-header.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
-  imports: [
-    CommonModule,
-    RouterModule,
-    LanguageSelectorComponent,
-    TranslocoModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    NgxLoadingModule,
-    MatIconModule,
-  ],
+    selector: 'app-vendor-header',
+    templateUrl: './vendor-header.component.html',
+    styleUrls: ['./vendor-header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: { scope: 'auth' } }],
+    imports: [
+        CommonModule,
+        RouterModule,
+        LanguageSelectorComponent,
+        TranslocoModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        NgxLoadingModule,
+        MatIconModule,
+    ]
 })
 export class VendorHeaderComponent implements OnInit {
   private idleState = 'Not started.';

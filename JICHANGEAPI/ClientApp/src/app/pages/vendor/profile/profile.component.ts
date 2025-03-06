@@ -58,32 +58,31 @@ enum PROFILE_OPTIONS {
 }
 
 @Component({
-  selector: 'app-profile',
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    SubmitMessageBoxComponent,
-    ReactiveFormsModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'auth', alias: 'auth' },
-    },
-  ],
+    selector: 'app-profile',
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        SubmitMessageBoxComponent,
+        ReactiveFormsModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    templateUrl: './profile.component.html',
+    styleUrl: './profile.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'auth', alias: 'auth' },
+        },
+    ]
 })
 export class ProfileComponent implements OnInit {
   public languages: { imgUrl: string; code: string; name: string }[] = [

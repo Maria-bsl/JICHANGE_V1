@@ -40,25 +40,24 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankLoginResponse } from 'src/app/core/models/login-response';
 
 @Component({
-  selector: 'app-deposit-account-dialog',
-  templateUrl: './deposit-account-dialog.component.html',
-  styleUrls: ['./deposit-account-dialog.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-deposit-account-dialog',
+    templateUrl: './deposit-account-dialog.component.html',
+    styleUrls: ['./deposit-account-dialog.component.scss'],
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class DepositAccountDialogComponent implements OnInit {
   public startLoading: boolean = false;

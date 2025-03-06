@@ -80,38 +80,37 @@ import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-re
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-invoice-details',
-  templateUrl: './invoice-details.component.html',
-  styleUrls: ['./invoice-details.component.scss'],
-  standalone: true,
-  imports: [
-    TranslocoModule,
-    CommonModule,
-    MatDialogModule,
-    TableDateFiltersComponent,
-    MatPaginatorModule,
-    ReactiveFormsModule,
-    LoaderRainbowComponent,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    ReportFormDetailsComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-invoice-details',
+    templateUrl: './invoice-details.component.html',
+    styleUrls: ['./invoice-details.component.scss'],
+    imports: [
+        TranslocoModule,
+        CommonModule,
+        MatDialogModule,
+        TableDateFiltersComponent,
+        MatPaginatorModule,
+        ReactiveFormsModule,
+        LoaderRainbowComponent,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        ReportFormDetailsComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class InvoiceDetailsComponent implements OnInit {
   public filterFormData: {

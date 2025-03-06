@@ -64,39 +64,38 @@ import { AddItemButtonComponent } from 'src/app/reusables/add-item-button/add-it
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-customer-view',
-  templateUrl: './customer-view.component.html',
-  styleUrls: ['./customer-view.component.scss'],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/customer', alias: 'customer' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    CommonModule,
-    TranslocoModule,
-    MatDialogModule,
-    RouterModule,
-    RemoveItemDialogComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatTableModule,
-    MatSortModule,
-    MatTooltipModule,
-    AddItemButtonComponent,
-    MatIconModule,
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-customer-view',
+    templateUrl: './customer-view.component.html',
+    styleUrls: ['./customer-view.component.scss'],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/customer', alias: 'customer' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        CommonModule,
+        TranslocoModule,
+        MatDialogModule,
+        RouterModule,
+        RemoveItemDialogComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        MatPaginatorModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatTableModule,
+        MatSortModule,
+        MatTooltipModule,
+        AddItemButtonComponent,
+        MatIconModule,
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class CustomerViewComponent implements OnInit {
   public startLoading: boolean = false;

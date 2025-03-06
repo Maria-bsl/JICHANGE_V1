@@ -55,28 +55,27 @@ import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankLoginResponse } from 'src/app/core/models/login-response';
 
 @Component({
-  selector: 'app-company-summary-dialog',
-  templateUrl: './company-summary-dialog.component.html',
-  styleUrls: ['./company-summary-dialog.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    DisplayMessageBoxComponent,
-    SuccessMessageBoxComponent,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    LoaderRainbowComponent,
-    PhoneNumberInputComponent,
-    LoaderInfiniteSpinnerComponent,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/company', alias: 'company' },
-    },
-  ],
+    selector: 'app-company-summary-dialog',
+    templateUrl: './company-summary-dialog.component.html',
+    styleUrls: ['./company-summary-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        DisplayMessageBoxComponent,
+        SuccessMessageBoxComponent,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        LoaderRainbowComponent,
+        PhoneNumberInputComponent,
+        LoaderInfiniteSpinnerComponent,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/company', alias: 'company' },
+        },
+    ]
 })
 export class CompanySummaryDialogComponent implements OnInit {
   public startLoading: boolean = false;

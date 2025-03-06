@@ -74,35 +74,34 @@ import autoTable from 'jspdf-autotable';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-amendment',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatPaginatorModule,
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    ReportFormInvoiceDetailsComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  templateUrl: './amendment.component.html',
-  styleUrl: './amendment.component.scss',
-  schemas: [NO_ERRORS_SCHEMA],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-amendment',
+    imports: [
+        CommonModule,
+        MatPaginatorModule,
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        ReportFormInvoiceDetailsComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    templateUrl: './amendment.component.html',
+    styleUrl: './amendment.component.scss',
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class AmendmentComponent implements OnInit {
   public startLoading: boolean = false;

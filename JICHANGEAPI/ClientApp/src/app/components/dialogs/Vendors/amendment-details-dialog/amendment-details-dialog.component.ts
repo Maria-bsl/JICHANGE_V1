@@ -54,36 +54,35 @@ import {
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
-  selector: 'app-amendment-details-dialog',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './amendment-details-dialog.component.html',
-  styleUrl: './amendment-details-dialog.component.scss',
-  schemas: [NO_ERRORS_SCHEMA],
-  imports: [
-    CommonModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-    TranslocoModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    NativeDateModule,
-    MatIconModule,
-  ],
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-    },
-  ],
+    selector: 'app-amendment-details-dialog',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './amendment-details-dialog.component.html',
+    styleUrl: './amendment-details-dialog.component.scss',
+    schemas: [NO_ERRORS_SCHEMA],
+    imports: [
+        CommonModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+        TranslocoModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        NativeDateModule,
+        MatIconModule,
+    ],
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+        },
+    ]
 })
 export class AmendmentDetailsDialogComponent implements OnInit {
   public startLoading: boolean = false;

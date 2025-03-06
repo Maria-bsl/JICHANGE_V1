@@ -37,26 +37,25 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-transaction-details-view',
-  templateUrl: './transaction-details-view.component.html',
-  styleUrls: ['./transaction-details-view.component.scss'],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    TranslocoModule,
-    CommonModule,
-    MatDialogModule,
-    DisplayMessageBoxComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTooltipModule,
-    MatIconModule,
-  ],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-  ],
+    selector: 'app-transaction-details-view',
+    templateUrl: './transaction-details-view.component.html',
+    styleUrls: ['./transaction-details-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        TranslocoModule,
+        CommonModule,
+        MatDialogModule,
+        DisplayMessageBoxComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTooltipModule,
+        MatIconModule,
+    ],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+    ]
 })
 export class TransactionDetailsViewComponent
   implements OnInit, AfterViewChecked

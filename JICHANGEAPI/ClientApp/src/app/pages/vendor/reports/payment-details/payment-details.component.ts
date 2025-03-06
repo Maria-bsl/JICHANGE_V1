@@ -86,36 +86,35 @@ import autoTable from 'jspdf-autotable';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-payment-details',
-  standalone: true,
-  imports: [
-    MatPaginatorModule,
-    CommonModule,
-    ReactiveFormsModule,
-    DisplayMessageBoxComponent,
-    TranslocoModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    ReportFormInvoiceDetailsComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  templateUrl: './payment-details.component.html',
-  styleUrl: './payment-details.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-payment-details',
+    imports: [
+        MatPaginatorModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DisplayMessageBoxComponent,
+        TranslocoModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        ReportFormInvoiceDetailsComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    templateUrl: './payment-details.component.html',
+    styleUrl: './payment-details.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class PaymentDetailsComponent implements OnInit {
   public tableFormGroup!: FormGroup;

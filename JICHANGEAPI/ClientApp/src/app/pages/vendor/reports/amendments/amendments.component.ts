@@ -79,36 +79,35 @@ import { TableUtilities } from 'src/app/utilities/table-utilities';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-amendments',
-  standalone: true,
-  imports: [
-    MatPaginatorModule,
-    CommonModule,
-    TranslocoModule,
-    DisplayMessageBoxComponent,
-    ReactiveFormsModule,
-    LoaderRainbowComponent,
-    LoaderInfiniteSpinnerComponent,
-    MatTableModule,
-    MatSortModule,
-    ReportFormInvoiceDetailsComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  templateUrl: './amendments.component.html',
-  styleUrl: './amendments.component.scss',
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: VENDOR_TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    selector: 'app-amendments',
+    imports: [
+        MatPaginatorModule,
+        CommonModule,
+        TranslocoModule,
+        DisplayMessageBoxComponent,
+        ReactiveFormsModule,
+        LoaderRainbowComponent,
+        LoaderInfiniteSpinnerComponent,
+        MatTableModule,
+        MatSortModule,
+        ReportFormInvoiceDetailsComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    templateUrl: './amendments.component.html',
+    styleUrl: './amendments.component.scss',
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: VENDOR_TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
 })
 export class AmendmentsComponent implements OnInit {
   public startLoading: boolean = false;

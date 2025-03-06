@@ -3,11 +3,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as json from 'src/assets/temp/data.json';
 
 @Component({
-  selector: 'app-invoice-details-graph',
-  templateUrl: './invoice-details-graph.component.html',
-  styleUrls: ['./invoice-details-graph.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
+    selector: 'app-invoice-details-graph',
+    templateUrl: './invoice-details-graph.component.html',
+    styleUrls: ['./invoice-details-graph.component.scss'],
+    imports: [CommonModule]
 })
 export class InvoiceDetailsGraphComponent implements OnInit {
   private contentPlaceholder!: ElementRef;

@@ -16,11 +16,10 @@ import {
 import { AppUtilities } from 'src/app/utilities/app-utilities';
 
 @Component({
-  selector: 'app-date-picker-dialog',
-  templateUrl: './date-picker-dialog.component.html',
-  styleUrls: ['./date-picker-dialog.component.scss'],
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+    selector: 'app-date-picker-dialog',
+    templateUrl: './date-picker-dialog.component.html',
+    styleUrls: ['./date-picker-dialog.component.scss'],
+    imports: [ReactiveFormsModule, CommonModule]
 })
 export class DatePickerDialogComponent implements OnInit {
   formGroup!: FormGroup;

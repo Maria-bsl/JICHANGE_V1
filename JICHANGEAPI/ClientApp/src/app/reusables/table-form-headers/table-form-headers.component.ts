@@ -4,11 +4,10 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PerformanceUtils } from 'src/app/utilities/performance-utils';
 
 @Component({
-  selector: 'app-table-form-headers',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './table-form-headers.component.html',
-  styleUrl: './table-form-headers.component.scss',
+    selector: 'app-table-form-headers',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './table-form-headers.component.html',
+    styleUrl: './table-form-headers.component.scss'
 })
 export class TableFormHeadersComponent {
   @Input() public formGroup!: FormGroup;

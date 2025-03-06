@@ -46,32 +46,31 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-  selector: 'app-cancel-generated-invoice',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslocoModule,
-    LoaderInfiniteSpinnerComponent,
-    DisplayMessageBoxComponent,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  templateUrl: './cancel-generated-invoice.component.html',
-  styleUrl: './cancel-generated-invoice.component.scss',
-  schemas: [NO_ERRORS_SCHEMA],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-    },
-  ],
+    selector: 'app-cancel-generated-invoice',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        TranslocoModule,
+        LoaderInfiniteSpinnerComponent,
+        DisplayMessageBoxComponent,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    templateUrl: './cancel-generated-invoice.component.html',
+    styleUrl: './cancel-generated-invoice.component.scss',
+    schemas: [NO_ERRORS_SCHEMA],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+        },
+    ]
 })
 export class CancelGeneratedInvoiceComponent implements OnInit {
   public startLoading: boolean = false;

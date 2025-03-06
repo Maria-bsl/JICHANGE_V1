@@ -6,17 +6,16 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
-  selector: 'app-language-setup',
-  templateUrl: './language-setup.component.html',
-  styleUrls: ['./language-setup.component.scss'],
-  standalone: true,
-  imports: [CommonModule, TranslocoModule, NgxLoadingModule, MatDialogModule],
-  providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/setup', alias: 'setup' },
-    },
-  ],
+    selector: 'app-language-setup',
+    templateUrl: './language-setup.component.html',
+    styleUrls: ['./language-setup.component.scss'],
+    imports: [CommonModule, TranslocoModule, NgxLoadingModule, MatDialogModule],
+    providers: [
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/setup', alias: 'setup' },
+        },
+    ]
 })
 export class LanguageSetupComponent implements OnInit {
   constructor() {}

@@ -55,36 +55,35 @@ import { InvoiceReportForm } from 'src/app/core/models/vendors/forms/invoice-rep
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-cancelled-invoice-report',
-  standalone: true,
-  imports: [
-    TranslocoModule,
-    ReportFormInvoiceDetailsComponent,
-    AddInvoiceComponent,
-    ReactiveFormsModule,
-    CommonModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatSortModule,
-    DisplayMessageBoxComponent,
-    MatTableExporterModule,
-    MatIconModule,
-  ],
-  templateUrl: './cancelled-invoice-report.component.html',
-  styleUrl: './cancelled-invoice-report.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
-  providers: [
-    DatePipe,
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'bank/reports', alias: 'reports' },
-    },
-    {
-      provide: TABLE_DATA_SERVICE,
-      useClass: TableDataService,
-    },
-  ],
+    selector: 'app-cancelled-invoice-report',
+    imports: [
+        TranslocoModule,
+        ReportFormInvoiceDetailsComponent,
+        AddInvoiceComponent,
+        ReactiveFormsModule,
+        CommonModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatSortModule,
+        DisplayMessageBoxComponent,
+        MatTableExporterModule,
+        MatIconModule,
+    ],
+    templateUrl: './cancelled-invoice-report.component.html',
+    styleUrl: './cancelled-invoice-report.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
+    providers: [
+        DatePipe,
+        {
+            provide: TRANSLOCO_SCOPE,
+            useValue: { scope: 'bank/reports', alias: 'reports' },
+        },
+        {
+            provide: TABLE_DATA_SERVICE,
+            useClass: TableDataService,
+        },
+    ]
 })
 export class CancelledInvoiceReportComponent implements OnInit {
   public tableLoading: boolean = false;
