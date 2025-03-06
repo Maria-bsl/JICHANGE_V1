@@ -7,7 +7,9 @@ import {
   ElementRef,
   Inject,
   OnInit,
+  signal,
   ViewChild,
+  WritableSignal,
 } from '@angular/core';
 import {
   NavigationCancel,
@@ -34,6 +36,88 @@ import { TranslocoHttpLoader } from '../../../transloco-loader';
 import { AppUtilities } from '../../../utilities/app-utilities';
 import { zip } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
+import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';
+import { MatTreeNestedDataSource } from '@angular/material/tree';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
+
+interface FoodNode {
+  name: string;
+  children?: FoodNode[];
+  icon?: string;
+  routerLink?: string;
+}
+
+const TREE_DATA: FoodNode[] = [
+  {
+    name: 'Dashboard',
+    children: [],
+    icon: 'dashboard',
+    routerLink: '/vendor',
+  },
+  {
+    name: 'Customers',
+    children: [],
+    icon: 'storefront',
+    routerLink: '/vendor/customers',
+  },
+  {
+    name: 'Users',
+    children: [],
+    icon: 'group',
+    routerLink: '/vendor/company',
+  },
+  {
+    name: 'Invoices',
+    children: [
+      { name: 'Waitlist', routerLink: '/vendor/invoice/list' },
+      { name: 'Generated', routerLink: '/vendor/invoice/generated' },
+    ],
+    icon: 'summarize',
+  },
+  {
+    name: 'Reports',
+    icon: 'receipt_long',
+    children: [
+      {
+        name: 'Payments',
+        children: [],
+        routerLink: '/vendor/reports/transactions',
+      },
+      {
+        name: 'Completed Payments',
+        children: [],
+        routerLink: '/vendor/reports/invoice',
+      },
+      {
+        name: 'Invoice',
+        children: [],
+        routerLink: '/vendor/reports/payments',
+      },
+      {
+        name: 'Amendments',
+        children: [],
+        routerLink: '/vendor/reports/amendment',
+      },
+      {
+        name: 'Cancelled',
+        children: [],
+        routerLink: '/vendor/reports/cancelled',
+      },
+      {
+        name: 'Audit Trails',
+        children: [],
+        routerLink: '/vendor/reports/audit',
+      },
+    ],
+  },
+];
 
 @Component({
   selector: 'app-vendor',
@@ -50,51 +134,46 @@ import { MatIconModule } from '@angular/material/icon';
     NgxSonnerToaster,
     TranslocoModule,
     MatIconModule,
+    CdkAccordionModule,
   ],
-  animations: [vendorAnimations],
+  animations: [
+    vendorAnimations,
+    trigger('contentExpansion', [
+      state(
+        'expanded',
+        style({ height: '*', opacity: 1, visibility: 'visible' })
+      ),
+      state(
+        'collapsed',
+        style({ height: '0px', opacity: 0, visibility: 'hidden' })
+      ),
+      transition(
+        'expanded <=> collapsed',
+        animate('300ms cubic-bezier(.37,1.04,.68,.98)')
+      ),
+    ]),
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  /*providers: [
-    {
-      provide: TRANSLOCO_SCOPE,
-      useValue: { scope: 'vendor/dashboard', alias: 'panel' },
-    },
-  ],*/
 })
 export class VendorComponent implements OnInit, AfterViewInit {
   public routeLoading: boolean = false;
   @ViewChild('vendorHeader') vendorHeader!: VendorHeaderComponent;
   @ViewChild('containerDoc', { static: true })
   containerDoc!: ElementRef<HTMLDivElement>;
+  expanded: WritableSignal<boolean> = signal<boolean>(true);
+  treeControl = new NestedTreeControl<FoodNode>((node) => node.children);
+  dataSource = new MatTreeNestedDataSource<FoodNode>();
+  hasChild = (_: number, node: FoodNode) =>
+    !!node.children && node.children.length > 0;
   constructor(
     private breadcrumbService: BreadcrumbService,
     private router: Router,
     private tr: TranslocoService,
     private cdr: ChangeDetectorRef,
     @Inject(TRANSLOCO_SCOPE) private scope: any
-  ) {}
-  // private vendorRoutesNames(result: any) {
-  //   this.breadcrumbService.set('@profile', result.profile);
-  //   this.breadcrumbService.set('@vendor', result.home);
-  //   this.breadcrumbService.set('@customers', result.customer);
-  //   this.breadcrumbService.set('@view-customer', result.detail);
-  //   this.breadcrumbService.set(
-  //     '@view-customer-transactions',
-  //     result.viewCustomerTransactions
-  //   );
-  //   this.breadcrumbService.set('@company', result.users);
-  //   this.breadcrumbService.set('@invoice-created', result.created);
-  //   this.breadcrumbService.set('@invoice-amendments', result.amendment);
-  //   this.breadcrumbService.set('@invoice-cancelled', result.cancelled);
-  //   this.breadcrumbService.set('@invoice-generated', result.invoice);
-  //   this.breadcrumbService.set('@overview', result.overview);
-  //   this.breadcrumbService.set('@transactions', result.transactionsReport);
-  //   this.breadcrumbService.set('@transactions-id', result.detail);
-  //   this.breadcrumbService.set('@invoice', result.invoiceReport);
-  //   this.breadcrumbService.set('@payments', result.paymentReport);
-  //   this.breadcrumbService.set('@amendment', result.amendmentReport);
-  //   this.breadcrumbService.set('@customer', result.customerReport);
-  //   this.breadcrumbService.set('@addInvoice', result.addInvoice);
-  // }
+  ) {
+    this.dataSource.data = TREE_DATA;
+  }
   private prepareVendorRoutes(routes: any) {
     this.breadcrumbService.set(
       '@profile',
@@ -212,7 +291,7 @@ export class VendorComponent implements OnInit, AfterViewInit {
     //this.prepareVendorRoutes();
   }
   ngAfterViewInit(): void {
-    this.hideNavBarOnScroll();
+    //this.hideNavBarOnScroll();
     //this.prepareVendorRoutes();
     //this.createVendorRoutesTranslation();
   }

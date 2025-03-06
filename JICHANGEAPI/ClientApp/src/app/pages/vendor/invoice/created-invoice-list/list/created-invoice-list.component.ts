@@ -28,10 +28,12 @@ import {
   TranslocoModule,
   TranslocoService,
 } from '@ngneat/transloco';
+import { defer, finalize, from, switchMap } from 'rxjs';
 import { CancelGeneratedInvoiceComponent } from 'src/app/components/dialogs/Vendors/cancel-generated-invoice/cancel-generated-invoice.component';
 import { InvoiceDetailsDialogComponent } from 'src/app/components/dialogs/Vendors/invoice-details-dialog/invoice-details-dialog.component';
 import { InvoiceDetailsViewComponent } from 'src/app/components/dialogs/Vendors/invoice-details-view/invoice-details-view.component';
 import { DisplayMessageBoxComponent } from 'src/app/components/dialogs/display-message-box/display-message-box.component';
+import { PopupMessageDialogComponent } from 'src/app/components/dialogs/popup-message-dialog/popup-message-dialog.component';
 import { SubmitMessageBoxComponent } from 'src/app/components/dialogs/submit-message-box/submit-message-box.component';
 import { SuccessMessageBoxComponent } from 'src/app/components/dialogs/success-message-box/success-message-box.component';
 import {
@@ -46,6 +48,7 @@ import { AddInvoiceForm } from 'src/app/core/models/vendors/forms/add-invoice-fo
 import { GeneratedInvoice } from 'src/app/core/models/vendors/generated-invoice';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { FileHandlerService } from 'src/app/core/services/file-handler.service';
+import { LoadingService } from 'src/app/core/services/loading-service/loading.service';
 import { TableDataService } from 'src/app/core/services/table-data.service';
 import { InvoiceService } from 'src/app/core/services/vendor/invoice.service';
 import { VENDOR_TABLE_DATA_SERVICE } from 'src/app/core/tokens/tokens';
@@ -113,7 +116,8 @@ export class CreatedInvoiceListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     @Inject(VENDOR_TABLE_DATA_SERVICE)
     private tableDataService: TableDataService<GeneratedInvoice>,
-    @Inject(TRANSLOCO_SCOPE) private scope: any
+    @Inject(TRANSLOCO_SCOPE) private scope: any,
+    private _loading: LoadingService
   ) {}
   private createTableHeadersFormGroup() {
     let TABLE_SHOWING = 9;
@@ -394,11 +398,12 @@ export class CreatedInvoiceListComponent implements OnInit {
       let msg = this.tr.translate(
         'invoice.form.dialog.invoiceApprovedSuccessfully'
       );
-      AppUtilities.showSuccessMessage(
-        msg,
-        (e) => {},
-        this.tr.translate('actions.ok')
-      );
+      this.dialog.open(PopupMessageDialogComponent, {
+        data: {
+          state: 'success',
+          title: msg,
+        },
+      });
       let index = this.tableDataService
         .getDataSource()
         .data.findIndex(
@@ -410,23 +415,48 @@ export class CreatedInvoiceListComponent implements OnInit {
     }
   }
   private requestAddInvoiceForm(value: AddInvoiceForm) {
-    this.startLoading = true;
-    this.invoiceService
-      .addInvoice(value)
-      .then((results) => {
-        this.parseAddInvoiceResponse(results);
-        this.startLoading = false;
-        this.cdr.detectChanges();
-      })
-      .catch((err) => {
-        AppUtilities.requestFailedCatchError(
-          err,
-          this.displayMessageBox,
-          this.tr
-        );
-        this.startLoading = false;
-        this.cdr.detectChanges();
-        throw err;
+    // this.startLoading = true;
+    // this.invoiceService
+    //   .addInvoice(value)
+    //   .then((results) => {
+    //     this.parseAddInvoiceResponse(results);
+    //     this.startLoading = false;
+    //     this.cdr.detectChanges();
+    //   })
+    //   .catch((err) => {
+    //     AppUtilities.requestFailedCatchError(
+    //       err,
+    //       this.displayMessageBox,
+    //       this.tr
+    //     );
+    //     this.startLoading = false;
+    //     this.cdr.detectChanges();
+    //     throw err;
+    //   });
+    this._loading
+      .beginLoading()
+      .pipe(
+        switchMap((ref) =>
+          defer(() => from(this.invoiceService.addInvoice(value))).pipe(
+            finalize(() => ref && ref.close())
+          )
+        )
+      )
+      .subscribe({
+        next: (value) => {
+          this.parseAddInvoiceResponse(value);
+          this.startLoading = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          AppUtilities.requestFailedCatchError(
+            err,
+            this.displayMessageBox,
+            this.tr
+          );
+          this.startLoading = false;
+          this.cdr.detectChanges();
+        },
       });
   }
   private parseApproveInvoiceResponse(
@@ -442,7 +472,6 @@ export class CreatedInvoiceListComponent implements OnInit {
         this.tr.translate(`defaults.failed`),
         errorMessage
       );
-      this.startLoading = false;
       this.cdr.detectChanges();
     } else {
       let formGroup = this.prepareInvoiceFormGroup();
@@ -455,25 +484,30 @@ export class CreatedInvoiceListComponent implements OnInit {
     }
   }
   private requestApproveInvoice(invoice: GeneratedInvoice) {
-    let compid = this.getUserProfile().InstID;
-    let inv = invoice.Inv_Mas_Sno;
-    this.startLoading = true;
-    this.invoiceService
-      .findInvoice({ compid: compid, inv: inv })
-      .then((result) => {
-        this.parseApproveInvoiceResponse(result);
-        this.startLoading = false;
-        this.cdr.detectChanges();
-      })
-      .catch((err) => {
-        AppUtilities.requestFailedCatchError(
-          err,
-          this.displayMessageBox,
-          this.tr
-        );
-        this.startLoading = false;
-        this.cdr.detectChanges();
-        throw err;
+    const compid = this.getUserProfile().InstID;
+    const inv = invoice.Inv_Mas_Sno;
+    this._loading
+      .beginLoading()
+      .pipe(
+        switchMap((ref) =>
+          defer(() =>
+            from(this.invoiceService.findInvoice({ compid: compid, inv: inv }))
+          ).pipe(finalize(() => ref && ref.close()))
+        )
+      )
+      .subscribe({
+        next: (value) => {
+          this.parseApproveInvoiceResponse(value);
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          AppUtilities.requestFailedCatchError(
+            err,
+            this.displayMessageBox,
+            this.tr
+          );
+          this.cdr.detectChanges();
+        },
       });
   }
   private examineActivatedRoute() {

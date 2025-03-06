@@ -19,7 +19,8 @@
     "all": "Yote",
     "optional": "Hiari",
     "pleaseFill": "Tafadhali jaza",
-    "send": "Tuma"
+    "send": "Tuma",
+    "loading": "Subiri"
   },
   "forms": {
     "from": "Kutoka",

@@ -20,7 +20,8 @@
     "all": "All",
     "optional": "Optional",
     "pleaseFill": "Please fill",
-    "send": "Send"
+    "send": "Send",
+    "loading": "Loading"
   },
   "forms": {
     "from": "From",

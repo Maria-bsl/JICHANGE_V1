@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestClientService } from '../request-client.service';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { AddInvoiceForm } from '../../models/vendors/forms/add-invoice-form';
 import { HttpDataResponse } from '../../models/http-data-response';
 import { GeneratedInvoice } from '../../models/vendors/generated-invoice';
@@ -9,12 +9,14 @@ import { CustomerName } from '../../models/vendors/customer-name';
 import { AmendInvoiceForm } from '../../models/vendors/forms/amend-invoice-form';
 import { Currency } from '../../models/vendors/currency';
 import { DashboardOverviewStatistic } from '../../models/bank/reports/dashboard-overview-statistic';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvoiceService {
-  constructor(private client: RequestClientService) {}
+  constructor(private client: RequestClientService, private http: HttpClient) {}
   public async postSignedDetails(body: { compid: number }) {
     let data = await lastValueFrom(
       this.client.performPost<
@@ -171,5 +173,14 @@ export class InvoiceService {
       )
     );
     return data;
+  }
+  public downloadInvoice(params: any): Observable<Blob> {
+    return this.http.post(
+      `${environment.baseUrl}/api/Invoice/downloadInvoice`,
+      params,
+      {
+        responseType: 'blob',
+      }
+    );
   }
 }

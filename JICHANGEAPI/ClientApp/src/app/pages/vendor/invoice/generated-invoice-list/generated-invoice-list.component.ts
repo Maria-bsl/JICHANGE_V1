@@ -51,7 +51,7 @@ import { GeneratedInvoiceListTable } from 'src/app/core/enums/vendor/invoices/ge
 import { TableUtilities } from 'src/app/utilities/table-utilities';
 import { AmendmentDetailsDialogComponent } from 'src/app/components/dialogs/Vendors/amendment-details-dialog/amendment-details-dialog.component';
 import { RefundInvoiceComponent } from 'src/app/components/dialogs/Vendors/refund-invoice/refund-invoice.component';
-import { Observable, map, of } from 'rxjs';
+import { Observable, filter, map, of, tap } from 'rxjs';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { TableColumnsData } from 'src/app/core/models/table-columns-data';
 import * as json from 'src/assets/temp/data.json';
@@ -493,29 +493,49 @@ export class GeneratedInvoiceListComponent implements OnInit {
   }
   //saves a copy of an invoice to the local machine
   downloadInvoice(generatedInvoice: GeneratedInvoice) {
-    let dialogRef = this.dialog.open(GeneratedInvoiceViewComponent, {
-      width: '800px',
-      height: '700px',
-      data: {
-        Inv_Mas_Sno: generatedInvoice.Inv_Mas_Sno,
-        userProfile: this.getUserProfile(),
-      },
-    });
-    dialogRef.componentInstance.viewReady.asObservable().subscribe((view) => {
-      this.fileHandler
-        .downloadPdf(view, `invoice-${generatedInvoice.Invoice_No}.pdf`)
-        .then((results) => {
-          this.cdr.detectChanges();
-        })
-        .catch((err) => {
-          AppUtilities.openDisplayMessageBox(
-            this.displayMessageBox,
-            this.tr.translate(`errors.errorOccured`),
-            this.tr.translate(`generated.errors.failedToDownload`)
-          );
-          throw err;
-        });
-    });
+    // let dialogRef = this.dialog.open(GeneratedInvoiceViewComponent, {
+    //   width: '800px',
+    //   height: '700px',
+    //   data: {
+    //     Inv_Mas_Sno: generatedInvoice.Inv_Mas_Sno,
+    //     userProfile: this.getUserProfile(),
+    //   },
+    // });
+    // dialogRef.componentInstance.viewReady.asObservable().subscribe((view) => {
+    //   this.fileHandler
+    //     .downloadPdf(view, `invoice-${generatedInvoice.Invoice_No}.pdf`)
+    //     .then((results) => {
+    //       this.cdr.detectChanges();
+    //     })
+    //     .catch((err) => {
+    //       AppUtilities.openDisplayMessageBox(
+    //         this.displayMessageBox,
+    //         this.tr.translate(`errors.errorOccured`),
+    //         this.tr.translate(`generated.errors.failedToDownload`)
+    //       );
+    //       throw err;
+    //     });
+    // });
+    const params = {
+      compid: generatedInvoice.Com_Mas_Sno,
+      invId: generatedInvoice.Inv_Mas_Sno,
+      lang: this.tr.getActiveLang(),
+    };
+    this.invoiceService
+      .downloadInvoice(params)
+      .pipe(filter((res) => !(res instanceof HttpDataResponse)))
+      .subscribe({
+        next: (value) => {
+          const filename = `invoice_${generatedInvoice.Invoice_No}.pdf`;
+          const blobUrl = window.URL.createObjectURL(value);
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = filename;
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(blobUrl);
+        },
+      });
   }
   //returns a form control given a name
   getFormControl(control: AbstractControl, name: string) {

@@ -1400,7 +1400,7 @@ namespace JichangeApi.Services
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                 {
-                    FileName = "invoice.pdf"
+                    FileName = $"invoice_{invoice.Control_No}.pdf"
                 };
 
                 return response;

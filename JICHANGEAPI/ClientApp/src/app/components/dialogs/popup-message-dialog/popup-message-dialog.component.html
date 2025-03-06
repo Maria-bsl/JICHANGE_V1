@@ -1,0 +1,47 @@
+@if (data.state === 'success') {
+<div id="success-element">
+  <div class="container">
+    <div>
+      <mat-icon matPrefix>check_circle</mat-icon>
+      <h6 class="mat-title-large" *transloco="let t; read: 'defaults'">
+        {{ t("success") }}
+      </h6>
+    </div>
+    <div>
+      <h6 class="mat-body-small">
+        {{ data.message }}
+      </h6>
+      <button
+        (click)="closePopup($event)"
+        *transloco="let t; read: 'actions'"
+        mat-flat-button
+      >
+        {{ t("ok") }}
+      </button>
+    </div>
+  </div>
+</div>
+} @else if (data.state === 'error') {
+<div id="error-element">
+  <div class="container">
+    <div>
+      <mat-icon matPrefix>cancel</mat-icon>
+      <h6 class="mat-title-large" *transloco="let t; read: 'defaults'">
+        {{ t("failed") }}
+      </h6>
+    </div>
+    <div>
+      <h6 class="mat-body-small">
+        {{ data.message }}
+      </h6>
+      <button
+        (click)="closePopup($event)"
+        *transloco="let t; read: 'actions'"
+        mat-button
+      >
+        {{ t("ok") }}
+      </button>
+    </div>
+  </div>
+</div>
+}
