@@ -194,20 +194,11 @@ const routes: Routes = [
             children: [
               {
                 path: '',
-                redirectTo: 'overview',
+                redirectTo: 'transactions',
                 pathMatch: 'full',
               },
               {
                 path: 'overview',
-                /*loadComponent: () =>
-                  import(
-                    '../../../pages/vendor/reports/overview/overview.component'
-                  ).then((c) => c.OverviewComponent),*/
-                // component: OverviewComponent,
-                // data: {
-                //   breadcrumb: { alias: 'overview', skip: false },
-                //   animationState: 'reports-module-1',
-                // },
                 redirectTo: 'transactions',
                 pathMatch: 'full',
               },

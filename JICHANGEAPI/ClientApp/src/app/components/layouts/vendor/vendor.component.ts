@@ -73,6 +73,7 @@ import {
 } from '@angular/forms';
 import { LanguagesPipe } from 'src/app/core/pipes/languages-pipe/languages.pipe';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { InvoiceService } from 'src/app/core/services/vendor/invoice.service';
 
 export interface ILanguage {
   code: string;
@@ -216,6 +217,7 @@ export class VendorComponent implements OnInit, AfterViewInit {
   formGroup: FormGroup = this._fb.group({
     language: this._fb.control(localStorage.getItem('activeLang') ?? 'en', []),
   });
+  public vendor$!: Observable<{ Comp_Mas_Sno: number; Company_Name: string }>;
   constructor(
     private breadcrumbService: BreadcrumbService,
     private router: Router,
@@ -224,11 +226,24 @@ export class VendorComponent implements OnInit, AfterViewInit {
     private appConfig: AppConfigService,
     private companyUserService: CompanyUserService,
     private _fb: FormBuilder,
+    private _invoices: InvoiceService,
     @Inject(TRANSLOCO_SCOPE) private scope: any
   ) {
     this.registerIcons();
     this.dataSource.data = TREE_DATA;
     this.languageValueChanged();
+    this.requestCompanyName();
+  }
+  private requestCompanyName() {
+    this.vendor$ = from(
+      this._invoices.getCompanyS({ compid: this.userProfile.InstID })
+    ).pipe(
+      filter((res) => !AppUtilities.hasErrorResult(res)),
+      map(
+        (res) => res.response as { Comp_Mas_Sno: number; Company_Name: string }
+      ),
+      shareReplay()
+    );
   }
   private languageValueChanged() {
     // this.tr.setActiveLang(lang.code);
@@ -398,7 +413,9 @@ export class VendorComponent implements OnInit, AfterViewInit {
     if (index > 2) {
       accordionItem.toggle();
     } else {
-      data.routerLink && this.router.navigate([data.routerLink]);
+      data.routerLink !== '/vendor/reports' &&
+        data.routerLink !== '/vendor/invoice' &&
+        this.router.navigate([data.routerLink]);
     }
   }
   changeLanguage(event: MouseEvent, value: string) {

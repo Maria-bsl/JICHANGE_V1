@@ -89,10 +89,11 @@
             <a
               [routerLink]="data.routerLink"
               routerLinkActive="bg-[var(--mat-sys-primary)] text-[var(--mat-sys-on-primary)]"
-              class="relative py-2 px-2 w-full flex flex-row items-center justify-between rounded-md transition-colors ease-in-out cursor-pointer"
+              (click)="$event.stopImmediatePropagation()"
+              class="relative py-2 px-2 h-12 w-full flex flex-row items-center justify-between rounded-md transition-colors ease-in-out cursor-pointer"
             >
               <div
-                class="w-full h-full z-50 flex flex-row items-center justify-between"
+                class="w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 flex flex-row items-center justify-between"
                 (click)="
                   $event.stopImmediatePropagation();
                   handleExpandedSidebarItemClicked(
@@ -107,7 +108,7 @@
                   class="flex flex-row items-center h-full text-sm font-normal space-x-2"
                 >
                   <mat-icon>{{ data.icon }}</mat-icon>
-                  <h6>{{ data.name }}</h6>
+                  <h6 class="mat-label-large">{{ data.name }}</h6>
                 </span>
                 <span>
                   <mat-icon
@@ -123,7 +124,7 @@
               </div>
             </a>
             <ul
-              class="example-accordion-item-body"
+              class="flex flex-col pl-8 justify-center"
               role="region"
               [attr.id]="'accordion-body-' + ind"
               [attr.aria-labelledby]="'accordion-header-' + ind"
@@ -133,12 +134,15 @@
             >
               <ng-container *ngIf="data.children">
                 <li
-                  [routerLink]="childNode.routerLink"
-                  routerLinkActive="text-[var(--mat-sys-primary)]"
-                  class="py-2 pl-8"
+                  class="relative h-8 w-full"
                   *ngFor="let childNode of data.children; index as i"
                 >
-                  <a>{{ childNode.name }}</a>
+                  <a
+                    routerLinkActive="text-[var(--mat-sys-primary)]"
+                    [routerLink]="childNode.routerLink"
+                    class="py-2 w-full h-full absolute top-0 left-0 right-0 bottom-0 z-50 mat-label-large"
+                    >{{ childNode.name }}</a
+                  >
                 </li>
               </ng-container>
             </ul>
@@ -160,10 +164,7 @@
               routerLinkActive="text-[var(--mat-sys-primary)]"
               class="relative py-2 px-2 w-full grid place-items-center rounded-md transition-colors cursor-pointer"
             >
-              <span
-                class="w-full h-full z-50 grid place-items-center"
-                (click)="handleSidebarItemClicked($event, accordionItem, data)"
-              >
+              <span class="w-full h-full z-50 grid place-items-center">
                 <mat-icon>{{ data.icon }}</mat-icon>
               </span>
             </a>
@@ -212,7 +213,7 @@
       class="absolute top-0 left-0 right-0 bottom-0 w-full h-full flex flex-col space-y-2 overflow-x-hidden overflow-y-auto"
     >
       <div
-        class="w-full h-12 flex-none flex flex-row items-center justify-between px-6 bg-[var(--mat-sys-background)]"
+        class="w-full h-16 py-1.5 flex-none flex flex-row items-center justify-between px-6 bg-[var(--mat-sys-background)]"
       >
         <div class="py-2">
           <!-- <label class="input input-sm input-bordered flex items-center gap-2">
@@ -234,6 +235,23 @@
               />
             </svg>
           </label> -->
+          <button
+            [routerLink]="'/vendor'"
+            *ngIf="vendor$ | async as vendor"
+            class="flex items-center btn btn-ghost bg-white group group-hover:bg-darkPurple w-fit space-x-2 relative"
+          >
+            <img
+              class="object-contain max-h-full max-w-max"
+              src="assets/img/logo.png"
+              alt="TE Logo"
+              loading="lazy"
+            />
+            <h1
+              class="text-lg head-title lg:block hidden group-hover:text-white"
+            >
+              {{ vendor.Company_Name }}
+            </h1>
+          </button>
         </div>
         <div class="flex flex-row items-center space-x-4">
           <div class="avatar avatar-placeholder">
@@ -241,9 +259,10 @@
               class="bg-[var(--mat-sys-primary)] relative text-neutral-content w-8 rounded-full"
             >
               <span class="w-full h-full absolute grid place-items-center">
-                <span class="mat-title-small">{{
-                  fullNameAcronym$ | async
-                }}</span>
+                <span
+                  class="mat-title-small text-[var(--mat-sys-on-primary)]"
+                  >{{ fullNameAcronym$ | async }}</span
+                >
               </span>
             </div>
           </div>
