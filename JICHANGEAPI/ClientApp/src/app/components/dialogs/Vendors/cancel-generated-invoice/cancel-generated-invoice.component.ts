@@ -46,31 +46,31 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-    selector: 'app-cancel-generated-invoice',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        TranslocoModule,
-        LoaderInfiniteSpinnerComponent,
-        DisplayMessageBoxComponent,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSelectModule,
-        MatRadioModule,
-    ],
-    templateUrl: './cancel-generated-invoice.component.html',
-    styleUrl: './cancel-generated-invoice.component.scss',
-    schemas: [NO_ERRORS_SCHEMA],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        DatePipe,
-        {
-            provide: TRANSLOCO_SCOPE,
-            useValue: { scope: 'vendor/invoice', alias: 'invoice' },
-        },
-    ]
+  selector: 'app-cancel-generated-invoice',
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslocoModule,
+    LoaderInfiniteSpinnerComponent,
+    DisplayMessageBoxComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatRadioModule,
+  ],
+  templateUrl: './cancel-generated-invoice.component.html',
+  styleUrl: './cancel-generated-invoice.component.scss',
+  schemas: [NO_ERRORS_SCHEMA],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    DatePipe,
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: { scope: 'vendor/invoice', alias: 'invoice' },
+    },
+  ],
 })
 export class CancelGeneratedInvoiceComponent implements OnInit {
   public startLoading: boolean = false;
@@ -126,17 +126,6 @@ export class CancelGeneratedInvoiceComponent implements OnInit {
       details: this.fb.array([], []),
     });
   }
-  private formErrors(
-    path: string = 'invoice.createdInvoice.cancelInvoice.form.dialog'
-  ) {
-    if (this.reason.invalid) {
-      AppUtilities.openDisplayMessageBox(
-        this.displayMessageBox,
-        this.tr.translate(`errors.invalidForm`),
-        this.tr.translate(`${path}.reason`)
-      );
-    }
-  }
   private appendItems(details: GeneratedInvoice[]) {
     if (details.length > 0) {
       details.forEach((item) => {
@@ -191,17 +180,17 @@ export class CancelGeneratedInvoiceComponent implements OnInit {
       let path = '/vendor/reports/cancelled';
       let invoice = result.response as GeneratedInvoice;
       let queryParams = { invoiceId: btoa(invoice.Inv_Mas_Sno.toString()) };
-      let message = this.tr.translate(
-        `invoice.createdInvoice.cancelInvoice.cancelledSuccessfully`
-      );
-      AppUtilities.showSuccessMessage(
-        message,
-        () =>
-          this.router.navigate([path], {
-            queryParams: queryParams,
-          }),
-        this.tr.translate('actions.view')
-      );
+      // let message = this.tr.translate(
+      //   `invoice.createdInvoice.cancelInvoice.cancelledSuccessfully`
+      // );
+      // AppUtilities.showSuccessMessage(
+      //   message,
+      //   () =>
+      //     this.router.navigate([path], {
+      //       queryParams: queryParams,
+      //     }),
+      //   this.tr.translate('actions.view')
+      // );
       this.cancelledInvoice.emit(this.data.invid);
     }
   }

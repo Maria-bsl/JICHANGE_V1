@@ -13,22 +13,27 @@ import { InvoiceConsolidatedReport } from 'src/app/core/models/bank/reports/invo
 import { InvoiceReportForm } from 'src/app/core/models/vendors/forms/invoice-report-form';
 import { CustomerDetailsForm } from 'src/app/core/models/bank/reports/customer-details-form';
 import { InvoiceDetailsForm } from 'src/app/core/models/vendors/forms/payment-report-form';
+import { RETURN } from 'mat-table-exporter';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReportsService {
   constructor(private client: RequestClientService) {}
-  public async postCustomerDetailsReport(
+  public postCustomerDetailsReport(
     body: VendorDetailsReportForm | CustomerDetailsForm
   ) {
-    let data = await lastValueFrom(
-      this.client.performPost<
-        VendorDetailsReportForm | CustomerDetailsForm,
-        HttpDataResponse<Customer[] | string | number>
-      >(`/api/RepCustomer/getcustdetreport`, body)
-    );
-    return data;
+    // let data = await lastValueFrom(
+    //   this.client.performPost<
+    //     VendorDetailsReportForm | CustomerDetailsForm,
+    //     HttpDataResponse<Customer[] | string | number>
+    //   >(`/api/RepCustomer/getcustdetreport`, body)
+    // );
+    // return data;
+    return this.client.performPost<
+      VendorDetailsReportForm | CustomerDetailsForm,
+      HttpDataResponse<Customer[] | string | number>
+    >(`/api/RepCustomer/getcustdetreport`, body);
   }
   public async getCustomerDetailsList(body: { Sno: string | number }) {
     let data = await lastValueFrom(

@@ -31,7 +31,16 @@ import {
   TRANSLOCO_SCOPE,
   TranslocoModule,
 } from '@ngneat/transloco';
-import { TimeoutError } from 'rxjs';
+import {
+  catchError,
+  EMPTY,
+  filter,
+  finalize,
+  map,
+  of,
+  switchMap,
+  TimeoutError,
+} from 'rxjs';
 import { CompanyUsersDialogComponent } from 'src/app/components/dialogs/Vendors/company-users-dialog/company-users-dialog.component';
 import { BankUserDialogComponent } from 'src/app/components/dialogs/bank/setup/bank-user-dialog/bank-user-dialog.component';
 import { DisplayMessageBoxComponent } from 'src/app/components/dialogs/display-message-box/display-message-box.component';
@@ -45,6 +54,7 @@ import { CompanyUser } from 'src/app/core/models/vendors/company-user';
 import { GetCompanyByIdForm } from 'src/app/core/models/vendors/forms/get-company-user-by-id-form';
 import { AppConfigService } from 'src/app/core/services/app-config.service';
 import { BankService } from 'src/app/core/services/bank/setup/bank/bank.service';
+import { LoadingService } from 'src/app/core/services/loading-service/loading.service';
 import { LoginService } from 'src/app/core/services/login.service';
 import { CompanyUserService } from 'src/app/core/services/vendor/company-user.service';
 import { LoaderInfiniteSpinnerComponent } from 'src/app/reusables/loader-infinite-spinner/loader-infinite-spinner.component';
@@ -58,31 +68,31 @@ enum PROFILE_OPTIONS {
 }
 
 @Component({
-    selector: 'app-profile',
-    imports: [
-        CommonModule,
-        TranslocoModule,
-        SubmitMessageBoxComponent,
-        ReactiveFormsModule,
-        LoaderInfiniteSpinnerComponent,
-        DisplayMessageBoxComponent,
-        MatDialogModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSelectModule,
-        MatRadioModule,
-    ],
-    templateUrl: './profile.component.html',
-    styleUrl: './profile.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: TRANSLOCO_SCOPE,
-            useValue: { scope: 'auth', alias: 'auth' },
-        },
-    ]
+  selector: 'app-profile',
+  imports: [
+    CommonModule,
+    TranslocoModule,
+    SubmitMessageBoxComponent,
+    ReactiveFormsModule,
+    LoaderInfiniteSpinnerComponent,
+    DisplayMessageBoxComponent,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatRadioModule,
+  ],
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: { scope: 'auth', alias: 'auth' },
+    },
+  ],
 })
 export class ProfileComponent implements OnInit {
   public languages: { imgUrl: string; code: string; name: string }[] = [
@@ -120,6 +130,7 @@ export class ProfileComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private dialog: MatDialog,
     private loginService: LoginService,
+    private _loading: LoadingService,
     @Inject(TRANSLOCO_SCOPE) private scope: any
   ) {}
   private passwordsMatchValidator(formGroup: FormGroup): ValidatorFn {
@@ -180,30 +191,54 @@ export class ProfileComponent implements OnInit {
     this.generalFormGroup.disable();
   }
   private requestEmployeeDetail(body: GetCompanyByIdForm) {
-    this.startLoading = true;
-    this.companyUserService
-      .getCompanyUserByid(body)
-      .then((result) => {
-        if (
-          result.response &&
-          typeof result.response !== 'number' &&
-          typeof result.response !== 'boolean'
-        ) {
-          this.companyUser = result.response as CompanyUser;
-          this.setGeneralFormGroupData();
-        }
-        this.startLoading = false;
-        this.cdr.detectChanges();
-      })
-      .catch((err) => {
-        AppUtilities.requestFailedCatchError(
-          err,
-          this.displayMessageBox,
-          this.tr
-        );
-        this.startLoading = false;
-        this.cdr.detectChanges();
-        throw err;
+    // this.startLoading = true;
+    // this.companyUserService
+    //   .getCompanyUserByid(body)
+    //   .then((result) => {
+    //     if (
+    //       result.response &&
+    //       typeof result.response !== 'number' &&
+    //       typeof result.response !== 'boolean'
+    //     ) {
+    //       this.companyUser = result.response as CompanyUser;
+    //       this.setGeneralFormGroupData();
+    //     }
+    //     this.startLoading = false;
+    //     this.cdr.detectChanges();
+    //   })
+    //   .catch((err) => {
+    //     AppUtilities.requestFailedCatchError(
+    //       err,
+    //       this.displayMessageBox,
+    //       this.tr
+    //     );
+    //     this.startLoading = false;
+    //     this.cdr.detectChanges();
+    //     throw err;
+    //   });
+    this._loading
+      .beginLoading()
+      .pipe(
+        switchMap((ref) =>
+          this.companyUserService.getCompanyUserByid(body).pipe(
+            catchError((e) =>
+              of(
+                AppUtilities.requestFailedCatchError(
+                  e,
+                  this.displayMessageBox,
+                  this.tr
+                )
+              ).pipe(switchMap(() => EMPTY))
+            ),
+            filter((res) => !AppUtilities.hasErrorResult(res)),
+            map((res) => res.response as CompanyUser),
+            finalize(() => ref && ref.close())
+          )
+        )
+      )
+      .subscribe({
+        next: (value) =>
+          (this.companyUser = value) && this.setGeneralFormGroupData(),
       });
   }
   private switchChangePasswordErrorMessage(message: string) {

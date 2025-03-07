@@ -24,7 +24,11 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/m3-theme.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/m3-theme.scss",
+              "src/themes/themes.css"
+            ],
             "scripts": [],
             "allowedCommonJsDependencies": [
               "jspdf-autotable",
@@ -103,7 +107,11 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/m3-theme.scss"],
+            "styles": [
+              "src/styles.scss",
+              "src/m3-theme.scss",
+              "src/themes/themes.css"
+            ],
             "scripts": []
           }
         }

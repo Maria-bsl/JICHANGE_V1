@@ -29,14 +29,18 @@ export class CompanyUserService {
     );
     return data;
   }
-  public async getCompanyUserByid(body: GetCompanyByIdForm) {
-    let data = await lastValueFrom(
-      this.client.performPost<
-        GetCompanyByIdForm,
-        HttpDataResponse<number | string | boolean | CompanyUser>
-      >(`/api/CompanyUsers/EditCompanyUserss`, body)
-    );
-    return data;
+  public getCompanyUserByid(body: GetCompanyByIdForm) {
+    // let data = await lastValueFrom(
+    //   this.client.performPost<
+    //     GetCompanyByIdForm,
+    //     HttpDataResponse<number | string | boolean | CompanyUser>
+    //   >(`/api/CompanyUsers/EditCompanyUserss`, body)
+    // );
+    // return data;
+    return this.client.performPost<
+      GetCompanyByIdForm,
+      HttpDataResponse<number | string | boolean | CompanyUser>
+    >(`/api/CompanyUsers/EditCompanyUserss`, body);
   }
   public resendCredentials(body: {
     resendCredentials: string;

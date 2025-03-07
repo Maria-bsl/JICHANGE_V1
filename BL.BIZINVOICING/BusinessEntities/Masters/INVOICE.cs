@@ -892,10 +892,20 @@ namespace BL.BIZINVOICING.BusinessEntities.Masters
 
         public long? GetPendingInvoice_VendorCount(long company_sno)
         {
-            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            /*using (BIZINVOICEEntities context = new BIZINVOICEEntities())
             {
                 var adetails = (from c in context.invoice_master
                                 where c.approval_status.Contains("Pending") && c.comp_mas_sno == company_sno
+                                select c).ToList();
+                if (adetails != null && adetails.Count > 0)
+                    return adetails.Count;
+                else
+                    return 0;
+            }*/
+            using (BIZINVOICEEntities context = new BIZINVOICEEntities())
+            {
+                var adetails = (from c in context.invoice_master
+                                where c.delivery_status == "Pending" && c.comp_mas_sno == company_sno
                                 select c).ToList();
                 if (adetails != null && adetails.Count > 0)
                     return adetails.Count;

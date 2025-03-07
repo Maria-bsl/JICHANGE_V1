@@ -27,7 +27,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom([
       AppRoutingModule,
-      HttpClientModule,
+      //HttpClientModule,
       //TranslocoRootModule,
       MatDialogModule,
       NgIdleKeepaliveModule.forRoot(),
@@ -39,7 +39,7 @@ bootstrapApplication(AppComponent, {
     provideTransloco({
       config: {
         //availableLangs: ['en', 'sw', 'ln', 'fr'],
-        availableLangs: ['en','sw'],
+        availableLangs: ['en', 'sw'],
         defaultLang: localStorage.getItem('activeLang')
           ? localStorage.getItem('activeLang')?.toString()
           : 'en',

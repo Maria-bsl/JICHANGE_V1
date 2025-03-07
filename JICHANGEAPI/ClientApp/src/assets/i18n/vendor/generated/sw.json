@@ -30,11 +30,6 @@
       "desc": "Sort by Control number"
     },
     {
-      "label": "Aina ya Malipo",
-      "value": "Payment_Type",
-      "desc": "Panga kwa Aina ya malipo"
-    },
-    {
       "label": "Hali ya utoaji",
       "value": "delivery_status",
       "desc": ""
@@ -48,6 +43,11 @@
       "label": "Jumla ya Kiasi",
       "value": "Total",
       "desc": "Panga kwa Jumla ya kiasi"
+    },
+    {
+      "label": "Aina ya Malipo",
+      "value": "Payment_Type",
+      "desc": "Panga kwa Aina ya malipo"
     },
     {
       "label": "Tarehe ya Kulipwa",

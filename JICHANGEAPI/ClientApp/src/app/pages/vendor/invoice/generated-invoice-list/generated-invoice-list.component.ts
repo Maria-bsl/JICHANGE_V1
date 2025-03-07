@@ -70,43 +70,43 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-generated-invoice-list',
-    templateUrl: './generated-invoice-list.component.html',
-    styleUrls: ['./generated-invoice-list.component.scss'],
-    providers: [
-        {
-            provide: TRANSLOCO_SCOPE,
-            useValue: { scope: 'vendor/generated', alias: 'generated' },
-        },
-        {
-            provide: VENDOR_TABLE_DATA_SERVICE,
-            useClass: TableDataService,
-        },
-    ],
-    encapsulation: ViewEncapsulation.None,
-    imports: [
-        CommonModule,
-        TranslocoModule,
-        NgxLoadingModule,
-        MatDialogModule,
-        RouterModule,
-        ReactiveFormsModule,
-        FormsModule,
-        SuccessMessageBoxComponent,
-        TableDateFiltersComponent,
-        MatPaginatorModule,
-        DisplayMessageBoxComponent,
-        LoaderRainbowComponent,
-        CancelGeneratedInvoiceComponent,
-        LoaderInfiniteSpinnerComponent,
-        MatTableModule,
-        MatSortModule,
-        SubmitMessageBoxComponent,
-        MatTooltipModule,
-        MatIconModule,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
+  selector: 'app-generated-invoice-list',
+  templateUrl: './generated-invoice-list.component.html',
+  styleUrls: ['./generated-invoice-list.component.scss'],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: { scope: 'vendor/generated', alias: 'generated' },
+    },
+    {
+      provide: VENDOR_TABLE_DATA_SERVICE,
+      useClass: TableDataService,
+    },
+  ],
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    CommonModule,
+    TranslocoModule,
+    NgxLoadingModule,
+    MatDialogModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    SuccessMessageBoxComponent,
+    TableDateFiltersComponent,
+    MatPaginatorModule,
+    DisplayMessageBoxComponent,
+    LoaderRainbowComponent,
+    CancelGeneratedInvoiceComponent,
+    LoaderInfiniteSpinnerComponent,
+    MatTableModule,
+    MatSortModule,
+    SubmitMessageBoxComponent,
+    MatTooltipModule,
+    MatIconModule,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
 })
 export class GeneratedInvoiceListComponent implements OnInit {
   //public userProfile!: LoginResponse;
@@ -150,7 +150,7 @@ export class GeneratedInvoiceListComponent implements OnInit {
   ) {}
   //create formGroup for each header item in table
   private createHeadersForm() {
-    let TABLE_SHOWING = 9;
+    let TABLE_SHOWING = 8;
     this.tableHeadersFormGroup = this.fb.group({
       headers: this.fb.array([], []),
       tableSearch: this.fb.control('', []),
@@ -158,7 +158,6 @@ export class GeneratedInvoiceListComponent implements OnInit {
     this.tr
       .selectTranslate(`generatedInvoicesTable`, {}, this.scope)
       .subscribe((labels: TableColumnsData[]) => {
-        //this.tableData.originalTableColumns = labels;
         this.tableDataService.setOriginalTableColumns(labels);
         this.tableDataService
           .getOriginalTableColumns()
@@ -492,29 +491,6 @@ export class GeneratedInvoiceListComponent implements OnInit {
   }
   //saves a copy of an invoice to the local machine
   downloadInvoice(generatedInvoice: GeneratedInvoice) {
-    // let dialogRef = this.dialog.open(GeneratedInvoiceViewComponent, {
-    //   width: '800px',
-    //   height: '700px',
-    //   data: {
-    //     Inv_Mas_Sno: generatedInvoice.Inv_Mas_Sno,
-    //     userProfile: this.getUserProfile(),
-    //   },
-    // });
-    // dialogRef.componentInstance.viewReady.asObservable().subscribe((view) => {
-    //   this.fileHandler
-    //     .downloadPdf(view, `invoice-${generatedInvoice.Invoice_No}.pdf`)
-    //     .then((results) => {
-    //       this.cdr.detectChanges();
-    //     })
-    //     .catch((err) => {
-    //       AppUtilities.openDisplayMessageBox(
-    //         this.displayMessageBox,
-    //         this.tr.translate(`errors.errorOccured`),
-    //         this.tr.translate(`generated.errors.failedToDownload`)
-    //       );
-    //       throw err;
-    //     });
-    // });
     const params = {
       compid: generatedInvoice.Com_Mas_Sno,
       invId: generatedInvoice.Inv_Mas_Sno,
@@ -651,6 +627,10 @@ export class GeneratedInvoiceListComponent implements OnInit {
           .getDataSource()
           .data.findIndex((item) => item.Inv_Mas_Sno === invid);
         this.tableDataService.removedData(index);
+        const message = this.tr.translate(
+          `invoice.createdInvoice.cancelInvoice.cancelledSuccessfully`
+        );
+        this.appConfig.openStateDialog('success', message);
       });
   }
   getTableDataSource() {

@@ -25,6 +25,8 @@ import {
   Observable,
   TimeoutError,
   catchError,
+  filter,
+  finalize,
   from,
   lastValueFrom,
   map,
@@ -86,41 +88,41 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-    selector: 'app-customer-detail-report',
-    templateUrl: './customer-detail-report.component.html',
-    styleUrls: ['./customer-detail-report.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [
-        CommonModule,
-        RouterModule,
-        TranslocoModule,
-        MatPaginatorModule,
-        ReactiveFormsModule,
-        LoaderRainbowComponent,
-        DisplayMessageBoxComponent,
-        LoaderInfiniteSpinnerComponent,
-        MatTableModule,
-        MatSortModule,
-        MatTableExporterModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-    ],
-    providers: [
-        {
-            provide: TRANSLOCO_SCOPE,
-            useValue: { scope: 'bank/reports', alias: 'reports' },
-        },
-        {
-            provide: TABLE_DATA_SERVICE,
-            useClass: TableDataService,
-        },
-    ],
-    animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation]
+  selector: 'app-customer-detail-report',
+  templateUrl: './customer-detail-report.component.html',
+  styleUrls: ['./customer-detail-report.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    RouterModule,
+    TranslocoModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    LoaderRainbowComponent,
+    DisplayMessageBoxComponent,
+    LoaderInfiniteSpinnerComponent,
+    MatTableModule,
+    MatSortModule,
+    MatTableExporterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  providers: [
+    {
+      provide: TRANSLOCO_SCOPE,
+      useValue: { scope: 'bank/reports', alias: 'reports' },
+    },
+    {
+      provide: TABLE_DATA_SERVICE,
+      useClass: TableDataService,
+    },
+  ],
+  animations: [listAnimationMobile, listAnimationDesktop, inOutAnimation],
 })
 export class CustomerDetailReportComponent implements OnInit {
   public startLoading: boolean = false;
@@ -446,24 +448,6 @@ export class CustomerDetailReportComponent implements OnInit {
   private assignCustomersDataList(
     result: HttpDataResponse<string | number | Customer[]>
   ) {
-    // if (
-    //   result.response &&
-    //   typeof result.response !== 'string' &&
-    //   typeof result.response !== 'number' &&
-    //   result.response.length > 0
-    // ) {
-    //   this.tableData.customers = result.response;
-    // } else {
-    //   AppUtilities.openDisplayMessageBox(
-    //     this.displayMessageBox,
-    //     this.tr.translate(`defaults.warning`),
-    //     this.tr.translate(
-    //       `reports.invoiceDetails.form.errors.dialog.noCustomersFound`
-    //     )
-    //   );
-    //   this.tableData.customers = [];
-    // }
-    // this.prepareDataSource();
     this.parseCustomersDataList(result);
     this.tableDataService.prepareDataSource(this.paginator, this.sort);
     this.dataSourceFilter();
@@ -473,20 +457,26 @@ export class CustomerDetailReportComponent implements OnInit {
     this.tableLoading = true;
     this.reportsService
       .postCustomerDetailsReport(form)
-      .then((result) => {
-        this.assignCustomersDataList(result);
-        this.tableLoading = false;
-        this.cdr.detectChanges();
-      })
-      .catch((err) => {
-        AppUtilities.requestFailedCatchError(
-          err,
-          this.displayMessageBox,
-          this.tr
-        );
-        this.tableLoading = false;
-        this.cdr.detectChanges();
-        throw err;
+      .pipe(
+        filter((res) => !AppUtilities.hasErrorResult(res)),
+        map((res) => res.response as Customer[]),
+        catchError((err) => {
+          AppUtilities.requestFailedCatchError(
+            err,
+            this.displayMessageBox,
+            this.tr
+          );
+          throw err;
+        }),
+        finalize(() => (this.startLoading = false))
+      )
+      .subscribe({
+        next: (value) => {
+          this.tableDataService.setData(value);
+          this.tableDataService.prepareDataSource(this.paginator, this.sort);
+          this.dataSourceFilter();
+          this.dataSourceSortingAccessor();
+        },
       });
   }
   private customerKeys(indexes: number[]) {
@@ -644,32 +634,7 @@ export class CustomerDetailReportComponent implements OnInit {
       } else {
         vendors = [];
       }
-
-      // let reg = Number(this.reg.value);
-      // let regions: number[] = [];
-      // if (reg > 0) {
-      //   regions = [reg];
-      // } else if (reg === 0 && this.filterFormData.regions.length > 0) {
-      //   regions = this.filterFormData.regions.map((r) => {
-      //     return r.Region_SNO;
-      //   });
-      // } else {
-      //   regions = [];
-      // }
-
-      // let dist = Number(this.reg.value);
-      // let districts: number[] = [];
-      // if (dist > 0) {
-      //   districts = [dist];
-      // } else if (dist === 0 && this.filterFormData.districts.length > 0) {
-      //   districts = this.filterFormData.districts.map((r) => {
-      //     return r.SNO;
-      //   });
-      // } else {
-      //   districts = [];
-      // }
-
-      let body = {
+      const body = {
         vendors: vendors,
       } as CustomerDetailsForm;
 

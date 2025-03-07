@@ -30,11 +30,6 @@
       "desc": "Sort by Control number"
     },
     {
-      "label": "Payment type",
-      "value": "Payment_Type",
-      "desc": "Sort by Payment type"
-    },
-    {
       "label": "Delivery Status",
       "value": "delivery_status",
       "desc": ""
@@ -48,6 +43,11 @@
       "label": "Total Amount",
       "value": "Total",
       "desc": "Sort by Total Amount"
+    },
+    {
+      "label": "Payment type",
+      "value": "Payment_Type",
+      "desc": "Sort by Payment type"
     },
     {
       "label": "Due Date",

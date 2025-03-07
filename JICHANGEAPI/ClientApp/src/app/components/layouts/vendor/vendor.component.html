@@ -8,6 +8,10 @@
   [richColors]="true"
 ></ngx-sonner-toaster>
 
+<div class="hidden">
+  <app-vendor-header #vendorHeader></app-vendor-header>
+</div>
+
 <!-- <div
   data-theme="light"
   class="h-screen w-screen overflow-x-hidden bg-base-100 flex flex-col relative"
@@ -48,11 +52,14 @@
   class="h-screen w-screen overflow-x-hidden bg-base-100 flex flex-row relative"
 >
   <aside
-    class="h-screen overflow-hidden transition-all"
+    class="h-screen transition-all duration-300"
     [class]="expanded() ? 'w-72' : 'w-24'"
   >
     <nav class="h-full flex flex-col bg-white border-r shadow-sm">
-      <div class="p-4 pb-2 flex flex-row justify-between items-center">
+      <div
+        [class]="expanded() ? 'justify-between' : 'justify-center'"
+        class="p-4 pb-2 flex flex-row items-center"
+      >
         <img
           src="assets/img/logo-3.png"
           class="overflow-hidden transition-all"
@@ -61,88 +68,190 @@
           srcset=""
         />
         <button
-          mat-icon-button
           (click)="expanded.set(!expanded())"
-          class="p-1 5 rounded-lg bg-gray-50 hover:bg-gray-100"
+          class="bg-[var(--mat-sys-primary)] grid place-items-center p-2 text-[var(--mat-sys-on-primary)] rounded-full btn btn-sm w-10 h-10"
         >
           <mat-icon>{{ expanded() ? "first_page" : "last_page" }}</mat-icon>
         </button>
       </div>
-      <cdk-accordion class="flex-1 px-3 space-y-1">
-        <cdk-accordion-item
-          *ngFor="let data of dataSource.data; index as ind"
-          #accordionItem="cdkAccordionItem"
-          class="example-accordion-item"
-          role="button"
-          tabindex="0"
-          [attr.id]="'accordion-header-' + ind"
-          [attr.aria-expanded]="accordionItem.expanded"
-          [attr.aria-controls]="'accordion-body-' + ind"
-        >
-          <a
-            [routerLink]="data.routerLink"
-            (click)="accordionItem.toggle()"
-            class="relative py-2 px-2 w-full flex flex-row items-center justify-between rounded-md transition-colors cursor-pointer"
+      <cdk-accordion class="flex-1 px-3 space-y-1 relative">
+        <ng-container [@inOutAnimation] *ngIf="expanded(); else closedSidebar">
+          <cdk-accordion-item
+            *ngFor="let data of dataSource.data; index as ind"
+            #accordionItem="cdkAccordionItem"
+            class="!contents"
+            role="button"
+            tabindex="0"
+            [attr.id]="'accordion-header-' + ind"
+            [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + ind"
           >
-            <div class="flex flex-row items-center h-full text-sm font-normal">
-              <mat-icon>{{ data.icon }}</mat-icon>
-              <h6>{{ data.name }}</h6>
-            </div>
-            <span>
-              <mat-icon
-                *ngIf="data.children && data.children.length > 0 && expanded()"
-                class="!absolute right-0 top-1/2 -translate-y-1/2"
+            <a
+              [routerLink]="data.routerLink"
+              routerLinkActive="bg-[var(--mat-sys-primary)] text-[var(--mat-sys-on-primary)]"
+              class="relative py-2 px-2 w-full flex flex-row items-center justify-between rounded-md transition-colors ease-in-out cursor-pointer"
+            >
+              <div
+                class="w-full h-full z-50 flex flex-row items-center justify-between"
+                (click)="
+                  $event.stopImmediatePropagation();
+                  handleExpandedSidebarItemClicked(
+                    $event,
+                    accordionItem,
+                    ind,
+                    data
+                  )
+                "
               >
-                @if (accordionItem.expanded) { arrow_drop_up } @else {
-                arrow_drop_down }
-              </mat-icon>
-            </span>
-          </a>
-          <ul
-            class="example-accordion-item-body"
-            role="region"
-            [attr.id]="'accordion-body-' + ind"
-            [attr.aria-labelledby]="'accordion-header-' + ind"
-            [@contentExpansion]="
-              accordionItem.expanded ? 'expanded' : 'collapsed'
-            "
+                <span
+                  class="flex flex-row items-center h-full text-sm font-normal space-x-2"
+                >
+                  <mat-icon>{{ data.icon }}</mat-icon>
+                  <h6>{{ data.name }}</h6>
+                </span>
+                <span>
+                  <mat-icon
+                    *ngIf="
+                      data.children && data.children.length > 0 && expanded()
+                    "
+                    class="!absolute right-0 top-1/2 -translate-y-1/2"
+                  >
+                    @if (accordionItem.expanded) { arrow_drop_up } @else {
+                    arrow_drop_down }
+                  </mat-icon>
+                </span>
+              </div>
+            </a>
+            <ul
+              class="example-accordion-item-body"
+              role="region"
+              [attr.id]="'accordion-body-' + ind"
+              [attr.aria-labelledby]="'accordion-header-' + ind"
+              [@contentExpansion]="
+                accordionItem.expanded ? 'expanded' : 'collapsed'
+              "
+            >
+              <ng-container *ngIf="data.children">
+                <li
+                  [routerLink]="childNode.routerLink"
+                  routerLinkActive="text-[var(--mat-sys-primary)]"
+                  class="py-2 pl-8"
+                  *ngFor="let childNode of data.children; index as i"
+                >
+                  <a>{{ childNode.name }}</a>
+                </li>
+              </ng-container>
+            </ul>
+          </cdk-accordion-item>
+        </ng-container>
+        <ng-template #closedSidebar>
+          <cdk-accordion-item
+            *ngFor="let data of dataSource.data; index as ind"
+            #accordionItem="cdkAccordionItem"
+            class="group relative"
+            role="button"
+            tabindex="0"
+            [attr.id]="'accordion-header-' + ind"
+            [attr.aria-expanded]="accordionItem.expanded"
+            [attr.aria-controls]="'accordion-body-' + ind"
           >
-            <ng-container *ngIf="data.children">
-              <li
-                [routerLink]="childNode.routerLink"
-                class="py-2 pl-8"
-                *ngFor="let childNode of data.children; index as i"
+            <a
+              [routerLink]="data.routerLink"
+              routerLinkActive="text-[var(--mat-sys-primary)]"
+              class="relative py-2 px-2 w-full grid place-items-center rounded-md transition-colors cursor-pointer"
+            >
+              <span
+                class="w-full h-full z-50 grid place-items-center"
+                (click)="handleSidebarItemClicked($event, accordionItem, data)"
               >
-                <a>{{ childNode.name }}</a>
-              </li>
-            </ng-container>
-          </ul>
-        </cdk-accordion-item>
+                <mat-icon>{{ data.icon }}</mat-icon>
+              </span>
+            </a>
+            <h6
+              class="opacity-0 transition-all ease-in-out group-hover:opacity-100 mat-label-small text-[var(--mat-sys-on-secondary-fixed)] text-left rounded w-fit absolute top-1/2 translate-x-14 -translate-y-[65%] bg-[var(--mat-sys-secondary-fixed)] z-50 p-0.5 duration-200"
+            >
+              {{ data.name }}
+            </h6>
+          </cdk-accordion-item>
+        </ng-template>
       </cdk-accordion>
-      <div class="border-t flex p-3 items-center">
-        <img
-          src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
-          alt=""
-          class="w-10 h-10 rounded-md"
-        />
+      <div
+        class="border-t p-3"
+        [class]="expanded() ? 'flex items-center' : 'grid place-items-center'"
+      >
+        <a
+          [routerLink]="'/vendor/profile'"
+          mat-flat-button
+          class="bg-[var(--mat-sys-primary)] !rounded-md"
+        >
+          <h6 class="mat-title-large text-[var(--mat-sys-on-primary)]">
+            {{ fullNameAcronym$ | async }}
+          </h6>
+        </a>
         <div
           class="flex justify-between items-center overflow-hidden transition-all"
-          [class]="expanded() ? 'w-52 ml-3' : 'w-0'"
+          [class]="expanded() ? 'w-52 ml-3 h-auto' : 'w-0 h-0'"
         >
           <div class="flex flex-col justify-center">
-            <h4 class="font-semibold mat-title-small">John Doe</h4>
+            <h4 class="font-semibold mat-title-small">
+              {{ fullName$ | async }}
+            </h4>
             <span class="text-xs !text-gray-600">{{
-              "Johndoe@gmail.com"
+              emailAddress$ | async
             }}</span>
           </div>
-          <mat-icon>more_vert</mat-icon>
+          <button (click)="vendorHeader.logout()" mat-icon-button>
+            <mat-icon class="text-[var(--mat-sys-error)]">logout</mat-icon>
+          </button>
         </div>
       </div>
     </nav>
   </aside>
   <div class="w-full h-full relative">
-    <div class="absolute top-0 left-0 right-0 bottom-0 w-full h-full">
-      <router-outlet #outlet="outlet"></router-outlet>
+    <div
+      class="absolute top-0 left-0 right-0 bottom-0 w-full h-full flex flex-col space-y-2 overflow-x-hidden overflow-y-auto"
+    >
+      <div
+        class="w-full h-12 flex-none flex flex-row items-center justify-between px-6 bg-[var(--mat-sys-background)]"
+      >
+        <div class="py-2">
+          <!-- <label class="input input-sm input-bordered flex items-center gap-2">
+            <input
+              type="text"
+              class="grow bg-transparent"
+              placeholder="Search"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              class="h-4 w-4 opacity-70"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </label> -->
+        </div>
+        <div class="flex flex-row items-center space-x-4">
+          <div class="avatar avatar-placeholder">
+            <div
+              class="bg-[var(--mat-sys-primary)] relative text-neutral-content w-8 rounded-full"
+            >
+              <span class="w-full h-full absolute grid place-items-center">
+                <span class="mat-title-small">{{
+                  fullNameAcronym$ | async
+                }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full h-full flex-grow">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
     </div>
   </div>
 </div>

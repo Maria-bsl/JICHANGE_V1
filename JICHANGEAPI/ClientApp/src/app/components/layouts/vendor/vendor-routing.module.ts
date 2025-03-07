@@ -30,16 +30,17 @@ const routes: Routes = [
         children: [
           {
             path: '',
+            redirectTo: 'dashboard',
+            pathMatch: 'full',
+          },
+          {
+            path: 'dashboard',
             data: {
               breadcrumb: { alias: 'dashboard', skip: false },
               animationState: 'dashboard',
               reuseRoute: true,
             },
-            /*loadComponent: () =>
-              import(
-                '../../../pages/vendor/dashboard/dashboard.component'
-              ).then((c) => c.DashboardComponent),*/
-            component: DashboardComponent
+            component: DashboardComponent,
           },
           {
             path: 'profile',
@@ -47,11 +48,7 @@ const routes: Routes = [
               breadcrumb: { alias: 'profile', skip: false },
               animationState: 'profile',
             },
-            /*loadComponent: () =>
-              import('../../../pages/vendor/profile/profile.component').then(
-                (p) => p.ProfileComponent
-              ),*/
-            component: ProfileComponent
+            component: ProfileComponent,
           },
           {
             path: 'customers',
@@ -89,7 +86,7 @@ const routes: Routes = [
 
                   {
                     path: ':id',
-                   /* loadComponent: () =>
+                    /* loadComponent: () =>
                       import(
                         '../../../pages/bank/reports/transaction-details/transaction-details-view/transaction-details-view.component'
                       ).then((c) => c.TransactionDetailsViewComponent),*/
@@ -104,7 +101,7 @@ const routes: Routes = [
                   },
                   {
                     path: 'add/add',
-                   /* loadComponent: () =>
+                    /* loadComponent: () =>
                       import(
                         '../../../pages/vendor/invoice/created-invoice-list/add-invoice/add-invoice.component'
                       ).then((m) => m.AddInvoiceComponent),*/
@@ -131,11 +128,11 @@ const routes: Routes = [
                   breadcrumb: { alias: 'company', skip: false },
                   animationState: 'company-module-1',
                 },
-               /* loadComponent: () =>
+                /* loadComponent: () =>
                   import(
                     '../../../pages/vendor/company-users/company-users.component'
                   ).then((c) => c.CompanyUsersComponent),*/
-                component: CompanyUsersComponent
+                component: CompanyUsersComponent,
               },
             ],
           },
@@ -206,11 +203,13 @@ const routes: Routes = [
                   import(
                     '../../../pages/vendor/reports/overview/overview.component'
                   ).then((c) => c.OverviewComponent),*/
-                component: OverviewComponent,
-                data: {
-                  breadcrumb: { alias: 'overview', skip: false },
-                  animationState: 'reports-module-1',
-                },
+                // component: OverviewComponent,
+                // data: {
+                //   breadcrumb: { alias: 'overview', skip: false },
+                //   animationState: 'reports-module-1',
+                // },
+                redirectTo: 'transactions',
+                pathMatch: 'full',
               },
               {
                 path: 'transactions',
@@ -274,7 +273,7 @@ const routes: Routes = [
                   import(
                     '../../../pages/vendor/reports/payment-details/payment-details.component'
                   ).then((p) => p.PaymentDetailsComponent),*/
-                component: PaymentDetailsComponent
+                component: PaymentDetailsComponent,
               },
               {
                 path: 'amendment',
@@ -287,7 +286,7 @@ const routes: Routes = [
                   import(
                     '../../../pages/vendor/reports/amendments/amendments.component'
                   ).then((a) => a.AmendmentsComponent),*/
-                component: AmendmentsComponent
+                component: AmendmentsComponent,
               },
               {
                 path: 'cancelled',
@@ -313,7 +312,7 @@ const routes: Routes = [
                   import(
                     '../../../pages/vendor/reports/customer-report/customer-report.component'
                   ).then((c) => c.CustomerReportComponent),*/
-                component: CustomerReportComponent
+                component: CustomerReportComponent,
               },
               {
                 path: 'audit',
@@ -322,7 +321,7 @@ const routes: Routes = [
                   animationState: 'reports-module-8',
                   reuseRoute: true,
                 },
-                component: AuditTrailsComponent
+                component: AuditTrailsComponent,
                 /*loadComponent: () =>
                   import(
                     '../../../pages/vendor/reports/audit-trails/audit-trails.component'

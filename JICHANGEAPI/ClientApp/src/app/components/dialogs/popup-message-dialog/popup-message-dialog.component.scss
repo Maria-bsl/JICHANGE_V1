@@ -15,7 +15,7 @@
     > div:last-child {
       @apply basis-1/2 flex flex-col bg-[var(--mat-sys-surface)] justify-center items-center space-y-8 rounded-tl rounded-tr pt-4;
       h6 {
-        @apply text-center w-full px-6 text-[#000000];
+        @apply text-center w-full px-6 text-[var(--mat-sys-on-surface)];
       }
       button {
         @apply bg-green-500 text-[#ffffff];
